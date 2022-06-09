@@ -6,7 +6,7 @@ one:
   duplication_certainty: 9.99
   canonical_certainty: 9.99
   action: MyString
-  collected_statistics_at: 2022-06-09 11:23:07
+  collected_statistics_at: 2022-06-09
   spelling_mistakes: 1
   catalogue_count: 1
   buy_list_count: 1
@@ -38,7 +38,7 @@ two:
   duplication_certainty: 9.99
   canonical_certainty: 9.99
   action: MyString
-  collected_statistics_at: 2022-06-09 11:23:07
+  collected_statistics_at: 2022-06-09
   spelling_mistakes: 1
   catalogue_count: 1
   buy_list_count: 1

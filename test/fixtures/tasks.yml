@@ -11,7 +11,7 @@ one:
   error: MyString
   requires_approval: false
   approved: false
-  approved_at: 2022-06-09 13:46:59
+  approved_at: 2022-06-09
 
 two:
   type: 
@@ -24,4 +24,4 @@ two:
   error: MyString
   requires_approval: false
   approved: false
-  approved_at: 2022-06-09 13:46:59
+  approved_at: 2022-06-09

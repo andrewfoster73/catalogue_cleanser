@@ -9,7 +9,7 @@ class AbbreviationsTest < ApplicationSystemTestCase
 
   test 'visiting the index' do
     visit abbreviations_url
-    assert_selector 'h1', text: 'Abbreviations'
+    assert_selector 'h1', text: 'abbreviations'
   end
 
   test 'should create abbreviation' do
@@ -20,7 +20,7 @@ class AbbreviationsTest < ApplicationSystemTestCase
     fill_in 'Letters', with: @abbreviation.letters
     click_on 'Create Abbreviation'
 
-    assert_text 'Abbreviation was successfully created'
+    assert_text 'abbreviation was successfully created'
     click_on 'Back'
   end
 
@@ -32,7 +32,7 @@ class AbbreviationsTest < ApplicationSystemTestCase
     fill_in 'Letters', with: @abbreviation.letters
     click_on 'Update Abbreviation'
 
-    assert_text 'Abbreviation was successfully updated'
+    assert_text 'abbreviation was successfully updated'
     click_on 'Back'
   end
 
@@ -40,6 +40,6 @@ class AbbreviationsTest < ApplicationSystemTestCase
     visit abbreviation_url(@abbreviation)
     click_on 'Destroy this abbreviation', match: :first
 
-    assert_text 'Abbreviation was successfully destroyed'
+    assert_text 'abbreviation was successfully destroyed'
   end
 end
