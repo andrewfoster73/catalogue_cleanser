@@ -49,12 +49,13 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
       # Add or replace test runners here
-      - name: Run tests
-        run: bin/rails test:all
-      - name: Upload Code Coverage
+      - name: Run Tests and Upload Code Coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: bin/rails test:all
+          debug: true
 
   lint:
     runs-on: ubuntu-latest
