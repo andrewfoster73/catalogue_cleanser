@@ -1,0 +1,67 @@
+<div id="<%= dom_id action %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Type:</strong>
+    <%= action.type %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Context:</strong>
+    <%= action.context_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Context type:</strong>
+    <%= action.context_type %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= action.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Before:</strong>
+    <%= action.before %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">After:</strong>
+    <%= action.after %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= action.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Error:</strong>
+    <%= action.error %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Requires approval:</strong>
+    <%= action.requires_approval %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Approved:</strong>
+    <%= action.approved %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Approved by:</strong>
+    <%= action.approved_by_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Approved at:</strong>
+    <%= action.approved_at %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this action", action, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this action', edit_action_path(action), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

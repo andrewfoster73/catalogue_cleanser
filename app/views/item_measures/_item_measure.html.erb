@@ -1,0 +1,17 @@
+<div id="<%= dom_id item_measure %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= item_measure.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Canonical:</strong>
+    <%= item_measure.canonical %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this item measure", item_measure, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this item measure', edit_item_measure_path(item_measure), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

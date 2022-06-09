@@ -1,0 +1,17 @@
+<div id="<%= dom_id dictionary_entry %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Phrase:</strong>
+    <%= dictionary_entry.phrase %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Canonical:</strong>
+    <%= dictionary_entry.canonical %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this dictionary entry", dictionary_entry, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this dictionary entry', edit_dictionary_entry_path(dictionary_entry), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

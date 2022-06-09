@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_pack: one
+  alias: MyString
+  confirmed: false
+
+two:
+  item_pack: two
+  alias: MyString
+  confirmed: false

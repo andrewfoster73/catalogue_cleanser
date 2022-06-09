@@ -1,0 +1,27 @@
+<div id="<%= dom_id brand_alias %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Brand:</strong>
+    <%= brand_alias.brand_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Alias:</strong>
+    <%= brand_alias.alias %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Confirmed:</strong>
+    <%= brand_alias.confirmed %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Count:</strong>
+    <%= brand_alias.count %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this brand alias", brand_alias, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this brand alias', edit_brand_alias_path(brand_alias), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

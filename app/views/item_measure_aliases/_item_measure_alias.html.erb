@@ -1,0 +1,22 @@
+<div id="<%= dom_id item_measure_alias %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Item measure:</strong>
+    <%= item_measure_alias.item_measure_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Alias:</strong>
+    <%= item_measure_alias.alias %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Confirmed:</strong>
+    <%= item_measure_alias.confirmed %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this item measure alias", item_measure_alias, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this item measure alias', edit_item_measure_alias_path(item_measure_alias), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

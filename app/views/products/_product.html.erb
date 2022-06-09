@@ -1,0 +1,157 @@
+<div id="<%= dom_id product %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Product:</strong>
+    <%= product.product_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= product.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Duplication certainty:</strong>
+    <%= product.duplication_certainty %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Canonical certainty:</strong>
+    <%= product.canonical_certainty %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Action:</strong>
+    <%= product.action %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Collected statistics at:</strong>
+    <%= product.collected_statistics_at %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Spelling mistakes:</strong>
+    <%= product.spelling_mistakes %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Catalogue count:</strong>
+    <%= product.catalogue_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Buy list count:</strong>
+    <%= product.buy_list_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Priced catalogue count:</strong>
+    <%= product.priced_catalogue_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Average price:</strong>
+    <%= product.average_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Maximum price:</strong>
+    <%= product.maximum_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Minimum price:</strong>
+    <%= product.minimum_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Standard deviation:</strong>
+    <%= product.standard_deviation %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Variance:</strong>
+    <%= product.variance %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Inventory barcodes count:</strong>
+    <%= product.inventory_barcodes_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Inventory derived period balances count:</strong>
+    <%= product.inventory_derived_period_balances_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Inventory internal requisition lines count:</strong>
+    <%= product.inventory_internal_requisition_lines_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Inventory stock counts count:</strong>
+    <%= product.inventory_stock_counts_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Inventory stock levels count:</strong>
+    <%= product.inventory_stock_levels_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Inventory transfer items count:</strong>
+    <%= product.inventory_transfer_items_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Invoice line items count:</strong>
+    <%= product.invoice_line_items_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Point of sale lines count:</strong>
+    <%= product.point_of_sale_lines_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Procurement products count:</strong>
+    <%= product.procurement_products_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Product supplier preferences count:</strong>
+    <%= product.product_supplier_preferences_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Purchase order line items count:</strong>
+    <%= product.purchase_order_line_items_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Rebates profile products count:</strong>
+    <%= product.rebates_profile_products_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Receiving document line items count:</strong>
+    <%= product.receiving_document_line_items_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Recipes count:</strong>
+    <%= product.recipes_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Requisition line items count:</strong>
+    <%= product.requisition_line_items_count %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this product", product, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this product', edit_product_path(product), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

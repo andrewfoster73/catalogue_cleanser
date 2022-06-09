@@ -1,0 +1,22 @@
+<div id="<%= dom_id item_pack_alias %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Item pack:</strong>
+    <%= item_pack_alias.item_pack_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Alias:</strong>
+    <%= item_pack_alias.alias %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Confirmed:</strong>
+    <%= item_pack_alias.confirmed %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this item pack alias", item_pack_alias, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this item pack alias', edit_item_pack_alias_path(item_pack_alias), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

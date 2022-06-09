@@ -65,6 +65,9 @@ group :development, :test do
 end
 
 group :development do
+  # Process manager
+  gem 'foreman'
+
   # Type checking for Ruby
   gem 'sorbet'
 

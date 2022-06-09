@@ -1,0 +1,17 @@
+<div id="<%= dom_id abbreviation %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Dictionary entry:</strong>
+    <%= abbreviation.dictionary_entry_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Letters:</strong>
+    <%= abbreviation.letters %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this abbreviation", abbreviation, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this abbreviation', edit_abbreviation_path(abbreviation), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
