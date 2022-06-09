@@ -38,7 +38,7 @@ jobs:
         run: bin/rails db:schema:load
       # Add or replace test runners here
       - name: Run tests
-        run: bin/rails test
+        run: bin/rails test:all
       - name: Upload Code Coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
@@ -55,5 +55,5 @@ jobs:
           bundler-cache: true
       # Add or replace any other lints here
       - name: Lint Ruby files
-        run: rubocop --parallel
+        run: bundle exec rubocop --parallel
 
