@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :tasks
   resources :products
   resources :product_duplicates
-  resources :actions
   resources :comments
   resources :abbreviations
   resources :dictionary_entries

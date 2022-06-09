@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  context_id: 1
+  context_type: MyString
+  description: MyText
+  before: MyString
+  after: MyString
+  status: MyString
+  error: MyString
+  requires_approval: false
+  approved: false
+  approved_at: 2022-06-09 13:46:59
+
+two:
+  type: 
+  context_id: 1
+  context_type: MyString
+  description: MyText
+  before: MyString
+  after: MyString
+  status: MyString
+  error: MyString
+  requires_approval: false
+  approved: false
+  approved_at: 2022-06-09 13:46:59

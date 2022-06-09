@@ -2,18 +2,14 @@
 
 one:
   product: one
-  canonical_product: one
   action: MyString
   certainty_percentage: 9.99
-  mapped_product: one
   levenshtein_distance: 9.99
   similarity_score: 9.99
 
 two:
   product: two
-  canonical_product: two
   action: MyString
   certainty_percentage: 9.99
-  mapped_product: two
   levenshtein_distance: 9.99
   similarity_score: 9.99

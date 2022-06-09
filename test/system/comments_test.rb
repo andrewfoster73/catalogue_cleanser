@@ -17,7 +17,6 @@ class CommentsTest < ApplicationSystemTestCase
     click_on 'New comment'
 
     fill_in 'Message', with: @comment.message
-    fill_in 'User', with: @comment.user_id
     click_on 'Create Comment'
 
     assert_text 'Comment was successfully created'
@@ -29,7 +28,6 @@ class CommentsTest < ApplicationSystemTestCase
     click_on 'Edit this comment', match: :first
 
     fill_in 'Message', with: @comment.message
-    fill_in 'User', with: @comment.user_id
     click_on 'Update Comment'
 
     assert_text 'Comment was successfully updated'
