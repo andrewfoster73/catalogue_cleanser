@@ -5,15 +5,11 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 require 'simplecov'
-SimpleCov.start do
-  add_filter ["/test/"]
-  minimum_coverage 90
-  maximum_coverage_drop 2
-end
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # DOES NOT WORK WITH SimpleCov
+  # parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all

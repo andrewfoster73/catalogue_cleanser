@@ -8,7 +8,7 @@
 /.idea
 
 # Ignore code coverage
-/coverage
+/coverage/*
 
 # Ignore bundler config.
 /.bundle
