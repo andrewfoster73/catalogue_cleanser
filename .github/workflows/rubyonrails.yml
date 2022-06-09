@@ -56,6 +56,12 @@ jobs:
         with:
           coverageCommand: bin/rails test:all
           debug: true
+      - name: Upload test failures
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: Test Failures
+          path: home/runner/work/catalogue_cleanser/catalogue_cleanser/tmp/screenshots
 
   lint:
     runs-on: ubuntu-latest

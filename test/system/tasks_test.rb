@@ -50,7 +50,7 @@ class TasksTest < ApplicationSystemTestCase
     fill_in 'Type', with: @task.type
     click_on 'Update Task'
 
-    assert_text 'Task was successfully updated'
+    assert_text 'Task was successfully updated force error'
     click_on 'Back'
   end
 
