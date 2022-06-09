@@ -61,7 +61,8 @@ jobs:
         if: failure()
         with:
           name: Test Failures
-          path: home/runner/work/catalogue_cleanser/catalogue_cleanser/tmp/screenshots
+          path: /home/runner/work/catalogue_cleanser/catalogue_cleanser/tmp/screenshots
+          retention-days: 5
 
   lint:
     runs-on: ubuntu-latest
