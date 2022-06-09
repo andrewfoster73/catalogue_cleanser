@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 ENV['RAILS_ENV'] ||= 'test'
+require 'simplecov'
 require_relative '../config/environment'
 require 'rails/test_help'
-
-require 'simplecov'
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
