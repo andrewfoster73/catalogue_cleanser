@@ -1,0 +1,25 @@
+engines:
+  rubocop:
+    enabled: true
+    channel: rubocop-1-30-0
+  golint:
+    enabled: false
+  gofmt:
+    enabled: false
+  eslint:
+    enabled: false
+  csslint:
+    enabled: false
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - ruby
+        - javascript
+ratings:
+  paths:
+    - "**.rb"
+exclude_paths:
+  - db/**/*
+  - lib/tasks/**/*
+  - test/**/*
