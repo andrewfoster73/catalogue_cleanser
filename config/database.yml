@@ -63,10 +63,16 @@ development:
 test:
   primary:
     <<: *default
-    database: catalogue_cleanser_test
+    host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+    database: <%= ENV['DATABASE_NAME'] || 'catalogue_cleanser_test' %>
+    username: <%= ENV['DATABASE_USER'] || 'postgres' %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
   external:
     <<: *default
-    database: external_test
+    host: <%= ENV['EXTERNAL_DATABASE_HOST'] || 'localhost' %>
+    database: <%= ENV['EXTERNAL_DATABASE_NAME'] || 'external_test' %>
+    username: <%= ENV['EXTERNAL_DATABASE_USER'] || 'rails' %>
+    password: <%= ENV['EXTERNAL_DATABASE_PASSWORD'] || 'password' %>
     database_tasks: false
 
 # As with config/credentials.yml, you never want to store sensitive information,
