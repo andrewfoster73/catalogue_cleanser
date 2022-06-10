@@ -66,7 +66,7 @@ test:
     database: catalogue_cleanser_test
   external:
     <<: *default
-    database: purchaseplus_test
+    database: external_test
     database_tasks: false
 
 # As with config/credentials.yml, you never want to store sensitive information,
