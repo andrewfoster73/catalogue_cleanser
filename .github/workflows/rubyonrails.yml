@@ -48,11 +48,19 @@ jobs:
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
+      - name: Add external database
+        run: psql -h localhost -d rails_test -U rails -c 'CREATE DATABASE external_test;'
+        env:
+          PGPASSWORD: password
       # Add or replace test runners here
       - name: Run Tests and Upload Code Coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          EXTERNAL_DATABASE_HOST: localhost
+          EXTERNAL_DATABASE_NAME: external_test
+          EXTERNAL_DATABASE_USER: rails
+          EXTERNAL_DATABASE_PASSWORD: password
         with:
           coverageCommand: bin/rails test:all
           debug: true
