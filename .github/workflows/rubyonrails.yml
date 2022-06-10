@@ -50,6 +50,8 @@ jobs:
         run: bin/rails db:schema:load
       - name: Add external database
         run: psql -h localhost -d rails_test -U rails -c 'CREATE DATABASE external_test;'
+        env:
+          PGPASSWORD: password
       # Add or replace test runners here
       - name: Run Tests and Upload Code Coverage
         uses: paambaati/codeclimate-action@v3.0.0
