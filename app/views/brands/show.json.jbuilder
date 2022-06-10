@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.partial!('brands/brand', brand: @brand)
+json.partial!('brands/brand', brand: @resource)

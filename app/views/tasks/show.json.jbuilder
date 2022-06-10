@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.partial!('tasks/task', task: @task)
+json.partial!('tasks/task', task: @resource)
