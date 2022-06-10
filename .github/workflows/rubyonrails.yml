@@ -49,7 +49,7 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Add external database
-        run: psql -h localhost -U rails -c 'CREATE DATABASE external_test;'
+        run: psql -h localhost -d rails_test -U rails -c 'CREATE DATABASE external_test;'
         env:
           PGPASSWORD: password
       # Add or replace test runners here
