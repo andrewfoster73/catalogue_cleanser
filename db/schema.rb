@@ -10,9 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_13_100016) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_13_141246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "task_status", ["pending", "processing", "complete", "error"]
 
   create_table "abbreviations", force: :cascade do |t|
     t.bigint "dictionary_entry_id", null: false
@@ -178,13 +182,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_100016) do
     t.text "description"
     t.jsonb "before"
     t.jsonb "after"
-    t.string "status"
     t.string "error"
     t.boolean "requires_approval", default: false
     t.boolean "approved", default: false
     t.datetime "approved_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "backtrace"
+    t.enum "status", enum_type: "task_status"
   end
 
   add_foreign_key "abbreviations", "dictionary_entries"

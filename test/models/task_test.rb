@@ -3,7 +3,16 @@
 require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @task = Task.create!
+  end
+
+  test 'should raise an error and mark the task as failed' do
+    assert_equal('pending', @task.status, 'Task initial status is not pending')
+    assert_raises(NotImplementedError) do
+      @task.call
+    end
+    assert_match(/NotImplementedError/, @task.error, 'Task error message should match NotImplementedError')
+    assert_equal('error', @task.status, 'Task final status is not error')
+  end
 end

@@ -7,7 +7,7 @@ one:
   description: MyText
   before: MyString
   after: MyString
-  status: MyString
+  status: pending
   error: MyString
   requires_approval: false
   approved: false
@@ -20,7 +20,7 @@ two:
   description: MyText
   before: MyString
   after: MyString
-  status: MyString
+  status: pending
   error: MyString
   requires_approval: false
   approved: false
