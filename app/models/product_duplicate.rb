@@ -4,4 +4,6 @@ class ProductDuplicate < ApplicationRecord
   belongs_to :product
   # belongs_to :canonical_product
   # belongs_to :mapped_product
+
+  audited associated_with: :product
 end

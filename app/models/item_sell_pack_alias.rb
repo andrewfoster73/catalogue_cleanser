@@ -2,4 +2,6 @@
 
 class ItemSellPackAlias < ApplicationRecord
   belongs_to :item_sell_pack
+
+  audited associated_with: :item_sell_pack
 end

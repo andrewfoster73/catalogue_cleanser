@@ -2,4 +2,6 @@
 
 class Comment < ApplicationRecord
   # belongs_to :user
+
+  audited
 end

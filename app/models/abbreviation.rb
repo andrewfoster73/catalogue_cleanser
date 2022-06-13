@@ -2,4 +2,6 @@
 
 class Abbreviation < ApplicationRecord
   belongs_to :dictionary_entry
+
+  audited associated_with: :dictionary_entry
 end
