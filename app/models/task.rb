@@ -16,22 +16,20 @@ class Task < ApplicationRecord
   end
 
   def call
-    begin
-      processing!
-      execute
-      complete!
-    rescue NotImplementedError, StandardError => e
-      self.error = e.full_message
-      self.backtrace = e.backtrace
-      error!
-      raise(e)
-    end
+    processing!
+    execute
+    complete!
+  rescue NotImplementedError, StandardError => e
+    self.error = e.full_message
+    self.backtrace = e.backtrace
+    error!
+    raise(e)
   end
 
   protected
 
   # Action logic should be implemented here
   def execute
-    raise NotImplementedError
+    raise(NotImplementedError)
   end
 end

@@ -22,7 +22,7 @@ module Tasks
     private
 
     def names
-      YAML.load_file("#{Rails.root}/lib/assets/item_sell_packs/en.yml").values
+      YAML.load_file(Rails.root.join('lib/assets/item_sell_packs/en.yml')).values
     end
   end
 end
