@@ -8,6 +8,9 @@ ruby '3.0.2'
 # Runtime type checking for Ruby
 gem 'sorbet-runtime'
 
+# Produce audit logs for record changes
+gem 'audited', '~> 5.0'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.3'
 
