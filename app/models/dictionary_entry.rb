@@ -6,5 +6,14 @@ class DictionaryEntry < ApplicationRecord
 
   audited
 
+  before_validation :clean
+
   validates :phrase, presence: true, uniqueness: true
+
+  protected
+
+  def clean
+    # Allowed characters are a-z, A-Z, 0-9, full stop, parentheses, dash, comma, apostrophe and space
+    assign_attributes(phrase: phrase&.tr('^a-zA-Z0-9\.\(\)\-,\' ', ' ')&.squeeze(' ')&.strip)
+  end
 end

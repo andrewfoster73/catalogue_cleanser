@@ -5,5 +5,14 @@ class ItemSellPackAlias < ApplicationRecord
 
   audited associated_with: :item_sell_pack
 
+  before_validation :clean
+
   validates :alias, presence: true, uniqueness: true
+
+  protected
+
+  def clean
+    # Allowed characters are a-z and space
+    assign_attributes(alias: self.alias&.downcase&.tr('^a-z ', ' ')&.squeeze(' ')&.strip)
+  end
 end

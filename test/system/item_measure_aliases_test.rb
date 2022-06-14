@@ -16,7 +16,7 @@ class ItemMeasureAliasesTest < ApplicationSystemTestCase
     visit item_measure_aliases_url
     click_on 'New item measure alias'
 
-    fill_in 'Alias', with: @item_measure_alias.alias
+    fill_in 'Alias', with: "an #{@item_measure_alias.alias}"
     check 'Confirmed' if @item_measure_alias.confirmed
     fill_in 'Item measure', with: @item_measure_alias.item_measure_id
     click_on 'Create Item measure alias'

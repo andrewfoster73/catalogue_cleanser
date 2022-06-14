@@ -18,7 +18,7 @@ class BrandsTest < ApplicationSystemTestCase
 
     check 'Canonical' if @brand.canonical
     fill_in 'Count', with: @brand.count
-    fill_in 'Name', with: @brand.name
+    fill_in 'Name', with: "a #{@brand.name}"
     click_on 'Create Brand'
 
     assert_text 'Brand was successfully created'

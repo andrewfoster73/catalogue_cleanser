@@ -1,4 +1,4 @@
-engines:
+plugins:
   rubocop:
     enabled: true
     channel: rubocop-1-30-0
@@ -16,10 +16,7 @@ engines:
       languages:
         - ruby
         - javascript
-ratings:
-  paths:
-    - "**.rb"
-exclude_paths:
+exclude_patterns:
   - db/**/*
   - lib/tasks/**/*
   - test/**/*

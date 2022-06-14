@@ -5,6 +5,8 @@ class ItemMeasureAlias < ApplicationRecord
 
   audited associated_with: :item_measure
 
+  before_validation :clean
+
   validates :alias, presence: true, uniqueness: true
 
   protected

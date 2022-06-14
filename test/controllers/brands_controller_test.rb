@@ -19,7 +19,7 @@ class BrandsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create brand' do
     assert_difference('Brand.count') do
-      post brands_url, params: { brand: { canonical: @brand.canonical, count: @brand.count, name: @brand.name } }
+      post brands_url, params: { brand: { canonical: @brand.canonical, count: @brand.count, name: "a #{@brand.name}" } }
     end
 
     assert_redirected_to brand_url(Brand.last)

@@ -35,7 +35,7 @@ class ProductsTest < ApplicationSystemTestCase
     fill_in 'Point of sale lines count', with: @product.point_of_sale_lines_count
     fill_in 'Priced catalogue count', with: @product.priced_catalogue_count
     fill_in 'Procurement products count', with: @product.procurement_products_count
-    fill_in 'Product', with: @product.product_id
+    fill_in 'Product', with: Product.maximum(:id) + 1
     fill_in 'Product supplier preferences count', with: @product.product_supplier_preferences_count
     fill_in 'Purchase order line items count', with: @product.purchase_order_line_items_count
     fill_in 'Rebates profile products count', with: @product.rebates_profile_products_count

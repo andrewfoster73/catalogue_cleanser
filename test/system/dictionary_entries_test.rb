@@ -17,7 +17,7 @@ class DictionaryEntriesTest < ApplicationSystemTestCase
     click_on 'New dictionary entry'
 
     check 'Canonical' if @dictionary_entry.canonical
-    fill_in 'Phrase', with: @dictionary_entry.phrase
+    fill_in 'Phrase', with: "a #{@dictionary_entry.phrase}"
     click_on 'Create Dictionary entry'
 
     assert_text 'Dictionary entry was successfully created'

@@ -14,7 +14,7 @@ class Brand < ApplicationRecord
   protected
 
   def clean
-    # Allowed characters are a-z, A-Z, 0-9, full stop, parentheses, dash, comma and space
-    assign_attributes(name: name&.tr('^a-zA-Z0-9\.\(\)\-, ', ' ')&.squeeze(' ')&.strip)
+    # Allowed characters are a-z, A-Z, 0-9, full stop, parentheses, dash, comma, apostrophe and space
+    assign_attributes(name: name&.tr('^a-zA-Z0-9\.\(\)\-,\' ', ' ')&.squeeze(' ')&.strip)
   end
 end

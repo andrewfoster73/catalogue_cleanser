@@ -16,7 +16,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     visit item_sell_pack_aliases_url
     click_on 'New item sell pack alias'
 
-    fill_in 'Alias', with: @item_sell_pack_alias.alias
+    fill_in 'Alias', with: "an #{@item_sell_pack_alias.alias}"
     check 'Confirmed' if @item_sell_pack_alias.confirmed
     fill_in 'Item sell pack', with: @item_sell_pack_alias.item_sell_pack_id
     click_on 'Create Item sell pack alias'
