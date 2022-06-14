@@ -4,4 +4,6 @@ class Comment < ApplicationRecord
   # belongs_to :user
 
   audited
+
+  validates :message, presence: true
 end

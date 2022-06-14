@@ -5,4 +5,6 @@ class DictionaryEntry < ApplicationRecord
   has_associated_audits
 
   audited
+
+  validates :phrase, presence: true, uniqueness: true
 end

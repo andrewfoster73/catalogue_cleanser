@@ -2,12 +2,12 @@
 
 one:
   brand: one
-  alias: MyString
+  alias: one alias
   confirmed: false
   count: 1
 
 two:
   brand: two
-  alias: MyString
+  alias: two alias
   confirmed: false
   count: 1

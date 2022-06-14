@@ -33,7 +33,7 @@ one:
   requisition_line_items_count: 1
 
 two:
-  product_id: 1
+  product_id: 2
   status: MyString
   duplication_certainty: 9.99
   canonical_certainty: 9.99
