@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_13_141246) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_14_101529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,10 +20,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_141246) do
 
   create_table "abbreviations", force: :cascade do |t|
     t.bigint "dictionary_entry_id", null: false
-    t.string "letters"
+    t.string "letters", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dictionary_entry_id"], name: "index_abbreviations_on_dictionary_entry_id"
+    t.index ["letters"], name: "index_abbreviations_on_letters", unique: true
   end
 
   create_table "audits", force: :cascade do |t|
@@ -50,81 +51,90 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_141246) do
 
   create_table "brand_aliases", force: :cascade do |t|
     t.bigint "brand_id", null: false
-    t.string "alias"
+    t.string "alias", null: false
     t.boolean "confirmed", default: false
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["alias"], name: "index_brand_aliases_on_alias", unique: true
     t.index ["brand_id"], name: "index_brand_aliases_on_brand_id"
   end
 
   create_table "brands", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.boolean "canonical", default: false
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_brands_on_name", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "message"
+    t.text "message", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "dictionary_entries", force: :cascade do |t|
-    t.string "phrase"
+    t.string "phrase", null: false
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["phrase"], name: "index_dictionary_entries_on_phrase", unique: true
   end
 
   create_table "item_measure_aliases", force: :cascade do |t|
     t.bigint "item_measure_id", null: false
-    t.string "alias"
+    t.string "alias", null: false
     t.boolean "confirmed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["alias"], name: "index_item_measure_aliases_on_alias", unique: true
     t.index ["item_measure_id"], name: "index_item_measure_aliases_on_item_measure_id"
   end
 
   create_table "item_measures", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_item_measures_on_name", unique: true
   end
 
   create_table "item_pack_aliases", force: :cascade do |t|
     t.bigint "item_pack_id", null: false
-    t.string "alias"
+    t.string "alias", null: false
     t.boolean "confirmed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["alias"], name: "index_item_pack_aliases_on_alias", unique: true
     t.index ["item_pack_id"], name: "index_item_pack_aliases_on_item_pack_id"
   end
 
   create_table "item_packs", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_item_packs_on_name", unique: true
   end
 
   create_table "item_sell_pack_aliases", force: :cascade do |t|
     t.bigint "item_sell_pack_id", null: false
-    t.string "alias"
+    t.string "alias", null: false
     t.boolean "confirmed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["alias"], name: "index_item_sell_pack_aliases_on_alias", unique: true
     t.index ["item_sell_pack_id"], name: "index_item_sell_pack_aliases_on_item_sell_pack_id"
   end
 
   create_table "item_sell_packs", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_item_sell_packs_on_name", unique: true
   end
 
   create_table "product_duplicates", force: :cascade do |t|
@@ -141,7 +151,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_141246) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer "product_id"
+    t.integer "product_id", null: false
     t.string "status"
     t.decimal "duplication_certainty", precision: 8, scale: 2
     t.decimal "canonical_certainty", precision: 8, scale: 2
@@ -173,6 +183,32 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_141246) do
     t.integer "requisition_line_items_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_products_on_product_id", unique: true
+    t.check_constraint "average_price >= 0::numeric", name: "average_price_check"
+    t.check_constraint "buy_list_count >= 0", name: "buy_list_count_check"
+    t.check_constraint "canonical_certainty >= 0::numeric", name: "canonical_certainty_check"
+    t.check_constraint "catalogue_count >= 0", name: "catalogue_count_check"
+    t.check_constraint "duplication_certainty >= 0::numeric", name: "duplication_certainty_check"
+    t.check_constraint "inventory_barcodes_count >= 0", name: "inventory_barcodes_count_check"
+    t.check_constraint "inventory_derived_period_balances_count >= 0", name: "inventory_derived_period_balances_count_check"
+    t.check_constraint "inventory_internal_requisition_lines_count >= 0", name: "inventory_internal_requisition_lines_count_check"
+    t.check_constraint "inventory_stock_counts_count >= 0", name: "inventory_stock_counts_count_check"
+    t.check_constraint "inventory_stock_levels_count >= 0", name: "inventory_stock_levels_count_check"
+    t.check_constraint "inventory_transfer_items_count >= 0", name: "inventory_transfer_items_count_check"
+    t.check_constraint "invoice_line_items_count >= 0", name: "invoice_line_items_count_check"
+    t.check_constraint "maximum_price >= 0::numeric", name: "maximum_price_check"
+    t.check_constraint "minimum_price >= 0::numeric", name: "minimum_price_check"
+    t.check_constraint "point_of_sale_lines_count >= 0", name: "point_of_sale_lines_count_check"
+    t.check_constraint "procurement_products_count >= 0", name: "procurement_products_count_check"
+    t.check_constraint "product_supplier_preferences_count >= 0", name: "product_supplier_preferences_count_check"
+    t.check_constraint "purchase_order_line_items_count >= 0", name: "purchase_order_line_items_count_check"
+    t.check_constraint "rebates_profile_products_count >= 0", name: "rebates_profile_products_count_check"
+    t.check_constraint "receiving_document_line_items_count >= 0", name: "receiving_document_line_items_count_check"
+    t.check_constraint "recipes_count >= 0", name: "recipes_count_check"
+    t.check_constraint "requisition_line_items_count >= 0", name: "requisition_line_items_count_check"
+    t.check_constraint "spelling_mistakes >= 0", name: "spelling_mistakes_check"
+    t.check_constraint "standard_deviation >= 0::numeric", name: "standard_deviation_check"
+    t.check_constraint "variance >= 0::numeric", name: "variance_check"
   end
 
   create_table "tasks", force: :cascade do |t|

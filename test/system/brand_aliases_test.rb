@@ -16,7 +16,7 @@ class BrandAliasesTest < ApplicationSystemTestCase
     visit brand_aliases_url
     click_on 'New brand alias'
 
-    fill_in 'Alias', with: @brand_alias.alias
+    fill_in 'Alias', with: "an #{@brand_alias.alias}"
     fill_in 'Brand', with: @brand_alias.brand_id
     check 'Confirmed' if @brand_alias.confirmed
     fill_in 'Count', with: @brand_alias.count

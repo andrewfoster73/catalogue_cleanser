@@ -17,7 +17,7 @@ class ItemMeasuresTest < ApplicationSystemTestCase
     click_on 'New item measure'
 
     check 'Canonical' if @item_measure.canonical
-    fill_in 'Name', with: @item_measure.name
+    fill_in 'Name', with: "a #{@item_measure.name}"
     click_on 'Create Item measure'
 
     assert_text 'Item measure was successfully created'

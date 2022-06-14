@@ -22,7 +22,7 @@ class BrandAliasesControllerTest < ActionDispatch::IntegrationTest
       post brand_aliases_url,
            params: {
              brand_alias: {
-               alias: @brand_alias.alias,
+               alias: "a #{@brand_alias.alias}",
                brand_id: @brand_alias.brand_id,
                confirmed: @brand_alias.confirmed,
                count: @brand_alias.count

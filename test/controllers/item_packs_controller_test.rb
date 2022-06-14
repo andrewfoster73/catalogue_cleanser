@@ -19,7 +19,7 @@ class ItemPacksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create item_pack' do
     assert_difference('ItemPack.count') do
-      post item_packs_url, params: { item_pack: { canonical: @item_pack.canonical, name: @item_pack.name } }
+      post item_packs_url, params: { item_pack: { canonical: @item_pack.canonical, name: "a #{@item_pack.name}" } }
     end
 
     assert_redirected_to item_pack_url(ItemPack.last)

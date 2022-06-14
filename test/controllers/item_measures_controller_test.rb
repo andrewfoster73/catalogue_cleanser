@@ -19,7 +19,8 @@ class ItemMeasuresControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create item_measure' do
     assert_difference('ItemMeasure.count') do
-      post item_measures_url, params: { item_measure: { canonical: @item_measure.canonical, name: @item_measure.name } }
+      post item_measures_url,
+           params: { item_measure: { canonical: @item_measure.canonical, name: "a #{@item_measure.name}" } }
     end
 
     assert_redirected_to item_measure_url(ItemMeasure.last)

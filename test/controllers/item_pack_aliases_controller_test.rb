@@ -22,7 +22,7 @@ class ItemPackAliasesControllerTest < ActionDispatch::IntegrationTest
       post item_pack_aliases_url,
            params: {
              item_pack_alias: {
-               alias: @item_pack_alias.alias,
+               alias: "an #{@item_pack_alias.alias}",
                confirmed: @item_pack_alias.confirmed,
                item_pack_id: @item_pack_alias.item_pack_id
              }

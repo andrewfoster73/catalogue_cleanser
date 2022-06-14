@@ -17,7 +17,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     click_on 'New item sell pack'
 
     check 'Canonical' if @item_sell_pack.canonical
-    fill_in 'Name', with: @item_sell_pack.name
+    fill_in 'Name', with: "a #{@item_sell_pack.name}"
     click_on 'Create Item sell pack'
 
     assert_text 'Item sell pack was successfully created'

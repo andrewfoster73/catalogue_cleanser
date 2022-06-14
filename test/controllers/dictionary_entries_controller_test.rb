@@ -20,7 +20,12 @@ class DictionaryEntriesControllerTest < ActionDispatch::IntegrationTest
   test 'should create dictionary_entry' do
     assert_difference('DictionaryEntry.count') do
       post dictionary_entries_url,
-           params: { dictionary_entry: { canonical: @dictionary_entry.canonical, phrase: @dictionary_entry.phrase } }
+           params: {
+             dictionary_entry: {
+               canonical: @dictionary_entry.canonical,
+               phrase: "a #{@dictionary_entry.phrase}"
+             }
+           }
     end
 
     assert_redirected_to dictionary_entry_url(DictionaryEntry.last)

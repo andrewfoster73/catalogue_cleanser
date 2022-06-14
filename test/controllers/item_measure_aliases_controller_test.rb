@@ -22,7 +22,7 @@ class ItemMeasureAliasesControllerTest < ActionDispatch::IntegrationTest
       post item_measure_aliases_url,
            params: {
              item_measure_alias: {
-               alias: @item_measure_alias.alias,
+               alias: "an #{@item_measure_alias.alias}",
                confirmed: @item_measure_alias.confirmed,
                item_measure_id: @item_measure_alias.item_measure_id
              }

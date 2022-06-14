@@ -17,7 +17,7 @@ class AbbreviationsTest < ApplicationSystemTestCase
     click_on 'New abbreviation'
 
     fill_in 'Dictionary entry', with: @abbreviation.dictionary_entry_id
-    fill_in 'Letters', with: @abbreviation.letters
+    fill_in 'Letters', with: "some #{@abbreviation.letters}"
     click_on 'Create Abbreviation'
 
     assert_text 'Abbreviation was successfully created'

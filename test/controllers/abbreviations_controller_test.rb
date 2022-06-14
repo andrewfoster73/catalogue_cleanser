@@ -23,7 +23,7 @@ class AbbreviationsControllerTest < ActionDispatch::IntegrationTest
            params: {
              abbreviation: {
                dictionary_entry_id: @abbreviation.dictionary_entry_id,
-               letters: @abbreviation.letters
+               letters: "some #{@abbreviation.letters}"
              }
            }
     end
