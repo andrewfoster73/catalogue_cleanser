@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class ItemSellPacksTest < ApplicationSystemTestCase
   setup do
-    @item_sell_pack = item_sell_packs(:one)
+    @item_sell_pack = item_sell_packs(:carton)
   end
 
   test 'visiting the index' do

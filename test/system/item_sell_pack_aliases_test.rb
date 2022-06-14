@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class ItemSellPackAliasesTest < ApplicationSystemTestCase
   setup do
-    @item_sell_pack_alias = item_sell_pack_aliases(:one)
+    @item_sell_pack_alias = item_sell_pack_aliases(:ctn)
   end
 
   test 'visiting the index' do

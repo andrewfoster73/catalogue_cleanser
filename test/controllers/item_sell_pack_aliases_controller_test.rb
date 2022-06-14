@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ItemSellPackAliasesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @item_sell_pack_alias = item_sell_pack_aliases(:one)
+    @item_sell_pack_alias = item_sell_pack_aliases(:ctn)
   end
 
   test 'should get index' do
