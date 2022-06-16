@@ -1,7 +1,6 @@
 plugins:
   rubocop:
     enabled: true
-    channel: stable
   golint:
     enabled: false
   gofmt:
