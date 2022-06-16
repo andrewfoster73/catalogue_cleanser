@@ -2,6 +2,8 @@ plugins:
   rubocop:
     enabled: true
     channel: rubocop-1-30-0
+    config:
+      file: .rubocop.yml
   golint:
     enabled: false
   gofmt:
