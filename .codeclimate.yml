@@ -2,8 +2,6 @@ plugins:
   rubocop:
     enabled: true
     channel: rubocop-1-30-0
-    config:
-      file: .rubocop.yml
   golint:
     enabled: false
   gofmt:
@@ -27,22 +25,10 @@ checks:
     enabled: true
     config:
       threshold: 4
-  file-lines:
-    enabled: true
-    config:
-      threshold: 250
   method-complexity:
     enabled: true
     config:
       threshold: 5
-  method-count:
-    enabled: true
-    config:
-      threshold: 20
-  method-lines:
-    enabled: true
-    config:
-      threshold: 25
   nested-control-flow:
     enabled: true
     config:
