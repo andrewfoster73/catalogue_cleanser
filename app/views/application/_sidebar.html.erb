@@ -69,14 +69,14 @@
 </div>
 
 <!-- Static sidebar for desktop -->
-<div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+<div id="side_bar" class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
   <!-- Sidebar component, swap this element with another sidebar if you like -->
   <div class="flex-1 flex flex-col min-h-0 bg-gray-800">
     <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
       <div class="flex items-center flex-shrink-0 px-4">
-        <%= image_tag('logo_transparent_small.png', class: 'h-auto w-auto', alt: "Catalogue Cleaner") %>
+        <%= image_tag('logo_transparent_small.png', id: 'side_bar--logo', class: 'h-auto w-auto', alt: "Catalogue Cleaner") %>
       </div>
-      <nav id="side-navigation" class="mt-5 flex-1 px-2 space-y-1">
+      <nav id="side_bar--navigation" class="mt-5 flex-1 px-2 space-y-1">
         <%= render_sidenav_item(label: 'Products', icon: :library, link: products_path, active: current_page?(controller: :products)) %>
 
         <div class="space-y-1" data-controller="navigation" data-navigation-current-path-value="<%= request.original_url %>">
@@ -90,14 +90,14 @@
             </svg>
           </button>
           <!-- Expandable link section, show/hide based on state. -->
-          <div class="space-y-1" id="item-setup-sub-navigation">
-            <a id="item-measures-navigation" href="<%= item_measures_path %>" data-navigation-target="element" class="hidden group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"> Item Measures </a>
+          <div class="space-y-1" id="item_setup--sub_navigation">
+            <a id="item_measures--navigation" href="<%= item_measures_path %>" data-navigation-target="element" class="hidden group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"> Item Measures </a>
 
-            <a id="item-packs-navigation" href="<%= item_packs_path %>" data-navigation-target="element" class="hidden group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"> Item Packs </a>
+            <a id="item_packs--navigation" href="<%= item_packs_path %>" data-navigation-target="element" class="hidden group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"> Item Packs </a>
 
-            <a id="item-sell-packs-navigation" href="<%= item_sell_packs_path %>" data-navigation-target="element" class="hidden group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"> Item Sell Packs </a>
+            <a id="item_sell_packs--navigation" href="<%= item_sell_packs_path %>" data-navigation-target="element" class="hidden group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"> Item Sell Packs </a>
 
-            <a id="brands-navigation" href="<%= brands_path %>" data-navigation-target="element" class="hidden group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"> Brands </a>
+            <a id="brands--navigation" href="<%= brands_path %>" data-navigation-target="element" class="hidden group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"> Brands </a>
           </div>
         </div>
       </nav>
