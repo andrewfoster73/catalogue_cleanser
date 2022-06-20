@@ -5,7 +5,8 @@ require 'application_system_test_case'
 class NavigationTest < ApplicationSystemTestCase
   test 'expanding and closing the Item Setup menu' do
     visit products_url
-    save_page('tmp/screenshots/navigation.html')
+    save_page('tmp/screenshots/navigation_1.html')
+    save_screenshot('tmp/screenshots/navigation_1.png')
     assert_no_selector(:css, '#item_setup--sub_navigation a')
 
     # Open the menu
@@ -23,6 +24,7 @@ class NavigationTest < ApplicationSystemTestCase
 
   test 'marking sub menu as active' do
     visit item_sell_packs_url
+    save_page('tmp/screenshots/navigation_2.html')
     assert_selector(:css, '#item_measures--navigation.text-gray-300')
     assert_selector(:css, '#item_sell_packs--navigation.bg-gray-900.text-white')
     assert_selector(:css, '#item_packs--navigation.text-gray-300')

@@ -14,7 +14,7 @@
 **/*.stories.json
 
 # Node Modules
-
+/node_modules
 
 # Ignore bundler config.
 /.bundle
