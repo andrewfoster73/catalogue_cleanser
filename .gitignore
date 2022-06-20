@@ -10,6 +10,12 @@
 # Ignore code coverage
 /coverage/*
 
+# Storybook files
+**/*.stories.json
+
+# Node Modules
+
+
 # Ignore bundler config.
 /.bundle
 
