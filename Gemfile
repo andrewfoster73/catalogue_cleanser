@@ -13,7 +13,7 @@ gem 'audited', '~> 5.0'
 
 # Encapsulate UI elements into a class
 gem 'view_component'
-gem "view_component_storybook"
+gem 'view_component_storybook'
 
 # In order to make Storybook work
 gem 'rack-cors'
