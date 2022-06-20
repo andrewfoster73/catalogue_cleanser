@@ -4,6 +4,9 @@ require_relative 'boot'
 
 require 'rails/all'
 
+require 'view_component'
+require 'view_component/storybook'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -20,5 +23,7 @@ module CatalogueCleanser
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.action_controller.asset_host = 'http://localhost:3000' unless ENV['CI']
   end
 end

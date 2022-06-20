@@ -11,6 +11,13 @@ gem 'sorbet-runtime'
 # Produce audit logs for record changes
 gem 'audited', '~> 5.0'
 
+# Encapsulate UI elements into a class
+gem 'view_component'
+gem 'view_component_storybook'
+
+# In order to make Storybook work
+gem 'rack-cors'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.3'
 
@@ -88,6 +95,10 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'factory_bot_rails'
+
+  # Support saving screenshots and pages in Capybara
+  gem 'launchy'
+
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'webdrivers'

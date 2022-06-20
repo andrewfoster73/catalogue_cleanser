@@ -5,32 +5,32 @@ require 'application_system_test_case'
 class NavigationTest < ApplicationSystemTestCase
   test 'expanding and closing the Item Setup menu' do
     visit products_url
-    assert_no_selector(:css, '#item-setup-sub-navigation a')
+    assert_no_selector(:css, '#item_setup--sub_navigation a')
 
     # Open the menu
-    within('#side-navigation') do
+    within('#side_bar--navigation') do
       click_on 'Item Setup'
     end
-    assert_selector(:css, '#item-setup-sub-navigation a')
+    assert_selector(:css, '#item_setup--sub_navigation a')
 
     # Close the menu
-    within('#side-navigation') do
+    within('#side_bar--navigation') do
       click_on 'Item Setup'
     end
-    assert_no_selector(:css, '#item-setup-sub-navigation a')
+    assert_no_selector(:css, '#item_setup--sub_navigation a')
   end
 
   test 'marking sub menu as active' do
     visit item_sell_packs_url
-    assert_selector(:css, '#item-measures-navigation.text-gray-300')
-    assert_selector(:css, '#item-sell-packs-navigation.bg-gray-900.text-white')
-    assert_selector(:css, '#item-packs-navigation.text-gray-300')
-    assert_selector(:css, '#brands-navigation.text-gray-300')
+    assert_selector(:css, '#item_measures--navigation.text-gray-300')
+    assert_selector(:css, '#item_sell_packs--navigation.bg-gray-900.text-white')
+    assert_selector(:css, '#item_packs--navigation.text-gray-300')
+    assert_selector(:css, '#brands--navigation.text-gray-300')
   end
 
   test 'following the Products navigation item' do
     visit brands_url
-    within('#side-navigation') do
+    within('#side_bar--navigation') do
       click_on 'Products'
     end
     assert_current_path('/products')
@@ -38,7 +38,7 @@ class NavigationTest < ApplicationSystemTestCase
 
   test 'following the Item Measures navigation item' do
     visit products_url
-    within('#side-navigation') do
+    within('#side_bar--navigation') do
       click_on 'Item Setup'
       click_on 'Item Measures'
     end
@@ -47,7 +47,7 @@ class NavigationTest < ApplicationSystemTestCase
 
   test 'following the Item Packs navigation item' do
     visit products_url
-    within('#side-navigation') do
+    within('#side_bar--navigation') do
       click_on 'Item Setup'
       click_on 'Item Packs'
     end
@@ -56,7 +56,7 @@ class NavigationTest < ApplicationSystemTestCase
 
   test 'following the Item Sell Packs navigation item' do
     visit products_url
-    within('#side-navigation') do
+    within('#side_bar--navigation') do
       click_on 'Item Setup'
       click_on 'Item Sell Packs'
     end
@@ -65,7 +65,7 @@ class NavigationTest < ApplicationSystemTestCase
 
   test 'following the Brands navigation item' do
     visit products_url
-    within('#side-navigation') do
+    within('#side_bar--navigation') do
       click_on 'Item Setup'
       click_on 'Brands'
     end

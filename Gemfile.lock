@@ -112,6 +112,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -155,6 +157,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3.1)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (7.0.3)
@@ -258,6 +262,11 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
+    view_component (2.55.0)
+      activesupport (>= 5.0.0, < 8.0)
+      method_source (~> 1.0)
+    view_component_storybook (0.11.1)
+      view_component (>= 2.36)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -289,8 +298,10 @@ DEPENDENCIES
   foreman
   importmap-rails
   jbuilder
+  launchy
   pg (~> 1.1)
   puma (~> 5.0)
+  rack-cors
   rails (~> 7.0.3)
   redis (~> 4.0)
   rubocop
@@ -305,6 +316,8 @@ DEPENDENCIES
   tailwindcss-rails
   turbo-rails
   tzinfo-data
+  view_component
+  view_component_storybook
   web-console
   webdrivers
 
