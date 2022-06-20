@@ -98,7 +98,7 @@ group :test do
 
   # Support saving screenshots and pages in Capybara
   gem 'launchy'
-  
+
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'webdrivers'
