@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class NavigationTest < ApplicationSystemTestCase
   test 'expanding and closing the Item Setup menu' do
     visit products_url
-    save_and_open_page
+    save_page('tmp/screenshots/navigation.html')
     assert_no_selector(:css, '#item_setup--sub_navigation a')
 
     # Open the menu
