@@ -3,12 +3,27 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Item sell packs</h1>
-    <%= link_to 'New item sell pack', new_item_sell_pack_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
+  <%= render PageHeading::Component.new(title: 'Item Sell Packs', description: 'These are the names for how a supplier sells a complete package') do |c| %>
+    <%= c.with_actions do %>
+      <%= link_to 'New item sell pack', new_item_sell_pack_path, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+    <% end %>
+  <% end %>
 
-  <div id="item_sell_packs" class="min-w-full">
-    <%= render @collection %>
+  <%= turbo_frame_tag "page_handler" %>
+  <div id="collection" class=min-w-full">
+    <%= render Collection::Component.new do |collection_component| %>
+      <%= collection_component.with_header(columns: [
+          { name: 'Name', classes: 'py-3.5 pl-4 pr-3 sm:pl-6 lg:pl-8' },
+          { name: 'Canonical' },
+          { name: 'Created At' },
+          { name: 'Updated At' }
+      ]) %>
+      <% if @collection.any? %>
+        <%= collection_component.with_rows do |rows_component| %>
+          <%= render partial: 'rows', locals: { rows_component: rows_component } %>
+        <% end %>
+      <% end %>
+      <%= collection_component.with_pager(paginator: @pagy, collection_path_method: :item_sell_packs_path) %>
+    <% end %>
   </div>
 </div>

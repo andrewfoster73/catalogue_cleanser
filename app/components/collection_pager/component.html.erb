@@ -1,0 +1,13 @@
+<% if @paginator.next %>
+<div id="collection_pager" class="min-w-full my-8 flex justify-between">
+  <%= link_to(
+          "Load More",
+          public_send(@collection_path_method, page: @paginator.next),
+          class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto",
+          data: {
+              turbo_frame: "page_handler",
+              controller: "collection-pager--component"
+          }
+      ) %>
+</div>
+<% end %>

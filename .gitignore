@@ -11,7 +11,7 @@
 /coverage/*
 
 # Storybook files
-**/*.stories.json
+**/**/*.stories.json
 
 # Node Modules
 /node_modules

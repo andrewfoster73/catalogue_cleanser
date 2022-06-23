@@ -18,6 +18,9 @@ gem 'view_component_storybook'
 # In order to make Storybook work
 gem 'rack-cors'
 
+# Collection pagination
+gem 'pagy'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.3'
 

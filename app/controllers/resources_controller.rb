@@ -5,4 +5,6 @@ class ResourcesController < ApplicationController
   include Actions
   include Urls
   include Parameters
+  include Paginated
+  include TurboFrameVariants
 end

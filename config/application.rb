@@ -25,5 +25,13 @@ module CatalogueCleanser
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.action_controller.asset_host = 'http://localhost:3000' unless ENV['CI']
+
+    # For component sidecar js
+    initializer 'app_assets', after: 'importmap.assets' do
+      Rails.application.config.assets.paths << Rails.root.join('app')
+    end
+
+    # Sweep importmap cache for components
+    config.importmap.cache_sweepers << Rails.root.join('app/components')
   end
 end
