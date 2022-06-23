@@ -8,7 +8,7 @@ class Collection::ComponentTest < ViewComponent::TestCase
 
   test 'renders' do
     render_inline(Collection::Component.new) do |component|
-      component.header(columns: [{ name: 'Title' }])
+      component.header(columns: [{ label: 'Title' }])
       component.rows do |c|
         c.row { 'This is a row' }
         c.row { 'This is another row' }

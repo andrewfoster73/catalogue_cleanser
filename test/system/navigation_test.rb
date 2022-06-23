@@ -28,6 +28,14 @@ class NavigationTest < ApplicationSystemTestCase
     assert_selector(:css, '#brands--navigation.text-gray-300')
   end
 
+  test 'marking sub menu as active when there are query parameters' do
+    visit item_sell_packs_url(q: { name_cont: '' })
+    assert_selector(:css, '#item_measures--navigation.text-gray-300')
+    assert_selector(:css, '#item_sell_packs--navigation.bg-gray-900.text-white')
+    assert_selector(:css, '#item_packs--navigation.text-gray-300')
+    assert_selector(:css, '#brands--navigation.text-gray-300')
+  end
+
   test 'following the Products navigation item' do
     visit brands_url
     within('#side_bar--navigation') do
