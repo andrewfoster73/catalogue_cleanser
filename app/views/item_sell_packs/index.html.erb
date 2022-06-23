@@ -9,21 +9,26 @@
     <% end %>
   <% end %>
 
+  <%= render CollectionFilter::Component.new(filter: @q) %>
+
   <%= turbo_frame_tag "page_handler" %>
   <div id="collection" class=min-w-full">
     <%= render Collection::Component.new do |collection_component| %>
       <%= collection_component.with_header(columns: [
-          { name: 'Name', classes: 'py-3.5 pl-4 pr-3 sm:pl-6 lg:pl-8' },
-          { name: 'Canonical' },
-          { name: 'Created At' },
-          { name: 'Updated At' }
+          {
+              sorter: sort_link(@q, :name, 'Name', default_order: :desc, class: 'group inline-flex'),
+              classes: 'py-3.5 pl-4 pr-3 sm:pl-6 lg:pl-8'
+          },
+          { sorter: sort_link(@q, :canonical, 'Canonical', default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :created_at, 'Created At', default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :updated_at, 'Updated At', default_order: :desc, class: 'group inline-flex') }
       ]) %>
       <% if @collection.any? %>
         <%= collection_component.with_rows do |rows_component| %>
           <%= render partial: 'rows', locals: { rows_component: rows_component } %>
         <% end %>
       <% end %>
-      <%= collection_component.with_pager(paginator: @pagy, collection_path_method: :item_sell_packs_path) %>
+      <%= collection_component.with_pager(paginator: @pagy, collection_path_method: :item_sell_packs_path, filter_params: params[:q]) %>
     <% end %>
   </div>
 </div>

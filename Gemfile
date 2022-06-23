@@ -21,6 +21,9 @@ gem 'rack-cors'
 # Collection pagination
 gem 'pagy'
 
+# Collection filtering and sorting
+gem 'ransack'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.3'
 
