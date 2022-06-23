@@ -9,7 +9,18 @@ class ItemSellPacksTest < ApplicationSystemTestCase
 
   test 'visiting the index' do
     visit item_sell_packs_url
-    assert_selector 'h1', text: 'Item sell packs'
+    assert_selector 'h1', text: 'Item Sell Packs'
+  end
+
+  test 'paging' do
+    visit item_sell_packs_url
+    assert_selector("#name_item_sell_pack_#{item_sell_packs(:carton).id}", text: 'carton')
+    assert_no_selector("#name_item_sell_pack_#{item_sell_packs(:each).id}", text: 'each')
+    assert_no_selector("#name_item_sell_pack_#{item_sell_packs(:box).id}", text: 'box')
+    click_on 'Load More'
+    assert_selector("#name_item_sell_pack_#{item_sell_packs(:carton).id}", text: 'carton')
+    assert_selector("#name_item_sell_pack_#{item_sell_packs(:each).id}", text: 'each')
+    assert_no_selector("#name_item_sell_pack_#{item_sell_packs(:box).id}", text: 'box')
   end
 
   test 'should create item sell pack' do

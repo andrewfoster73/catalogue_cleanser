@@ -32,6 +32,6 @@
         </div>
       </nav>
     </div>
-    <%= render(UserProfileComponent.new(user: User.new(full_name: 'Saul Goodman', email: 'saul.goodman@example.com'))) %>
+    <%= render(UserProfile::Component.new(user: User.new(full_name: 'Saul Goodman', email: 'saul.goodman@example.com'))) %>
   </div>
 </div>

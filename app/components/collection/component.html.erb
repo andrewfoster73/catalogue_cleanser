@@ -1,0 +1,21 @@
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="mt-8 flex flex-col">
+    <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle">
+        <div class="shadow-sm ring-1 ring-black ring-opacity-5">
+          <table class="min-w-full border-separate" style="border-spacing: 0">
+            <%= header %>
+            <% if rows? %>
+              <tbody id="collection_rows" class="bg-white">
+                <%= rows %>
+              </tbody>
+            <% else %>
+              <tfoot><tr><td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">There are no records.</td></tr></tfoot>
+            <% end %>
+          </table>
+          <%= pager %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
