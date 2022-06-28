@@ -1,0 +1,15 @@
+<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+  <label id="<%= field_id %>--label" for="<%= field_id %>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-">
+    <%= label %>
+  </label>
+  <% if help.present? %>
+    <div id="<%= field_id %>--help" class="mt-2 text-sm text-gray-300 inline-flex items-center">
+      <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= help %>
+    </div>
+  <% end %>
+  <div class="mt-1 sm:mt-0 sm:col-span-2">
+    <p id="<%= field_id %>" class="mt-2 text-sm text-gray-500">
+      <%= time_ago_in_words(resource.public_send(attribute), include_seconds: true) %> ago
+    </p>
+  </div>
+</div>

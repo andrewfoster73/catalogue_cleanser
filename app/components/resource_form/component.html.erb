@@ -1,0 +1,42 @@
+<div class="mt-4 shadow sm:rounded-md sm:overflow-hidden">
+  <div class="px-4 py-5 bg-white space-y-6 sm:p-6" data-controller="resource-form--component resource">
+    <form
+      id="<%= form_id %>"
+      action="<%= polymorphic_path(resource) %>"
+      method="post"
+      accept-charset="UTF-8"
+      class="space-y-8 divide-y divide-gray-200"
+    >
+      <% if resource.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+          <h2><%= pluralize(resource.errors.count, "error") %> prohibited this from being saved:</h2>
+
+          <ul>
+            <% resource.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+        <div>
+          <div>
+            <h3 id="resource_form--title" class="text-lg leading-6 font-medium text-gray-900"><%= title %></h3>
+            <p id="resource_form--description" class="mt-1 max-w-2xl text-sm text-gray-500"><%= description %></p>
+          </div>
+          <div class="pt-8 space-y-6 sm:pt-10 sm:space-y-5">
+            <div id="resource_form--fields" class="space-y-6 sm:space-y-5">
+              <% fields.each do |field| %>
+                <%= field %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <input id="resource_form--method" type="hidden" name="_method" value="patch" autocomplete="off"/>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      </div>
+    </form>
+  </div>
+</div>

@@ -33,20 +33,37 @@ class ItemSellPacksTest < ApplicationSystemTestCase
 
   test 'should update Item sell pack' do
     visit item_sell_pack_url(@item_sell_pack)
-    click_on 'Edit this item sell pack', match: :first
+    click_on 'Edit', match: :first
 
-    check 'Canonical' if @item_sell_pack.canonical
     fill_in 'Name', with: @item_sell_pack.name
-    click_on 'Update Item sell pack'
+    click_on 'Update'
 
     assert_text 'Item sell pack was successfully updated'
     click_on 'Back'
   end
 
   test 'should destroy Item sell pack' do
-    visit item_sell_pack_url(@item_sell_pack)
-    click_on 'Destroy this item sell pack', match: :first
+    visit edit_item_sell_pack_url(@item_sell_pack)
+    find("#delete_item_sell_pack_#{@item_sell_pack.id}").click
+    find('#confirm_delete').click
 
     assert_text 'Item sell pack was successfully destroyed'
+  end
+
+  test 'should destroy Item sell pack inline' do
+    visit item_sell_packs_url
+
+    assert_selector("#turbo_stream_item_sell_pack_#{@item_sell_pack.id}")
+
+    find("#delete_item_sell_pack_#{@item_sell_pack.id}").click
+    find('#confirm_delete').click
+
+    assert_no_selector("#turbo_stream_item_sell_pack_#{@item_sell_pack.id}")
+  end
+
+  test 'should view Item sell pack' do
+    visit item_sell_packs_url
+    find("#view_item_sell_pack_#{@item_sell_pack.id}").click
+    assert_current_path(item_sell_pack_path(@item_sell_pack))
   end
 end

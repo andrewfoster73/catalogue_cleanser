@@ -31,4 +31,27 @@
       <%= collection_component.with_pager(paginator: @pagy, collection_path_method: :item_sell_packs_path, filter_params: params[:q]) %>
     <% end %>
   </div>
+
+  <%= render Modal::Component.new(name: :item_sell_packs_delete_confirmation) do |modal| %>
+    <%= modal.with_confirmation(
+            title: 'Delete',
+            icon_options: { name: :exclamation, colour: :red, options: { classes: '' } },
+            message: 'Are you sure you want to delete this? This action cannot be undone.'
+        ) %>
+    <% modal.with_button(
+           id: :confirm_delete,
+           label: 'Delete',
+           options: {
+               icon: { name: :trash, colour: :white },
+               colour_classes: 'text-white bg-red-500 hover:bg-red-600 focus:ring-red-200',
+               data: {
+                   params: [
+                       { name: 'resource-id', value: '' },
+                       { name: 'resource-url', value: polymorphic_path(@resource_class) },
+                       { name: 'resource-modal-name', value: :item_sell_packs_delete_confirmation }
+                   ],
+                   action: 'click->resource#inlineDelete'
+               }
+           }) %>
+  <% end %>
 </div>

@@ -6,7 +6,7 @@
           <table class="min-w-full border-separate" style="border-spacing: 0">
             <%= header %>
             <% if rows? %>
-              <tbody id="collection_rows" class="bg-white">
+              <tbody id="collection_rows" class="bg-white" data-controller="resource">
                 <%= rows %>
               </tbody>
             <% else %>
