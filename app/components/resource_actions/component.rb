@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module CollectionRows
+module ResourceActions
   class Component < ViewComponent::Base
-    renders_many :rows, CollectionRow::Component
+    renders_many :buttons, Button::Component
   end
 end

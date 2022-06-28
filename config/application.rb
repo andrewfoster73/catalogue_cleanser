@@ -24,8 +24,6 @@ module CatalogueCleanser
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.action_controller.asset_host = 'http://localhost:3000' unless ENV['CI']
-
     # For component sidecar js
     initializer 'app_assets', after: 'importmap.assets' do
       Rails.application.config.assets.paths << Rails.root.join('app')

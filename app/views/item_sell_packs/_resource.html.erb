@@ -1,0 +1,23 @@
+<%= render ResourceForm::Component.new(
+    title: 'Item Sell Pack',
+    description: 'These are the names for how a supplier sells a complete package',
+    resource: @resource) do |component| %>
+  <% component.with_field do |c| %>
+    <% c.with_attribute_text(attribute: :name, label: 'Name', resource: @resource, readonly: readonly) %>
+  <% end %>
+  <% component.with_field do |c| %>
+    <% c.with_attribute_toggle(
+           attribute: :canonical,
+           label: 'Canonical',
+           resource: @resource,
+           readonly: readonly,
+           help: 'Name is acceptable to all users?'
+       ) %>
+  <% end %>
+  <% component.with_field do |c| %>
+    <% c.with_attribute_timestamp(attribute: :created_at, label: 'Created At', resource: @resource) %>
+  <% end %>
+  <% component.with_field do |c| %>
+    <% c.with_attribute_timestamp(attribute: :updated_at, label: 'Updated At', resource: @resource) %>
+  <% end %>
+<% end %>

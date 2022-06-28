@@ -1,15 +1,32 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <%= render @resource %>
-
-    <%= link_to 'Edit this item sell pack', edit_item_sell_pack_path(@resource), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this item sell pack', item_sell_pack_path(@resource), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to item sell packs', item_sell_packs_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
-</div>
+<% if notice.present? %>
+  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<% end %>
+<%= render ResourceActions::Component.new do |component| %>
+  <% component.with_button(
+         id: dom_id(@resource, :back),
+         label: 'Back',
+         options: {
+             title: polymorphic_path(@resource_class),
+             icon: { name: :arrow_left, colour: :white },
+             colour_classes: 'text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-200',
+             data: {
+                 params: [{ name: 'resource-url', value: polymorphic_path(@resource_class) }],
+                 action: 'click->resource#navigate'
+             }
+         }
+     ) %>
+  <% component.with_button(
+         id: dom_id(@resource, :edit),
+         label: 'Edit',
+         options: {
+             title: polymorphic_path([:edit, @resource]),
+             icon: { name: :pencil, colour: :white },
+             colour_classes: 'text-white bg-amber-600 hover:bg-amber-700 focus:ring-amber-200',
+             data: {
+                 params: [{ name: 'resource-url', value: polymorphic_path([:edit, @resource]) }],
+                 action: 'click->resource#navigate'
+             }
+         }
+     ) %>
+<% end %>
+<%= render partial: 'resource', locals: { readonly: true } %>
