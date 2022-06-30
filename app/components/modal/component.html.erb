@@ -32,8 +32,9 @@
               <%= icon(name: :x, colour: :gray) %>
             </button>
           </div>
-          <div id="<%= name %>--content" class="sm:flex sm:items-start">
+          <div id="<%= name %>--content" class="sm:flex sm:items-start pt-4">
             <%= confirmation if confirmation? %>
+            <%= form if form? %>
           </div>
           <div id="<%= name %>--buttons" class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
             <% buttons.each do |button| %>

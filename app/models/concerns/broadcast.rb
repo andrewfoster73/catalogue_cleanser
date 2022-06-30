@@ -4,6 +4,14 @@ module Broadcast
   extend ActiveSupport::Concern
 
   included do
+    after_create_commit lambda {
+      broadcast_prepend_later_to(
+        resource_name_plural,
+        partial: "#{resource_name_plural}/row",
+        locals: { resource: self },
+        target: 'collection_rows'
+      )
+    }
     after_update_commit lambda {
       broadcast_replace_later_to(
         resource_name_plural,

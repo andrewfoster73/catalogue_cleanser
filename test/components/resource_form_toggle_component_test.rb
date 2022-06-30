@@ -7,6 +7,7 @@ class ResourceForm::ToggleComponentTest < ViewComponent::TestCase
     @resource = build(:item_sell_pack, id: 1, name: 'carton', canonical: true, created_at: Time.zone.now)
   end
 
+  # rubocop:disable Layout/LineLength
   test 'editable mode' do
     render_inline(ResourceForm::FieldComponent.new) do |component|
       component.with_attribute_toggle(
@@ -23,13 +24,14 @@ class ResourceForm::ToggleComponentTest < ViewComponent::TestCase
     assert_selector('input#item_sell_pack_1_canonical[name="item_sell_pack[canonical]"]', visible: false)
     assert_selector('button#item_sell_pack_1_canonical--toggle[data-action="click->resource-form--component#toggle"]')
     assert_selector(
-      'button#item_sell_pack_1_canonical--toggle[data-resource-form--component-toggle-id-param="toggle_canonical"]'
+      'button#item_sell_pack_1_canonical--toggle[data-resource-form--component-toggle-id-param="item_sell_pack_1_toggle_canonical"]'
     )
     assert_selector(
       'button#item_sell_pack_1_canonical--toggle' \
       '[data-resource-form--component-field-id-param="item_sell_pack_1_canonical"]'
     )
   end
+  # rubocop:enable Layout/LineLength
 
   test 'readonly mode' do
     render_inline(ResourceForm::FieldComponent.new) do |component|

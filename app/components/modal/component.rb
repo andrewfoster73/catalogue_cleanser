@@ -8,6 +8,7 @@ module Modal
     renders_one :confirmation, lambda { |**args|
       Modal::ConfirmationComponent.new(name: @name, **args)
     }
+    renders_one :form
     renders_many :buttons, Button::Component
 
     attr_reader :name, :hidden

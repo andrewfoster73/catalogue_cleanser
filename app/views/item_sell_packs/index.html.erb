@@ -6,7 +6,20 @@
 
   <%= render PageHeading::Component.new(title: 'Item Sell Packs', description: 'These are the names for how a supplier sells a complete package') do |c| %>
     <%= c.with_actions do %>
-      <%= link_to 'New item sell pack', new_item_sell_pack_path, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+      <%= render Button::Component.new(
+          id: :item_sell_packs_new,
+          label: 'New',
+          options: {
+              icon: { name: :plus, colour: :white },
+              colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
+              data: {
+                  action: 'click->resource#new',
+                  params: [
+                      { name: 'resource-modal-name', value: :item_sell_packs_new }
+                  ]
+              }
+          }
+      ) %>
     <% end %>
   <% end %>
 
@@ -54,6 +67,26 @@
                    action: 'click->resource#inlineDelete'
                }
            }) %>
+  <% end %>
+  <%= render Modal::Component.new(name: :item_sell_packs_new) do |modal| %>
+    <%= modal.with_form do %>
+      <%= render(partial: 'resource', locals: { action: :new, resource: @resource_class.new, readonly: false, token: form_authenticity_token }) %>
+    <% end %>
+    <%= modal.with_button(
+            id: :save_new,
+            label: 'Save',
+            options: {
+                icon: { name: :save, colour: :white },
+                colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
+                data: {
+                    params: [
+                        { name: 'resource-url', value: polymorphic_url(@resource_class) },
+                        { name: 'resource-form-id', value: dom_id(@resource_class.new, :form) },
+                        { name: 'resource-modal-name', value: :item_sell_packs_new }
+                    ],
+                    action: 'click->resource#create'
+                }
+            }) %>
   <% end %>
 </div>
 

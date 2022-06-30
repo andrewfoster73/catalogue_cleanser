@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 module IconsHelper
-  # style: :outline, size: 6, classes: 'mr-3'
+  # options
+  # - style
+  # - size
+  # - classes
   def icon(name:, colour:, active: false, options: {})
     options.reverse_merge!(default_icon_options)
     content_tag(:svg, {

@@ -22,7 +22,9 @@
         <div>
           <div>
             <h3 id="resource_form--title" class="text-lg leading-6 font-medium text-gray-900"><%= title %></h3>
+            <% unless action == :new %>
             <p id="resource_form--description" class="mt-1 max-w-2xl text-sm text-gray-500"><%= description %></p>
+            <% end %>
           </div>
           <div class="pt-8 space-y-6 sm:pt-10 sm:space-y-5">
             <div id="resource_form--fields" class="space-y-6 sm:space-y-5">
@@ -34,7 +36,7 @@
         </div>
       </div>
       <div>
-        <input id="resource_form--method" type="hidden" name="_method" value="patch" autocomplete="off"/>
+        <input id="resource_form--method" type="hidden" name="_method" value="<%= action == :new ? 'post' : 'patch' %>" autocomplete="off"/>
         <%= hidden_field_tag :authenticity_token, token %>
       </div>
     </form>

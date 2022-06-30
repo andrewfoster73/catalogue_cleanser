@@ -26,5 +26,31 @@ module Modal
         }
       )
     end
+
+    story :item_sell_packs_new do
+      constructor(name: :item_sell_packs_new, hidden: false)
+      form do
+        render(
+          partial: 'item_sell_packs/resource',
+          locals: { action: :new, resource: ItemSellPack.new, readonly: false, token: 'token' }
+        )
+      end
+      button(
+        id: :save_new,
+        label: 'Save',
+        options: {
+          icon: { name: :save, colour: :white },
+          colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
+          data: {
+            params: [
+              { name: 'resource-url', value: '/item_sell_packs' },
+              { name: 'resource-form-id', value: 'form_item_sell_pack' },
+              { name: 'resource-modal-name', value: :item_sell_packs_new }
+            ],
+            action: 'click->resource#create'
+          }
+        }
+      )
+    end
   end
 end
