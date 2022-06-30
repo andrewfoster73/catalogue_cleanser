@@ -1,6 +1,6 @@
 <%= form_with(model: brand_alias, class: "contents") do |form| %>
   <% if brand_alias.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="bg-rose-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(brand_alias.errors.count, "error") %> prohibited this brand_alias from being saved:</h2>
 
       <ul>

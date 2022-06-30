@@ -1,6 +1,6 @@
 <%= form_with(model: item_measure, class: "contents", format: :html, local: true) do |form| %>
   <% if item_measure.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="bg-rose-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(item_measure.errors.count, "error") %> prohibited this item_measure from being saved:</h2>
 
       <ul>

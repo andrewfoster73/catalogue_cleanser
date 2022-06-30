@@ -9,7 +9,7 @@ module Button
         options: {
           title: 'http::/example.com/collection',
           icon: { name: :arrow_left, colour: :white },
-          colour_classes: 'text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-200'
+          colour_classes: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-200'
         }
       )
     end
@@ -20,7 +20,7 @@ module Button
         label: 'Delete',
         options: {
           icon: { name: :trash, colour: :white },
-          colour_classes: 'text-white bg-red-500 hover:bg-red-600 focus:ring-red-200'
+          colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200'
         }
       )
     end

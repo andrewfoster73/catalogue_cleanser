@@ -1,6 +1,6 @@
 <%= form_with(model: product_duplicate, class: "contents") do |form| %>
   <% if product_duplicate.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="bg-rose-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(product_duplicate.errors.count, "error") %> prohibited this product_duplicate from being saved:</h2>
 
       <ul>

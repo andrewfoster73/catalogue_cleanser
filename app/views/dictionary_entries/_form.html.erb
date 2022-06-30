@@ -1,6 +1,6 @@
 <%= form_with(model: dictionary_entry, class: "contents") do |form| %>
   <% if dictionary_entry.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="bg-rose-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(dictionary_entry.errors.count, "error") %> prohibited this dictionary_entry from being saved:</h2>
 
       <ul>

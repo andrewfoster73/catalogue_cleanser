@@ -11,7 +11,7 @@ class ResourceActions::ComponentTest < ViewComponent::TestCase
         options: {
           title: :back,
           icon: { name: :arrow_left, colour: :white },
-          colour_classes: 'text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-200',
+          colour_classes: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-200',
           data: {
             params: [{ name: 'resource-url', value: :back }],
             action: 'click->resource#navigate'

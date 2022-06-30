@@ -30,7 +30,7 @@ export default class extends Controller {
 
   toggleClasses(toggle, button) {
     toggle.toggleClass('translate-x-0 translate-x-5')
-    button.toggleClass('bg-gray-200 bg-indigo-600')
+    button.toggleClass('bg-gray-200 bg-sky-600')
   }
 
   toggleFields(trueField, notTrueField) {
