@@ -9,10 +9,10 @@
       name="<%= "#{resource.resource_name}[canonical]" %>"
       id="<%= dom_id(resource, :canonical) %>"
     >
-    <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+    <!-- Enabled: "bg-sky-600", Not Enabled: "bg-gray-200" -->
     <button
       type="button"
-      class="<%= resource.canonical? ? 'bg-indigo-600' : 'bg-gray-200' %> relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      class="<%= resource.canonical? ? 'bg-sky-600' : 'bg-gray-200' %> relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
       role="switch"
       aria-checked="false"
       data-action="click->resource-form--component#toggle click->editor#toggle"
@@ -40,7 +40,7 @@
         options: {
             title: polymorphic_path(resource),
             icon: { name: :eye, colour: :white },
-            colour_classes: 'text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-200',
+            colour_classes: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-200',
             data: {
                 params: [{ name: 'resource-url', value: polymorphic_path(resource) }],
                 action: 'click->resource#navigate'
@@ -52,7 +52,7 @@
         label: 'Delete',
         options: {
             icon: { name: :trash, colour: :white },
-            colour_classes: 'text-white bg-red-500 hover:bg-red-600 focus:ring-red-200',
+            colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
             data: {
                 params: [
                     { name: 'resource-id', value: resource.id },

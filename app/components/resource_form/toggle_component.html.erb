@@ -17,11 +17,11 @@
       name="<%= field_name %>"
       id="<%= field_id %>"
     >
-    <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+    <!-- Enabled: "bg-sky-600", Not Enabled: "bg-gray-200" -->
     <button
       id="<%= field_id %>--toggle"
       type="button"
-      class="<%= resource.public_send("#{attribute}?") ? 'bg-indigo-600' : 'bg-gray-200' %> relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      class="<%= resource.public_send("#{attribute}?") ? 'bg-sky-600' : 'bg-gray-200' %> relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
       role="switch"
       aria-checked="false"
       data-action="<%= 'click->resource-form--component#toggle' unless display_only? %>"

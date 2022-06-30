@@ -9,9 +9,9 @@ module PageHeading
 
       actions do
         link_to 'New item sell pack', new_item_sell_pack_path,
-                class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 ' \
-                       'px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none ' \
-                       'focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto'
+                class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-sky-600 ' \
+                       'px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none ' \
+                       'focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 sm:w-auto'
       end
     end
   end
