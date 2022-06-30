@@ -7,7 +7,8 @@ module ResourceForm
         title: text('Resource Title'),
         description: text('This is where the resource description is'),
         resource: klazz(ItemSellPack, name: 'carton', canonical: boolean(true)),
-        token: 'token'
+        token: 'token',
+        action: :edit
       )
     end
   end

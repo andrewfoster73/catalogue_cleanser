@@ -1,10 +1,30 @@
-import { destroy } from "@rails/request.js";
+import { post, destroy } from "@rails/request.js";
 import { Controller } from "@hotwired/stimulus"
 import cash from "cash-dom"
 
 export default class extends Controller {
   navigate(event) {
     window.location = event.params.url
+  }
+
+  new(event) {
+    const modalName = event.params.modalName
+    const modal = cash(`#${modalName}_modal`)
+
+    modal.show()
+  }
+
+  async create(event) {
+    const resourceUrl = event.params.url
+    const formId = event.params.formId
+    const modalName = event.params.modalName
+    const modal = cash(`#${modalName}_modal`)
+    const formData = new FormData(document.getElementById(formId));
+
+    const response = await post(resourceUrl, { body: formData, responseKind: 'json' })
+    if (response.ok) {
+      modal.hide()
+    }
   }
 
   update(event) {
@@ -41,8 +61,8 @@ export default class extends Controller {
     const modal = cash(`#${modalName}_modal`)
 
     modal.hide()
-    const res = await destroy(`${resourceUrl}/${resourceId}`, { responseKind: 'json' })
-    if (res.response.ok) {
+    const response = await destroy(`${resourceUrl}/${resourceId}`, { responseKind: 'json' })
+    if (response.ok) {
       window.location = resourceUrl
     }
   }

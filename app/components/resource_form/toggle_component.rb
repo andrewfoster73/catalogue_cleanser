@@ -3,7 +3,7 @@
 module ResourceForm
   class ToggleComponent < BaseComponent
     def toggle_id
-      "toggle_#{attribute}"
+      "#{resource.model_name.singular}_#{resource.id || 'new'}_toggle_#{attribute}"
     end
   end
 end

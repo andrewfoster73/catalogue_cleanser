@@ -3,7 +3,8 @@
     title: 'Item Sell Pack',
     description: 'These are the names for how a supplier sells a complete package',
     resource: resource,
-    token: token) do |component| %>
+    token: token,
+    action: action) do |component| %>
   <% component.with_field do |c| %>
     <% c.with_attribute_text(attribute: :name, label: 'Name', resource: resource, options: { readonly: readonly }) %>
   <% end %>
@@ -15,11 +16,13 @@
            options: { readonly: readonly, help: 'Name is acceptable to all users?' }
        ) %>
   <% end %>
-  <% component.with_field do |c| %>
-    <% c.with_attribute_timestamp(attribute: :created_at, label: 'Created At', resource: resource) %>
-  <% end %>
-  <% component.with_field do |c| %>
-    <% c.with_attribute_timestamp(attribute: :updated_at, label: 'Updated At', resource: resource) %>
-  <% end %>
+    <% unless action == :new %>
+      <% component.with_field do |c| %>
+        <% c.with_attribute_timestamp(attribute: :created_at, label: 'Created At', resource: resource) %>
+      <% end %>
+      <% component.with_field do |c| %>
+        <% c.with_attribute_timestamp(attribute: :updated_at, label: 'Updated At', resource: resource) %>
+      <% end %>
+    <% end %>
 <% end %>
 </div>

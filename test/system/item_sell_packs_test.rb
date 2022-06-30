@@ -36,7 +36,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'pack')
   end
 
-  test 'multiple tabs' do
+  test 'broadcasting updates to multiple tabs' do
     visit item_sell_packs_url
     new_window = open_new_window
     within_window new_window do
@@ -55,14 +55,13 @@ class ItemSellPacksTest < ApplicationSystemTestCase
 
   test 'should create item sell pack' do
     visit item_sell_packs_url
-    click_on 'New item sell pack'
+    click_on 'New'
 
-    check 'Canonical' if @item_sell_pack.canonical
-    fill_in 'Name', with: "a #{@item_sell_pack.name}"
-    click_on 'Create Item sell pack'
+    find('#item_sell_pack_new_canonical--toggle').click()
+    fill_in 'Name', with: "a new pack"
+    click_on 'Save'
 
-    assert_text 'Item sell pack was successfully created'
-    click_on 'Back'
+    assert_selector("a.editable-element", text: "a new pack")
   end
 
   test 'should update Item sell pack' do

@@ -23,7 +23,7 @@ class ResourceForm::ToggleComponentTest < ViewComponent::TestCase
     assert_selector('input#item_sell_pack_1_canonical[name="item_sell_pack[canonical]"]', visible: false)
     assert_selector('button#item_sell_pack_1_canonical--toggle[data-action="click->resource-form--component#toggle"]')
     assert_selector(
-      'button#item_sell_pack_1_canonical--toggle[data-resource-form--component-toggle-id-param="toggle_canonical"]'
+      'button#item_sell_pack_1_canonical--toggle[data-resource-form--component-toggle-id-param="item_sell_pack_1_toggle_canonical"]'
     )
     assert_selector(
       'button#item_sell_pack_1_canonical--toggle' \

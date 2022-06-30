@@ -10,7 +10,7 @@ class ResourceForm::ComponentTest < ViewComponent::TestCase
   test 'rendering' do
     render_inline(
       ResourceForm::Component.new(
-        title: 'The Resource', description: 'This is a resource', resource: @resource, token: 'token'
+        action: :edit, title: 'The Resource', description: 'This is a resource', resource: @resource, token: 'token'
       )
     )
 
@@ -23,9 +23,9 @@ class ResourceForm::ComponentTest < ViewComponent::TestCase
 
   test 'with fields' do
     render_inline(ResourceForm::Component.new(
-                    title: 'The Resource', description: 'This is a resource', resource: @resource, token: 'token'
-                  )
-                 ) do |component|
+      action: :edit, title: 'The Resource', description: 'This is a resource', resource: @resource, token: 'token'
+    )
+    ) do |component|
       component.with_field do |c|
         c.with_attribute_text(attribute: :name, label: 'Name', resource: @resource, options: { readonly: false })
       end
@@ -44,7 +44,7 @@ class ResourceForm::ComponentTest < ViewComponent::TestCase
 
       component.with_field do |c|
         c.with_attribute_timestamp(attribute: :created_at, label: 'Created At', resource: @resource,
-                                   options: { readonly: false }
+          options: { readonly: false }
         )
       end
     end

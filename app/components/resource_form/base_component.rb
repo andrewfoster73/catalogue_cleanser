@@ -24,7 +24,7 @@ module ResourceForm
     end
 
     def field_id
-      "#{resource.model_name.singular}_#{resource.id}_#{attribute}"
+      "#{resource.model_name.singular}_#{resource.id || 'new'}_#{attribute}"
     end
 
     def field_name
