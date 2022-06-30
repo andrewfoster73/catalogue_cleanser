@@ -1,4 +1,4 @@
-import {patch} from "@rails/request.js";
+import {get, patch} from "@rails/request.js";
 import {Controller} from "@hotwired/stimulus"
 import cash from "cash-dom"
 
@@ -6,7 +6,6 @@ export default class extends Controller {
   editNextAttribute(id) {
     const currentRow = cash(`#${id}`).closest('.collection-rows__row')
     const nextRow = currentRow.next('.collection-rows__row')
-    console.log('editNext', id, currentRow, nextRow)
     nextRow.find('.editable-element').trigger('click')
   }
 
@@ -18,7 +17,7 @@ export default class extends Controller {
     const body = {}
 
     body[attribute] = input.val()
-    const response = patch(resourceUrl, {body: body, responseKind: 'json'})
+    patch(resourceUrl, {body: body, responseKind: 'json'})
   }
 
   async save(event) {
@@ -44,10 +43,9 @@ export default class extends Controller {
       event.preventDefault();
       const resourceUrl = event.params.url
       const attribute = event.params.attribute
-      const body = {}
+      const resourceName = event.params.resourceName
 
-      body[attribute] = event.currentTarget.value
-      patch(resourceUrl, {body: body, responseKind: 'turbo-stream'})
+      get(`${resourceUrl}?${resourceName}[${attribute}]=`, {responseKind: 'turbo-stream'})
     }
   }
 }

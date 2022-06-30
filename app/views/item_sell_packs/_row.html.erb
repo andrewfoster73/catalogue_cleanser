@@ -2,7 +2,7 @@
   <td id="<%= dom_id(resource, :name_cell) %>" class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
     <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :name) %>
   </td>
-  <td id="<%= dom_id(resource, :canonical_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500" data-controller="editor">
+  <td id="<%= dom_id(resource, :canonical_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
     <input
       type="hidden"
       value="<%= resource.canonical %>"
