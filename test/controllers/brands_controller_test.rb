@@ -22,7 +22,7 @@ class BrandsControllerTest < ActionDispatch::IntegrationTest
       post brands_url, params: { brand: { canonical: @brand.canonical, count: @brand.count, name: "a #{@brand.name}" } }
     end
 
-    assert_redirected_to brand_url(Brand.last)
+    assert_redirected_to brand_url(Brand.last, format: :html)
   end
 
   test 'should show brand' do

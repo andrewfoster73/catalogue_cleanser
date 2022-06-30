@@ -6,13 +6,14 @@ module ResourceForm
 
     renders_many :fields, ResourceForm::FieldComponent
 
-    attr_reader :title, :description, :resource
+    attr_reader :title, :description, :resource, :token
 
-    def initialize(title:, description:, resource:)
+    def initialize(title:, description:, resource:, token:)
       super
       @title = title
       @description = description
       @resource = resource
+      @token = token
     end
 
     def form_id

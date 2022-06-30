@@ -4,23 +4,35 @@ module ResourceForm
   class BaseComponent < ViewComponent::Base
     include IconsHelper
 
-    attr_reader :attribute, :label, :help, :resource, :readonly
+    attr_reader :attribute, :label, :resource, :options
 
-    def initialize(attribute:, label:, resource:, help: nil, readonly: true)
+    # options:
+    # - help: A message to place near the label to help the user understand the attribute
+    # - readonly: Is this attribute currently editable?
+    # - editable: Is this attribute ever editable?
+
+    def initialize(attribute:, label:, resource:, options: {})
       super
       @attribute = attribute
       @label = label
-      @help = help
       @resource = resource
-      @readonly = readonly
+      @options = options.reverse_merge!(default_field_options)
+    end
+
+    def default_field_options
+      { help: nil, readonly: true, editable: true }
     end
 
     def field_id
-      "#{resource.model_name.singular}_#{attribute}"
+      "#{resource.model_name.singular}_#{resource.id}_#{attribute}"
     end
 
     def field_name
       "#{resource.model_name.singular}[#{attribute}]"
+    end
+
+    def display_only?
+      @options[:readonly] || !@options[:editable]
     end
   end
 end

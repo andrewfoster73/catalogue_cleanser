@@ -29,7 +29,7 @@ class ItemMeasureAliasesControllerTest < ActionDispatch::IntegrationTest
            }
     end
 
-    assert_redirected_to item_measure_alias_url(ItemMeasureAlias.last)
+    assert_redirected_to item_measure_alias_url(ItemMeasureAlias.last, format: :html)
   end
 
   test 'should show item_measure_alias' do

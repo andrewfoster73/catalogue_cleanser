@@ -3,7 +3,7 @@
 module IconsHelper
   # style: :outline, size: 6, classes: 'mr-3'
   def icon(name:, colour:, active: false, options: {})
-    options.reverse_merge!(default_options)
+    options.reverse_merge!(default_icon_options)
     content_tag(:svg, {
       class: icon_class(classes: options[:classes], active: active, colour: colour, size: options[:size]),
       xmlns: 'http://www.w3.org/2000/svg',
@@ -17,7 +17,7 @@ module IconsHelper
 
   private
 
-  def default_options
+  def default_icon_options
     { style: :outline, size: 6, classes: 'mr-3' }
   end
 

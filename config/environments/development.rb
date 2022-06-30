@@ -71,4 +71,20 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.action_controller.asset_host = 'http://localhost:3000'
+
+  config.view_component.instrumentation_enabled = true
+end
+
+ActiveSupport::Notifications.subscribe('!render.view_component') do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+
+  # => "!render.view_component"
+  event.name
+
+  # => { name: "MyComponent", identifier: "/Users/mona/project/app/components/my_component.rb" }
+  event.payload
+
+  Rails.logger.info(
+    "Rendering ViewComponent: #{event.payload[:name]}, #{event.payload[:identifier].gsub(Rails.root.to_s, '')}"
+  )
 end

@@ -7,7 +7,7 @@ module ResourceForm
         attribute: text('canonical'),
         label: text('Canonical'),
         resource: klazz(ItemSellPack, name: 'carton', canonical: boolean(true)),
-        readonly: boolean(false)
+        options: object({ readonly: false, help: 'This is a help message' })
       )
     end
   end

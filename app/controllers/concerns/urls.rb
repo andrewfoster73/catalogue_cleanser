@@ -6,8 +6,8 @@ module Urls
 
   private
 
-  def resource_url(resource)
-    polymorphic_url(resource)
+  def resource_url(resource, options = {})
+    polymorphic_url(resource, options)
   end
 
   def collection_url

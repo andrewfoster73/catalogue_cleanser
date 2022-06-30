@@ -12,11 +12,45 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     assert_selector 'h1', text: 'Item Sell Packs'
   end
 
-  test 'automatic paging' do
+  test 'should automatically page' do
     visit item_sell_packs_url
-    assert_selector("#name_item_sell_pack_#{item_sell_packs(:carton).id}", text: 'carton')
-    assert_selector("#name_item_sell_pack_#{item_sell_packs(:each).id}", text: 'each')
-    assert_selector("#name_item_sell_pack_#{item_sell_packs(:box).id}", text: 'box')
+    assert_selector("#name_cell_item_sell_pack_#{item_sell_packs(:carton).id}", text: 'carton')
+    assert_selector("#name_cell_item_sell_pack_#{item_sell_packs(:each).id}", text: 'each')
+    assert_selector("#name_cell_item_sell_pack_#{item_sell_packs(:box).id}", text: 'box')
+  end
+
+  test 'inline editing and cancelling' do
+    visit item_sell_packs_url
+
+    # Click to edit
+    click_on 'carton'
+    assert_selector("input#item_sell_pack_#{item_sell_packs(:carton).id}_name")
+
+    # Escape to cancel
+    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys(:escape)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'carton')
+
+    # Enter to save
+    click_on 'carton'
+    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys('pack', :enter)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'pack')
+  end
+
+  test 'multiple tabs' do
+    visit item_sell_packs_url
+    new_window = open_new_window
+    within_window new_window do
+      visit item_sell_packs_url
+    end
+
+    click_on 'carton'
+    assert_selector("input#item_sell_pack_#{item_sell_packs(:carton).id}_name")
+    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys('pack', :enter)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'pack')
+
+    within_window new_window do
+      assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'pack')
+    end
   end
 
   test 'should create item sell pack' do

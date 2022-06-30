@@ -1,10 +1,10 @@
-<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5" data-controller="resource-form--component">
   <label id="<%= field_id %>--label" for="<%= field_id %>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-">
     <%= label %>
   </label>
-  <% if help.present? %>
+  <% if options[:help].present? %>
     <div id="<%= field_id %>--help" class="mt-2 text-sm text-gray-300 inline-flex items-center">
-      <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= help %>
+      <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= options[:help] %>
     </div>
   <% end %>
   <div class="mt-1 sm:mt-0 sm:col-span-2">

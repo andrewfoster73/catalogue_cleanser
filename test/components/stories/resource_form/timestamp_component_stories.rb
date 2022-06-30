@@ -7,7 +7,7 @@ module ResourceForm
         attribute: text('created_at'),
         label: text('Created At'),
         resource: klazz(ItemSellPack, name: 'carton', canonical: true, created_at: date(Time.zone.today)),
-        readonly: boolean(true)
+        options: object({ readonly: false })
       )
     end
   end

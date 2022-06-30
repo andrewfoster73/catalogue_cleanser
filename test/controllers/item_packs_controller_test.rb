@@ -22,7 +22,7 @@ class ItemPacksControllerTest < ActionDispatch::IntegrationTest
       post item_packs_url, params: { item_pack: { canonical: @item_pack.canonical, name: "a #{@item_pack.name}" } }
     end
 
-    assert_redirected_to item_pack_url(ItemPack.last)
+    assert_redirected_to item_pack_url(ItemPack.last, format: :html)
   end
 
   test 'should show item_pack' do
