@@ -23,7 +23,7 @@ class ItemMeasuresControllerTest < ActionDispatch::IntegrationTest
            params: { item_measure: { canonical: @item_measure.canonical, name: "a #{@item_measure.name}" } }
     end
 
-    assert_redirected_to item_measure_url(ItemMeasure.last)
+    assert_redirected_to item_measure_url(ItemMeasure.last, format: :html)
   end
 
   test 'should show item_measure' do

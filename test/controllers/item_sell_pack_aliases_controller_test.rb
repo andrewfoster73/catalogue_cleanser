@@ -29,7 +29,7 @@ class ItemSellPackAliasesControllerTest < ActionDispatch::IntegrationTest
            }
     end
 
-    assert_redirected_to item_sell_pack_alias_url(ItemSellPackAlias.last)
+    assert_redirected_to item_sell_pack_alias_url(ItemSellPackAlias.last, format: :html)
   end
 
   test 'should show item_sell_pack_alias' do

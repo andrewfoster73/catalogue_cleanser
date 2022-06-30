@@ -23,7 +23,7 @@ class ItemSellPacksControllerTest < ActionDispatch::IntegrationTest
            params: { item_sell_pack: { canonical: @item_sell_pack.canonical, name: "a #{@item_sell_pack.name}" } }
     end
 
-    assert_redirected_to item_sell_pack_url(ItemSellPack.last)
+    assert_redirected_to item_sell_pack_url(ItemSellPack.last, format: :html)
   end
 
   test 'should show item_sell_pack' do
@@ -39,7 +39,7 @@ class ItemSellPacksControllerTest < ActionDispatch::IntegrationTest
   test 'should update item_sell_pack' do
     patch item_sell_pack_url(@item_sell_pack),
           params: { item_sell_pack: { canonical: @item_sell_pack.canonical, name: @item_sell_pack.name } }
-    assert_redirected_to item_sell_pack_url(@item_sell_pack)
+    assert_redirected_to item_sell_pack_url(@item_sell_pack, format: :html)
   end
 
   test 'should destroy item_sell_pack' do

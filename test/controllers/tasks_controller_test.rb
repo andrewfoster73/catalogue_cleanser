@@ -37,7 +37,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
            }
     end
 
-    assert_redirected_to task_url(Task.last)
+    assert_redirected_to task_url(Task.last, format: :html)
   end
 
   test 'should show task' do

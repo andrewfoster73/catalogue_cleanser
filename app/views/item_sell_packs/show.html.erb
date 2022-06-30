@@ -1,3 +1,4 @@
+<%= turbo_stream_from "item_sell_pack" %>
 <% if notice.present? %>
   <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
 <% end %>
@@ -29,4 +30,4 @@
          }
      ) %>
 <% end %>
-<%= render partial: 'resource', locals: { readonly: true } %>
+<%= render partial: 'resource', locals: { action: :show, resource: @resource, readonly: true, token: form_authenticity_token } %>

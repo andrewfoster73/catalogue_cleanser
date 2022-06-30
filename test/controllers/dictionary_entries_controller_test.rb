@@ -28,7 +28,7 @@ class DictionaryEntriesControllerTest < ActionDispatch::IntegrationTest
            }
     end
 
-    assert_redirected_to dictionary_entry_url(DictionaryEntry.last)
+    assert_redirected_to dictionary_entry_url(DictionaryEntry.last, format: :html)
   end
 
   test 'should show dictionary_entry' do

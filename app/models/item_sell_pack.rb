@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ItemSellPack < ApplicationRecord
+  include Broadcast
+
   has_many :item_sell_pack_aliases, dependent: :destroy
   has_associated_audits
 
@@ -9,6 +11,7 @@ class ItemSellPack < ApplicationRecord
   before_validation :clean
 
   validates :name, presence: true, uniqueness: true
+  validates :canonical, inclusion: [true, false]
 
   protected
 

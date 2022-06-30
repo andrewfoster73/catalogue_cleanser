@@ -1,0 +1,7 @@
+<div id="<%= dom_id(resource, "#{attribute}_turbo_stream") %>">
+  <turbo-frame id="<%= dom_id(resource, "#{attribute}_turbo_frame") %>" class="contents">
+    <%= link_to url, class: "editable-element" do %>
+      <%= display %>
+    <% end %>
+  </turbo-frame>
+</div>

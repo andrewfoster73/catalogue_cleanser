@@ -7,7 +7,7 @@ module ResourceForm
         attribute: text('name'),
         label: text('Name'),
         resource: klazz(ItemSellPack, name: text('carton'), canonical: true),
-        readonly: boolean(false)
+        options: object({ readonly: false })
       )
     end
   end

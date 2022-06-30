@@ -30,7 +30,7 @@ class BrandAliasesControllerTest < ActionDispatch::IntegrationTest
            }
     end
 
-    assert_redirected_to brand_alias_url(BrandAlias.last)
+    assert_redirected_to brand_alias_url(BrandAlias.last, format: :html)
   end
 
   test 'should show brand_alias' do

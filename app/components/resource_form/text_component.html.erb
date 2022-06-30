@@ -1,28 +1,33 @@
-<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5" data-controller="resource-form--component">
   <div>
     <label id="<%= field_id %>--label" for="<%= field_id %>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-">
       <%= label %>
     </label>
-    <% if help.present? %>
+    <% if options[:help].present? %>
       <div id="<%= field_id %>--help" class="mt-2 text-sm text-gray-300 inline-flex items-center">
-        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= help %>
+        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= options[:help] %>
       </div>
     <% end %>
   </div>
   <div class="mt-1 sm:mt-0 sm:col-span-2">
-    <% if readonly %>
+    <% if display_only? %>
       <p id="<%= field_id %>" class="mt-2 text-sm text-gray-500"><%= resource.public_send(attribute) %></p>
     <% else %>
-    <div class="max-w-lg flex rounded-md shadow-sm">
+    <turbo-frame id="<%= dom_id(resource, "#{attribute}_turbo_frame") %>" class="contents">
       <input
-        class="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+        class="block max-w-lg w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
         autofocus="autofocus"
         type="text"
         value="<%= resource.public_send(attribute) %>"
         name="<%= field_name %>"
         id="<%= field_id %>"
+        data-action="<%= data_actions.join(' ') %>"
+        data-editor-url-param="<%= polymorphic_path(resource) %>"
+        data-editor-field-id-param="<%= field_id %>"
+        data-editor-attribute-param="<%= attribute %>"
+        data-editor-resource-name-param="<%= resource.resource_name %>"
       >
-    </div>
+    </turbo-frame>
     <% end %>
   </div>
 </div>

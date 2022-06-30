@@ -4,14 +4,15 @@ require 'test_helper'
 
 class ResourceForm::ComponentTest < ViewComponent::TestCase
   def setup
-    @resource = build(:item_sell_pack, name: 'carton', canonical: true, created_at: Time.zone.now)
+    @resource = build(:item_sell_pack, id: 1, name: 'carton', canonical: true, created_at: Time.zone.now)
   end
 
   test 'rendering' do
-    render_inline(ResourceForm::Component.new(
-                    title: 'The Resource', description: 'This is a resource', resource: @resource
-                  )
-                 )
+    render_inline(
+      ResourceForm::Component.new(
+        title: 'The Resource', description: 'This is a resource', resource: @resource, token: 'token'
+      )
+    )
 
     assert_selector('form')
     assert_selector('#resource_form--title', text: 'The Resource')
@@ -22,11 +23,11 @@ class ResourceForm::ComponentTest < ViewComponent::TestCase
 
   test 'with fields' do
     render_inline(ResourceForm::Component.new(
-                    title: 'The Resource', description: 'This is a resource', resource: @resource
+                    title: 'The Resource', description: 'This is a resource', resource: @resource, token: 'token'
                   )
                  ) do |component|
       component.with_field do |c|
-        c.with_attribute_text(attribute: :name, label: 'Name', resource: @resource, readonly: false)
+        c.with_attribute_text(attribute: :name, label: 'Name', resource: @resource, options: { readonly: false })
       end
 
       component.with_field do |c|
@@ -34,21 +35,25 @@ class ResourceForm::ComponentTest < ViewComponent::TestCase
           attribute: :canonical,
           label: 'Canonical',
           resource: @resource,
-          readonly: false,
-          help: 'Name is acceptable to all users?'
+          options: {
+            readonly: false,
+            help: 'Name is acceptable to all users?'
+          }
         )
       end
 
       component.with_field do |c|
-        c.with_attribute_timestamp(attribute: :created_at, label: 'Created At', resource: @resource, readonly: false)
+        c.with_attribute_timestamp(attribute: :created_at, label: 'Created At', resource: @resource,
+                                   options: { readonly: false }
+        )
       end
     end
 
-    assert_selector('#item_sell_pack_name--label', text: 'Name')
-    assert_selector('input#item_sell_pack_name[value="carton"]')
-    assert_selector('#item_sell_pack_canonical--label', text: 'Canonical')
-    assert_selector('input#item_sell_pack_canonical[value="true"]', visible: false)
-    assert_selector('#item_sell_pack_created_at--label', text: 'Created At')
-    assert_selector('p#item_sell_pack_created_at')
+    assert_selector('#item_sell_pack_1_name--label', text: 'Name')
+    assert_selector('input#item_sell_pack_1_name[value="carton"]')
+    assert_selector('#item_sell_pack_1_canonical--label', text: 'Canonical')
+    assert_selector('input#item_sell_pack_1_canonical[value="true"]', visible: false)
+    assert_selector('#item_sell_pack_1_created_at--label', text: 'Created At')
+    assert_selector('p#item_sell_pack_1_created_at')
   end
 end

@@ -24,7 +24,11 @@ module Actions
 
     respond_to do |format|
       if @resource.save
-        format.html { redirect_to(resource_url(@resource), notice: "#{resource_human_name} was successfully created.") }
+        format.html do
+          redirect_to(resource_url(@resource, { format: :html }),
+                      notice: "#{resource_human_name} was successfully created."
+                     )
+        end
         format.json { render(:show, status: :created, location: @resource) }
       else
         format.html { render(:new, status: :unprocessable_entity) }

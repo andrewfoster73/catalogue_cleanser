@@ -28,7 +28,7 @@ class AbbreviationsControllerTest < ActionDispatch::IntegrationTest
            }
     end
 
-    assert_redirected_to abbreviation_url(Abbreviation.last)
+    assert_redirected_to abbreviation_url(Abbreviation.last, format: :html)
   end
 
   test 'should show abbreviation' do

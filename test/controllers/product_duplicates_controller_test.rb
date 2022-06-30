@@ -33,7 +33,7 @@ class ProductDuplicatesControllerTest < ActionDispatch::IntegrationTest
            }
     end
 
-    assert_redirected_to product_duplicate_url(ProductDuplicate.last)
+    assert_redirected_to product_duplicate_url(ProductDuplicate.last, format: :html)
   end
 
   test 'should show product_duplicate' do

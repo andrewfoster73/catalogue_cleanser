@@ -22,7 +22,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       post comments_url, params: { comment: { message: @comment.message } }
     end
 
-    assert_redirected_to comment_url(Comment.last)
+    assert_redirected_to comment_url(Comment.last, format: :html)
   end
 
   test 'should show comment' do
