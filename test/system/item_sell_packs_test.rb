@@ -57,11 +57,11 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     visit item_sell_packs_url
     click_on 'New'
 
-    find('#item_sell_pack_new_canonical--toggle').click()
-    fill_in 'Name', with: "a new pack"
+    find('#item_sell_pack_new_canonical--toggle').click
+    fill_in 'Name', with: 'a new pack'
     click_on 'Save'
 
-    assert_selector("a.editable-element", text: "a new pack")
+    assert_selector('a.editable-element', text: 'a new pack')
   end
 
   test 'should update Item sell pack' do
