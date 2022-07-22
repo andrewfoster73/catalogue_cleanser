@@ -21,7 +21,7 @@ class ItemSellPacksController < ResourcesController
       if @resource.update(resource_params)
         format.html do
           redirect_to(resource_url(@resource, { format: :html }),
-                      notice: "#{resource_human_name} was successfully updated."
+                      success: "#{resource_human_name} '#{@resource}' was successfully updated."
                      )
         end
         format.json { render(:show, status: :ok, location: @resource) }
@@ -33,7 +33,10 @@ class ItemSellPacksController < ResourcesController
           )
         end
       else
-        format.html { render(:edit, status: :unprocessable_entity) }
+        format.html do
+          flash.now[:error] = "#{resource_human_name} could not be updated."
+          render(:edit, status: :unprocessable_entity)
+        end
         format.json { render(json: @resource.errors, status: :unprocessable_entity) }
         format.turbo_stream {}
       end
@@ -44,9 +47,11 @@ class ItemSellPacksController < ResourcesController
     @resource.destroy!
 
     respond_to do |format|
-      format.html { redirect_to(collection_url, notice: "#{resource_human_name} was successfully destroyed.") }
+      format.html do
+        redirect_to(collection_url, success: "#{resource_human_name} '#{@resource}' was successfully deleted.")
+      end
       format.json do
-        flash[:notice] = "#{resource_human_name} was successfully destroyed."
+        flash[:success] = "#{resource_human_name} '#{@resource}' was successfully deleted."
         head(:no_content)
       end
       format.turbo_stream {}

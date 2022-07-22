@@ -19,7 +19,7 @@ class CommentsTest < ApplicationSystemTestCase
     fill_in 'Message', with: @comment.message
     click_on 'Create Comment'
 
-    assert_text 'Comment was successfully created'
+    assert_text "Comment '#{@comment}' was successfully created"
     click_on 'Back'
   end
 
@@ -30,7 +30,7 @@ class CommentsTest < ApplicationSystemTestCase
     fill_in 'Message', with: @comment.message
     click_on 'Update Comment'
 
-    assert_text 'Comment was successfully updated'
+    assert_text "Comment '#{@comment}' was successfully updated"
     click_on 'Back'
   end
 
@@ -38,6 +38,6 @@ class CommentsTest < ApplicationSystemTestCase
     visit comment_url(@comment)
     click_on 'Destroy this comment', match: :first
 
-    assert_text 'Comment was successfully destroyed'
+    assert_text "Comment '#{@comment}' was successfully deleted"
   end
 end

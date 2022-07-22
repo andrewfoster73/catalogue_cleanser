@@ -9,6 +9,10 @@ class Abbreviation < ApplicationRecord
 
   validates :letters, presence: true, uniqueness: true
 
+  def to_s
+    letters
+  end
+
   protected
 
   def clean

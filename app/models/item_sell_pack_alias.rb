@@ -9,6 +9,10 @@ class ItemSellPackAlias < ApplicationRecord
 
   validates :alias, presence: true, uniqueness: true
 
+  def to_s
+    self.alias
+  end
+
   protected
 
   def clean

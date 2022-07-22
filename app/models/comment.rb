@@ -6,4 +6,8 @@ class Comment < ApplicationRecord
   audited
 
   validates :message, presence: true
+
+  def to_s
+    message
+  end
 end

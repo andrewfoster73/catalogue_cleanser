@@ -48,7 +48,7 @@ class ProductsTest < ApplicationSystemTestCase
     fill_in 'Variance', with: @product.variance
     click_on 'Create Product'
 
-    assert_text 'Product was successfully created'
+    assert_text "Product '' was successfully created"
     click_on 'Back'
   end
 
@@ -88,7 +88,7 @@ class ProductsTest < ApplicationSystemTestCase
     fill_in 'Variance', with: @product.variance
     click_on 'Update Product'
 
-    assert_text 'Product was successfully updated'
+    assert_text "Product '#{@product}' was successfully updated"
     click_on 'Back'
   end
 
@@ -96,6 +96,6 @@ class ProductsTest < ApplicationSystemTestCase
     visit product_url(@product)
     click_on 'Destroy this product', match: :first
 
-    assert_text 'Product was successfully destroyed'
+    assert_text "Product '#{@product}' was successfully deleted"
   end
 end

@@ -13,6 +13,10 @@ class ItemSellPack < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :canonical, inclusion: [true, false]
 
+  def to_s
+    name
+  end
+
   protected
 
   def clean

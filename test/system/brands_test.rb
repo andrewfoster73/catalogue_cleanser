@@ -21,7 +21,7 @@ class BrandsTest < ApplicationSystemTestCase
     fill_in 'Name', with: "a #{@brand.name}"
     click_on 'Create Brand'
 
-    assert_text 'Brand was successfully created'
+    assert_text "Brand 'a #{@brand}' was successfully created"
     click_on 'Back'
   end
 
@@ -34,7 +34,7 @@ class BrandsTest < ApplicationSystemTestCase
     fill_in 'Name', with: @brand.name
     click_on 'Update Brand'
 
-    assert_text 'Brand was successfully updated'
+    assert_text "Brand '#{@brand}' was successfully updated"
     click_on 'Back'
   end
 
@@ -42,6 +42,6 @@ class BrandsTest < ApplicationSystemTestCase
     visit brand_url(@brand)
     click_on 'Destroy this brand', match: :first
 
-    assert_text 'Brand was successfully destroyed'
+    assert_text "Brand '#{@brand}' was successfully deleted"
   end
 end

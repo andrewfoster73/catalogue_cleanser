@@ -20,7 +20,7 @@ class AbbreviationsTest < ApplicationSystemTestCase
     fill_in 'Letters', with: "some #{@abbreviation.letters}"
     click_on 'Create Abbreviation'
 
-    assert_text 'Abbreviation was successfully created'
+    assert_text "Abbreviation 'some #{@abbreviation}' was successfully created"
     click_on 'Back'
   end
 
@@ -32,7 +32,7 @@ class AbbreviationsTest < ApplicationSystemTestCase
     fill_in 'Letters', with: @abbreviation.letters
     click_on 'Update Abbreviation'
 
-    assert_text 'Abbreviation was successfully updated'
+    assert_text "Abbreviation '#{@abbreviation}' was successfully updated"
     click_on 'Back'
   end
 
@@ -40,6 +40,6 @@ class AbbreviationsTest < ApplicationSystemTestCase
     visit abbreviation_url(@abbreviation)
     click_on 'Destroy this abbreviation', match: :first
 
-    assert_text 'Abbreviation was successfully destroyed'
+    assert_text "Abbreviation '#{@abbreviation}' was successfully deleted"
   end
 end

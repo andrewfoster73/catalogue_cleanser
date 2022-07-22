@@ -16,4 +16,8 @@ class Product < ApplicationRecord
             numericality: { greater_than_or_equal_to: 0, only_integer: true }, allow_nil: true
   validates :duplication_certainty, :canonical_certainty, :average_price, :maximum_price, :minimum_price,
             :standard_deviation, :variance, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+
+  def to_s
+    ''
+  end
 end

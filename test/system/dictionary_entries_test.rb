@@ -20,7 +20,7 @@ class DictionaryEntriesTest < ApplicationSystemTestCase
     fill_in 'Phrase', with: "a #{@dictionary_entry.phrase}"
     click_on 'Create Dictionary entry'
 
-    assert_text 'Dictionary entry was successfully created'
+    assert_text "Dictionary entry 'a #{@dictionary_entry}' was successfully created"
     click_on 'Back'
   end
 
@@ -32,7 +32,7 @@ class DictionaryEntriesTest < ApplicationSystemTestCase
     fill_in 'Phrase', with: @dictionary_entry.phrase
     click_on 'Update Dictionary entry'
 
-    assert_text 'Dictionary entry was successfully updated'
+    assert_text "Dictionary entry '#{@dictionary_entry}' was successfully updated"
     click_on 'Back'
   end
 
@@ -40,6 +40,6 @@ class DictionaryEntriesTest < ApplicationSystemTestCase
     visit dictionary_entry_url(@dictionary_entry)
     click_on 'Destroy this dictionary entry', match: :first
 
-    assert_text 'Dictionary entry was successfully destroyed'
+    assert_text "Dictionary entry '#{@dictionary_entry}' was successfully deleted"
   end
 end

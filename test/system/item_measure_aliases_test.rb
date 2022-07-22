@@ -21,7 +21,7 @@ class ItemMeasureAliasesTest < ApplicationSystemTestCase
     fill_in 'Item measure', with: @item_measure_alias.item_measure_id
     click_on 'Create Item measure alias'
 
-    assert_text 'Item measure alias was successfully created'
+    assert_text "Item measure alias 'an #{@item_measure_alias}' was successfully created"
     click_on 'Back'
   end
 
@@ -34,7 +34,7 @@ class ItemMeasureAliasesTest < ApplicationSystemTestCase
     fill_in 'Item measure', with: @item_measure_alias.item_measure_id
     click_on 'Update Item measure alias'
 
-    assert_text 'Item measure alias was successfully updated'
+    assert_text "Item measure alias '#{@item_measure_alias}' was successfully updated"
     click_on 'Back'
   end
 
@@ -42,6 +42,6 @@ class ItemMeasureAliasesTest < ApplicationSystemTestCase
     visit item_measure_alias_url(@item_measure_alias)
     click_on 'Destroy this item measure alias', match: :first
 
-    assert_text 'Item measure alias was successfully destroyed'
+    assert_text "Item measure alias '#{@item_measure_alias}' was successfully deleted"
   end
 end
