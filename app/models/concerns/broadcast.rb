@@ -3,7 +3,6 @@
 module Broadcast
   extend ActiveSupport::Concern
 
-  # rubocop:disable Metrics/BlockLength
   included do
     after_create_commit lambda {
       broadcast_prepend_later_to(
@@ -29,16 +28,7 @@ module Broadcast
         },
         target: 'notifications'
       )
-      broadcast_append_to(
-        "notification_#{resource_name}_#{id}",
-        partial: 'notification',
-        locals: {
-          name: "notification_#{resource_name}_#{id}",
-          type: 'warning',
-          message: 'Another user deleted this record!'
-        },
-        target: 'notifications'
-      )
+      broadcast_notification(type: 'warning', message: 'Another user has deleted this record!')
     }
     after_update_commit lambda {
       broadcast_replace_later_to(
@@ -59,17 +49,20 @@ module Broadcast
         locals: { action: :edit, resource: self, readonly: false, token: form_authenticity_token },
         target: "turbo_stream_edit_#{resource_name}_#{id}"
       )
-      broadcast_append_to(
-        "notification_#{resource_name}_#{id}",
-        partial: 'notification',
-        locals: {
-          name: "notification_#{resource_name}_#{id}",
-          type: 'warning',
-          message: 'Another user has updated this record.'
-        },
-        target: 'notifications'
-      )
+      broadcast_notification(type: 'warning', message: 'Another user has updated this record.')
     }
   end
-  # rubocop:enable Metrics/BlockLength
+
+  def broadcast_notification(type:, message:)
+    broadcast_append_to(
+      "notification_#{resource_name}_#{id}",
+      partial: 'notification',
+      locals: {
+        name: "notification_#{resource_name}_#{id}",
+        type: type,
+        message: message
+      },
+      target: 'notifications'
+    )
+  end
 end
