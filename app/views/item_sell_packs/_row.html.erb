@@ -1,4 +1,11 @@
-<tr class="collection-rows__row" id="<%= dom_id(resource, "turbo_stream") %>" data-controller="resource-form--component editor">
+<tr
+  class="collection-rows__row"
+  id="<%= dom_id(resource, "turbo_stream") %>"
+  data-controller="resource-form--component editor"
+  data-transition-enter="transition ease-in-out duration-500"
+  data-transition-enter-start="bg-transparent translate-y-6"
+  data-transition-enter-end="bg-sky-200 translate-y-0"
+>
   <td id="<%= dom_id(resource, :name_cell) %>" class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
     <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :name) %>
   </td>

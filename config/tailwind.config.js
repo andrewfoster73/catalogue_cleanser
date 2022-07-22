@@ -7,6 +7,11 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}',
     './app/components/**/*.{erb,html}',
   ],
+  safelist: [
+    {
+      pattern: /text-(amber|emerald|sky|rose)-(100|200|300|400|500|600|700|800|900)/,
+    }
+  ],
   theme: {
     extend: {
       fontFamily: {

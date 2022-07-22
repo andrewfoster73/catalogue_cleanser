@@ -1,7 +1,7 @@
 <%= turbo_stream_from "item_sell_packs" %>
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% flash.each do |type, message| %>
+    <%= render Notification::Component.new(name: :index, type: type, message: message) %>
   <% end %>
 
   <%= render PageHeading::Component.new(title: 'Item Sell Packs', description: 'These are the names for how a supplier sells a complete package') do |c| %>
@@ -26,7 +26,12 @@
   <%= render CollectionFilter::Component.new(filter: @q) %>
 
   <%= turbo_frame_tag "page_handler" %>
-  <div id="collection" class=min-w-full">
+  <div
+    id="collection"
+    class=min-w-full"
+    data-controller="editor"
+    data-action="turbo:before-stream-render@document->editor#animate"
+  >
     <%= render Collection::Component.new do |collection_component| %>
       <%= collection_component.with_header(columns: [
           {
@@ -88,5 +93,6 @@
                 }
             }) %>
   <% end %>
+  <div id="notifications"></div>
 </div>
 

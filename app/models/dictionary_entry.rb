@@ -10,6 +10,10 @@ class DictionaryEntry < ApplicationRecord
 
   validates :phrase, presence: true, uniqueness: true
 
+  def to_s
+    phrase
+  end
+
   protected
 
   def clean

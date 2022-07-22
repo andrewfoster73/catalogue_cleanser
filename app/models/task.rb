@@ -26,6 +26,10 @@ class Task < ApplicationRecord
     raise(e)
   end
 
+  def to_s
+    description
+  end
+
   protected
 
   # Action logic should be implemented here

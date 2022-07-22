@@ -21,7 +21,7 @@ class ItemPackAliasesTest < ApplicationSystemTestCase
     fill_in 'Item pack', with: @item_pack_alias.item_pack_id
     click_on 'Create Item pack alias'
 
-    assert_text 'Item pack alias was successfully created'
+    assert_text "Item pack alias 'an #{@item_pack_alias}' was successfully created"
     click_on 'Back'
   end
 
@@ -34,7 +34,7 @@ class ItemPackAliasesTest < ApplicationSystemTestCase
     fill_in 'Item pack', with: @item_pack_alias.item_pack_id
     click_on 'Update Item pack alias'
 
-    assert_text 'Item pack alias was successfully updated'
+    assert_text "Item pack alias '#{@item_pack_alias}' was successfully updated"
     click_on 'Back'
   end
 
@@ -42,6 +42,6 @@ class ItemPackAliasesTest < ApplicationSystemTestCase
     visit item_pack_alias_url(@item_pack_alias)
     click_on 'Destroy this item pack alias', match: :first
 
-    assert_text 'Item pack alias was successfully destroyed'
+    assert_text "Item pack alias '#{@item_pack_alias}' was successfully deleted"
   end
 end

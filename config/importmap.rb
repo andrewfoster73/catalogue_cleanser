@@ -13,3 +13,4 @@ pin '@hotwired/stimulus', to: 'https://ga.jspm.io/npm:@hotwired/stimulus@3.0.1/d
 pin 'hotkeys-js', to: 'https://ga.jspm.io/npm:hotkeys-js@3.9.4/dist/hotkeys.esm.js'
 pin 'cash-dom', to: 'https://ga.jspm.io/npm:cash-dom@8.1.1/dist/cash.js'
 pin '@rails/request.js', to: 'https://ga.jspm.io/npm:@rails/request.js@0.0.6/src/index.js'
+pin 'el-transition', to: 'https://ga.jspm.io/npm:el-transition@0.0.7/index.js'

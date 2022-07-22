@@ -71,7 +71,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     fill_in 'Name', with: @item_sell_pack.name
     click_on 'Update'
 
-    assert_text 'Item sell pack was successfully updated'
+    assert_text "Item sell pack '#{@item_sell_pack}' was successfully updated"
     click_on 'Back'
   end
 
@@ -80,7 +80,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     find("#delete_item_sell_pack_#{@item_sell_pack.id}").click
     find('#confirm_delete').click
 
-    assert_text 'Item sell pack was successfully destroyed'
+    assert_text "Item sell pack '#{@item_sell_pack}' was successfully deleted"
   end
 
   test 'should destroy Item sell pack inline' do

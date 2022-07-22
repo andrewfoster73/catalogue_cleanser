@@ -21,7 +21,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     fill_in 'Item sell pack', with: @item_sell_pack_alias.item_sell_pack_id
     click_on 'Create Item sell pack alias'
 
-    assert_text 'Item sell pack alias was successfully created'
+    assert_text "Item sell pack alias 'an #{@item_sell_pack_alias}' was successfully created"
     click_on 'Back'
   end
 
@@ -34,7 +34,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     fill_in 'Item sell pack', with: @item_sell_pack_alias.item_sell_pack_id
     click_on 'Update Item sell pack alias'
 
-    assert_text 'Item sell pack alias was successfully updated'
+    assert_text "Item sell pack alias '#{@item_sell_pack_alias}' was successfully updated"
     click_on 'Back'
   end
 
@@ -42,6 +42,6 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     visit item_sell_pack_alias_url(@item_sell_pack_alias)
     click_on 'Destroy this item sell pack alias', match: :first
 
-    assert_text 'Item sell pack alias was successfully destroyed'
+    assert_text "Item sell pack alias '#{@item_sell_pack_alias}' was successfully deleted"
   end
 end

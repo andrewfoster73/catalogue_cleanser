@@ -22,7 +22,7 @@ class BrandAliasesTest < ApplicationSystemTestCase
     fill_in 'Count', with: @brand_alias.count
     click_on 'Create Brand alias'
 
-    assert_text 'Brand alias was successfully created'
+    assert_text "Brand alias 'an #{@brand_alias}' was successfully created"
     click_on 'Back'
   end
 
@@ -36,7 +36,7 @@ class BrandAliasesTest < ApplicationSystemTestCase
     fill_in 'Count', with: @brand_alias.count
     click_on 'Update Brand alias'
 
-    assert_text 'Brand alias was successfully updated'
+    assert_text "Brand alias '#{@brand_alias}' was successfully updated"
     click_on 'Back'
   end
 
@@ -44,6 +44,6 @@ class BrandAliasesTest < ApplicationSystemTestCase
     visit brand_alias_url(@brand_alias)
     click_on 'Destroy this brand alias', match: :first
 
-    assert_text 'Brand alias was successfully destroyed'
+    assert_text "Brand alias '#{@brand_alias}' was successfully deleted"
   end
 end

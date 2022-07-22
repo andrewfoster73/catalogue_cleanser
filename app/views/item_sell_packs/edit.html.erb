@@ -1,6 +1,7 @@
 <%= turbo_stream_from "item_sell_pack" %>
-<% if notice.present? %>
-  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<%= turbo_stream_from "notification_item_sell_pack_#{@resource.id}" %>
+<% flash.each do |type, message| %>
+  <%= render Notification::Component.new(name: :edit, type: type, message: message) %>
 <% end %>
 <%= render ResourceActions::Component.new do |component| %>
   <% component.with_button(
@@ -70,3 +71,4 @@
              }
          }) %>
 <% end %>
+<div id="notifications"></div>

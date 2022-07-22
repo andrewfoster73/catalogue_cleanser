@@ -25,7 +25,7 @@ class ProductDuplicatesTest < ApplicationSystemTestCase
     fill_in 'Similarity score', with: @product_duplicate.similarity_score
     click_on 'Create Product duplicate'
 
-    assert_text 'Product duplicate was successfully created'
+    assert_text "Product duplicate '#{@product_duplicate}' was successfully created"
     click_on 'Back'
   end
 
@@ -42,7 +42,7 @@ class ProductDuplicatesTest < ApplicationSystemTestCase
     fill_in 'Similarity score', with: @product_duplicate.similarity_score
     click_on 'Update Product duplicate'
 
-    assert_text 'Product duplicate was successfully updated'
+    assert_text "Product duplicate '#{@product_duplicate}' was successfully updated"
     click_on 'Back'
   end
 
@@ -50,6 +50,6 @@ class ProductDuplicatesTest < ApplicationSystemTestCase
     visit product_duplicate_url(@product_duplicate)
     click_on 'Destroy this product duplicate', match: :first
 
-    assert_text 'Product duplicate was successfully destroyed'
+    assert_text "Product duplicate '#{@product_duplicate}' was successfully deleted"
   end
 end

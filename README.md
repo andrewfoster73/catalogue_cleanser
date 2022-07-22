@@ -7,6 +7,14 @@
 
 # README
 
+Generating Storybook Stories:
+
+`rails view_component_storybook:write_stories_json`
+
+Running Storybook:
+
+``
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

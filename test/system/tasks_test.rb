@@ -29,7 +29,7 @@ class TasksTest < ApplicationSystemTestCase
     fill_in 'Type', with: @task.type
     click_on 'Create Task'
 
-    assert_text 'Task was successfully created'
+    assert_text "Task '#{@task}' was successfully created"
     click_on 'Back'
   end
 
@@ -50,7 +50,7 @@ class TasksTest < ApplicationSystemTestCase
     fill_in 'Type', with: @task.type
     click_on 'Update Task'
 
-    assert_text 'Task was successfully updated'
+    assert_text "Task '#{@task}' was successfully updated"
     click_on 'Back'
   end
 
@@ -58,6 +58,6 @@ class TasksTest < ApplicationSystemTestCase
     visit task_url(@task)
     click_on 'Destroy this task', match: :first
 
-    assert_text 'Task was successfully destroyed'
+    assert_text "Task '#{@task}' was successfully deleted"
   end
 end

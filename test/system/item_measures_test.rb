@@ -20,7 +20,7 @@ class ItemMeasuresTest < ApplicationSystemTestCase
     fill_in 'Name', with: "a #{@item_measure.name}"
     click_on 'Create Item measure'
 
-    assert_text 'Item measure was successfully created'
+    assert_text "Item measure 'a #{@item_measure}' was successfully created"
     click_on 'Back'
   end
 
@@ -32,7 +32,7 @@ class ItemMeasuresTest < ApplicationSystemTestCase
     fill_in 'Name', with: @item_measure.name
     click_on 'Update Item measure'
 
-    assert_text 'Item measure was successfully updated'
+    assert_text "Item measure '#{@item_measure}' was successfully updated"
     click_on 'Back'
   end
 
@@ -40,6 +40,6 @@ class ItemMeasuresTest < ApplicationSystemTestCase
     visit item_measure_url(@item_measure)
     click_on 'Destroy this item measure', match: :first
 
-    assert_text 'Item measure was successfully destroyed'
+    assert_text "Item measure '#{@item_measure}' was successfully deleted"
   end
 end

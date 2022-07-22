@@ -20,7 +20,7 @@ class ItemPacksTest < ApplicationSystemTestCase
     fill_in 'Name', with: "a #{@item_pack.name}"
     click_on 'Create Item pack'
 
-    assert_text 'Item pack was successfully created'
+    assert_text "Item pack 'a #{@item_pack}' was successfully created"
     click_on 'Back'
   end
 
@@ -32,7 +32,7 @@ class ItemPacksTest < ApplicationSystemTestCase
     fill_in 'Name', with: @item_pack.name
     click_on 'Update Item pack'
 
-    assert_text 'Item pack was successfully updated'
+    assert_text "Item pack '#{@item_pack}' was successfully updated"
     click_on 'Back'
   end
 
@@ -40,6 +40,6 @@ class ItemPacksTest < ApplicationSystemTestCase
     visit item_pack_url(@item_pack)
     click_on 'Destroy this item pack', match: :first
 
-    assert_text 'Item pack was successfully destroyed'
+    assert_text "Item pack '#{@item_pack}' was successfully deleted"
   end
 end
