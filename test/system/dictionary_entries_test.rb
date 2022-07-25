@@ -7,12 +7,19 @@ class DictionaryEntriesTest < ApplicationSystemTestCase
     @dictionary_entry = dictionary_entries(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit dictionary_entries_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit dictionary_entries_url
     assert_selector 'h1', text: 'Dictionary entries'
   end
 
   test 'should create dictionary entry' do
+    login
     visit dictionary_entries_url
     click_on 'New dictionary entry'
 
@@ -25,6 +32,7 @@ class DictionaryEntriesTest < ApplicationSystemTestCase
   end
 
   test 'should update Dictionary entry' do
+    login
     visit dictionary_entry_url(@dictionary_entry)
     click_on 'Edit this dictionary entry', match: :first
 
@@ -37,6 +45,7 @@ class DictionaryEntriesTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Dictionary entry' do
+    login
     visit dictionary_entry_url(@dictionary_entry)
     click_on 'Destroy this dictionary entry', match: :first
 

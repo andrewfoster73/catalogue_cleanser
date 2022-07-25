@@ -7,17 +7,25 @@ class ItemSellPacksControllerTest < ActionDispatch::IntegrationTest
     @item_sell_pack = item_sell_packs(:carton)
   end
 
+  test 'should redirect if not authenticated' do
+    get item_sell_packs_url
+    assert_redirected_to :root
+  end
+
   test 'should get index' do
+    authenticate
     get item_sell_packs_url
     assert_response :success
   end
 
   test 'should get new' do
+    authenticate
     get new_item_sell_pack_url
     assert_response :success
   end
 
   test 'should create item_sell_pack' do
+    authenticate
     assert_difference('ItemSellPack.count') do
       post item_sell_packs_url,
            params: { item_sell_pack: { canonical: @item_sell_pack.canonical, name: "a #{@item_sell_pack.name}" } }
@@ -27,22 +35,26 @@ class ItemSellPacksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show item_sell_pack' do
+    authenticate
     get item_sell_pack_url(@item_sell_pack)
     assert_response :success
   end
 
   test 'should get edit' do
+    authenticate
     get edit_item_sell_pack_url(@item_sell_pack)
     assert_response :success
   end
 
   test 'should update item_sell_pack' do
+    authenticate
     patch item_sell_pack_url(@item_sell_pack),
           params: { item_sell_pack: { canonical: @item_sell_pack.canonical, name: @item_sell_pack.name } }
     assert_redirected_to item_sell_pack_url(@item_sell_pack, format: :html)
   end
 
   test 'should destroy item_sell_pack' do
+    authenticate
     assert_difference('ItemSellPack.count', -1) do
       delete item_sell_pack_url(@item_sell_pack)
     end

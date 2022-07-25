@@ -7,12 +7,19 @@ class ItemMeasuresTest < ApplicationSystemTestCase
     @item_measure = item_measures(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit item_measures_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit item_measures_url
     assert_selector 'h1', text: 'Item measures'
   end
 
   test 'should create item measure' do
+    login
     visit item_measures_url
     click_on 'New item measure'
 
@@ -25,6 +32,7 @@ class ItemMeasuresTest < ApplicationSystemTestCase
   end
 
   test 'should update Item measure' do
+    login
     visit item_measure_url(@item_measure)
     click_on 'Edit this item measure', match: :first
 
@@ -37,6 +45,7 @@ class ItemMeasuresTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Item measure' do
+    login
     visit item_measure_url(@item_measure)
     click_on 'Destroy this item measure', match: :first
 

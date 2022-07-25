@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # Authentication
+  get '/auth/:provider/callback' => 'sessions#omniauth'
+  delete '/sessions/logout' => 'sessions#destroy'
+
+  # Dashboard
+  get '/dashboard' => 'dashboard#index'
+
   resources :tasks
   resources :products
   resources :product_duplicates
@@ -15,8 +22,7 @@ Rails.application.routes.draw do
   resources :item_measures
   resources :item_sell_pack_aliases
   resources :item_sell_packs
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
+  root 'landing#root'
 end

@@ -3,6 +3,8 @@
 class Task < ApplicationRecord
   audited
 
+  belongs_to :approved_by, optional: true
+
   enum status: {
     pending: 'pending',
     processing: 'processing',

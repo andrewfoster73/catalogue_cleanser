@@ -2,7 +2,6 @@
 
 module ResourceForm
   class FieldComponent < ViewComponent::Base
-    include ViewComponent::PolymorphicSlots
     include IconsHelper
 
     renders_one :attribute, types: {

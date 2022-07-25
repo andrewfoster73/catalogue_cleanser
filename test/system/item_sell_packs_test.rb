@@ -7,12 +7,19 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     @item_sell_pack = item_sell_packs(:carton)
   end
 
+  test 'redirects if not logged in' do
+    visit item_sell_packs_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit item_sell_packs_url
     assert_selector 'h1', text: 'Item Sell Packs'
   end
 
   test 'should automatically page' do
+    login
     visit item_sell_packs_url
     assert_selector("#name_cell_item_sell_pack_#{item_sell_packs(:carton).id}", text: 'carton')
     assert_selector("#name_cell_item_sell_pack_#{item_sell_packs(:each).id}", text: 'each')
@@ -20,6 +27,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   end
 
   test 'inline editing and cancelling' do
+    login
     visit item_sell_packs_url
 
     # Click to edit
@@ -37,6 +45,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   end
 
   test 'broadcasting updates to multiple tabs' do
+    login
     visit item_sell_packs_url
     new_window = open_new_window
     within_window new_window do
@@ -54,6 +63,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   end
 
   test 'should create item sell pack' do
+    login
     visit item_sell_packs_url
     click_on 'New'
 
@@ -65,6 +75,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   end
 
   test 'should update Item sell pack' do
+    login
     visit item_sell_pack_url(@item_sell_pack)
     click_on 'Edit', match: :first
 
@@ -76,6 +87,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Item sell pack' do
+    login
     visit edit_item_sell_pack_url(@item_sell_pack)
     find("#delete_item_sell_pack_#{@item_sell_pack.id}").click
     find('#confirm_delete').click
@@ -84,6 +96,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Item sell pack inline' do
+    login
     visit item_sell_packs_url
 
     assert_selector("#turbo_stream_item_sell_pack_#{@item_sell_pack.id}")
@@ -95,6 +108,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   end
 
   test 'should view Item sell pack' do
+    login
     visit item_sell_packs_url
     find("#view_item_sell_pack_#{@item_sell_pack.id}").click
     assert_current_path(item_sell_pack_path(@item_sell_pack))

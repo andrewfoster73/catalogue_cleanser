@@ -7,12 +7,19 @@ class ItemPackAliasesTest < ApplicationSystemTestCase
     @item_pack_alias = item_pack_aliases(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit item_pack_aliases_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit item_pack_aliases_url
     assert_selector 'h1', text: 'Item pack aliases'
   end
 
   test 'should create item pack alias' do
+    login
     visit item_pack_aliases_url
     click_on 'New item pack alias'
 
@@ -26,6 +33,7 @@ class ItemPackAliasesTest < ApplicationSystemTestCase
   end
 
   test 'should update Item pack alias' do
+    login
     visit item_pack_alias_url(@item_pack_alias)
     click_on 'Edit this item pack alias', match: :first
 
@@ -39,6 +47,7 @@ class ItemPackAliasesTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Item pack alias' do
+    login
     visit item_pack_alias_url(@item_pack_alias)
     click_on 'Destroy this item pack alias', match: :first
 

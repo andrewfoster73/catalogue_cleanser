@@ -7,12 +7,19 @@ class ItemMeasureAliasesTest < ApplicationSystemTestCase
     @item_measure_alias = item_measure_aliases(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit item_measure_aliases_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit item_measure_aliases_url
     assert_selector 'h1', text: 'Item measure aliases'
   end
 
   test 'should create item measure alias' do
+    login
     visit item_measure_aliases_url
     click_on 'New item measure alias'
 
@@ -26,6 +33,7 @@ class ItemMeasureAliasesTest < ApplicationSystemTestCase
   end
 
   test 'should update Item measure alias' do
+    login
     visit item_measure_alias_url(@item_measure_alias)
     click_on 'Edit this item measure alias', match: :first
 
@@ -39,6 +47,7 @@ class ItemMeasureAliasesTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Item measure alias' do
+    login
     visit item_measure_alias_url(@item_measure_alias)
     click_on 'Destroy this item measure alias', match: :first
 

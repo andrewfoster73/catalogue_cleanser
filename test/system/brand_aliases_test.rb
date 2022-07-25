@@ -7,12 +7,19 @@ class BrandAliasesTest < ApplicationSystemTestCase
     @brand_alias = brand_aliases(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit brand_aliases_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit brand_aliases_url
     assert_selector 'h1', text: 'Brand aliases'
   end
 
   test 'should create brand alias' do
+    login
     visit brand_aliases_url
     click_on 'New brand alias'
 
@@ -27,6 +34,7 @@ class BrandAliasesTest < ApplicationSystemTestCase
   end
 
   test 'should update Brand alias' do
+    login
     visit brand_alias_url(@brand_alias)
     click_on 'Edit this brand alias', match: :first
 
@@ -41,6 +49,7 @@ class BrandAliasesTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Brand alias' do
+    login
     visit brand_alias_url(@brand_alias)
     click_on 'Destroy this brand alias', match: :first
 

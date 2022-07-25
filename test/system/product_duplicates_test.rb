@@ -7,12 +7,19 @@ class ProductDuplicatesTest < ApplicationSystemTestCase
     @product_duplicate = product_duplicates(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit product_duplicates_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit product_duplicates_url
     assert_selector 'h1', text: 'Product duplicates'
   end
 
   test 'should create product duplicate' do
+    login
     visit product_duplicates_url
     click_on 'New product duplicate'
 
@@ -30,6 +37,7 @@ class ProductDuplicatesTest < ApplicationSystemTestCase
   end
 
   test 'should update Product duplicate' do
+    login
     visit product_duplicate_url(@product_duplicate)
     click_on 'Edit this product duplicate', match: :first
 
@@ -47,6 +55,7 @@ class ProductDuplicatesTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Product duplicate' do
+    login
     visit product_duplicate_url(@product_duplicate)
     click_on 'Destroy this product duplicate', match: :first
 

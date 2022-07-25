@@ -7,12 +7,19 @@ class CommentsTest < ApplicationSystemTestCase
     @comment = comments(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit comments_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit comments_url
     assert_selector 'h1', text: 'Comments'
   end
 
   test 'should create comment' do
+    login
     visit comments_url
     click_on 'New comment'
 
@@ -24,6 +31,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'should update Comment' do
+    login
     visit comment_url(@comment)
     click_on 'Edit this comment', match: :first
 
@@ -35,6 +43,7 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Comment' do
+    login
     visit comment_url(@comment)
     click_on 'Destroy this comment', match: :first
 

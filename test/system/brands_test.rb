@@ -7,12 +7,19 @@ class BrandsTest < ApplicationSystemTestCase
     @brand = brands(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit brands_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit brands_url
     assert_selector 'h1', text: 'Brands'
   end
 
   test 'should create brand' do
+    login
     visit brands_url
     click_on 'New brand'
 
@@ -26,6 +33,7 @@ class BrandsTest < ApplicationSystemTestCase
   end
 
   test 'should update Brand' do
+    login
     visit brand_url(@brand)
     click_on 'Edit this brand', match: :first
 
@@ -39,6 +47,7 @@ class BrandsTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Brand' do
+    login
     visit brand_url(@brand)
     click_on 'Destroy this brand', match: :first
 

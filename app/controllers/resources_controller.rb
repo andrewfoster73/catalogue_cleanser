@@ -8,4 +8,5 @@ class ResourcesController < ApplicationController
   include Parameters
   include FilteredSorted
   include Paginated
+  include Authenticated
 end

@@ -7,17 +7,25 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     @product = products(:one)
   end
 
+  test 'should redirect if not authenticated' do
+    get products_url
+    assert_redirected_to :root
+  end
+
   test 'should get index' do
+    authenticate
     get products_url
     assert_response :success
   end
 
   test 'should get new' do
+    authenticate
     get new_product_url
     assert_response :success
   end
 
   test 'should create product' do
+    authenticate
     assert_difference('Product.count') do
       post products_url,
            params: {
@@ -60,16 +68,19 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show product' do
+    authenticate
     get product_url(@product)
     assert_response :success
   end
 
   test 'should get edit' do
+    authenticate
     get edit_product_url(@product)
     assert_response :success
   end
 
   test 'should update product' do
+    authenticate
     patch product_url(@product),
           params: {
             product: {
@@ -109,6 +120,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy product' do
+    authenticate
     assert_difference('Product.count', -1) do
       delete product_url(@product)
     end

@@ -7,12 +7,19 @@ class ProductsTest < ApplicationSystemTestCase
     @product = products(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit products_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit products_url
     assert_selector 'h1', text: 'Products'
   end
 
   test 'should create product' do
+    login
     visit products_url
     click_on 'New product'
 
@@ -53,6 +60,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'should update Product' do
+    login
     visit product_url(@product)
     click_on 'Edit this product', match: :first
 
@@ -93,6 +101,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Product' do
+    login
     visit product_url(@product)
     click_on 'Destroy this product', match: :first
 
