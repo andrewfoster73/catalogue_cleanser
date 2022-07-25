@@ -4,6 +4,7 @@ require 'application_system_test_case'
 
 class NavigationTest < ApplicationSystemTestCase
   test 'expanding and closing the Item Setup menu' do
+    login
     visit products_url
     assert_no_selector(:css, '#item_setup--sub_navigation a')
 
@@ -21,6 +22,7 @@ class NavigationTest < ApplicationSystemTestCase
   end
 
   test 'marking sub menu as active' do
+    login
     visit item_sell_packs_url
     assert_selector(:css, '#item_measures--navigation.text-gray-300')
     assert_selector(:css, '#item_sell_packs--navigation.bg-gray-900.text-white')
@@ -29,6 +31,7 @@ class NavigationTest < ApplicationSystemTestCase
   end
 
   test 'marking sub menu as active when there are query parameters' do
+    login
     visit item_sell_packs_url(q: { name_cont: '' })
     assert_selector(:css, '#item_measures--navigation.text-gray-300')
     assert_selector(:css, '#item_sell_packs--navigation.bg-gray-900.text-white')
@@ -37,6 +40,7 @@ class NavigationTest < ApplicationSystemTestCase
   end
 
   test 'following the Products navigation item' do
+    login
     visit brands_url
     within('#side_bar--navigation') do
       click_on 'Products'
@@ -45,6 +49,7 @@ class NavigationTest < ApplicationSystemTestCase
   end
 
   test 'following the Item Measures navigation item' do
+    login
     visit products_url
     within('#side_bar--navigation') do
       click_on 'Item Setup'
@@ -54,6 +59,7 @@ class NavigationTest < ApplicationSystemTestCase
   end
 
   test 'following the Item Packs navigation item' do
+    login
     visit products_url
     within('#side_bar--navigation') do
       click_on 'Item Setup'
@@ -63,6 +69,7 @@ class NavigationTest < ApplicationSystemTestCase
   end
 
   test 'following the Item Sell Packs navigation item' do
+    login
     visit products_url
     within('#side_bar--navigation') do
       click_on 'Item Setup'
@@ -72,6 +79,7 @@ class NavigationTest < ApplicationSystemTestCase
   end
 
   test 'following the Brands navigation item' do
+    login
     visit products_url
     within('#side_bar--navigation') do
       click_on 'Item Setup'

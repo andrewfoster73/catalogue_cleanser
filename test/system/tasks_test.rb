@@ -7,12 +7,19 @@ class TasksTest < ApplicationSystemTestCase
     @task = tasks(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit tasks_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit tasks_url
     assert_selector 'h1', text: 'Tasks'
   end
 
   test 'should create task' do
+    login
     visit tasks_url
     click_on 'New task'
 
@@ -34,6 +41,7 @@ class TasksTest < ApplicationSystemTestCase
   end
 
   test 'should update Task' do
+    login
     visit task_url(@task)
     click_on 'Edit this task', match: :first
 
@@ -55,6 +63,7 @@ class TasksTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Task' do
+    login
     visit task_url(@task)
     click_on 'Destroy this task', match: :first
 

@@ -7,17 +7,25 @@ class ProductDuplicatesControllerTest < ActionDispatch::IntegrationTest
     @product_duplicate = product_duplicates(:one)
   end
 
+  test 'should redirect if not authenticated' do
+    get product_duplicates_url
+    assert_redirected_to :root
+  end
+
   test 'should get index' do
+    authenticate
     get product_duplicates_url
     assert_response :success
   end
 
   test 'should get new' do
+    authenticate
     get new_product_duplicate_url
     assert_response :success
   end
 
   test 'should create product_duplicate' do
+    authenticate
     assert_difference('ProductDuplicate.count') do
       post product_duplicates_url,
            params: {
@@ -37,16 +45,19 @@ class ProductDuplicatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show product_duplicate' do
+    authenticate
     get product_duplicate_url(@product_duplicate)
     assert_response :success
   end
 
   test 'should get edit' do
+    authenticate
     get edit_product_duplicate_url(@product_duplicate)
     assert_response :success
   end
 
   test 'should update product_duplicate' do
+    authenticate
     patch product_duplicate_url(@product_duplicate),
           params: {
             product_duplicate: {
@@ -63,6 +74,7 @@ class ProductDuplicatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy product_duplicate' do
+    authenticate
     assert_difference('ProductDuplicate.count', -1) do
       delete product_duplicate_url(@product_duplicate)
     end

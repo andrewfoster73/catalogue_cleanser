@@ -7,17 +7,25 @@ class BrandAliasesControllerTest < ActionDispatch::IntegrationTest
     @brand_alias = brand_aliases(:one)
   end
 
+  test 'should redirect if not authenticated' do
+    get brand_aliases_url
+    assert_redirected_to :root
+  end
+
   test 'should get index' do
+    authenticate
     get brand_aliases_url
     assert_response :success
   end
 
   test 'should get new' do
+    authenticate
     get new_brand_alias_url
     assert_response :success
   end
 
   test 'should create brand_alias' do
+    authenticate
     assert_difference('BrandAlias.count') do
       post brand_aliases_url,
            params: {
@@ -34,16 +42,19 @@ class BrandAliasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show brand_alias' do
+    authenticate
     get brand_alias_url(@brand_alias)
     assert_response :success
   end
 
   test 'should get edit' do
+    authenticate
     get edit_brand_alias_url(@brand_alias)
     assert_response :success
   end
 
   test 'should update brand_alias' do
+    authenticate
     patch brand_alias_url(@brand_alias),
           params: {
             brand_alias: {
@@ -57,6 +68,7 @@ class BrandAliasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy brand_alias' do
+    authenticate
     assert_difference('BrandAlias.count', -1) do
       delete brand_alias_url(@brand_alias)
     end

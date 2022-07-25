@@ -7,17 +7,25 @@ class ItemSellPackAliasesControllerTest < ActionDispatch::IntegrationTest
     @item_sell_pack_alias = item_sell_pack_aliases(:ctn)
   end
 
+  test 'should redirect if not authenticated' do
+    get item_sell_pack_aliases_url
+    assert_redirected_to :root
+  end
+
   test 'should get index' do
+    authenticate
     get item_sell_pack_aliases_url
     assert_response :success
   end
 
   test 'should get new' do
+    authenticate
     get new_item_sell_pack_alias_url
     assert_response :success
   end
 
   test 'should create item_sell_pack_alias' do
+    authenticate
     assert_difference('ItemSellPackAlias.count') do
       post item_sell_pack_aliases_url,
            params: {
@@ -33,16 +41,19 @@ class ItemSellPackAliasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show item_sell_pack_alias' do
+    authenticate
     get item_sell_pack_alias_url(@item_sell_pack_alias)
     assert_response :success
   end
 
   test 'should get edit' do
+    authenticate
     get edit_item_sell_pack_alias_url(@item_sell_pack_alias)
     assert_response :success
   end
 
   test 'should update item_sell_pack_alias' do
+    authenticate
     patch item_sell_pack_alias_url(@item_sell_pack_alias),
           params: {
             item_sell_pack_alias: {
@@ -55,6 +66,7 @@ class ItemSellPackAliasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy item_sell_pack_alias' do
+    authenticate
     assert_difference('ItemSellPackAlias.count', -1) do
       delete item_sell_pack_alias_url(@item_sell_pack_alias)
     end

@@ -4,6 +4,7 @@ require 'application_system_test_case'
 
 class SidebarTest < ApplicationSystemTestCase
   test 'logo' do
+    login
     visit products_url
 
     within('#side_bar') do
@@ -12,6 +13,7 @@ class SidebarTest < ApplicationSystemTestCase
   end
 
   test 'navigation' do
+    login
     visit products_url
 
     within('#side_bar') do
@@ -20,6 +22,7 @@ class SidebarTest < ApplicationSystemTestCase
   end
 
   test 'user profile' do
+    login
     visit products_url
 
     within('#side_bar') do

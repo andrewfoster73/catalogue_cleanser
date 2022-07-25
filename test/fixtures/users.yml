@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+saul:
+  first_name: Saul
+  last_name: Goodman
+  email: saul.goodman@example.com
+  uid: 12345
+  provider: google_oauth2

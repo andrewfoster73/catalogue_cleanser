@@ -5,6 +5,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.2'
 
+# Environment variable management
+gem 'dotenv'
+
+# Authentication
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
 # Runtime type checking for Ruby
 gem 'sorbet-runtime'
 

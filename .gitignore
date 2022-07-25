@@ -4,10 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore RubyMine config
+# DotEnv environment file
+.env
+
+# RubyMine config
 /.idea
 
-# Ignore code coverage
+# Code Coverage
 /coverage/*
 
 # Storybook files

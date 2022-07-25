@@ -7,12 +7,19 @@ class AbbreviationsTest < ApplicationSystemTestCase
     @abbreviation = abbreviations(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit abbreviations_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit abbreviations_url
     assert_selector 'h1', text: 'abbreviations'
   end
 
   test 'should create abbreviation' do
+    login
     visit abbreviations_url
     click_on 'New abbreviation'
 
@@ -25,6 +32,7 @@ class AbbreviationsTest < ApplicationSystemTestCase
   end
 
   test 'should update Abbreviation' do
+    login
     visit abbreviation_url(@abbreviation)
     click_on 'Edit this abbreviation', match: :first
 
@@ -37,6 +45,7 @@ class AbbreviationsTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Abbreviation' do
+    login
     visit abbreviation_url(@abbreviation)
     click_on 'Destroy this abbreviation', match: :first
 

@@ -7,17 +7,25 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     @task = tasks(:one)
   end
 
+  test 'should redirect if not authenticated' do
+    get tasks_url
+    assert_redirected_to :root
+  end
+
   test 'should get index' do
+    authenticate
     get tasks_url
     assert_response :success
   end
 
   test 'should get new' do
+    authenticate
     get new_task_url
     assert_response :success
   end
 
   test 'should create task' do
+    authenticate
     assert_difference('Task.count') do
       post tasks_url,
            params: {
@@ -41,16 +49,19 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show task' do
+    authenticate
     get task_url(@task)
     assert_response :success
   end
 
   test 'should get edit' do
+    authenticate
     get edit_task_url(@task)
     assert_response :success
   end
 
   test 'should update task' do
+    authenticate
     patch task_url(@task),
           params: {
             task: {
@@ -71,6 +82,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy task' do
+    authenticate
     assert_difference('Task.count', -1) do
       delete task_url(@task)
     end

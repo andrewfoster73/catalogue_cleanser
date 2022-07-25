@@ -7,12 +7,19 @@ class ItemPacksTest < ApplicationSystemTestCase
     @item_pack = item_packs(:one)
   end
 
+  test 'redirects if not logged in' do
+    visit item_packs_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit item_packs_url
     assert_selector 'h1', text: 'Item packs'
   end
 
   test 'should create item pack' do
+    login
     visit item_packs_url
     click_on 'New item pack'
 
@@ -25,6 +32,7 @@ class ItemPacksTest < ApplicationSystemTestCase
   end
 
   test 'should update Item pack' do
+    login
     visit item_pack_url(@item_pack)
     click_on 'Edit this item pack', match: :first
 
@@ -37,6 +45,7 @@ class ItemPacksTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Item pack' do
+    login
     visit item_pack_url(@item_pack)
     click_on 'Destroy this item pack', match: :first
 

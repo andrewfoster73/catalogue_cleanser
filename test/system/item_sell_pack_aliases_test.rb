@@ -7,12 +7,19 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     @item_sell_pack_alias = item_sell_pack_aliases(:ctn)
   end
 
+  test 'redirects if not logged in' do
+    visit item_sell_pack_aliases_url
+    assert_current_path(root_url)
+  end
+
   test 'visiting the index' do
+    login
     visit item_sell_pack_aliases_url
     assert_selector 'h1', text: 'Item sell pack aliases'
   end
 
   test 'should create item sell pack alias' do
+    login
     visit item_sell_pack_aliases_url
     click_on 'New item sell pack alias'
 
@@ -26,6 +33,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
   end
 
   test 'should update Item sell pack alias' do
+    login
     visit item_sell_pack_alias_url(@item_sell_pack_alias)
     click_on 'Edit this item sell pack alias', match: :first
 
@@ -39,6 +47,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Item sell pack alias' do
+    login
     visit item_sell_pack_alias_url(@item_sell_pack_alias)
     click_on 'Destroy this item sell pack alias', match: :first
 
