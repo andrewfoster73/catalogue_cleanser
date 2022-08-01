@@ -1,5 +1,6 @@
 <%= turbo_stream_from "item_sell_pack" %>
 <%= turbo_stream_from "notification_item_sell_pack_#{@resource.id}" %>
+<%= turbo_stream_from "errors" %>
 <% flash.each do |type, message| %>
   <%= render Notification::Component.new(name: :edit, type: type, message: message) %>
 <% end %>

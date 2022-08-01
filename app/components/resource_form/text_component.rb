@@ -7,6 +7,7 @@ module ResourceForm
         keydown->editor#save
         keydown->editor#cancel
         focus->resource-form--component#selectAll
+        keydown->resource-form--component#change
       ]
     end
   end

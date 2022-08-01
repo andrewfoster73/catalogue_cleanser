@@ -3,5 +3,8 @@
     <%= link_to url, class: "editable-element" do %>
       <%= display %>
     <% end %>
+    <% if error %>
+      <div id="<%= dom_id(resource) %>_<%= attribute %>--server_side_invalid_message" class="text-red-700 font-light"><%= error %></div>
+    <% end %>
   </turbo-frame>
 </div>

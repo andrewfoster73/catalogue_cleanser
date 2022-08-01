@@ -44,10 +44,11 @@ export default class extends Controller {
   }
 
   async save(event) {
+    const fieldId = event.params.fieldId
+
     if (event.key === 'Enter' || event.key === 'Tab') {
       event.preventDefault();
       const resourceUrl = event.params.url
-      const fieldId = event.params.fieldId
       const attribute = event.params.attribute
       const body = {}
 
@@ -55,8 +56,6 @@ export default class extends Controller {
       const response = await patch(resourceUrl, {body: body, responseKind: 'turbo-stream'})
       if (response.ok) {
         this.editNextAttribute(fieldId)
-      } else {
-        // TODO: Show error label?
       }
     }
   }

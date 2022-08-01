@@ -44,6 +44,29 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'pack')
   end
 
+  test 'inline editing validation' do
+    login
+    visit item_sell_packs_url
+
+    # Click to edit
+    click_on 'carton'
+    assert_selector("input#item_sell_pack_#{item_sell_packs(:carton).id}_name")
+
+    # Set to blank
+    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys(:backspace)
+    assert_selector(
+      "#item_sell_pack_#{item_sell_packs(:carton).id}_name--client_side_invalid_message",
+      text: 'A name must be entered'
+    )
+
+    # Use a name that already exists
+    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys('box', :enter)
+    assert_selector(
+      "#item_sell_pack_#{item_sell_packs(:carton).id}_name--server_side_invalid_message",
+      text: 'Name has already been taken'
+    )
+  end
+
   test 'broadcasting updates to multiple tabs' do
     login
     visit item_sell_packs_url
@@ -74,6 +97,20 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     assert_selector('a.editable-element', text: 'a new pack')
   end
 
+  test 'should show validation errors on item sell pack creation' do
+    login
+    visit item_sell_packs_url
+    click_on 'New'
+
+    find('#item_sell_pack_new_canonical--toggle').click
+    fill_in 'Name', with: ''
+    assert_selector('#item_sell_pack_new_name--client_side_invalid_message', text: 'A name must be entered')
+    fill_in 'Name', with: 'carton'
+    click_on 'Save'
+
+    assert_selector('#item_sell_pack_new_name--server_side_invalid_message', text: 'name has already been taken')
+  end
+
   test 'should update Item sell pack' do
     login
     visit item_sell_pack_url(@item_sell_pack)
@@ -84,6 +121,24 @@ class ItemSellPacksTest < ApplicationSystemTestCase
 
     assert_text "Item sell pack '#{@item_sell_pack}' was successfully updated"
     click_on 'Back'
+  end
+
+  test 'should show validation errors on item sell pack update' do
+    login
+    visit item_sell_pack_url(@item_sell_pack)
+    click_on 'Edit', match: :first
+
+    fill_in 'Name', with: ''
+    assert_selector(
+      "#item_sell_pack_#{@item_sell_pack.id}_name--client_side_invalid_message",
+      text: 'A name must be entered'
+    )
+    fill_in 'Name', with: 'box'
+    click_on 'Update'
+    assert_selector(
+      "#item_sell_pack_#{@item_sell_pack.id}_name--server_side_invalid_message",
+      text: 'Name has already been taken'
+    )
   end
 
   test 'should destroy Item sell pack' do

@@ -38,7 +38,17 @@ class ItemSellPacksController < ResourcesController
           render(:edit, status: :unprocessable_entity)
         end
         format.json { render(json: @resource.errors, status: :unprocessable_entity) }
-        format.turbo_stream {}
+        format.turbo_stream do
+          render(
+            partial: 'editable_cell',
+            locals: {
+              attribute: editable_cell_attribute,
+              formatter: editable_cell_formatter,
+              error: @resource.errors.full_messages.join(', ')
+            },
+            status: :ok
+          )
+        end
       end
     end
   end

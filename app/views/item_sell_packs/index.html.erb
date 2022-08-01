@@ -1,5 +1,6 @@
 <%= turbo_stream_from "item_sell_packs" %>
-<div class="w-full">
+<%= turbo_stream_from "errors" %>
+<div class="w-full" data-controller="errors" data-action="resource:error->errors#show">
   <% flash.each do |type, message| %>
     <%= render Notification::Component.new(name: :index, type: type, message: message) %>
   <% end %>
@@ -86,6 +87,7 @@
                 data: {
                     params: [
                         { name: 'resource-url', value: polymorphic_url(@resource_class) },
+                        { name: 'resource-name', value: :item_sell_pack_new },
                         { name: 'resource-form-id', value: dom_id(@resource_class.new, :form) },
                         { name: 'resource-modal-name', value: :item_sell_packs_new }
                     ],

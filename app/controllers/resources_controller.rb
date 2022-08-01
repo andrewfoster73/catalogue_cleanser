@@ -9,4 +9,5 @@ class ResourcesController < ApplicationController
   include FilteredSorted
   include Paginated
   include Authenticated
+  include Errors
 end
