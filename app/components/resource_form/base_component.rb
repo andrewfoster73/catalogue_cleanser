@@ -7,9 +7,11 @@ module ResourceForm
     attr_reader :attribute, :label, :resource, :options
 
     # options:
-    # - help: A message to place near the label to help the user understand the attribute
-    # - readonly: Is this attribute currently editable?
-    # - editable: Is this attribute ever editable?
+    # - help: String, A message to place near the label to help the user understand the attribute
+    # - readonly: Boolean, is this attribute currently editable?
+    # - editable: Boolean, is this attribute ever editable?
+    # - required: Boolean, is this field required to have a value?
+    # - invalid_message: String, if this field is invalid what message to display
 
     def initialize(attribute:, label:, resource:, options: {})
       super
@@ -20,7 +22,7 @@ module ResourceForm
     end
 
     def default_field_options
-      { help: nil, readonly: true, editable: true }
+      { help: nil, readonly: true, editable: true, required: false }
     end
 
     def field_id
@@ -33,6 +35,14 @@ module ResourceForm
 
     def display_only?
       @options[:readonly] || !@options[:editable]
+    end
+
+    def required?
+      @options[:required]
+    end
+
+    def invalid_message
+      @options[:invalid_message]
     end
   end
 end

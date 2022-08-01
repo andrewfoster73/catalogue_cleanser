@@ -2,14 +2,15 @@
 
 module EditableCell
   class Component < ViewComponent::Base
-    attr_reader :url, :resource, :attribute, :formatter
+    attr_reader :url, :resource, :attribute, :formatter, :error
 
-    def initialize(url:, resource:, attribute:, formatter: :string)
+    def initialize(url:, resource:, attribute:, formatter: :string, error: nil)
       super
       @url = url
       @resource = resource
       @attribute = attribute
       @formatter = formatter
+      @error = error
     end
 
     def display

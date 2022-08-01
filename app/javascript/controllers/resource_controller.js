@@ -1,5 +1,5 @@
-import { post, destroy } from "@rails/request.js";
-import { Controller } from "@hotwired/stimulus"
+import {post, destroy} from "@rails/request.js";
+import {Controller} from "@hotwired/stimulus"
 import cash from "cash-dom"
 
 export default class extends Controller {
@@ -16,14 +16,23 @@ export default class extends Controller {
 
   async create(event) {
     const resourceUrl = event.params.url
+    const resourceName = event.params.name
     const formId = event.params.formId
     const modalName = event.params.modalName
     const modal = cash(`#${modalName}_modal`)
+    const form = cash(`#${formId}`)[0]
     const formData = new FormData(document.getElementById(formId));
 
-    const response = await post(resourceUrl, { body: formData, responseKind: 'json' })
-    if (response.ok) {
-      modal.hide()
+    if (form.checkValidity()) {
+      const response = await post(resourceUrl, {body: formData, responseKind: 'json'})
+      if (response.ok) {
+        modal.hide()
+      } else {
+        const me = this
+        response.json.then(function (errors) {
+          me.dispatch('error', {detail: {resourceName: resourceName, errors: errors}})
+        })
+      }
     }
   }
 
@@ -31,7 +40,9 @@ export default class extends Controller {
     const formId = event.params.formId
     const form = cash(`#${formId}`)[0]
 
-    form.requestSubmit()
+    if (form.checkValidity()) {
+      form.requestSubmit()
+    }
   }
 
   confirmDelete(event) {
@@ -51,7 +62,7 @@ export default class extends Controller {
     const modal = cash(`#${modalName}_modal`)
 
     modal.hide()
-    destroy(`${resourceUrl}/${resourceId}`, { responseKind: 'turbo-stream' })
+    destroy(`${resourceUrl}/${resourceId}`, {responseKind: 'turbo-stream'})
   }
 
   async delete(event) {
@@ -61,7 +72,7 @@ export default class extends Controller {
     const modal = cash(`#${modalName}_modal`)
 
     modal.hide()
-    const response = await destroy(`${resourceUrl}/${resourceId}`, { responseKind: 'json' })
+    const response = await destroy(`${resourceUrl}/${resourceId}`, {responseKind: 'json'})
     if (response.ok) {
       window.location = resourceUrl
     }

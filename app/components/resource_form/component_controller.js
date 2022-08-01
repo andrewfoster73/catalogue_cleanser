@@ -18,4 +18,11 @@ export default class extends Controller {
     // UI behaviour that selects all existing text when editing
     event.target.select();
   }
+
+  change(event) {
+    // UI behaviour that removes any existing server side errors if the user makes a change
+    const fieldId = event.params.fieldId
+    const messageTag = cash(`#${fieldId}--server_side_invalid_message`)[0]
+    messageTag.innerHTML = ''
+  }
 }
