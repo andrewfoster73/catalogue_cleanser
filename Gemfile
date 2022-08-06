@@ -5,6 +5,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.2'
 
+# To support the use of Typescript
+gem 'jsbundling-rails', '~> 1.0'
+
 # Environment variable management
 gem 'dotenv'
 

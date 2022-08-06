@@ -1,10 +1,25 @@
 {
   "scripts": {
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "failure:js": "rm -f ./app/assets/builds/application.js && rm -f ./app/assets/builds/application.js.map",
+    "dev": "tsc-watch --noClear -p tsconfig.json --onSuccess \"yarn build\" --onFailure \"yarn failure:js\""
   },
   "devDependencies": {
     "@storybook/addon-controls": "^6.5.9",
-    "@storybook/server": "^6.5.9"
+    "@storybook/server": "^6.5.9",
+    "@tsconfig/recommended": "^1.0.1",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.7.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@hotwired/stimulus": "^3.1.0",
+    "@hotwired/turbo": "^7.1.0",
+    "@hotwired/turbo-rails": "^7.1.3",
+    "@rails/request.js": "^0.0.6",
+    "cash-dom": "^8.1.1",
+    "el-transition": "^0.0.7",
+    "esbuild": "^0.14.51",
+    "stimulus-use": "^0.50.0"
+  }
 }

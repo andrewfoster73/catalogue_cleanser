@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus"
+import {ActionEvent, Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["element", "expander"];
@@ -6,7 +6,12 @@ export default class extends Controller {
     currentPath: String
   }
 
-  elementTargetConnected(target) {
+  declare readonly currentPathValue: string;
+  declare readonly expanderTarget: HTMLElement;
+  declare readonly elementTarget: HTMLAnchorElement;
+  declare readonly elementTargets: HTMLAnchorElement[];
+
+  elementTargetConnected(target: HTMLAnchorElement) {
     // If the path for the target is the same as the current then expand the menu and mark it as active
     if (this.currentPathValue === target.href) {
       this.toggleExpander();
@@ -15,7 +20,7 @@ export default class extends Controller {
     }
   }
 
-  toggle(event) {
+  toggle(event: ActionEvent) {
     event.preventDefault();
     this.toggleExpander();
     this.toggleElementVisibility();
@@ -45,7 +50,7 @@ export default class extends Controller {
     });
   }
 
-  setActive(target) {
+  setActive(target: HTMLAnchorElement) {
     target.classList.remove("text-gray-300", "hover:bg-gray-700", "hover:text-white")
     target.classList.add("bg-gray-900", "text-white")
   }
