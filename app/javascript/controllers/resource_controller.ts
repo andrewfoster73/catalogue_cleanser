@@ -1,27 +1,27 @@
 import {post, destroy} from "@rails/request.js";
-import {Controller} from "@hotwired/stimulus"
+import {ActionEvent, Controller} from "@hotwired/stimulus"
 import cash from "cash-dom"
 
 export default class extends Controller {
-  navigate(event) {
+  navigate(event: ActionEvent) {
     window.location = event.params.url
   }
 
-  new(event) {
+  new(event: ActionEvent) {
     const modalName = event.params.modalName
     const modal = cash(`#${modalName}_modal`)
 
     modal.show()
   }
 
-  async create(event) {
+  async create(event: ActionEvent) {
     const resourceUrl = event.params.url
     const resourceName = event.params.name
     const formId = event.params.formId
     const modalName = event.params.modalName
     const modal = cash(`#${modalName}_modal`)
-    const form = cash(`#${formId}`)[0]
-    const formData = new FormData(document.getElementById(formId));
+    const form: HTMLFormElement = cash(`#${formId}`)[0] as HTMLFormElement
+    const formData: FormData = new FormData(form);
 
     if (form.checkValidity()) {
       const response = await post(resourceUrl, {body: formData, responseKind: 'json'})
@@ -29,23 +29,23 @@ export default class extends Controller {
         modal.hide()
       } else {
         const me = this
-        response.json.then(function (errors) {
+        response.json.then(function (errors: [any]) {
           me.dispatch('error', {detail: {resourceName: resourceName, errors: errors}})
         })
       }
     }
   }
 
-  update(event) {
+  update(event: ActionEvent) {
     const formId = event.params.formId
-    const form = cash(`#${formId}`)[0]
+    const form: HTMLFormElement = cash(`#${formId}`)[0] as HTMLFormElement
 
     if (form.checkValidity()) {
       form.requestSubmit()
     }
   }
 
-  confirmDelete(event) {
+  confirmDelete(event: ActionEvent) {
     const resourceId = event.params.id
     const modalName = event.params.modalName
     const modal = cash(`#${modalName}_modal`)
@@ -55,7 +55,7 @@ export default class extends Controller {
     modal.show()
   }
 
-  inlineDelete(event) {
+  inlineDelete(event: ActionEvent) {
     const resourceId = event.params.id
     const resourceUrl = event.params.url
     const modalName = event.params.modalName
@@ -65,7 +65,7 @@ export default class extends Controller {
     destroy(`${resourceUrl}/${resourceId}`, {responseKind: 'turbo-stream'})
   }
 
-  async delete(event) {
+  async delete(event: ActionEvent) {
     const resourceId = event.params.id
     const resourceUrl = event.params.url
     const modalName = event.params.modalName

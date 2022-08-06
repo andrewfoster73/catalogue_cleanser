@@ -7,6 +7,19 @@
 
 # README
 
+Requirements:
+* Ruby 3.0.2
+* Bundler
+
+Installation:
+* `bundle install`
+
+Configuration:
+* TODO
+
+Database Initialisation:
+* TODO
+
 Generating Storybook Stories:
 
 `rails view_component_storybook:write_stories_json`
@@ -15,25 +28,29 @@ Running Storybook:
 
 `yarn storybook`
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+After adding new Stimulus controllers:
 
-Things you may want to cover:
+`rails stimulus:manifest:update`
 
-* Ruby version
+Building JavaScript Assets:
 
-* System dependencies
+`yarn build`
 
-* Configuration
+Running the test suite:
 
-* Database creation
+`rails test:all`
 
-* Database initialization
+Running the linter:
 
-* How to run the test suite
+`ruboocop`
 
-* Services (job queues, cache servers, search engines, etc.)
+Fixing any linting issues:
 
-* Deployment instructions
+`rubocop -a` or `rubocop -A` (see Rubocop documentation for the difference)
 
-* ...
+Running the application:
+
+`rails dev`
+
+Deploying the application:
+* TODO
