@@ -9,18 +9,31 @@ module Resources
   included do
     before_action :set_resource, only: %i[show edit update destroy]
     before_action :set_collection, only: %i[index]
+    helper_method :collection_path_method
   end
   # rubocop:enable Rails/LexicallyScopedActionFilter
 
   private
 
   def set_collection
-    @collection = resource_class.all
+    @collection = resource_class.all.includes(collection_preloads)
+  end
+
+  def collection_preloads
+    []
+  end
+
+  def collection_path_method
+    @collection_path_method ||= "#{resource_name_plural}_path".to_sym
   end
 
   def set_resource
     @resource = resource_class.find(params[:id])
     @resource.form_authenticity_token = form_authenticity_token
+  end
+
+  def build_resource
+    @resource = resource_class.new(resource_params)
   end
 
   def resource_class
@@ -31,6 +44,11 @@ module Resources
   def resource_name
     # eg ItemSellPack -> item_sell_pack
     @resource_name ||= resource_class.name.underscore.to_sym
+  end
+
+  def resource_name_plural
+    # eg ItemSellPack -> item_sell_packs
+    @resource_name_plural ||= resource_class.name.underscore.pluralize.to_sym
   end
 
   def resource_human_name

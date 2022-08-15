@@ -5,18 +5,11 @@ module Broadcast
 
   included do
     after_create_commit lambda {
-      broadcast_prepend_later_to(
-        resource_name_plural,
-        partial: "#{resource_name_plural}/row",
-        locals: { resource: self },
-        target: 'collection_rows'
-      )
+      broadcast_resource_creation
     }
+
     after_destroy_commit lambda {
-      broadcast_remove_to(
-        resource_name_plural,
-        target: "turbo_stream_#{resource_name}_#{id}"
-      )
+      broadcast_resource_deletion
       # TODO: Do not broadcast to user performing deletion
       broadcast_append_to(
         resource_name_plural,
@@ -30,13 +23,9 @@ module Broadcast
       )
       broadcast_notification(type: 'warning', message: 'Another user has deleted this record!')
     }
+
     after_update_commit lambda {
-      broadcast_replace_later_to(
-        resource_name_plural,
-        partial: "#{resource_name_plural}/row",
-        locals: { resource: self },
-        target: "turbo_stream_#{resource_name}_#{id}"
-      )
+      broadcast_resource_update
       broadcast_replace_later_to(
         resource_name,
         partial: "#{resource_name_plural}/resource",
@@ -53,8 +42,10 @@ module Broadcast
     }
   end
 
+  private
+
   def broadcast_notification(type:, message:)
-    broadcast_append_to(
+    broadcast_append_later_to(
       "notification_#{resource_name}_#{id}",
       partial: 'notification',
       locals: {
@@ -64,5 +55,34 @@ module Broadcast
       },
       target: 'notifications'
     )
+  end
+
+  def broadcast_resource_creation
+    broadcast_prepend_later_to(
+      broadcast_collection_channel,
+      partial: "#{resource_name_plural}/row",
+      locals: { resource: self },
+      target: 'collection_rows'
+    )
+  end
+
+  def broadcast_resource_deletion
+    broadcast_remove_to(
+      broadcast_collection_channel,
+      target: "turbo_stream_#{resource_name}_#{id}"
+    )
+  end
+
+  def broadcast_resource_update
+    broadcast_replace_later_to(
+      broadcast_collection_channel,
+      partial: "#{resource_name_plural}/row",
+      locals: { resource: self },
+      target: "turbo_stream_#{resource_name}_#{id}"
+    )
+  end
+
+  def broadcast_collection_channel
+    resource_name_plural
   end
 end

@@ -28,7 +28,7 @@ Running Storybook:
 
 `yarn storybook`
 
-After adding new Stimulus controllers:
+After adding/deleting Stimulus controllers:
 
 `rails stimulus:manifest:update`
 

@@ -7,20 +7,7 @@
 
   <%= render PageHeading::Component.new(title: 'Item Sell Packs', description: 'These are the names for how a supplier sells a complete package') do |c| %>
     <%= c.with_actions do %>
-      <%= render Button::Component.new(
-          id: :item_sell_packs_new,
-          label: 'New',
-          options: {
-              icon: { name: :plus, colour: :white },
-              colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
-              data: {
-                  action: 'click->resource#new',
-                  params: [
-                      { name: 'resource-modal-name', value: :item_sell_packs_new }
-                  ]
-              }
-          }
-      ) %>
+      <%= render Button::NewResourceComponent.new(id: :item_sell_packs_new) %>
     <% end %>
   <% end %>
 
@@ -48,7 +35,7 @@
           <%= render partial: 'rows', locals: { rows_component: rows_component } %>
         <% end %>
       <% end %>
-      <%= collection_component.with_pager(paginator: @pagy, collection_path_method: :item_sell_packs_path, filter_params: params[:q]) %>
+      <%= collection_component.with_pager(paginator: @pagy, collection_path_method: collection_path_method, filter_params: params[:q]) %>
     <% end %>
   </div>
 

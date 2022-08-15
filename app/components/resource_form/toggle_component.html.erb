@@ -3,9 +3,9 @@
     <label id="<%= field_id %>--label" for="<%= field_id %>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-">
       <%= label %>
     </label>
-    <% if options[:help].present? %>
+    <% if help.present? %>
       <div id="<%= field_id %>--help" class="mt-2 text-sm text-gray-300 inline-flex items-center">
-        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= options[:help] %>
+        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= help %>
       </div>
     <% end %>
   </div>

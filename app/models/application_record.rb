@@ -5,11 +5,21 @@ class ApplicationRecord < ActiveRecord::Base
 
   attr_accessor :form_authenticity_token
 
+  class << self
+    def resource_name
+      name.underscore
+    end
+
+    def resource_name_plural
+      name.pluralize.underscore
+    end
+  end
+
   def resource_name
-    self.class.name.underscore
+    self.class.resource_name
   end
 
   def resource_name_plural
-    self.class.name.pluralize.underscore
+    self.class.resource_name_plural
   end
 end

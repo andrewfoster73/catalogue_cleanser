@@ -12,6 +12,7 @@ module ResourceForm
     # - editable: Boolean, is this attribute ever editable?
     # - required: Boolean, is this field required to have a value?
     # - invalid_message: String, if this field is invalid what message to display
+    # - url: String, will convert display to be link to another page
 
     def initialize(attribute:, label:, resource:, options: {})
       super
@@ -43,6 +44,14 @@ module ResourceForm
 
     def invalid_message
       @options[:invalid_message]
+    end
+
+    def url
+      @options[:url]
+    end
+
+    def help
+      @options[:help]
     end
   end
 end

@@ -1,0 +1,53 @@
+<div id="turbo_stream_<%= action %>_<%= resource.resource_name %>_<%= resource.id %>">
+  <%= render ResourceForm::Component.new(
+      title: 'Item Sell Pack Alias',
+      description: 'These are alternative names for a single Item Sell Pack e.g. cart for carton',
+      resource: resource,
+      token: token,
+      action: action) do |component| %>
+    <% component.with_field do |c| %>
+      <% if nested? %>
+        <% c.with_attribute_hidden(
+               attribute: :item_sell_pack_id,
+               label: 'Item Sell Pack ID',
+               resource: resource,
+               options: { value: @parent.id }
+           ) %>
+      <% end %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_text(
+             attribute: :alias,
+             label: 'Alias',
+             resource: resource,
+             options: { readonly: readonly, required: true, invalid_message: 'An alias must be entered.' }
+         ) %>
+    <% end %>
+    <% unless nested? %>
+      <% component.with_field do |c| %>
+        <% c.with_attribute_text(
+               attribute: :item_sell_pack,
+               label: 'Item Sell Pack',
+               resource: resource,
+               options: { readonly: true, url: item_sell_pack_path(resource.item_sell_pack) }
+           ) %>
+      <% end %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_toggle(
+             attribute: :confirmed,
+             label: 'Confirmed',
+             resource: resource,
+             options: { readonly: readonly, help: 'Is this a confirmed alias of the Item Sell Pack name?' }
+         ) %>
+    <% end %>
+    <% unless action == :new %>
+      <% component.with_field do |c| %>
+        <% c.with_attribute_timestamp(attribute: :created_at, label: 'Created At', resource: resource) %>
+      <% end %>
+      <% component.with_field do |c| %>
+        <% c.with_attribute_timestamp(attribute: :updated_at, label: 'Updated At', resource: resource) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

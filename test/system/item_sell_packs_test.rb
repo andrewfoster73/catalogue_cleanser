@@ -120,7 +120,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     click_on 'Update'
 
     assert_text "Item sell pack '#{@item_sell_pack}' was successfully updated"
-    click_on 'Back'
+    click_on 'List'
   end
 
   test 'should show validation errors on item sell pack update' do
@@ -167,5 +167,31 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     visit item_sell_packs_url
     find("#view_item_sell_pack_#{@item_sell_pack.id}").click
     assert_current_path(item_sell_pack_path(@item_sell_pack))
+  end
+
+  test 'show page tabs' do
+    login
+    visit item_sell_pack_url(@item_sell_pack)
+    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_details", text: 'Details')
+    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_aliases", text: 'Aliases')
+    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_audit", text: 'Audit')
+
+    click_on 'Details'
+    assert_current_path(item_sell_pack_url(@item_sell_pack))
+    click_on 'Aliases'
+    assert_current_path(item_sell_pack_item_sell_pack_aliases_url(item_sell_pack_id: @item_sell_pack))
+  end
+
+  test 'edit page tabs' do
+    login
+    visit edit_item_sell_pack_url(@item_sell_pack)
+    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_details", text: 'Details')
+    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_aliases", text: 'Aliases')
+    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_audit", text: 'Audit')
+
+    click_on 'Details'
+    assert_current_path(edit_item_sell_pack_url(@item_sell_pack))
+    click_on 'Aliases'
+    assert_current_path(item_sell_pack_item_sell_pack_aliases_url(item_sell_pack_id: @item_sell_pack))
   end
 end

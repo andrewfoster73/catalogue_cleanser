@@ -7,7 +7,8 @@ module ResourceForm
     renders_one :attribute, types: {
       text: ResourceForm::TextComponent,
       toggle: ResourceForm::ToggleComponent,
-      timestamp: ResourceForm::TimestampComponent
+      timestamp: ResourceForm::TimestampComponent,
+      hidden: ResourceForm::HiddenComponent
     }
   end
 end

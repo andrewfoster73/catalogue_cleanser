@@ -11,6 +11,7 @@ module Actions
   def show; end
 
   # GET /collection/new
+  # TODO: Deprecated
   def new
     @resource = resource_class.new
   end
@@ -20,7 +21,7 @@ module Actions
 
   # POST /collection or /collection.json
   def create
-    @resource = resource_class.new(resource_params)
+    build_resource
 
     respond_to do |format|
       if @resource.save

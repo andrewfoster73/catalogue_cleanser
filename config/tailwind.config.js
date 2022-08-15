@@ -9,7 +9,7 @@ module.exports = {
   ],
   safelist: [
     {
-      pattern: /text-(amber|emerald|sky|rose)-(100|200|300|400|500|600|700|800|900)/,
+      pattern: /(bg|text)-(amber|emerald|sky|rose)-(100|200|300|400|500|600|700|800|900)/,
     }
   ],
   theme: {

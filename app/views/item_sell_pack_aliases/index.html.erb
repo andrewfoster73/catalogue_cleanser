@@ -1,14 +1,138 @@
-<div class="w-full">
-  <% if success.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="success"><%= success %></p>
+<% if nested? %>
+  <%= turbo_stream_from "#{@parent.resource_name}_#{@parent.id}_item_sell_pack_aliases" %>
+<% else %>
+  <%= turbo_stream_from "item_sell_pack_aliases" %>
+<% end %>
+<%= turbo_stream_from "errors" %>
+<div class="w-full" data-controller="errors tab-navigation--component" data-action="resource:error->errors#show editor:increment->tab-navigation--component#increment editor:decrement->tab-navigation--component#decrement">
+  <% flash.each do |type, message| %>
+    <%= render Notification::Component.new(name: :index, type: type, message: message) %>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Item sell pack aliases</h1>
-    <%= link_to 'New item sell pack alias', new_item_sell_pack_alias_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <% if nested? %>
+    <%= render TabNavigation::Component.new(id: dom_id(@parent)) do |component| %>
+      <% component.with_tab(
+             id: :details,
+             label: 'Details',
+             url: edit_item_sell_pack_path(@parent),
+             active: current_page?(controller: :item_sell_packs),
+             options: { parent: @parent, icon_options: { name: :library, colour: :gray } }
+         ) %>
+      <% component.with_tab(
+             id: :item_sell_pack_aliases,
+             label: 'Aliases',
+             url: '#',
+             active: current_page?(controller: :item_sell_pack_aliases),
+             options: {
+                 parent: @parent,
+                 icon_options: { name: :folder_open, colour: :gray },
+                 badge_count: @parent.item_sell_pack_aliases.size
+             }
+         ) %>
+      <% component.with_tab(
+             id: :audit,
+             label: 'Audit',
+             url: '#audit',
+             options: {
+                 parent: @parent,
+                 icon_options: { name: :database, colour: :gray },
+                 badge_count: @parent.associated_audits.size
+             }
+         ) %>
+    <% end %>
+  <% end %>
+
+  <%= render PageHeading::Component.new(title: 'Item Sell Pack Aliases', description: 'These are alternative names for a single Item Sell Pack e.g. cart for carton') do |c| %>
+    <% if nested? %>
+      <%= c.with_actions do %>
+        <%= render Button::NewResourceComponent.new(id: :item_sell_pack_aliases_new) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= render CollectionFilter::Component.new(filter: @q, url: filter_url) %>
+
+  <%= turbo_frame_tag "page_handler" %>
+  <div
+    id="collection"
+    class=min-w-full"
+    data-controller="editor"
+    data-action="turbo:before-stream-render@document->editor#animate"
+  >
+    <%= render Collection::Component.new do |collection_component| %>
+      <%= collection_component.with_header(columns: [
+          {
+              sorter: sort_link(@q, :alias, 'Alias', default_order: :desc, class: 'group inline-flex'),
+              classes: 'py-3.5 pl-4 pr-3 sm:pl-6 lg:pl-8'
+          },
+          {
+              sorter: sort_link(
+                  @q, :item_sell_pack_name, 'Item Sell Pack', default_order: :desc, class: 'group inline-flex'
+              )
+          },
+          { sorter: sort_link(@q, :confirmed, 'Confirmed', default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :created_at, 'Created At', default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :updated_at, 'Updated At', default_order: :desc, class: 'group inline-flex') }
+      ]) %>
+      <% if @collection.any? %>
+        <%= collection_component.with_rows do |rows_component| %>
+          <%= render partial: 'rows', locals: { rows_component: rows_component } %>
+        <% end %>
+      <% end %>
+      <%= collection_component.with_pager(
+              paginator: @pagy,
+              collection_path_method: collection_path_method,
+              parent_param: ( @parent if nested?),
+              filter_params: params[:q]) %>
+    <% end %>
   </div>
 
-  <div id="item_sell_pack_aliases" class="min-w-full">
-    <%= render @collection %>
-  </div>
+  <%= render Modal::Component.new(name: :item_sell_pack_aliases_delete_confirmation) do |modal| %>
+    <%= modal.with_confirmation(
+            title: 'Delete',
+            icon_options: { name: :exclamation, colour: :red, options: { classes: '' } },
+            message: 'Are you sure you want to delete this? This action cannot be undone.'
+        ) %>
+    <% modal.with_button(
+           id: :confirm_delete,
+           label: 'Delete',
+           options: {
+               icon: { name: :trash, colour: :white },
+               colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
+               data: {
+                   params: [
+                       { name: 'resource-id', value: '' },
+                       { name: 'resource-url', value: polymorphic_path(@resource_class) },
+                       { name: 'resource-modal-name', value: :item_sell_pack_aliases_delete_confirmation }
+                   ],
+                   action: 'click->resource#inlineDelete'
+               }
+           }) %>
+  <% end %>
+  <% if nested? %>
+    <%= render Modal::Component.new(name: :item_sell_pack_aliases_new) do |modal| %>
+      <%= modal.with_form do %>
+        <%= render(partial: 'resource', locals: { action: :new, resource: @resource_class.new, readonly: false, token: form_authenticity_token }) %>
+      <% end %>
+      <%= modal.with_button(
+              id: :save_new,
+              label: 'Save',
+              options: {
+                  icon: { name: :save, colour: :white },
+                  colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
+                  data: {
+                      params: [
+                          { name: 'resource-url', value: polymorphic_url(@resource_class) },
+                          { name: 'resource-name', value: :item_sell_pack_alias_new },
+                          { name: 'resource-form-id', value: dom_id(@resource_class.new, :form) },
+                          { name: 'resource-modal-name', value: :item_sell_pack_aliases_new }
+                      ],
+                      action: 'click->resource#create'
+                  }
+              }) %>
+    <% end %>
+  <% end %>
+  <div id="notifications"></div>
 </div>
+
+

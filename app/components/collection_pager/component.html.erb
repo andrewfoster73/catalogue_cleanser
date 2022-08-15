@@ -2,7 +2,7 @@
 <div id="collection_pager" class="min-w-full my-8 flex justify-between">
   <%= link_to(
           "Load More",
-          public_send(collection_path_method, page: paginator.next, q: filter_params&.to_unsafe_h),
+          pager_url,
           class: "inline-flex items-center justify-center rounded-md border border-transparent bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 sm:w-auto",
           data: {
               turbo_frame: "page_handler",
