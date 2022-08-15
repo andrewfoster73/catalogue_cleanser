@@ -18,12 +18,6 @@ class ItemSellPacksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get new' do
-    authenticate
-    get new_item_sell_pack_url
-    assert_response :success
-  end
-
   test 'should create item_sell_pack' do
     authenticate
     assert_difference('ItemSellPack.count') do

@@ -20,8 +20,10 @@ Rails.application.routes.draw do
   resources :item_packs
   resources :item_measure_aliases
   resources :item_measures
-  resources :item_sell_pack_aliases
-  resources :item_sell_packs
+  resources :item_sell_pack_aliases, except: %i[new]
+  resources :item_sell_packs, shallow: true, except: %i[new] do
+    resources :item_sell_pack_aliases, only: %i[index create]
+  end
 
   # Defines the root path route ("/")
   root 'landing#root'

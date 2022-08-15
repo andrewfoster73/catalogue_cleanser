@@ -3,15 +3,21 @@
     <label id="<%= field_id %>--label" for="<%= field_id %>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-">
       <%= label %>
     </label>
-    <% if options[:help].present? %>
+    <% if help.present? %>
       <div id="<%= field_id %>--help" class="mt-2 text-sm text-gray-300 inline-flex items-center">
-        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= options[:help] %>
+        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= help %>
       </div>
     <% end %>
   </div>
   <div class="mt-1 sm:mt-0 sm:col-span-2">
     <% if display_only? %>
-      <p id="<%= field_id %>" class="mt-2 text-sm text-gray-500"><%= resource.public_send(attribute) %></p>
+      <% if url.present? %>
+        <%= link_to(url, class: 'text-sky-600 hover:text-sky-900 text-sm font-medium') do %>
+          <%= resource.public_send(attribute) %>
+        <% end %>
+      <% else %>
+        <p id="<%= field_id %>" class="mt-2 text-sm text-gray-500"><%= resource.public_send(attribute) %></p>
+      <% end %>
     <% else %>
     <turbo-frame id="<%= dom_id(resource, "#{attribute}_turbo_frame") %>" class="contents">
       <input

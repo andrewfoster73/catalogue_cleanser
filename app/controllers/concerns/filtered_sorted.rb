@@ -11,7 +11,7 @@ module FilteredSorted
   private
 
   def set_collection
-    @collection = @q.result(distinct: true)
+    @collection = @q.result.preload(collection_preloads)
   end
 
   def set_filters

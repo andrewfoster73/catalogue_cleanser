@@ -1,0 +1,19 @@
+<%= turbo_stream_from("#{tab_id}_count") if parent %>
+<a
+  id="tab_<%= tab_id %>"
+  href="<%= url %>"
+  class="<%= tab_classes %> group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10 inline-flex items-center"
+>
+  <span id="tab_<%= tab_id %>--icon"><%= icon(**icon_options) if icon_options %></span>
+  <span id="tab_<%= tab_id %>--label"><%= label %></span>
+  <% if badge_count.present? %>
+    <!-- Current: "bg-sky-100 text-sky-600", Default: "bg-gray-100 text-gray-900" -->
+    <span
+      id="tab_<%= tab_id %>--badge_count"
+      class="<%= badge_classes %> hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block"
+    >
+      <p id="tab_<%= tab_id %>--badge_count__integer"><%= badge_count %></p>
+    </span>
+  <% end %>
+  <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
+</a>

@@ -5,7 +5,17 @@ ctn:
   alias: ctn
   confirmed: true
 
+ct:
+  item_sell_pack: carton
+  alias: ct
+  confirmed: false
+
 ea:
   item_sell_pack: each
   alias: ea
+  confirmed: true
+
+bx:
+  item_sell_pack: box
+  alias: bx
   confirmed: false

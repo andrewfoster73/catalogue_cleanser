@@ -41,31 +41,23 @@
     <%= time_ago_in_words(resource.updated_at, include_seconds: true) %> ago
   </td>
   <td id="<%= dom_id(resource, :actions_cell) %>" class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-    <%= render Button::Component.new(
+    <%= render Button::ViewResourceComponent.new(
         id: dom_id(resource, :view),
-        label: 'View',
         options: {
             title: polymorphic_path(resource),
-            icon: { name: :eye, colour: :white },
-            colour_classes: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-200',
             data: {
-                params: [{ name: 'resource-url', value: polymorphic_path(resource) }],
-                action: 'click->resource#navigate'
+                params: [{ name: 'resource-url', value: polymorphic_path(resource) }]
             }
         }
     ) %>
-    <%= render Button::Component.new(
+    <%= render Button::DeleteResourceComponent.new(
         id: dom_id(resource, :delete),
-        label: 'Delete',
         options: {
-            icon: { name: :trash, colour: :white },
-            colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
             data: {
                 params: [
                     { name: 'resource-id', value: resource.id },
                     { name: 'resource-modal-name', value: :item_sell_packs_delete_confirmation }
-                ],
-                action: 'click->resource#confirmDelete'
+                ]
             }
         }
     ) %>
