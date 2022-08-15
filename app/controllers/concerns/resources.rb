@@ -16,7 +16,7 @@ module Resources
   private
 
   def set_collection
-    @collection = resource_class.all.includes(collection_preloads)
+    @collection = resource_class.all.preload(collection_preloads)
   end
 
   def collection_preloads

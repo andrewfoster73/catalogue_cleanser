@@ -52,7 +52,7 @@ module NestedBroadcast
       "#{nested_resource_collection_id}_count",
       partial: 'badge_count',
       locals: {
-        id: nested_resource_collection_id,
+        tab_id: nested_resource_collection_id,
         badge_count: parent.public_send(parent.klass_association_name(klass: self.class)).size
       },
       target: "tab_#{nested_resource_collection_id}--badge_count__integer"

@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 module Button
-  class NewResourceComponent < Button::Component
+  class NewResourceComponent < Button::ResourceComponent
     def initialize(id:, label: 'New', options: {})
       super
-      @options = default_options.deep_merge(options)
     end
 
     private

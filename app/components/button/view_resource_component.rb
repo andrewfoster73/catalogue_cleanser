@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 module Button
-  class ViewResourceComponent < Button::Component
+  class ViewResourceComponent < Button::ResourceComponent
     def initialize(id:, label: 'View', options: {})
       super
-      @options = default_options.deep_merge(options)
     end
 
     private
