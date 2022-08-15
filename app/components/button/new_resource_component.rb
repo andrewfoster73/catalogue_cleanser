@@ -2,11 +2,11 @@
 
 module Button
   class NewResourceComponent < Button::ResourceComponent
-    def initialize(id:, label: 'New', options: {})
-      super
-    end
-
     private
+
+    def label
+      'New'
+    end
 
     def default_options
       {

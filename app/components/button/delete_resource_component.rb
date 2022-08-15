@@ -2,11 +2,11 @@
 
 module Button
   class DeleteResourceComponent < Button::ResourceComponent
-    def initialize(id:, label: 'Delete', options: {})
-      super
-    end
-
     private
+
+    def label
+      'Delete'
+    end
 
     def default_options
       {

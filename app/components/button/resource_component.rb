@@ -2,7 +2,7 @@
 
 module Button
   class ResourceComponent < Button::Component
-    def initialize(id:, label:, options: {})
+    def initialize(id:, label: '', options: {})
       super
       @options = default_options.deep_merge(options)
     end
