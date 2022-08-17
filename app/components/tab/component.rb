@@ -23,7 +23,7 @@ module Tab
     end
 
     def tab_classes
-      active ? 'text-gray-900 bg-sky-100' : 'text-gray-500 hover:text-gray-700'
+      active ? 'text-gray-900 bg-sky-50' : 'text-gray-500 hover:text-gray-700'
     end
 
     def badge_classes

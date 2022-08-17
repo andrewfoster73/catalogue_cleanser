@@ -38,6 +38,12 @@ module Broadcast
         locals: { action: :edit, resource: self, readonly: false, token: form_authenticity_token },
         target: "turbo_stream_edit_#{resource_name}_#{id}"
       )
+      broadcast_replace_later_to(
+        "breadcrumb_navigation_#{resource_name}_#{id}",
+        partial: 'breadcrumb',
+        locals: { label: to_s },
+        target: "breadcrumb_#{resource_name}_#{id}--link_label"
+      )
       broadcast_notification(type: 'warning', message: 'Another user has updated this record.')
     }
   end

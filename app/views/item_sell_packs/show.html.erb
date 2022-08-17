@@ -3,6 +3,10 @@
 <% flash.each do |type, message| %>
   <%= render Notification::Component.new(name: :show, type: type, message: message) %>
 <% end %>
+<%= render BreadcrumbNavigation::Component.new(id: dom_id(@resource)) do |component| %>
+  <% component.with_breadcrumb(id: :item_sell_packs, label: 'Item Sell Packs', url: item_sell_packs_url) %>
+  <% component.with_breadcrumb(id: dom_id(@resource), label: @resource.to_s, url: item_sell_pack_path(@resource), active: true) %>
+<% end %>
 <%= render TabNavigation::Component.new(id: dom_id(@resource)) do |component| %>
   <% component.with_tab(
          id: :details,

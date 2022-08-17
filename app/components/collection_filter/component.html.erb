@@ -2,17 +2,15 @@
   <div class="mt-8 flex flex-col">
     <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle">
-        <div class="shadow-sm ring-1 ring-black ring-opacity-5">
-          <%= search_form_for(filter, url: url) do |form| %>
-            <table class="min-w-full border-separate" style="border-spacing: 0">
-              <tbody class="bg-gray-50" data-controller="collection-filter--component" data-collection-filter--component-search-form-id-value="<%= form.id %>">
-              <tr>
-                <%= render partial: 'filters', locals: { form: form } %>
-              </tr>
-              </tbody>
-            </table>
-          <% end %>
-        </div>
+        <%= search_form_for(filter, url: url) do |form| %>
+          <table class="min-w-full">
+            <tbody class="bg-gray-50" data-controller="collection-filter--component" data-collection-filter--component-search-form-id-value="<%= form.id %>">
+            <tr>
+              <%= render partial: 'filters', locals: { form: form } %>
+            </tr>
+            </tbody>
+          </table>
+        <% end %>
       </div>
     </div>
   </div>

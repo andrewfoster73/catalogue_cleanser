@@ -14,5 +14,7 @@ class Collection::ComponentTest < ViewComponent::TestCase
 
     assert_selector('#collection_header th', text: 'Title')
     assert_selector('#collection_pager a', text: 'Load More')
+    assert_selector('tfoot tr td', text: 'There are no records.')
+    assert_selector('tfoot tr td[colspan="2"]')
   end
 end

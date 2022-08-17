@@ -1,4 +1,4 @@
-<td scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">
+<td scope="col" class="sticky top-0 z-10 hidden bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">
   <%= form.label attribute.to_sym %>
   <div>
     <%= form.hidden_field(true_field_name, value: params.dig(:q, true_field_name) || '1') %>
