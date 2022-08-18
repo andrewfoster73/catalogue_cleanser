@@ -10,7 +10,13 @@
                 <%= rows %>
               </tbody>
             <% else %>
-              <tfoot><tr><td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">There are no records.</td></tr></tfoot>
+              <tfoot>
+                <tr class="bg-white">
+                  <td colspan="<%= header.column_count %>" class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+                    There are no records.
+                  </td>
+                </tr>
+              </tfoot>
             <% end %>
           </table>
           <%= pager %>

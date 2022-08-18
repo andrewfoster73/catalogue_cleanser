@@ -10,6 +10,10 @@
   <% end %>
 
   <% if nested? %>
+    <%= render BreadcrumbNavigation::Component.new(id: dom_id(@parent)) do |component| %>
+      <% component.with_breadcrumb(id: :item_sell_packs, label: 'Item Sell Packs', url: item_sell_packs_url) %>
+      <% component.with_breadcrumb(id: dom_id(@parent), label: @parent.to_s, url: item_sell_pack_path(@parent), active: true) %>
+    <% end %>
     <%= render TabNavigation::Component.new(id: dom_id(@parent)) do |component| %>
       <% component.with_tab(
              id: :details,

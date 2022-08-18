@@ -42,7 +42,7 @@ class TabNavigation::ComponentTest < ViewComponent::TestCase
 
     parent_tab_id = "#{@parent.resource_name}_#{@parent.id}_item_sell_pack_aliases"
     assert_selector('a[href="#"]')
-    assert_selector("a#tab_#{parent_tab_id}.text-gray-900.bg-sky-100")
+    assert_selector("a#tab_#{parent_tab_id}.text-gray-900.bg-sky-50")
     assert_selector("#tab_#{parent_tab_id}--icon svg")
     assert_selector("#tab_#{parent_tab_id}--label", text: 'Aliases')
     assert_selector("#tab_#{parent_tab_id}--badge_count")

@@ -15,5 +15,10 @@ module CollectionHeader
         font-semibold text-gray-900 backdrop-blur backdrop-filter
       ]
     end
+
+    def column_count
+      # +1 for the actions column
+      @columns.count + 1
+    end
   end
 end
