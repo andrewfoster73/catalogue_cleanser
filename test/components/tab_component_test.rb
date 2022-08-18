@@ -18,7 +18,7 @@ class Tab::ComponentTest < ViewComponent::TestCase
     )
 
     assert_selector('a[href="#audit"]')
-    assert_selector('a#tab_tab_id.text-gray-900.bg-sky-100')
+    assert_selector('a#tab_tab_id.text-gray-900.bg-sky-50')
     assert_selector('#tab_tab_id--icon svg')
     assert_selector('#tab_tab_id--label', text: 'Audit')
     assert_selector('#tab_tab_id--badge_count')
