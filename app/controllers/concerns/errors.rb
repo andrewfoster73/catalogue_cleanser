@@ -9,6 +9,8 @@ module Errors
     rescue_from ActiveRecord::RecordNotFound, with: :show_not_found
   end
 
+  private
+
   def show_error(_exception)
     Turbo::StreamsChannel.broadcast_append_to(
       'errors',

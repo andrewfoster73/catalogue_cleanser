@@ -1,10 +1,20 @@
 # frozen_string_literal: true
 
 module IconsHelper
-  # options
-  # - style
-  # - size
-  # - classes
+  # @see https://heroicons.com/ Available Heroicon names
+  # @see https://tailwindcss.com/docs/customizing-colors Standard TailwindCSS colours
+  # @param [Symbol] name the name of the Heroicon to display
+  # @param [Symbol] colour the TailwindCSS colour the icon will use
+  # @param [Boolean] active the style of the icon will change depending on whether it is active or not
+  # @param [Hash] options additional configuration options for the icon
+  # @option options [String] :style The Heroicon style to use.
+  #   By default this is "outline". Unsupported alternative is "solid".
+  # @option options [String] :size
+  # @option options [String] :classes TailwindCSS colour related classes to add
+  # @example Basic icon
+  #   icon(name: :trash, colour: :white)
+  # @example With a different size specified
+  #   icon(name: :question_mark_circle, colour: :blue, options: { size: 5 })
   def icon(name:, colour:, active: false, options: {})
     options.reverse_merge!(default_icon_options)
     content_tag(:svg, {
