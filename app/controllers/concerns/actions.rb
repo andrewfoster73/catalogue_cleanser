@@ -10,8 +10,7 @@ module Actions
   # GET /collection/1 or /collection/1.json
   def show; end
 
-  # GET /collection/new
-  # TODO: Deprecated
+  # @deprecated The UI will render a modal instead from the index page
   def new
     @resource = resource_class.new
   end
@@ -26,9 +25,10 @@ module Actions
     respond_to do |format|
       if @resource.save
         format.html do
-          redirect_to(resource_url(@resource, { format: :html }),
-                      success: "#{resource_human_name} '#{@resource}' was successfully created."
-                     )
+          redirect_to(
+            resource_url(@resource, { format: :html }),
+            success: "#{resource_human_name} '#{@resource}' was successfully created."
+          )
         end
         format.json { render(:show, status: :created, location: @resource) }
       else
@@ -43,9 +43,10 @@ module Actions
     respond_to do |format|
       if @resource.update(resource_params)
         format.html do
-          redirect_to(resource_url(@resource),
-                      success: "#{resource_human_name} '#{@resource}' was successfully updated."
-                     )
+          redirect_to(
+            resource_url(@resource),
+            success: "#{resource_human_name} '#{@resource}' was successfully updated."
+          )
         end
         format.json { render(:show, status: :ok, location: @resource) }
       else

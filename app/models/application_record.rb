@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+# Base class for all persisted models
+# @abstract
 class ApplicationRecord < ActiveRecord::Base
   primary_abstract_class
+
+  include Parent
 
   attr_accessor :form_authenticity_token
 
