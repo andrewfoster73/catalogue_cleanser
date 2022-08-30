@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Represents a user who may interact with the system
 class User < ApplicationRecord
   audited
 
@@ -19,10 +20,13 @@ class User < ApplicationRecord
     end
   end
 
+  # @return [String] the first_name and last_name concatenated with a space as a separator
   def full_name
     [first_name, last_name].compact.join(' ')
   end
 
+  # Used when displaying an instance of the User class
+  # @return [String] the full name and the email enclosed in parentheses
   def to_s
     "#{full_name} (#{email})"
   end

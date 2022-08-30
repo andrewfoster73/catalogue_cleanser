@@ -6,7 +6,7 @@ module BreadcrumbNavigation
 
     renders_many :breadcrumbs, Breadcrumb::Component
 
-    attr_accessor :id
+    attr_reader :id
 
     def initialize(id:)
       super

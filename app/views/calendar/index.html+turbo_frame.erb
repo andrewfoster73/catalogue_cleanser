@@ -1,0 +1,7 @@
+<%= render Calendar::Component.new(
+    id: params[:id],
+    year: params[:year],
+    month: params[:month],
+    input_id: params[:input_id],
+    selected_date: params[:selected_date],
+    hidden: ActiveModel::Type::Boolean.new.cast(params[:hidden])) %>

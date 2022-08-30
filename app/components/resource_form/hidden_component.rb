@@ -2,7 +2,7 @@
 
 module ResourceForm
   class HiddenComponent < BaseComponent
-    attr_accessor :value
+    attr_reader :value
 
     def initialize(attribute:, label:, resource:, options: nil)
       super

@@ -9,7 +9,7 @@ module Button
     end
 
     def default_options
-      {
+      super.merge({
         icon: { name: :plus, colour: :white },
         colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
         data: {
@@ -19,6 +19,7 @@ module Button
           ]
         }
       }
+                 )
     end
   end
 end

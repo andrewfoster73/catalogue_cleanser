@@ -4,7 +4,7 @@ module TabNavigation
   class Component < ViewComponent::Base
     renders_many :tabs, Tab::Component
 
-    attr_accessor :id
+    attr_reader :id
 
     def initialize(id:)
       super

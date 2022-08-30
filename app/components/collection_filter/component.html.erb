@@ -1,16 +1,23 @@
-<div class="px-4 sm:px-6 lg:px-8">
-  <div class="mt-8 flex flex-col">
+<div class="mt-4 px-4 sm:px-6 lg:px-8 border rounded-lg shadow-lg">
+  <div class="my-4 flex flex-col">
     <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
-      <div class="inline-block min-w-full py-2 align-middle">
-        <%= search_form_for(filter, url: url) do |form| %>
-          <table class="min-w-full">
-            <tbody class="bg-gray-50" data-controller="collection-filter--component" data-collection-filter--component-search-form-id-value="<%= form.id %>">
-            <tr>
-              <%= render partial: 'filters', locals: { form: form } %>
-            </tr>
-            </tbody>
-          </table>
-        <% end %>
+      <div class="min-w-full py-2" data-controller="collection-filter--component" data-collection-filter--component-search-form-id-value="<%= form_id %>">
+        <div class="flex">
+          <p class="font-medium px-10 pb-5 text-gray-500 text-medium">Filters</p>
+          <a href="<%= url %>" class="font-sm text-gray-500 text-sm flex items-center pb-5">
+            <span>Clear</span>
+            <span><%= icon(name: :x, colour: :gray) %></span>
+          </a>
+        </div>
+        <form id="<%= form_id %>" action="<%= url %>" accept-charset="UTF-8" method="get">
+          <div class="min-w-full">
+            <div class="sticky top-0 z-10 bg-gray-50 bg-opacity-75 pl-8 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8 flex items-start justify-start">
+              <% elements.each do |element| %>
+                <%= element %>
+              <% end %>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

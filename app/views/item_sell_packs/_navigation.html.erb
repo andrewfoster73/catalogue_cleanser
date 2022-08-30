@@ -1,0 +1,35 @@
+<%= render BreadcrumbNavigation::Component.new(id: dom_id(resource)) do |component| %>
+  <% component.with_breadcrumb(id: :item_sell_packs, label: 'Item Sell Packs', url: item_sell_packs_url) %>
+  <% component.with_breadcrumb(id: dom_id(resource), label: resource.to_s, url: item_sell_pack_path(resource), active: true) %>
+<% end %>
+<%= render TabNavigation::Component.new(id: dom_id(resource)) do |component| %>
+  <% component.with_tab(
+         id: :details,
+         label: 'Details',
+         url: action_name == 'edit' ? edit_item_sell_pack_path(resource) : item_sell_pack_path(resource),
+         active: controller.controller_name == 'item_sell_packs',
+         options: { parent: resource, icon_options: { name: :library, colour: :gray } }
+     ) %>
+  <% component.with_tab(
+         id: :item_sell_pack_aliases,
+         label: 'Aliases',
+         url: item_sell_pack_item_sell_pack_aliases_path(item_sell_pack_id: resource),
+         active: controller.controller_name == 'item_sell_pack_aliases',
+         options: {
+             parent: resource,
+             icon_options: { name: :folder_open, colour: :gray },
+             badge_count: resource.item_sell_pack_aliases.size
+         }
+     ) %>
+  <% component.with_tab(
+         id: :audit,
+         label: 'Audit',
+         url: item_sell_pack_audits_path(item_sell_pack_id: resource),
+         active: controller.controller_name == 'audits',
+         options: {
+             parent: resource,
+             icon_options: { name: :database, colour: :gray },
+             badge_count: resource.own_and_associated_audits.size
+         }
+     ) %>
+<% end %>

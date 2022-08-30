@@ -5,6 +5,6 @@ class BrandsController < ResourcesController
 
   # Only allow a list of trusted parameters through.
   def permitted_params
-    %i[name canonical count]
+    super | %i[name canonical count]
   end
 end

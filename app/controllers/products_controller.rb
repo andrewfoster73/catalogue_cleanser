@@ -5,7 +5,7 @@ class ProductsController < ResourcesController
 
   # Only allow a list of trusted parameters through.
   def permitted_params
-    %i[
+    super | %i[
       product_id status duplication_certainty canonical_certainty action collected_statistics_at spelling_mistakes
       catalogue_count buy_list_count priced_catalogue_count average_price maximum_price minimum_price standard_deviation
       variance inventory_barcodes_count inventory_derived_period_balances_count

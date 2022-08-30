@@ -29,12 +29,10 @@ class UserProfile::ComponentTest < ViewComponent::TestCase
     )
   end
 
-  # rubocop:disable Layout/LineLength
   test 'renders logout link' do
     assert_equal(
       %(<a id="user_profile--logout" data-turbo-method="delete" class="inline-flex items-center text-xs font-medium text-gray-300 group-hover:text-gray-200" href="/sessions/logout">Logout</a>),
       render_inline(UserProfile::Component.new(user: @user)).css('#user_profile--logout').to_html
     )
   end
-  # rubocop:enable Layout/LineLength
 end

@@ -7,7 +7,6 @@ class ResourceForm::ToggleComponentTest < ViewComponent::TestCase
     @resource = build(:item_sell_pack, id: 1, name: 'carton', canonical: true, created_at: Time.zone.now)
   end
 
-  # rubocop:disable Layout/LineLength
   test 'editable mode' do
     render_inline(ResourceForm::FieldComponent.new) do |component|
       component.with_attribute_toggle(
@@ -31,7 +30,6 @@ class ResourceForm::ToggleComponentTest < ViewComponent::TestCase
       '[data-resource-form--component-field-id-param="item_sell_pack_1_canonical"]'
     )
   end
-  # rubocop:enable Layout/LineLength
 
   test 'readonly mode' do
     render_inline(ResourceForm::FieldComponent.new) do |component|

@@ -5,7 +5,7 @@ class ProductDuplicatesController < ResourcesController
 
   # Only allow a list of trusted parameters through.
   def permitted_params
-    %i[
+    super | %i[
       product_id canonical_product_id action certainty_percentage mapped_product_id levenshtein_distance
       similarity_score
     ]

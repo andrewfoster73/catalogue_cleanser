@@ -5,6 +5,6 @@ class ItemPackAliasesController < ResourcesController
 
   # Only allow a list of trusted parameters through.
   def permitted_params
-    %i[item_pack_id alias confirmed]
+    super | %i[item_pack_id alias confirmed]
   end
 end

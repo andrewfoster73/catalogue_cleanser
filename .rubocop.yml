@@ -74,7 +74,7 @@ Layout/FirstHashElementLineBreak:
 Layout/LineLength:
   Max: 120
   Exclude:
-    - '**/spec/**/*'
+    - '**/test/**/*'
 
 Layout/MultilineArrayBraceLayout:
   EnforcedStyle: new_line
@@ -167,7 +167,7 @@ Metrics/BlockLength:
   CountComments: false
   Max: 50
   Exclude:
-    - '**/spec/**/*'
+    - '**/test/**/*'
     - '**/*.rake'
     - '**/factories/**/*'
     - '**/config/routes.rb'
@@ -175,6 +175,11 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   CountAsOne: ['array', 'hash']
   Max: 150
+  Exclude:
+    - '**/test/**/*'
+    - '**/*.rake'
+    - '**/factories/**/*'
+    - '**/config/routes.rb'
 
 Metrics/CyclomaticComplexity:
   Max: 10
@@ -188,6 +193,10 @@ Metrics/ModuleLength:
   Max: 250
   Exclude:
     - '**/spec/**/*'
+
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+  Max: 5
 
 Metrics/PerceivedComplexity:
   Max: 10

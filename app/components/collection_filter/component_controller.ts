@@ -8,8 +8,8 @@ export default class extends Controller {
 
   declare readonly searchFormIdValue: string;
 
-  filter(event: ActionEvent) {
-    if (event.params.key === 'Enter') {
+  filter(event: ActionEvent & KeyboardEvent) {
+    if (event.key === 'Enter' || event.type === 'select') {
       event.preventDefault()
       const form: HTMLFormElement = cash(`#${this.searchFormIdValue}`)[0] as HTMLFormElement
 

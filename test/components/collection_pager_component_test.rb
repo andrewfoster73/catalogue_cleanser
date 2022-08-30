@@ -6,7 +6,6 @@ class CollectionPager::ComponentTest < ViewComponent::TestCase
   Paginator = Struct.new(:next, keyword_init: true)
   private_constant :Paginator
 
-  # rubocop:disable Layout/LineLength
   test 'renders pager button when there is a next page' do
     assert_equal(
       %(<div id="collection_pager" class="min-w-full my-8 flex justify-between">
@@ -17,7 +16,6 @@ class CollectionPager::ComponentTest < ViewComponent::TestCase
       ).css('#collection_pager').to_html
     )
   end
-  # rubocop:enable Layout/LineLength
 
   test 'renders empty when there is no next page' do
     assert_equal(
@@ -31,7 +29,6 @@ class CollectionPager::ComponentTest < ViewComponent::TestCase
     )
   end
 
-  # rubocop:disable Layout/LineLength
   test 'renders filtering and sorting parameters in link' do
     params = ActionController::Parameters.new(
       { q: { name_cont: 'test' } }
@@ -50,9 +47,7 @@ class CollectionPager::ComponentTest < ViewComponent::TestCase
       ).css('#collection_pager').to_html
     )
   end
-  # rubocop:enable Layout/LineLength
 
-  # rubocop:disable Layout/LineLength
   test 'generates correct link for nested content' do
     params = ActionController::Parameters.new(
       { q: { name_cont: 'test' } }
@@ -72,5 +67,4 @@ class CollectionPager::ComponentTest < ViewComponent::TestCase
       ).css('#collection_pager').to_html
     )
   end
-  # rubocop:enable Layout/LineLength
 end

@@ -2,7 +2,6 @@
 
 require 'application_system_test_case'
 
-# rubocop:disable Metrics/ClassLength
 class ItemSellPackAliasesTest < ApplicationSystemTestCase
   setup do
     @item_sell_pack_alias = item_sell_pack_aliases(:ctn)
@@ -17,6 +16,12 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     login
     visit item_sell_pack_aliases_url
     assert_selector 'h1', text: 'Item Sell Pack Aliases'
+    assert_selector('label', text: 'Alias contains')
+    assert_selector('input#filter_alias[name="q[alias_cont]"]')
+    assert_selector('label', text: 'Confirmed')
+    assert_selector('input#q_confirmed_true[name="q[confirmed_true]"]', visible: false)
+    assert_selector('input#q_confirmed_not_true[name="q[confirmed_not_true]"]', visible: false)
+    assert_selector('button#toggle_confirmed')
   end
 
   test 'should automatically page' do
@@ -185,7 +190,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     assert_selector("a#tab_item_sell_pack_#{item_sell_packs(:carton).id}_audit", text: 'Audit')
 
     click_on 'Details'
-    assert_current_path(edit_item_sell_pack_url(item_sell_packs(:carton).id))
+    assert_current_path(item_sell_pack_url(item_sell_packs(:carton).id))
     visit item_sell_pack_item_sell_pack_aliases_url(item_sell_pack_id: item_sell_packs(:carton))
     click_on 'Aliases'
     assert_current_path(item_sell_pack_item_sell_pack_aliases_url(item_sell_pack_id: item_sell_packs(:carton)))
@@ -218,4 +223,3 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     )
   end
 end
-# rubocop:enable Metrics/ClassLength

@@ -11,7 +11,14 @@
     <% end %>
   <% end %>
 
-  <%= render CollectionFilter::Component.new(filter: @q) %>
+  <%= render CollectionFilter::Component.new(filter: @q, url: public_send(collection_path_method)) do |c| %>
+    <% c.with_element do |e| %>
+      <% e.with_component_contains(label: 'Name contains', attribute: :name) %>
+    <% end %>
+    <% c.with_element do |e| %>
+      <% e.with_component_toggle(label: 'Canonical', attribute: :canonical) %>
+    <% end %>
+  <% end %>
 
   <%= turbo_frame_tag "page_handler" %>
   <div

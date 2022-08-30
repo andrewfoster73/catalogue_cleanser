@@ -1,0 +1,24 @@
+<tr
+  class="collection-rows__row <%= {'create' => 'bg-emerald-50', 'destroy' => 'bg-rose-50'}.fetch(resource.action, '') %>"
+  id="<%= dom_id(resource, "turbo_stream") %>"
+  data-controller="resource-form--component"
+  data-transition-enter="transition ease-in-out duration-500"
+  data-transition-enter-start="bg-transparent translate-y-6"
+  data-transition-enter-end="bg-sky-200 translate-y-0"
+>
+  <td id="<%= dom_id(resource, :action_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= resource.action %>
+  </td>
+  <td id="<%= dom_id(resource, :email_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= "#{resource.user&.email || 'no email'} (#{resource.user&.full_name || 'unknown'})" %>
+  </td>
+  <td id="<%= dom_id(resource, :created_at_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= time_ago_in_words(resource.created_at, include_seconds: true) %> ago
+  </td>
+  <td id="<%= dom_id(resource, :audited_changes_cell) %>" class="border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= AuditFormatterFactory.for(action: resource.action, type: resource.auditable_type).friendly(changes: resource.audited_changes) %>
+  </td>
+  <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%# No actions required for audits %>
+  </td>
+</tr>

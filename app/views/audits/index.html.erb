@@ -1,0 +1,61 @@
+<% if nested? %>
+  <%= turbo_stream_from "#{@parent.resource_name}_#{@parent.id}_audits" %>
+<% else %>
+  <%= turbo_stream_from "audits" %>
+<% end %>
+<%= turbo_stream_from "errors" %>
+<div class="w-full" data-controller="errors tab-navigation--component" data-action="resource:error->errors#show editor:increment->tab-navigation--component#increment editor:decrement->tab-navigation--component#decrement">
+  <% flash.each do |type, message| %>
+    <%= render Notification::Component.new(name: :index, type: type, message: message) %>
+  <% end %>
+
+  <% if nested? %>
+    <%= render partial: "#{@parent.resource_name_plural}/navigation", locals: { resource: @parent } %>
+  <% end %>
+
+  <%= render PageHeading::Component.new(title: 'Audits', description: 'The history of all changes to this record') %>
+  <%= render CollectionFilter::Component.new(filter: @q, url: filter_url) do |component| %>
+    <% component.with_element do |e| %>
+      <% e.with_component_list(
+             label: 'Actions',
+             attribute: :action,
+             options: [
+                 { text: 'Create', value: 'create' },
+                 { text: 'Update', value: 'update' },
+                 { text: 'Destroy', value: 'destroy' },
+             ]
+         ) %>
+    <% end %>
+    <% component.with_element do |e| %>
+      <% e.with_component_date_range(attribute: :created_at) %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag "page_handler" %>
+  <div
+    id="collection"
+    class=min-w-full"
+  >
+    <%= render Collection::Component.new do |collection_component| %>
+      <%= collection_component.with_header(columns: [
+          { sorter: sort_link(@q, :action, 'Action', default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :user_of_User_type_email, 'Email', default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :created_at, 'Created At', default_order: :desc, class: 'group inline-flex') },
+          { label: 'Changes' }
+      ]) %>
+      <% if @collection.any? %>
+        <%= collection_component.with_rows do |rows_component| %>
+          <%= render partial: 'rows', locals: { rows_component: rows_component } %>
+        <% end %>
+      <% end %>
+      <%= collection_component.with_pager(
+              paginator: @pagy,
+              collection_path_method: collection_path_method,
+              parent_param: ( @parent if nested?),
+              filter_params: params[:q]) %>
+    <% end %>
+  </div>
+  <div id="notifications"></div>
+</div>
+
+

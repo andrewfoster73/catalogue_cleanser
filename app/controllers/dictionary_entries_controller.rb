@@ -5,6 +5,6 @@ class DictionaryEntriesController < ResourcesController
 
   # Only allow a list of trusted parameters through.
   def permitted_params
-    %i[phrase canonical]
+    super | %i[phrase canonical]
   end
 end
