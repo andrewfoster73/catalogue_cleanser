@@ -3,39 +3,7 @@
 <% flash.each do |type, message| %>
   <%= render Notification::Component.new(name: :show, type: type, message: message) %>
 <% end %>
-<%= render BreadcrumbNavigation::Component.new(id: dom_id(@resource)) do |component| %>
-  <% component.with_breadcrumb(id: :item_sell_packs, label: 'Item Sell Packs', url: item_sell_packs_url) %>
-  <% component.with_breadcrumb(id: dom_id(@resource), label: @resource.to_s, url: item_sell_pack_path(@resource), active: true) %>
-<% end %>
-<%= render TabNavigation::Component.new(id: dom_id(@resource)) do |component| %>
-  <% component.with_tab(
-         id: :details,
-         label: 'Details',
-         url: '#',
-         active: true,
-         options: { parent: @resource, icon_options: { name: :library, colour: :gray } }
-     ) %>
-  <% component.with_tab(
-         id: :aliases,
-         label: 'Aliases',
-         url: item_sell_pack_item_sell_pack_aliases_path(item_sell_pack_id: @resource),
-         options: {
-             parent: @resource,
-             icon_options: { name: :folder_open, colour: :gray },
-             badge_count: @resource.item_sell_pack_aliases.size
-         }
-     ) %>
-  <% component.with_tab(
-         id: :audit,
-         label: 'Audit',
-         url: '#audit',
-         options: {
-             parent: @resource,
-             icon_options: { name: :database, colour: :gray },
-             badge_count: @resource.associated_audits.size
-         }
-     ) %>
-<% end %>
+<%= render partial: 'navigation', locals: { resource: @resource } %>
 <%= render ResourceActions::Component.new do |component| %>
   <% component.with_button(
          id: dom_id(@resource, :list),

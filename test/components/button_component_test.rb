@@ -2,7 +2,6 @@
 
 require 'test_helper'
 
-# rubocop:disable Layout/LineLength
 class Button::ComponentTest < ViewComponent::TestCase
   test 'with no options' do
     assert_equal(
@@ -36,4 +35,3 @@ class Button::ComponentTest < ViewComponent::TestCase
     )
   end
 end
-# rubocop:enable Layout/LineLength

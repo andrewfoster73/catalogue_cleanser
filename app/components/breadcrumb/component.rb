@@ -3,13 +3,13 @@
 module Breadcrumb
   class Component < ViewComponent::Base
     # @return [String] a unique identifier for setting the id on HTML elements in the component
-    attr_accessor :id
+    attr_reader :id
     # @return [String] the label to display on the breadcrumb
-    attr_accessor :label
+    attr_reader :label
     # @return [String] the URL to redirect to if the breadcrumb is clicked
-    attr_accessor :url
+    attr_reader :url
     # @return [Boolean] whether this breadcrumb should be styled as being active
-    attr_accessor :active
+    attr_reader :active
 
     def initialize(id:, label:, url:, active: false)
       super

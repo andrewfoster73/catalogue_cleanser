@@ -7,7 +7,7 @@ class ItemSellPacksController < ResourcesController
 
   # Only allow a list of trusted parameters through.
   def permitted_params
-    %i[name canonical]
+    super | %i[name canonical]
   end
 
   def default_sort

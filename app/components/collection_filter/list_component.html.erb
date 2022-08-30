@@ -1,0 +1,46 @@
+<div class="sticky top-0 z-10 bg-gray-50 bg-opacity-75 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
+  <!-- Expand/collapse question button -->
+  <div
+    class="mr-6 px-2 w-full text-sm flex items-center cursor-pointer"
+    aria-controls="filter-section-0"
+    aria-expanded="false"
+    data-controller="collection-filter--list-component"
+    data-action="click->collection-filter--list-component#toggle"
+    data-collection-filter--list-component-attribute-value="<%= attribute %>"
+  >
+    <span id="<%= attribute %>_list--label" class="text-gray-900"> <%= label %> </span>
+    <span id="<%= attribute %>_list--count" class="ml-1.5 rounded py-0.5 px-1.5 bg-gray-200 text-xs font-semibold text-gray-700 tabular-nums">
+      <%= selected_options.size %>
+    </span>
+    <span class="ml-6 flex">
+      <!--
+        Expand/collapse icon, toggle classes based on question open state.
+
+        Heroicon name: mini/chevron-down
+
+        Open: "-rotate-180", Closed: "rotate-0"
+      -->
+      <svg id="<%= attribute %>_list--toggle_button" class="rotate-0 h-5 w-5 transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+      </svg>
+    </span>
+  </div>
+  <div id="<%= attribute %>_list--options" class="pt-6 absolute z-20 rounded-lg shadow-lg bg-sky-100 p-6" id="filter-section-0" <%= 'hidden' if hidden %>>
+    <div class="space-y-6" data-controller="collection-filter--list-component">
+      <% options.each_with_index do |option, index| %>
+        <div class="flex items-center">
+          <input
+            id="<%= attribute %>_list--option_<%= index %>"
+            name="q[<%= attribute %>_in][]"
+            value="<%= option[:value] %>"
+            type="checkbox"
+            <%= 'checked' if option_checked(value: option[:value]) %>
+            class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+            data-action="change->collection-filter--list-component#selectOption select->collection-filter--component#filter"
+          >
+          <label for="<%= attribute %>_list--option_<%= index %>" class="ml-3 text-sm text-gray-500"> <%= option[:text] %> </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,9 @@
 
 module CollectionFilter
   class Component < ViewComponent::Base
-    include Ransack::Helpers::FormHelper
+    include IconsHelper
+
+    renders_many :elements, CollectionFilter::ElementComponent
 
     attr_reader :filter, :url
 
@@ -10,6 +12,12 @@ module CollectionFilter
       super
       @filter = filter
       @url = url
+    end
+
+    private
+
+    def form_id
+      "#{filter.klass.model_name.singular}_search"
     end
   end
 end

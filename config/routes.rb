@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   # Dashboard
   get '/dashboard' => 'dashboard#index'
 
+  # Calendar
+  get '/calendar' => 'calendar#index'
+
+  concern :audited do
+    resources :audits, only: %i[index]
+  end
+
   resources :tasks
   resources :products
   resources :product_duplicates
@@ -21,7 +28,7 @@ Rails.application.routes.draw do
   resources :item_measure_aliases
   resources :item_measures
   resources :item_sell_pack_aliases, except: %i[new]
-  resources :item_sell_packs, shallow: true, except: %i[new] do
+  resources :item_sell_packs, shallow: true, except: %i[new], concerns: %i[audited] do
     resources :item_sell_pack_aliases, only: %i[index create]
   end
 

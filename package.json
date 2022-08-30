@@ -20,6 +20,7 @@
     "cash-dom": "^8.1.1",
     "el-transition": "^0.0.7",
     "esbuild": "^0.14.51",
+    "flowbite-datepicker": "^1.2.2",
     "stimulus-use": "^0.50.0"
   }
 }

@@ -1237,6 +1237,11 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@popperjs/core@^2.9.3":
+  version "2.11.6"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
+  integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
+
 "@rails/actioncable@^7.0":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.3.tgz#71f08e958883af64f6a20489318b5e95d2c6dc5b"
@@ -4272,6 +4277,21 @@ find-up@^5.0.0:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
 
+flowbite-datepicker@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/flowbite-datepicker/-/flowbite-datepicker-1.2.2.tgz#b3430ef6077d17c9bc4792c592587365eb4e289e"
+  integrity sha512-qOKDVtwkiOa0RrhD3sRtT45H8efAtyLiswuFIAV0UBhWSRYonzL0g1gAZwHiRRKtSmbET/8RQpQXlSEmAgadkg==
+  dependencies:
+    flowbite "^1.4.5"
+
+flowbite@^1.4.5:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/flowbite/-/flowbite-1.5.2.tgz#c7a6f0320404544d977f794269f48ec34a4e2759"
+  integrity sha512-oSKhPkg0bYb4dZG4ypSh++dPrFM3IOSER6HOwJHYRFPW5u9PXL4AQFMQh7Kytgws2xrDQyl/zqefZmymeWt2IA==
+  dependencies:
+    "@popperjs/core" "^2.9.3"
+    mini-svg-data-uri "^1.4.3"
+
 flush-write-stream@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/flush-write-stream/-/flush-write-stream-1.1.1.tgz#8dd7d873a1babc207d94ead0c2e0e44276ebf2e8"
@@ -5813,6 +5833,11 @@ min-document@^2.19.0:
   integrity sha512-9Wy1B3m3f66bPPmU5hdA4DR4PB2OfDU/+GS3yAB7IQozE3tqXaVv2zOjgla7MEGSRv95+ILmOuvhLkOK6wJtCQ==
   dependencies:
     dom-walk "^0.1.0"
+
+mini-svg-data-uri@^1.4.3:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
+  integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
 
 minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   version "1.0.1"

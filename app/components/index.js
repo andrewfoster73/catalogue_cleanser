@@ -3,8 +3,14 @@
 
 import { application } from "../javascript/controllers/application"
 
+import Calendar__ComponentController from "./calendar/component_controller"
+application.register("calendar--component", Calendar__ComponentController)
+
 import CollectionFilter__ComponentController from "./collection_filter/component_controller"
 application.register("collection-filter--component", CollectionFilter__ComponentController)
+
+import CollectionFilter__ListComponentController from "./collection_filter/list_component_controller"
+application.register("collection-filter--list-component", CollectionFilter__ListComponentController)
 
 import CollectionPager__ComponentController from "./collection_pager/component_controller"
 application.register("collection-pager--component", CollectionPager__ComponentController)

@@ -16,6 +16,12 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     login
     visit item_sell_packs_url
     assert_selector 'h1', text: 'Item Sell Packs'
+    assert_selector('label', text: 'Name contains')
+    assert_selector('input#filter_name[name="q[name_cont]"]')
+    assert_selector('label', text: 'Canonical')
+    assert_selector('input#q_canonical_true[name="q[canonical_true]"]', visible: false)
+    assert_selector('input#q_canonical_not_true[name="q[canonical_not_true]"]', visible: false)
+    assert_selector('button#toggle_canonical')
   end
 
   test 'should automatically page' do
@@ -173,7 +179,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     login
     visit item_sell_pack_url(@item_sell_pack)
     assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_details", text: 'Details')
-    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_aliases", text: 'Aliases')
+    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_item_sell_pack_aliases", text: 'Aliases')
     assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_audit", text: 'Audit')
 
     click_on 'Details'
@@ -186,12 +192,30 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     login
     visit edit_item_sell_pack_url(@item_sell_pack)
     assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_details", text: 'Details')
-    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_aliases", text: 'Aliases')
+    assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_item_sell_pack_aliases", text: 'Aliases')
     assert_selector("a#tab_item_sell_pack_#{@item_sell_pack.id}_audit", text: 'Audit')
 
     click_on 'Details'
     assert_current_path(edit_item_sell_pack_url(@item_sell_pack))
     click_on 'Aliases'
     assert_current_path(item_sell_pack_item_sell_pack_aliases_url(item_sell_pack_id: @item_sell_pack))
+  end
+
+  test 'updating record should update audits badge count' do
+    badge_count = item_sell_packs(:carton).associated_audits.size
+    login
+    visit edit_item_sell_pack_url(@item_sell_pack)
+    assert_selector(
+      "#tab_item_sell_pack_#{item_sell_packs(:carton).id}_audit--badge_count__integer",
+      text: badge_count
+    )
+
+    fill_in 'Name', with: "updated #{@item_sell_pack.name}"
+    click_on 'Update'
+
+    assert_selector(
+      "#tab_item_sell_pack_#{item_sell_packs(:carton).id}_audit--badge_count__integer",
+      text: badge_count + 1
+    )
   end
 end
