@@ -9,7 +9,7 @@
       <div class="flex items-center text-gray-900">
         <a
           id="<%= "#{id}_calendar--previous_month_button" %>"
-          href="/calendar?id=<%= "#{id}" %>&input_id=<%= input_id %>&year=<%= previous_month_date.year %>&month=<%= previous_month_date.month %>"
+          href="<%= previous_calendar_url %>"
           class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
           data-turbo-frame="_self"
         >
@@ -19,7 +19,7 @@
         <div id="<%= "#{id}_calendar--current_year_month" %>" class="flex-auto font-semibold"><%= Date::MONTHNAMES[month] %> <%= year %></div>
         <a
           id="<%= "#{id}_calendar--next_month_button" %>"
-          href="/calendar?id=<%= "#{id}" %>&input_id=<%= input_id %>&year=<%= next_month_date.year %>&month=<%= next_month_date.month %>"
+          href="<%= next_calendar_url %>"
           class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
         >
           <span class="sr-only">Next month</span>

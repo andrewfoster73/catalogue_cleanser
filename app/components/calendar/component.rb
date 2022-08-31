@@ -34,6 +34,16 @@ module Calendar
       @today = Time.zone.now.to_date
     end
 
+    # @return [String] the URL to retrieve the calendar for the previous month
+    def previous_calendar_url
+      "/calendar?id=#{id}&input_id=#{input_id}&year=#{previous_month_date.year}&month=#{previous_month_date.month}"
+    end
+
+    # @return [String] the URL to retrieve the calendar for the next month
+    def next_calendar_url
+      "/calendar?id=#{id}&input_id=#{input_id}&year=#{next_month_date.year}&month=#{next_month_date.month}"
+    end
+
     # @return [Date] the first day of the previous calendar month
     def previous_month_date
       calendar_date - 1.month
@@ -49,13 +59,17 @@ module Calendar
       (first_day_of_range..last_day_of_range)
     end
 
+    # @return [Date] the date for the beginning of the week containing the calendar_date
     def first_day_of_range
       calendar_date.beginning_of_week
     end
 
+    # @return [Date] the date 41 days after the first day of the range (this makes 42 days in total)
     def last_day_of_range
       first_day_of_range + 41.days
     end
+
+    private
 
     def button_style(cell_date:, index:)
       [
