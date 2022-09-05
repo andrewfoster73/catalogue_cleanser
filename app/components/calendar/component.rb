@@ -17,18 +17,24 @@ module Calendar
     attr_reader :selected_date
     # @return [Boolean] true if the calendar is hidden, false otherwise
     attr_reader :hidden
+    # @return [Date] a string date representing the maximum selectable date
+    attr_reader :max_date
+    # @return [Date] a string date representing the minimum selectable date
+    attr_reader :min_date
     # @return [Date] the first day of the month and year for the calendar
     attr_reader :calendar_date
     # @return [Date] the current date in the current Time.zone
     attr_reader :today
 
-    def initialize(id:, year:, month:, input_id:, selected_date: nil, hidden: true)
+    def initialize(id:, year:, month:, input_id:, selected_date: nil, max_date: nil, min_date: nil, hidden: true)
       super
       @id = id
       @year = Integer((year.presence || Time.zone.now.year.to_s), 10)
       @month = Integer((month.presence || Time.zone.now.month.to_s), 10)
       @input_id = input_id
       @selected_date = Date.parse(selected_date) if selected_date.present?
+      @max_date = Date.parse(max_date) if max_date.present?
+      @min_date = Date.parse(min_date) if min_date.present?
       @hidden = hidden
       @calendar_date = Date.new(@year, @month, 1)
       @today = Time.zone.now.to_date
@@ -36,12 +42,14 @@ module Calendar
 
     # @return [String] the URL to retrieve the calendar for the previous month
     def previous_calendar_url
-      "/calendar?id=#{id}&input_id=#{input_id}&year=#{previous_month_date.year}&month=#{previous_month_date.month}"
+      "/calendar?id=#{id}&input_id=#{input_id}&year=#{previous_month_date.year}&month=#{previous_month_date.month}" \
+      "&max_date=#{max_date}&min_date=#{min_date}"
     end
 
     # @return [String] the URL to retrieve the calendar for the next month
     def next_calendar_url
-      "/calendar?id=#{id}&input_id=#{input_id}&year=#{next_month_date.year}&month=#{next_month_date.month}"
+      "/calendar?id=#{id}&input_id=#{input_id}&year=#{next_month_date.year}&month=#{next_month_date.month}" \
+      "&max_date=#{max_date}&min_date=#{min_date}"
     end
 
     # @return [Date] the first day of the previous calendar month
@@ -71,14 +79,36 @@ module Calendar
 
     private
 
+    def selectable?(cell_date:)
+      return true if max_date.nil? && min_date.nil?
+      return true if max_date_valid?(cell_date: cell_date) && min_date_valid?(cell_date: cell_date)
+
+      false
+    end
+
+    def max_date_valid?(cell_date:)
+      max_date.nil? || (max_date && cell_date <= max_date)
+    end
+
+    def min_date_valid?(cell_date:)
+      min_date.nil? || (min_date && cell_date >= min_date)
+    end
+
     def button_style(cell_date:, index:)
       [
         button_style_default,
         button_text_colour(cell_date: cell_date),
         ('font-semibold' if cell_date == today || cell_date == selected_date),
-        (cell_date.month == calendar_date.month ? 'bg-white' : 'bg-gray-50'),
+        button_background(cell_date: cell_date),
         corner_style(index: index)
       ].compact.join(' ')
+    end
+
+    def button_background(cell_date:)
+      return 'bg-gray-600 cursor-not-allowed' unless selectable?(cell_date: cell_date)
+      return 'bg-white hover:bg-gray-100' if cell_date.month == calendar_date.month
+
+      'bg-gray-50 hover:bg-gray-100'
     end
 
     def button_text_colour(cell_date:)
@@ -90,7 +120,7 @@ module Calendar
     end
 
     def button_style_default
-      'py-1.5 hover:bg-gray-100 focus:z-10'
+      'py-1.5 focus:z-10'
     end
 
     def corner_style(index:)

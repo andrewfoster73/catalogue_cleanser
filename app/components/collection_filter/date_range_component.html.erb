@@ -2,7 +2,7 @@
   <div class="grid grid-cols-2 gap-4" data-controller="calendar--component">
     <div>
       <label for="q_<%= attribute %>_gteq"><%= "#{attribute.to_s.humanize} is on or after" %></label>
-      <div class="mt-1 relative rounded-md" data-action="click->calendar--component#toggle" data-calendar--component-toggle-calendar-id-param="<%= attribute %>_from_calendar">
+      <div class="mt-1 w-80 relative rounded-md" data-action="click->calendar--component#toggle" data-calendar--component-toggle-calendar-id-param="<%= attribute %>_from_calendar">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -12,19 +12,20 @@
           autocomplete="off"
           class="max-w-lg pl-10 block w-full shadow-lg focus:ring-sky-500 focus:border-sky-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
           data-action="keydown->collection-filter--component#filter select->collection-filter--component#filter"
-          value="<%= from_filter_value %>"
+          value="<%= from_date %>"
+          max="<%= to_date %>"
           type="date"
           name="q[<%= attribute %>_gteq]"
           id="q_<%= attribute %>_gteq"
         >
       </div>
       <%= turbo_frame_tag "#{attribute}_from", src: from_calendar_url, loading: :lazy do %>
-        <%= render Calendar::Component.new(id: "#{attribute}_from", year: '', month: '', input_id: "q_#{attribute}_gteq", selected_date: from_filter_value, hidden: true) %>
+        <%= render Calendar::Component.new(id: "#{attribute}_from", year: '', month: '', input_id: "q_#{attribute}_gteq", selected_date: from_date, max_date: to_date, hidden: true) %>
       <% end %>
     </div>
     <div>
       <label for="q_<%= attribute %>_lteq"><%= "#{attribute.to_s.humanize} is on or before" %></label>
-      <div class="mt-1 relative rounded-md" data-action="click->calendar--component#toggle" data-calendar--component-toggle-calendar-id-param="<%= attribute %>_to_calendar">
+      <div class="mt-1 w-80 relative rounded-md" data-action="click->calendar--component#toggle" data-calendar--component-toggle-calendar-id-param="<%= attribute %>_to_calendar">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -34,14 +35,15 @@
           autocomplete="off"
           class="max-w-lg pl-10 block w-full shadow-lg focus:ring-sky-500 focus:border-sky-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
           data-action="keydown->collection-filter--component#filter select->collection-filter--component#filter"
-          value="<%= to_filter_value %>"
+          value="<%= to_date %>"
+          min="<%= from_date %>"
           type="date"
           name="q[<%= attribute %>_lteq]"
           id="q_<%= attribute %>_lteq"
         >
       </div>
       <%= turbo_frame_tag "#{attribute}_to", src: to_calendar_url, loading: :lazy do %>
-        <%= render Calendar::Component.new(id: "#{attribute}_to", year: '', month: '', input_id: "q_#{attribute}_lteq", selected_date: to_filter_value, hidden: true) %>
+        <%= render Calendar::Component.new(id: "#{attribute}_to", year: '', month: '', input_id: "q_#{attribute}_lteq", selected_date: to_date, min_date: from_date, hidden: true) %>
       <% end %>
     </div>
   </div>

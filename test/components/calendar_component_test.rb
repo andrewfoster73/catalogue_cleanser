@@ -15,9 +15,15 @@ class Calendar::ComponentTest < ViewComponent::TestCase
         )
       )
 
-      assert_selector('a#created_at_from_calendar--previous_month_button[href="/calendar?id=created_at_from&input_id=the_input_id&year=2022&month=7"]')
+      assert_selector(
+        'a#created_at_from_calendar--previous_month_button[href="/calendar?id=created_at_from' \
+        '&input_id=the_input_id&year=2022&month=7&max_date=&min_date="]'
+      )
       assert_selector('#created_at_from_calendar--current_year_month', text: 'August 2022')
-      assert_selector('a#created_at_from_calendar--next_month_button[href="/calendar?id=created_at_from&input_id=the_input_id&year=2022&month=9"]')
+      assert_selector(
+        'a#created_at_from_calendar--next_month_button[href="/calendar?id=created_at_from' \
+        '&input_id=the_input_id&year=2022&month=9&max_date=&min_date="]'
+      )
     end
   end
 
@@ -53,6 +59,56 @@ class Calendar::ComponentTest < ViewComponent::TestCase
 
       assert_selector('button#created_at_from_calendar--button_2023-08-04.text-white.font-semibold')
       assert_selector('time#created_at_from_calendar--time_2023-08-04.bg-gray-900')
+    end
+  end
+
+  test 'when there is a minimum valid date' do
+    travel_to(Time.zone.local(2022, 8, 28)) do
+      render_inline(
+        Calendar::Component.new(
+          id: :created_at_from,
+          year: '2022',
+          month: '8',
+          input_id: :the_input_id,
+          min_date: '2022-08-25',
+          hidden: false
+        )
+      )
+
+      assert_selector(
+        'a#created_at_from_calendar--previous_month_button[href="/calendar?id=created_at_from' \
+        '&input_id=the_input_id&year=2022&month=7&max_date=&min_date=2022-08-25"]'
+      )
+      assert_selector('#created_at_from_calendar--current_year_month', text: 'August 2022')
+      assert_selector(
+        'a#created_at_from_calendar--next_month_button[href="/calendar?id=created_at_from' \
+        '&input_id=the_input_id&year=2022&month=9&max_date=&min_date=2022-08-25"]'
+      )
+    end
+  end
+
+  test 'when there is a maximum valid date' do
+    travel_to(Time.zone.local(2022, 8, 28)) do
+      render_inline(
+        Calendar::Component.new(
+          id: :created_at_from,
+          year: '2022',
+          month: '8',
+          input_id: :the_input_id,
+          max_date: '2022-08-25',
+          hidden: false
+        )
+      )
+
+      assert_selector(
+        'a#created_at_from_calendar--previous_month_button[href="/calendar?id=created_at_from' \
+        '&input_id=the_input_id&year=2022&month=7&max_date=2022-08-25&min_date="]'
+      )
+      assert_selector('#created_at_from_calendar--current_year_month', text: 'August 2022')
+      assert_selector(
+        'a#created_at_from_calendar--next_month_button[href="/calendar?id=created_at_from' \
+        '&input_id=the_input_id&year=2022&month=9&max_date=2022-08-25&min_date="]'
+      )
     end
   end
 end

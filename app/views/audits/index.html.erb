@@ -23,11 +23,16 @@
                  { text: 'Create', value: 'create' },
                  { text: 'Update', value: 'update' },
                  { text: 'Destroy', value: 'destroy' },
-             ]
+             ],
+             selected_options: params.dig(:q, "action_in")
          ) %>
     <% end %>
     <% component.with_element do |e| %>
-      <% e.with_component_date_range(attribute: :created_at) %>
+      <% e.with_component_date_range(
+             attribute: :created_at,
+             from_date: params.dig(:q, :created_at_gteq),
+             to_date: params.dig(:q, :created_at_lteq)
+         ) %>
     <% end %>
   <% end %>
 

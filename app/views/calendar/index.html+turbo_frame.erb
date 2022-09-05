@@ -4,4 +4,6 @@
     month: params[:month],
     input_id: params[:input_id],
     selected_date: params[:selected_date],
+    max_date: params[:max_date],
+    min_date: params[:min_date],
     hidden: ActiveModel::Type::Boolean.new.cast(params[:hidden])) %>
