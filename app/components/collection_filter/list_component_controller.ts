@@ -1,5 +1,5 @@
 import {ActionEvent, Controller} from "@hotwired/stimulus"
-import cash from "cash-dom";
+import cash, {Cash} from "cash-dom";
 
 export default class extends Controller {
     static values = {
@@ -10,8 +10,10 @@ export default class extends Controller {
 
     toggle(event: ActionEvent) {
         event.preventDefault()
-        const optionsContainer: HTMLElement = cash(`#${this.attributeValue}_list--options`)[0] as HTMLElement
-        optionsContainer.toggleAttribute('hidden')
+        const optionsButton: Cash = cash(`#${this.attributeValue}_list--toggle_button`)
+        const containerEl: HTMLElement = cash(`#${this.attributeValue}_list--options`)[0] as HTMLElement
+        containerEl.toggleAttribute('hidden')
+        optionsButton.toggleClass('-rotate-180 rotate-0')
     }
 
     selectOption(event: ActionEvent) {
