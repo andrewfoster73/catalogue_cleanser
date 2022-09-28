@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.2'
 
 # To support the use of Typescript
-gem 'jsbundling-rails', '~> 1.0'
+gem 'jsbundling-rails', '~> 1.0', '>= 1.0.3'
 
 # Environment variable management
 gem 'dotenv'
@@ -36,7 +36,7 @@ gem 'pagy'
 gem 'ransack'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
+gem 'rails', '~> 7.0.4'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -57,7 +57,7 @@ gem 'turbo-rails'
 gem 'stimulus-rails'
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem 'tailwindcss-rails'
+gem 'tailwindcss-rails', '>= 2.0.10'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
