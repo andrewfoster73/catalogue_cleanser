@@ -14,6 +14,8 @@ module CollectionFilter
       @attribute = attribute
     end
 
+    private
+
     def input_value
       params.dig(:q, "#{attribute}_cont")
     end

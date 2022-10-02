@@ -20,6 +20,8 @@ module CollectionFilter
       @to_date = to_date
     end
 
+    private
+
     def from_calendar_url
       "/calendar?id=#{attribute}_from&input_id=q_#{attribute}_gteq&selected_date=#{from_date}" \
       "&max_date=#{to_date}&hidden=true"

@@ -2,12 +2,12 @@
   <div class="flex-shrink-0 w-full group block">
     <div class="flex items-center">
       <div id="user_profile--image">
-        <%= image_tag(picture_url, class: 'inline-block h-12 w-12 rounded-full', alt: "#{@user.full_name}", referrerpolicy: 'no-referrer') %>
+        <%= image_tag(user.image_url, class: 'inline-block h-12 w-12 rounded-full', alt: "#{user.full_name}", referrerpolicy: 'no-referrer') %>
       </div>
       <div class="ml-3">
-        <p id="user_profile--name" class="text-sm font-medium text-white"><%= @user.full_name %></p>
+        <p id="user_profile--name" class="text-sm font-medium text-white"><%= user.full_name %> <span class="fi fi-<%= user.country_alpha2&.downcase %>"></span></p>
         <p id="user_profile--view" class="mt-1 text-xs font-medium text-gray-300 group-hover:text-gray-200">
-          View profile
+          <%= edit_profile_link %>
         </p>
         <%= logout_link %>
       </div>

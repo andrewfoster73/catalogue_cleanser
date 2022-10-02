@@ -13,7 +13,7 @@
     <%= render partial: 'item_sell_packs/navigation', locals: { resource: @parent } %>
   <% end %>
 
-  <%= render PageHeading::Component.new(title: 'Item Sell Pack Aliases', description: 'These are alternative names for a single Item Sell Pack e.g. cart for carton') do |c| %>
+  <%= render PageHeading::Component.new(title: resource_class.model_name.human(count: 2), description: t('.description')) do |c| %>
     <% if nested? %>
       <%= c.with_actions do %>
         <%= render Button::NewResourceComponent.new(id: :item_sell_pack_aliases_new) %>
@@ -23,10 +23,10 @@
 
   <%= render CollectionFilter::Component.new(filter: @q, url: filter_url) do |c| %>
     <% c.with_element do |e| %>
-      <% e.with_component_contains(label: 'Alias contains', attribute: :alias) %>
+      <% e.with_component_contains(label: t('.filters.alias.label'), attribute: :alias) %>
     <% end %>
     <% c.with_element do |e| %>
-      <% e.with_component_toggle(label: 'Confirmed', attribute: :confirmed) %>
+      <% e.with_component_toggle(label: t('.filters.confirmed.label'), attribute: :confirmed) %>
     <% end %>
   <% end %>
 
@@ -40,17 +40,17 @@
     <%= render Collection::Component.new do |collection_component| %>
       <%= collection_component.with_header(columns: [
           {
-              sorter: sort_link(@q, :alias, 'Alias', default_order: :desc, class: 'group inline-flex'),
+              sorter: sort_link(@q, :alias, resource_class.human_attribute_name(:alias), default_order: :desc, class: 'group inline-flex'),
               classes: 'py-3.5 pl-4 pr-3 sm:pl-6 lg:pl-8'
           },
           {
               sorter: sort_link(
-                  @q, :item_sell_pack_name, 'Item Sell Pack', default_order: :desc, class: 'group inline-flex'
+                  @q, :item_sell_pack_name, resource_class.human_attribute_name(:item_sell_pack), default_order: :desc, class: 'group inline-flex'
               )
           },
-          { sorter: sort_link(@q, :confirmed, 'Confirmed', default_order: :desc, class: 'group inline-flex') },
-          { sorter: sort_link(@q, :created_at, 'Created At', default_order: :desc, class: 'group inline-flex') },
-          { sorter: sort_link(@q, :updated_at, 'Updated At', default_order: :desc, class: 'group inline-flex') }
+          { sorter: sort_link(@q, :confirmed, resource_class.human_attribute_name(:confirmed), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :created_at, resource_class.human_attribute_name(:created_at), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :updated_at, resource_class.human_attribute_name(:updated_at), default_order: :desc, class: 'group inline-flex') }
       ]) %>
       <% if @collection.any? %>
         <%= collection_component.with_rows do |rows_component| %>
@@ -67,20 +67,20 @@
 
   <%= render Modal::Component.new(name: :item_sell_pack_aliases_delete_confirmation) do |modal| %>
     <%= modal.with_confirmation(
-            title: 'Delete',
+            title: t('modals.deletion.title'),
             icon_options: { name: :exclamation, colour: :red, options: { classes: '' } },
-            message: 'Are you sure you want to delete this? This action cannot be undone.'
+            message: t('modals.deletion.message')
         ) %>
     <% modal.with_button(
            id: :confirm_delete,
-           label: 'Delete',
+           label: t('modals.deletion.buttons.delete.label'),
            options: {
                icon: { name: :trash, colour: :white },
                colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
                data: {
                    params: [
                        { name: 'resource-id', value: '' },
-                       { name: 'resource-url', value: polymorphic_path(@resource_class) },
+                       { name: 'resource-url', value: polymorphic_path(resource_class) },
                        { name: 'resource-modal-name', value: :item_sell_pack_aliases_delete_confirmation }
                    ],
                    action: 'click->resource#inlineDelete'
@@ -90,19 +90,19 @@
   <% if nested? %>
     <%= render Modal::Component.new(name: :item_sell_pack_aliases_new) do |modal| %>
       <%= modal.with_form do %>
-        <%= render(partial: 'resource', locals: { action: :new, resource: @resource_class.new, readonly: false, token: form_authenticity_token }) %>
+        <%= render(partial: 'resource', locals: { action: :new, resource: resource_class.new, readonly: false, token: form_authenticity_token }) %>
       <% end %>
       <%= modal.with_button(
               id: :save_new,
-              label: 'Save',
+              label: t('modals.new.buttons.save.label'),
               options: {
                   icon: { name: :save, colour: :white },
                   colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
                   data: {
                       params: [
-                          { name: 'resource-url', value: polymorphic_url(@resource_class) },
+                          { name: 'resource-url', value: polymorphic_url(resource_class) },
                           { name: 'resource-name', value: :item_sell_pack_alias_new },
-                          { name: 'resource-form-id', value: dom_id(@resource_class.new, :form) },
+                          { name: 'resource-form-id', value: dom_id(resource_class.new, :form) },
                           { name: 'resource-modal-name', value: :item_sell_pack_aliases_new }
                       ],
                       action: 'click->resource#create'

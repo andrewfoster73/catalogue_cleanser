@@ -1,0 +1,13 @@
+---
+en-GB:
+  activerecord:
+    audited/audit:
+      attributes:
+        action: Action
+        audited_changes: Changes
+        created_at: Created At
+        email: Email
+    models:
+      audited/audit:
+        one: Audit
+        other: Audits

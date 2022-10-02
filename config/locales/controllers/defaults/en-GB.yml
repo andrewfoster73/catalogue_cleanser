@@ -1,0 +1,15 @@
+---
+en-GB:
+  actions:
+    create:
+      success: "%{name} '%{resource}' was successfully created."
+    destroy:
+      success: "%{name} '%{resource}' was successfully deleted."
+    update:
+      error: "%{name} could not be updated."
+      success: "%{name} '%{resource}' was successfully updated."
+  errors:
+    default:
+      message: We have encountered an error and cannot continue, contact us for help.
+    not_found:
+      message: "%{name} could not be found."

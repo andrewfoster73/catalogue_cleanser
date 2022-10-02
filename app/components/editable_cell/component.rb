@@ -13,8 +13,10 @@ module EditableCell
       @error = error
     end
 
+    private
+
     def display
-      public_send("#{@formatter}_formatter")
+      send("#{@formatter}_formatter")
     end
 
     def string_formatter

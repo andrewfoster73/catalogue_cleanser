@@ -1,0 +1,14 @@
+---
+en-GB:
+  users:
+    navigation:
+      tabs:
+        details: Details
+    resource:
+      description: A user that can login to the application
+      help:
+        country_alpha2: Show your national pride!
+        email: This is retrieved from Google so cannot be changed
+        full_name: This is retrieved from Google so cannot be changed
+        locale: This will affect the user interface language displayed
+        picture_url: This is retrieved from Google so cannot be changed

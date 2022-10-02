@@ -16,6 +16,9 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
+# Country support for a user
+gem 'countries'
+
 # Runtime type checking for Ruby
 gem 'sorbet-runtime'
 
@@ -86,6 +89,9 @@ gem 'bootsnap', require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'deepl-rb'
+  gem 'easy_translate'
+  gem 'i18n-tasks', '~> 1.0.11'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false

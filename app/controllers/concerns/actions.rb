@@ -27,7 +27,7 @@ module Actions
         format.html do
           redirect_to(
             resource_url(@resource, { format: :html }),
-            success: "#{resource_human_name} '#{@resource}' was successfully created."
+            success: t('actions.create.success', name: resource_human_name, resource: @resource.to_s)
           )
         end
         format.json { render(:show, status: :created, location: @resource) }
@@ -45,14 +45,14 @@ module Actions
         format.html do
           redirect_to(
             resource_url(@resource),
-            success: "#{resource_human_name} '#{@resource}' was successfully updated."
+            success: t('actions.update.success', name: resource_human_name, resource: @resource.to_s)
           )
         end
         format.json { render(:show, status: :ok, location: @resource) }
       else
         format.html do
-          flash.now[:error] = "#{resource_human_name} could not be updated."
-          render(:edit, status: :unprocessable_entity, error: "#{resource_human_name} could not be updated.")
+          flash.now[:error] = t('actions.update.error', name: resource_human_name)
+          render(:edit, status: :unprocessable_entity, error: t('actions.update.error', name: resource_human_name))
         end
         format.json { render(json: @resource.errors, status: :unprocessable_entity) }
       end
@@ -65,7 +65,10 @@ module Actions
 
     respond_to do |format|
       format.html do
-        redirect_to(collection_url, success: "#{resource_human_name} '#{@resource}' was successfully deleted.")
+        redirect_to(
+          collection_url,
+          success: t('actions.destroy.success', name: resource_human_name, resource: @resource.to_s)
+        )
       end
       format.json { head(:no_content) }
     end

@@ -12,6 +12,8 @@ module CollectionPager
       @parent_param = parent_param
     end
 
+    private
+
     def pager_url
       public_send(collection_path_method, parent_param, page: paginator.next, q: filter_params&.to_unsafe_h)
     end

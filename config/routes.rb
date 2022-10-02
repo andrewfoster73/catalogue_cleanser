@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resources :audits, only: %i[index]
   end
 
+  resources :users, only: %i[show edit update], concerns: %i[audited]
+
   resources :tasks
   resources :products
   resources :product_duplicates

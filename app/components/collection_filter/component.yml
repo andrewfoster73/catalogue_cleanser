@@ -1,0 +1,8 @@
+---
+en-GB:
+  collection_filter:
+    date_range_component:
+      range_end:
+        label: "%{attribute} is on or before"
+      range_start:
+        label: "%{attribute} is on or after"

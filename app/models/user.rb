@@ -30,4 +30,19 @@ class User < ApplicationRecord
   def to_s
     "#{full_name} (#{email})"
   end
+
+  # @return [String] the user's picture_url if set, otherwise a Gravatar retro image URL
+  def image_url
+    picture_url.presence || gravatar_url
+  end
+
+  private
+
+  def gravatar_url
+    "https://www.gravatar.com/avatar/#{gravatar_hash}?d=retro"
+  end
+
+  def gravatar_hash
+    Digest::MD5.hexdigest(email)
+  end
 end

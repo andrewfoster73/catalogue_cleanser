@@ -11,6 +11,8 @@ module Button
     # @return [Hash] the additional configuration options for the button
     attr_reader :options
 
+    # @param [String] id the identifier to add to the HTML button tag
+    # @param [String] label the text to use as a label, must have i18n already applied
     # @param [Hash] options additional configuration options for the button
     # @option options [String] :title appears when hovering over the button
     # @option options [String] :colour_classes TailwindCSS colour related classes to add

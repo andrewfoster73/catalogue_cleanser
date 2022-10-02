@@ -4,13 +4,22 @@ module UserProfile
   class Component < ViewComponent::Base
     include IconsHelper
 
+    attr_accessor :user
+
     def initialize(user:)
       super
       @user = user
     end
 
-    def picture_url
-      @user.picture_url.presence || gravatar_url
+    private
+
+    def edit_profile_link
+      link_to(
+        edit_user_path(user),
+        id: 'user_profile--edit_profile'
+      ) do
+        t('user_profile.component.edit_profile')
+      end
     end
 
     def logout_link
@@ -20,18 +29,8 @@ module UserProfile
         data: { turbo_method: :delete },
         class: 'inline-flex items-center text-xs font-medium text-gray-300 group-hover:text-gray-200'
       ) do
-        'Logout'
+        t('user_profile.component.logout')
       end
-    end
-
-    private
-
-    def gravatar_url
-      "https://www.gravatar.com/avatar/#{gravatar_hash}?d=retro"
-    end
-
-    def gravatar_hash
-      Digest::MD5.hexdigest(@user.email)
     end
   end
 end

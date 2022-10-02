@@ -8,7 +8,11 @@ module ResourceForm
       text: ResourceForm::TextComponent,
       toggle: ResourceForm::ToggleComponent,
       timestamp: ResourceForm::TimestampComponent,
-      hidden: ResourceForm::HiddenComponent
+      hidden: ResourceForm::HiddenComponent,
+      image: ResourceForm::ImageComponent,
+      dropdown: ResourceForm::DropdownComponent,
+      country_dropdown: ResourceForm::CountryDropdownComponent,
+      locale_dropdown: ResourceForm::LocaleDropdownComponent
     }
   end
 end

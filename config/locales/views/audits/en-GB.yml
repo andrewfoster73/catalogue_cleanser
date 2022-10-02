@@ -1,0 +1,19 @@
+---
+en-GB:
+  audits:
+    index:
+      changes:
+        create: "%{model} with attributes: [%{attributes}] was created."
+        destroy: "%{model} with attributes: [%{attributes}] was deleted."
+        update: "%{attribute} was changed from %{from} to %{to}"
+      description: The history of all changes to this record
+      filters:
+        actions:
+          label: Actions
+          options:
+            create: Create
+            destroy: Destroy
+            update: Update
+    row:
+      no_email: No Email
+      unknown: Unknown

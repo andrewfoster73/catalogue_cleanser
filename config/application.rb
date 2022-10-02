@@ -31,5 +31,12 @@ module CatalogueCleanser
 
     # Sweep importmap cache for components
     config.importmap.cache_sweepers << Rails.root.join('app/components')
+
+    # I18n
+    config.i18n.default_locale = 'en-GB'
+    config.i18n.available_locales = %w[en-GB en-US th zh]
+    config.i18n.raise_on_missing_translations = Rails.env.development?
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb,yml}')]
+    config.i18n.load_path += Dir[Rails.root.join('app/components/**/*.yml')]
   end
 end

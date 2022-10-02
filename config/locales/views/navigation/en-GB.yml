@@ -1,0 +1,11 @@
+---
+en-GB:
+  navigation:
+    menu:
+      brands: Brands
+      item_measures: Item Measures
+      item_packs: Item Packs
+      item_sell_packs: Item Sell Packs
+      products: Products
+    menu_group:
+      item_setup: Item Setup

@@ -1,32 +1,32 @@
 <div id="turbo_stream_<%= action %>_<%= resource.resource_name %>_<%= resource.id %>">
   <%= render ResourceForm::Component.new(
-      title: 'Item Sell Pack',
-      description: 'These are the names for how a supplier sells a complete package',
+      title: resource_class.model_name.human,
+      description: t('.description'),
       resource: resource,
       token: token,
       action: action) do |component| %>
     <% component.with_field do |c| %>
       <% c.with_attribute_text(
              attribute: :name,
-             label: 'Name',
+             label: resource_class.human_attribute_name(:name),
              resource: resource,
-             options: { readonly: readonly, required: true, invalid_message: 'A name must be entered.' }
+             options: { readonly: readonly, required: true, invalid_message: t('.invalid_message.name') }
          ) %>
     <% end %>
     <% component.with_field do |c| %>
       <% c.with_attribute_toggle(
              attribute: :canonical,
-             label: 'Canonical',
+             label: resource_class.human_attribute_name(:canonical),
              resource: resource,
-             options: { readonly: readonly, help: 'Name is acceptable to all users?' }
+             options: { readonly: readonly, help: t('.help.canonical') }
          ) %>
     <% end %>
     <% unless action == :new %>
       <% component.with_field do |c| %>
-        <% c.with_attribute_timestamp(attribute: :created_at, label: 'Created At', resource: resource) %>
+        <% c.with_attribute_timestamp(attribute: :created_at, label: resource_class.human_attribute_name(:created_at), resource: resource) %>
       <% end %>
       <% component.with_field do |c| %>
-        <% c.with_attribute_timestamp(attribute: :updated_at, label: 'Updated At', resource: resource) %>
+        <% c.with_attribute_timestamp(attribute: :updated_at, label: resource_class.human_attribute_name(:updated_at), resource: resource) %>
       <% end %>
     <% end %>
   <% end %>

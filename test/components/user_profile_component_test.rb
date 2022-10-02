@@ -9,7 +9,7 @@ class UserProfile::ComponentTest < ViewComponent::TestCase
 
   test 'renders full name' do
     assert_equal(
-      %(<p id="user_profile--name" class="text-sm font-medium text-white">Saul Goodman</p>),
+      %(<p id="user_profile--name" class="text-sm font-medium text-white">Saul Goodman <span class="fi fi-au"></span></p>),
       render_inline(UserProfile::Component.new(user: @user)).css('#user_profile--name').to_html
     )
   end
