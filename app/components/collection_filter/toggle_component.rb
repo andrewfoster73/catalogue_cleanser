@@ -14,6 +14,8 @@ module CollectionFilter
       @attribute = attribute
     end
 
+    private
+
     def true_field_name
       :"#{attribute}_true"
     end

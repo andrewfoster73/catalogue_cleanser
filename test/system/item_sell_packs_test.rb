@@ -120,19 +120,19 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   test 'should update Item sell pack' do
     login
     visit item_sell_pack_url(@item_sell_pack)
-    click_on 'Edit', match: :first
+    click_on 'Edit', exact: true
 
     fill_in 'Name', with: @item_sell_pack.name
     click_on 'Update'
 
-    assert_text "Item sell pack '#{@item_sell_pack}' was successfully updated"
+    assert_text "Item Sell Pack '#{@item_sell_pack}' was successfully updated"
     click_on 'List'
   end
 
   test 'should show validation errors on item sell pack update' do
     login
     visit item_sell_pack_url(@item_sell_pack)
-    click_on 'Edit', match: :first
+    click_on 'Edit', exact: true
 
     fill_in 'Name', with: ''
     assert_selector(
@@ -153,7 +153,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     find("#delete_item_sell_pack_#{@item_sell_pack.id}").click
     find('#confirm_delete').click
 
-    assert_text "Item sell pack '#{@item_sell_pack}' was successfully deleted"
+    assert_text "Item Sell Pack '#{@item_sell_pack}' was successfully deleted"
   end
 
   test 'should destroy Item sell pack inline' do

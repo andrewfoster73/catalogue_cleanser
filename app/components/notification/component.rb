@@ -14,6 +14,8 @@ module Notification
       @hidden = hidden
     end
 
+    private
+
     def title
       type.titleize
     end

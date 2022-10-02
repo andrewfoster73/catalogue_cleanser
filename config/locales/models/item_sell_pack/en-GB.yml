@@ -1,0 +1,13 @@
+---
+en-GB:
+  activerecord:
+    item_sell_pack:
+      attributes:
+        canonical: Canonical
+        created_at: Created At
+        name: Name
+        updated_at: Updated At
+    models:
+      item_sell_pack:
+        one: Item Sell Pack
+        other: Item Sell Packs

@@ -10,7 +10,7 @@
     <%= resource.action %>
   </td>
   <td id="<%= dom_id(resource, :email_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
-    <%= "#{resource.user&.email || 'no email'} (#{resource.user&.full_name || 'unknown'})" %>
+    <%= "#{resource.user&.email || t('.no_email')} (#{resource.user&.full_name || t('.unknown')})" %>
   </td>
   <td id="<%= dom_id(resource, :created_at_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
     <%= time_ago_in_words(resource.created_at, include_seconds: true) %> ago

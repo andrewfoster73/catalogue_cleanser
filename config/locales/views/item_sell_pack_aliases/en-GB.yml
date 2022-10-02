@@ -1,0 +1,16 @@
+---
+en-GB:
+  item_sell_pack_aliases:
+    index:
+      description: These are alternative names for a single Item Sell Pack e.g. cart for carton
+      filters:
+        alias:
+          label: Alias contains
+        confirmed:
+          label: Confirmed
+    resource:
+      description: An alternative name for a single Item Sell Pack e.g. cart for carton
+      help:
+        confirmed: Is this a confirmed alias of the Item Sell Pack name?
+      invalid_message:
+        alias: An alias must be entered.

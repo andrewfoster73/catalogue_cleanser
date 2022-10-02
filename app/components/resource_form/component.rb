@@ -17,6 +17,8 @@ module ResourceForm
       @action = action
     end
 
+    private
+
     def form_id
       dom_id(resource, :form)
     end

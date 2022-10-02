@@ -61,7 +61,7 @@ class ItemSellPacksControllerTest < ActionDispatch::IntegrationTest
     get item_sell_pack_url(0)
 
     assert_redirected_to item_sell_packs_url
-    assert_equal('Item sell pack could not be found.', flash[:error])
+    assert_equal('Item Sell Pack could not be found.', flash[:error])
   end
 
   test 'broadcast error for JSON' do

@@ -1,0 +1,23 @@
+<%= render BreadcrumbNavigation::Component.new(id: dom_id(resource)) do |component| %>
+  <% component.with_breadcrumb(id: dom_id(resource), label: resource.to_s, url: edit_user_path(resource), active: true) %>
+<% end %>
+<%= render TabNavigation::Component.new(id: dom_id(resource)) do |component| %>
+  <% component.with_tab(
+         id: :details,
+         label: t('.tabs.details'),
+         url: action_name == 'edit' ? edit_user_path(resource) : user_path(resource),
+         active: controller.controller_name == 'users',
+         options: { parent: resource, icon_options: { name: :library, colour: :gray } }
+     ) %>
+  <% component.with_tab(
+         id: :audit,
+         label: Audited::Audit.model_name.human,
+         url: user_audits_path(user_id: resource),
+         active: controller.controller_name == 'audits',
+         options: {
+             parent: resource,
+             icon_options: { name: :database, colour: :gray },
+             badge_count: resource.own_and_associated_audits.size
+         }
+     ) %>
+<% end %>

@@ -50,6 +50,10 @@ class AuditsController < ApplicationController
 
   private
 
+  def resource_class
+    @resource_class = Audited::Audit
+  end
+
   def parameter_introspection
     @parameter_introspection ||= ::ParameterIntrospection.new(parameters: params)
   end

@@ -16,6 +16,8 @@ module Tab
       @options = options
     end
 
+    private
+
     def tab_id
       return id unless parent
 

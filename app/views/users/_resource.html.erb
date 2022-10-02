@@ -1,0 +1,49 @@
+<div id="turbo_stream_<%= action %>_<%= resource.resource_name %>_<%= resource.id %>">
+  <%= render ResourceForm::Component.new(
+      title: resource_class.model_name.human,
+      description: t('.description'),
+      resource: resource,
+      token: token,
+      action: action) do |component| %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_text(
+             attribute: :email,
+             label: resource_class.human_attribute_name(:email),
+             resource: resource,
+             options: { help: t('.help.email') }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_text(
+             attribute: :full_name,
+             label: resource_class.human_attribute_name(:full_name),
+             resource: resource,
+             options: { help: t('.help.full_name') }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_image(
+             attribute: :image_url,
+             label: resource_class.human_attribute_name(:picture_url),
+             resource: resource,
+             options: { help: t('.help.picture_url') }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_locale_dropdown(
+             attribute: :locale,
+             label: resource_class.human_attribute_name(:locale),
+             resource: resource,
+             options: { readonly: readonly, help: t('.help.locale') }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_country_dropdown(
+             attribute: :country_alpha2,
+             label: resource_class.human_attribute_name('country_alpha2'),
+             resource: resource,
+             options: { readonly: readonly, help: t('.help.country_alpha2') }
+         ) %>
+    <% end %>
+  <% end %>
+</div>

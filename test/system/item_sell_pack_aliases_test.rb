@@ -127,19 +127,19 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
   test 'should update Item sell pack alias' do
     login
     visit item_sell_pack_alias_url(@item_sell_pack_alias)
-    click_on 'Edit', match: :first
+    click_on 'Edit', exact: true
 
     fill_in 'Alias', with: @item_sell_pack_alias.alias
     click_on 'Update'
 
-    assert_text "Item sell pack alias '#{@item_sell_pack_alias}' was successfully updated"
+    assert_text "Item Sell Pack Alias '#{@item_sell_pack_alias}' was successfully updated"
     click_on 'List'
   end
 
   test 'should show validation errors on item sell pack alias update' do
     login
     visit item_sell_pack_alias_url(@item_sell_pack_alias)
-    click_on 'Edit', match: :first
+    click_on 'Edit', exact: true
 
     fill_in 'Alias', with: ''
     assert_selector(
@@ -160,7 +160,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     find("#delete_item_sell_pack_alias_#{@item_sell_pack_alias.id}").click
     find('#confirm_delete').click
 
-    assert_text "Item sell pack alias '#{@item_sell_pack_alias}' was successfully deleted"
+    assert_text "Item Sell Pack Alias '#{@item_sell_pack_alias}' was successfully deleted"
   end
 
   test 'should destroy Item sell pack alias inline' do

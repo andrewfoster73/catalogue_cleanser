@@ -21,7 +21,7 @@ module Broadcast
         },
         target: 'notifications'
       )
-      broadcast_notification(type: 'warning', message: 'Another user has deleted this record!')
+      broadcast_notification(type: 'warning', message: I18n.t('models.broadcast.delete.warning'))
     }
 
     after_update_commit lambda {
@@ -44,7 +44,7 @@ module Broadcast
         locals: { label: to_s },
         target: "breadcrumb_#{resource_name}_#{id}--link_label"
       )
-      broadcast_notification(type: 'warning', message: 'Another user has updated this record.')
+      broadcast_notification(type: 'warning', message: I18n.t('models.broadcast.update.warning'))
     }
   end
 

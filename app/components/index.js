@@ -23,3 +23,6 @@ application.register("notification--component", Notification__ComponentControlle
 
 import ResourceForm__ComponentController from "./resource_form/component_controller"
 application.register("resource-form--component", ResourceForm__ComponentController)
+
+import ResourceForm__DropdownComponentController from "./resource_form/dropdown_component_controller"
+application.register("resource-form--dropdown-component", ResourceForm__DropdownComponentController)

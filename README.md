@@ -7,50 +7,70 @@
 
 # README
 
-Requirements:
+####Requirements:
 * Ruby 3.0.2
 * Bundler
 
-Installation:
+####Installation:
 * `bundle install`
 
-Configuration:
+####Configuration:
 * TODO
 
-Database Initialisation:
+####Database Initialisation:
 * TODO
 
-Generating Storybook Stories:
+####Generating Storybook Stories:
 
 `rails view_component_storybook:write_stories_json`
 
-Running Storybook:
+####Running Storybook:
 
 `yarn storybook`
 
-After adding/deleting Stimulus controllers:
+####After adding/deleting Stimulus controllers:
 
 `rails stimulus:manifest:update`
 
-Building JavaScript Assets:
+####I18n tasks:
+
+`i18n-tasks health`
+
+`i18n-tasks translate-missing --from=base th` (uses Google Translate, has more language options)
+
+See: https://cloud.google.com/translate/docs/languages
+
+_OR_
+
+`i18n-tasks translate-missing --backend=deepl --from=en de` (uses DeepL, has less language options, no Thai for instance)
+
+See: https://www.deepl.com/docs-api/translate-text/translate-text/
+
+`i18n-tasks normalize`
+
+####Building JavaScript Assets:
 
 `yarn build`
 
-Running the test suite:
+####Running the test suite:
 
 `rails test:all`
 
-Running the linter:
+####Running the linter:
 
 `ruboocop`
 
-Fixing any linting issues:
+####Fixing any linting issues:
 
 `rubocop -a` or `rubocop -A` (see Rubocop documentation for the difference)
 
-Running the application:
+####Running the RDocs
+
+`yard server -r`
+
+####Running the application:
 
 `rails dev`
 
-Deploying the application:
+####Deploying the application:
 * TODO

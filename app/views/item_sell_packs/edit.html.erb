@@ -8,20 +8,20 @@
 <%= render ResourceActions::Component.new do |component| %>
   <% component.with_button(
          id: dom_id(@resource, :list),
-         label: 'List',
+         label: t('button.labels.list'),
          options: {
-             title: polymorphic_path(@resource_class),
+             title: polymorphic_path(resource_class),
              icon: { name: :arrow_left, colour: :white },
              colour_classes: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-200',
              data: {
-                 params: [{ name: 'resource-url', value: polymorphic_path(@resource_class) }],
+                 params: [{ name: 'resource-url', value: polymorphic_path(resource_class) }],
                  action: 'click->resource#navigate'
              }
          }
      ) %>
   <% component.with_button(
          id: dom_id(@resource, :update),
-         label: 'Update',
+         label: t('button.labels.update'),
          options: {
              icon: { name: :save, colour: :white },
              colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
@@ -33,7 +33,7 @@
      ) %>
   <% component.with_button(
          id: dom_id(@resource, :delete),
-         label: 'Delete',
+         label: t('button.labels.delete'),
          options: {
              icon: { name: :trash, colour: :white },
              colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
@@ -53,20 +53,20 @@
 <%= render Modal::Component.new(name: :item_sell_packs_delete_confirmation) do |modal| %>
   <%= modal.with_confirmation(
           name: :item_sell_packs_delete_confirmation,
-          title: 'Delete',
+          title: t('modals.deletion.title'),
           icon_options: { name: :exclamation, colour: :red, options: { classes: '' } },
-          message: 'Are you sure you want to delete this? This action cannot be undone.'
+          message: t('modals.deletion.message')
       ) %>
   <% modal.with_button(
          id: :confirm_delete,
-         label: 'Delete',
+         label: t('modals.deletion.buttons.delete.label'),
          options: {
              icon: { name: :trash, colour: :white },
              colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
              data: {
                  params: [
                      { name: 'resource-id', value: @resource.id },
-                     { name: 'resource-url', value: polymorphic_path(@resource_class) },
+                     { name: 'resource-url', value: polymorphic_path(resource_class) },
                      { name: 'resource-modal-name', value: :item_sell_packs_delete_confirmation }
                  ],
                  action: 'click->resource#delete'

@@ -1,0 +1,6 @@
+---
+en-GB:
+  user_profile:
+    component:
+      edit_profile: Edit Profile
+      logout: Logout

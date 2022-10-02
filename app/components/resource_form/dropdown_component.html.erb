@@ -1,0 +1,86 @@
+<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5" data-controller="resource-form--component">
+  <div>
+    <label id="<%= field_id %>--label" for="<%= field_id %>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-">
+      <%= label %>
+    </label>
+    <% if help.present? %>
+      <div id="<%= field_id %>--help" class="mt-2 text-sm text-gray-300 inline-flex items-center">
+        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= help %>
+      </div>
+    <% end %>
+  </div>
+  <div
+    class="mt-1 sm:mt-0 sm:col-span-2"
+    data-controller="resource-form--dropdown-component"
+    data-resource-form--dropdown-component-item-list-id-value="<%= field_id %>--item-list"
+    data-resource-form--dropdown-component-hidden-input-id-value="<%= field_id %>--hidden-input"
+    data-resource-form--dropdown-component-input-id-value="<%= field_id %>--input"
+  >
+    <div class="flex items-center">
+      <div class="relative mt-1">
+        <input id="<%= field_id %>--input" value="<%= selected_text %>" disabled type="text" class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-12 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm" role="combobox" aria-controls="options" aria-expanded="false">
+        <input id="<%= field_id %>--hidden-input" value="<%= selected_value %>" type="hidden" name="<%= field_name %>">
+        <% unless display_only? %>
+          <button
+            id="<%= field_id %>--button"
+            type="button"
+            class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none"
+            data-action="click->resource-form--dropdown-component#toggle keydown->resource-form--dropdown-component#handleKeydown"
+          >
+            <!-- Heroicon name: mini/chevron-up-down -->
+            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        <% end %>
+
+        <ul id="<%= field_id %>--item-list" <%= 'hidden' if hidden %> class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" id="options" role="listbox">
+          <!--
+            Combobox option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
+
+            Active: "text-white bg-sky-600", Not Active: "text-gray-900"
+          -->
+          <% items.each_with_index do |item, index| %>
+            <li
+              class="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 dropdown-component__option"
+              id="<%= field_id %>--item-<%= index %>"
+              data-resource-form--dropdown-component-item-value-param="<%= item[:value] %>"
+              data-resource-form--dropdown-component-item-text-param="<%= item[:text] %>"
+              data-resource-form--dropdown-component-checkmark-id-param="<%= field_id %>--<%= item[:value] %>-checkmark"
+              data-action="mouseenter->resource-form--dropdown-component#highlight mouseleave->resource-form--dropdown-component#highlight click->resource-form--dropdown-component#select"
+              role="option"
+              tabindex="-1"
+            >
+              <div id="<%= field_id %>--<%= item[:value] %>-value" class="flex items-center">
+                <% if item[:css] %>
+                  <span class="flex-none <%= item[:css] %>"></span>
+                <% end %>
+                <!-- Selected: "font-semibold" -->
+                <span
+                  class="ml-3 truncate <%= 'font-semibold' if selected?(value: item[:value]) %>"
+                  title="<%= item[:text] %>">
+                  <%= item[:text] %>
+                </span>
+              </div>
+
+              <!--
+                Checkmark, only display for selected option.
+
+                Active: "text-white", Not Active: "text-sky-600"
+              -->
+              <span
+                id="<%= field_id %>--<%= item[:value] %>-checkmark"
+                data-resource-form--dropdown-component-target="checkmark"
+                class="<%= 'hidden' unless selected?(value: item[:value]) %> absolute inset-y-0 right-0 flex items-center pr-4 text-sky-600">
+                <!-- Heroicon name: mini/check -->
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

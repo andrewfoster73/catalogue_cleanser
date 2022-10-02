@@ -6,3 +6,5 @@ saul:
   email: saul.goodman@example.com
   uid: 12345
   provider: google_oauth2
+  locale: en-GB
+  country_alpha2: AU

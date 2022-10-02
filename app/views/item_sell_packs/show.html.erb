@@ -7,20 +7,20 @@
 <%= render ResourceActions::Component.new do |component| %>
   <% component.with_button(
          id: dom_id(@resource, :list),
-         label: 'List',
+         label: t('button.labels.list'),
          options: {
-             title: polymorphic_path(@resource_class),
+             title: polymorphic_path(resource_class),
              icon: { name: :arrow_left, colour: :white },
              colour_classes: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-200',
              data: {
-                 params: [{ name: 'resource-url', value: polymorphic_path(@resource_class) }],
+                 params: [{ name: 'resource-url', value: polymorphic_path(resource_class) }],
                  action: 'click->resource#navigate'
              }
          }
      ) %>
   <% component.with_button(
          id: dom_id(@resource, :edit),
-         label: 'Edit',
+         label: t('button.labels.edit'),
          options: {
              title: polymorphic_path([:edit, @resource]),
              icon: { name: :pencil, colour: :white },

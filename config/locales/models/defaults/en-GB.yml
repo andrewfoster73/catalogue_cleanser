@@ -1,0 +1,11 @@
+---
+en-GB:
+  errors:
+    messages:
+      taken: has already been taken
+  models:
+    broadcast:
+      delete:
+        warning: Another user has deleted this record!
+      update:
+        warning: Another user has updated this record.

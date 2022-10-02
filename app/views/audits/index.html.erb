@@ -13,16 +13,16 @@
     <%= render partial: "#{@parent.resource_name_plural}/navigation", locals: { resource: @parent } %>
   <% end %>
 
-  <%= render PageHeading::Component.new(title: 'Audits', description: 'The history of all changes to this record') %>
+  <%= render PageHeading::Component.new(title: resource_class.model_name.human(count: 2), description: t('.description')) %>
   <%= render CollectionFilter::Component.new(filter: @q, url: filter_url) do |component| %>
     <% component.with_element do |e| %>
       <% e.with_component_list(
-             label: 'Actions',
+             label: t('.filters.actions.label'),
              attribute: :action,
              options: [
-                 { text: 'Create', value: 'create' },
-                 { text: 'Update', value: 'update' },
-                 { text: 'Destroy', value: 'destroy' },
+                 { text: t('.filters.actions.options.create'), value: 'create' },
+                 { text: t('.filters.actions.options.update'), value: 'update' },
+                 { text: t('.filters.actions.options.destroy'), value: 'destroy' },
              ],
              selected_options: params.dig(:q, "action_in")
          ) %>
@@ -43,10 +43,10 @@
   >
     <%= render Collection::Component.new do |collection_component| %>
       <%= collection_component.with_header(columns: [
-          { sorter: sort_link(@q, :action, 'Action', default_order: :desc, class: 'group inline-flex') },
-          { sorter: sort_link(@q, :user_of_User_type_email, 'Email', default_order: :desc, class: 'group inline-flex') },
-          { sorter: sort_link(@q, :created_at, 'Created At', default_order: :desc, class: 'group inline-flex') },
-          { label: 'Changes' }
+          { sorter: sort_link(@q, :action, resource_class.human_attribute_name(:action), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :user_of_User_type_email, resource_class.human_attribute_name(:email), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :created_at, resource_class.human_attribute_name(:created_at), default_order: :desc, class: 'group inline-flex') },
+          { label: resource_class.human_attribute_name(:audited_changes) }
       ]) %>
       <% if @collection.any? %>
         <%= collection_component.with_rows do |rows_component| %>

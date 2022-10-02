@@ -1,0 +1,10 @@
+---
+en-GB:
+  activerecord:
+    abbreviation:
+      attributes:
+        letters: Letters
+    models:
+      abbreviation:
+        one: Abbreviation
+        other: Abbreviations

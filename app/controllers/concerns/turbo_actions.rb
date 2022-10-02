@@ -25,7 +25,7 @@ module TurboActions
       if @resource.update(resource_params)
         format.html do
           redirect_to(resource_url(@resource, { format: :html }),
-                      success: "#{resource_human_name} '#{@resource}' was successfully updated."
+                      success: t('actions.update.success', name: resource_human_name, resource: @resource.to_s)
                      )
         end
         format.json { render(:show, status: :ok, location: @resource) }
@@ -38,7 +38,7 @@ module TurboActions
         end
       else
         format.html do
-          flash.now[:error] = "#{resource_human_name} could not be updated."
+          flash.now[:error] = t('actions.update.error', name: resource_human_name)
           render(:edit, status: :unprocessable_entity)
         end
         format.json { render(json: @resource.errors, status: :unprocessable_entity) }
@@ -63,10 +63,13 @@ module TurboActions
 
     respond_to do |format|
       format.html do
-        redirect_to(collection_url, success: "#{resource_human_name} '#{@resource}' was successfully deleted.")
+        redirect_to(
+          collection_url,
+          success: t('actions.destroy.success', name: resource_human_name, resource: @resource.to_s)
+        )
       end
       format.json do
-        flash[:success] = "#{resource_human_name} '#{@resource}' was successfully deleted."
+        flash[:success] = t('actions.destroy.success', name: resource_human_name, resource: @resource.to_s)
         head(:no_content)
       end
       format.turbo_stream {}

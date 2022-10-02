@@ -5,13 +5,11 @@ class UpdateAuditFormatter < BaseAuditFormatter
   # @param [Hash] changes the changes recorded by Audited against an auditable type
   # @return [String] a user friendly string describing the changes recorded by Audited
   def friendly(changes: {})
-    [
-      human_attribute_name(changes: changes),
-      'was changed from',
-      from_value(changes: changes),
-      'to',
-      to_value(changes: changes)
-    ].join(' ')
+    I18n.t('audits.index.changes.update',
+           attribute: human_attribute_name(changes: changes),
+           from: from_value(changes: changes),
+           to: to_value(changes: changes)
+          )
   end
 
   private

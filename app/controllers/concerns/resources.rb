@@ -9,7 +9,7 @@ module Resources
   included do
     before_action :set_resource, only: %i[show edit update destroy]
     before_action :set_collection, only: %i[index]
-    helper_method :collection_path_method
+    helper_method :collection_path_method, :resource_class
   end
   # rubocop:enable Rails/LexicallyScopedActionFilter
 

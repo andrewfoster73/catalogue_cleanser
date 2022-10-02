@@ -2,6 +2,8 @@
 
 module ResourceForm
   class TextComponent < BaseComponent
+    private
+
     def data_actions
       %w[
         keydown->editor#save

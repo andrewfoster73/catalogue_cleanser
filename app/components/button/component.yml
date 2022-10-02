@@ -1,0 +1,17 @@
+---
+en-GB:
+  button:
+    delete_resource_component:
+      labels:
+        delete: Delete
+    labels:
+      delete: Delete
+      edit: Edit
+      list: List
+      update: Update
+    new_resource_component:
+      labels:
+        new: New
+    view_resource_component:
+      labels:
+        view: View
