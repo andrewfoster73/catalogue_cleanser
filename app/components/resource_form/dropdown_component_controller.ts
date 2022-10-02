@@ -1,5 +1,5 @@
 import {ActionEvent, Controller} from "@hotwired/stimulus"
-import cash from "cash-dom"
+import cash, { Cash } from "cash-dom"
 
 export default class extends Controller {
     static values = {
@@ -29,44 +29,6 @@ export default class extends Controller {
         checkmarkEl.toggleClass('text-white text-sky-600')
     }
 
-    handleKeydown(event: ActionEvent & KeyboardEvent) {
-        event.preventDefault()
-        const dropdownEl = cash(`#${this.itemListIdValue}`)
-        const highlightedEl = dropdownEl.children('li.dropdown-component__option--highlighted')
-        let nextEl: HTMLElement | undefined
-        let prevEl: HTMLElement | undefined
-
-        if (highlightedEl.length > 0) {
-            // There is an element highlighted, so now work out what to do with it
-            prevEl = highlightedEl[0]
-
-            if (event.key === 'ArrowDown') {
-                // Find the next element to highlight
-                nextEl = highlightedEl.next('li.dropdown-component__option')[0] as HTMLElement
-            } else if (event.key === 'ArrowUp') {
-                // Find the previous element to highlight
-                nextEl = highlightedEl.prev('li.dropdown-component__option')[0] as HTMLElement
-            } else if (event.key === 'Enter' && prevEl) {
-                // Select the element the user has highlighted
-                prevEl.dispatchEvent(new Event('click'))
-                return
-            } else {
-                // Future handling of autocomplete or jumping to entry starting with given key
-            }
-        } else {
-            // Use the first element by default
-            nextEl = dropdownEl.find('li.dropdown-component__option')[0] as HTMLElement
-        }
-        if (nextEl) {
-            // mouseenter to trigger highlighting
-            nextEl.dispatchEvent(new Event('mouseenter'))
-        }
-        if (nextEl && prevEl) {
-            // mouseleave to trigger highlight removal (but only if the user has not reached the last option)
-            prevEl.dispatchEvent(new Event('mouseleave'))
-        }
-    }
-
     select(event: ActionEvent) {
         const checkmarkEl: HTMLElement | null = document.querySelector(`#${event.params.checkmarkId}`)
         const inputEl: HTMLInputElement | null = document.querySelector(`#${this.inputIdValue}`)
@@ -88,5 +50,60 @@ export default class extends Controller {
             // Hide the dropdown
             this.toggle(event)
         }
+    }
+
+    handleKeydown(event: ActionEvent & KeyboardEvent) {
+        event.preventDefault()
+        const dropdownEl = cash(`#${this.itemListIdValue}`)
+        const highlightedItem = dropdownEl.children('li.dropdown-component__option--highlighted')
+        const currentItem = highlightedItem[0]
+        let nextItem: HTMLElement | undefined
+
+        if (event.key === 'Enter') {
+            this.handleEnter(currentItem)
+        }
+        if (event.key === 'ArrowDown') {
+            nextItem = this.getNextItem(highlightedItem, dropdownEl)
+        }
+        if (event.key === 'ArrowUp') {
+            nextItem = this.getPreviousItem(highlightedItem, dropdownEl)
+        }
+        // In future handle other keys
+
+        this.triggerHighlight(nextItem, currentItem)
+    }
+    
+    getNextItem(highlightedItem: Cash, dropdownEl: Cash): HTMLElement {
+        if (highlightedItem.length > 0) {
+            return highlightedItem.next('li.dropdown-component__option')[0] as HTMLElement
+        } else {
+            return dropdownEl.find('li.dropdown-component__option')[0] as HTMLElement
+        }
+    }
+    
+    getPreviousItem(highlightedItem: Cash, dropdownEl: Cash) {
+        if (highlightedItem.length > 0) {
+            return highlightedItem.prev('li.dropdown-component__option')[0] as HTMLElement
+        } else {
+            return dropdownEl.find('li.dropdown-component__option')[0] as HTMLElement
+        }
+    }
+    
+    handleEnter(currentItem: HTMLElement | undefined) {
+        // Select the element the user has highlighted (if there is one)
+        if (currentItem) {
+            currentItem.dispatchEvent(new Event('click'))    
+        }
+    }
+    
+    triggerHighlight(nextItem: HTMLElement | undefined, currentItem: HTMLElement | undefined) {
+        if (nextItem) {
+            // mouseenter to trigger highlighting
+            nextItem.dispatchEvent(new Event('mouseenter'))
+        }
+        if (nextItem && currentItem) {
+            // mouseleave to trigger highlight removal (but only if the user has not reached the last option)
+            currentItem.dispatchEvent(new Event('mouseleave'))
+        } 
     }
 }
