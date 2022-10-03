@@ -121,7 +121,7 @@ translation:
 ## Consider these keys used:
 ignore_unused:
   - 'activerecord.models.*'
-  - 'activerecord.*.attributes.*'
+  - 'activerecord.attributes.*'
   - 'datetime.distance_in_words.*'
   - 'datetime.prompts.*'
   - 'errors.messages.*'

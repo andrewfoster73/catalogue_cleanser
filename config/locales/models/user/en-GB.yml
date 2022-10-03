@@ -1,10 +1,6 @@
 ---
 en-GB:
   activerecord:
-    models:
-      user:
-        one: User
-        other: Users
     attributes:
       user:
         country_alpha2: Country
@@ -14,3 +10,7 @@ en-GB:
         last_name: Last Name
         locale: Locale
         picture_url: Picture
+    models:
+      user:
+        one: User
+        other: Users
