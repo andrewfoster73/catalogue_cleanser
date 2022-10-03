@@ -1,8 +1,8 @@
 ---
 en-GB:
   activerecord:
-    item_sell_pack:
-      attributes:
+    attributes:
+      item_sell_pack:
         canonical: Canonical
         created_at: Created At
         name: Name

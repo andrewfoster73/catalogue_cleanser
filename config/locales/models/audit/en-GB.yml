@@ -1,8 +1,8 @@
 ---
 en-GB:
   activerecord:
-    audited/audit:
-      attributes:
+    attributes:
+      audited/audit:
         action: Action
         audited_changes: Changes
         created_at: Created At
