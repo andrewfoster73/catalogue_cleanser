@@ -2,6 +2,7 @@
 
 module ResourceForm
   class LocaleDropdownComponent < BaseComponent
+    # @return [Boolean] true if the items list is hidden, false otherwise
     attr_reader :hidden
 
     def initialize(attribute:, label:, resource:, hidden: true, options: {})

@@ -5,8 +5,8 @@ en-GB:
       user:
         one: User
         other: Users
-    user:
-      attributes:
+    attributes:
+      user:
         country_alpha2: Country
         email: Email
         first_name: First Name

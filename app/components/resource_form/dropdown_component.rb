@@ -2,8 +2,16 @@
 
 module ResourceForm
   class DropdownComponent < BaseComponent
-    attr_reader :items, :selected_value, :hidden
+    # @return [Array<Hash>] the items to display in the dropdown
+    attr_reader :items
+    # @return [String] the currently selected value
+    attr_reader :selected_value
+    # @return [Boolean] true if the items list is hidden, false otherwise
+    attr_reader :hidden
 
+    # @param [Array<Hash>] items the selectable elements to display in the dropdown.
+    #   The hash should contain `text`, `value` and optionally a `css` class list
+    #   Example:  `{ text: 'English (GB)', value: 'en-GB', css: 'fi fi-gb' }`
     def initialize(attribute:, label:, resource:, items:, hidden: true, options: {})
       super(attribute: attribute, label: label, resource: resource, options: options)
       @items = items

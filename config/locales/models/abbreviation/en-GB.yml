@@ -1,8 +1,8 @@
 ---
 en-GB:
   activerecord:
-    abbreviation:
-      attributes:
+    attributes:
+      abbreviation:
         letters: Letters
     models:
       abbreviation:
