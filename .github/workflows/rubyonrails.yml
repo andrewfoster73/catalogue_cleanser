@@ -54,6 +54,8 @@ jobs:
           PGPASSWORD: password
       - name: Create external database schema
         run: psql -h localhost -d external_test -U rails -f db/external_database_schema.sql
+        env:
+          PGPASSWORD: password
       # Add or replace test runners here
       - name: Run Tests and Upload Code Coverage
         uses: paambaati/codeclimate-action@v3.0.0
