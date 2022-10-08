@@ -19,7 +19,11 @@ export default class extends Controller {
     toggle(event: ActionEvent) {
         event.preventDefault()
         const dropdownEl: HTMLElement = cash(`#${this.itemListIdValue}`)[0] as HTMLElement
+        const inputEl: HTMLInputElement | null = document.querySelector(`#${this.inputIdValue}`)
         dropdownEl.toggleAttribute('hidden')
+        if (inputEl) {
+            inputEl.dispatchEvent(new Event('focus'))
+        }
     }
 
     // Highlight an individual item from the list
@@ -43,6 +47,7 @@ export default class extends Controller {
             // Set the input values
             inputEl.value = text
             hiddenInputEl.value = value
+            hiddenInputEl.dispatchEvent(new Event('change'))
 
             // Deselect any currently selected item
             this.checkmarkTargets.forEach(function (checkmark) {
@@ -61,6 +66,10 @@ export default class extends Controller {
 
     // Handle supported keydown events
     handleKeydown(event: ActionEvent & KeyboardEvent) {
+        if (event.key === 'Escape' || event.key === 'Esc') {
+            return
+        }
+
         event.preventDefault()
         const dropdownEl = cash(`#${this.itemListIdValue}`)
         const highlightedItems = dropdownEl.children('li.dropdown-component__option--highlighted')

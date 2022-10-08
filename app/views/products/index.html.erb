@@ -1,14 +1,69 @@
-<div class="w-full">
-  <% if success.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="success"><%= success %></p>
+<%= turbo_stream_from "products" %>
+<%= turbo_stream_from "errors" %>
+<div class="w-full" data-controller="errors" data-action="resource:error->errors#show">
+  <% flash.each do |type, message| %>
+    <%= render Notification::Component.new(name: :index, type: type, message: message) %>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Products</h1>
-    <%= link_to 'New product', new_product_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <%= render PageHeading::Component.new(title: resource_class.model_name.human(count: 2), description: t('.description')) %>
+
+  <%= render CollectionFilter::Component.new(filter: @q, url: public_send(collection_path_method)) do |c| %>
+    <% c.with_element do |e| %>
+      <% e.with_component_contains(label: t('.filters.item_description.label'), attribute: :item_description) %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag "page_handler" %>
+  <div
+    id="collection"
+    class=min-w-full"
+    data-controller="editor"
+    data-action="turbo:before-stream-render@document->editor#animate"
+  >
+    <%= render Collection::Component.new do |collection_component| %>
+      <%= collection_component.with_header(columns: [
+          {
+              sorter: sort_link(@q, :item_description, resource_class.human_attribute_name(:item_description), default_order: :desc, class: 'group inline-flex'),
+              classes: 'py-3.5 pl-4 pr-3 sm:pl-6 lg:pl-8'
+          },
+          { sorter: sort_link(@q, :brand, resource_class.human_attribute_name(:brand), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :item_size, resource_class.human_attribute_name(:item_size), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :item_measure, resource_class.human_attribute_name(:item_measure), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :item_pack_name, resource_class.human_attribute_name(:item_pack_name), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :item_sell_quantity, resource_class.human_attribute_name(:item_sell_quantity), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :item_sell_pack_name, resource_class.human_attribute_name(:item_sell_pack_name), default_order: :desc, class: 'group inline-flex') }
+      ]) %>
+      <% if @collection.any? %>
+        <%= collection_component.with_rows do |rows_component| %>
+          <%= render partial: 'rows', locals: { rows_component: rows_component } %>
+        <% end %>
+      <% end %>
+      <%= collection_component.with_pager(paginator: @pagy, collection_path_method: collection_path_method, filter_params: params[:q]) %>
+    <% end %>
   </div>
 
-  <div id="products" class="min-w-full">
-    <%= render @collection %>
-  </div>
+  <%= render Modal::Component.new(name: :products_delete_confirmation) do |modal| %>
+    <%= modal.with_confirmation(
+            title: t('modals.deletion.title'),
+            icon_options: { name: :exclamation, colour: :red, options: { classes: '' } },
+            message: t('modals.deletion.message')
+        ) %>
+    <% modal.with_button(
+           id: :confirm_delete,
+           label: t('modals.deletion.buttons.delete.label'),
+           options: {
+               icon: { name: :trash, colour: :white },
+               colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
+               data: {
+                   params: [
+                       { name: 'resource-id', value: '' },
+                       { name: 'resource-url', value: polymorphic_path(resource_class) },
+                       { name: 'resource-modal-name', value: :products_delete_confirmation }
+                   ],
+                   action: 'click->resource#inlineDelete'
+               }
+           }) %>
+  <% end %>
+  <div id="notifications"></div>
 </div>
+

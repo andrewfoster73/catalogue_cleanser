@@ -22,5 +22,13 @@ module EditableCell
     def string_formatter
       resource.public_send(@attribute)
     end
+
+    def text_formatter
+      resource.public_send(@attribute)
+    end
+
+    def decimal_formatter
+      number_with_precision(resource.public_send(@attribute), precision: 4, strip_insignificant_zeros: true)
+    end
   end
 end

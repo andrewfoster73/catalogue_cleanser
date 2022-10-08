@@ -1,14 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  product: one
+lager:
+  product: lager
   action: MyString
   certainty_percentage: 9.99
   levenshtein_distance: 9.99
   similarity_score: 9.99
 
-two:
-  product: two
+apple:
+  product: apple
   action: MyString
   certainty_percentage: 9.99
   levenshtein_distance: 9.99

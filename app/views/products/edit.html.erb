@@ -1,8 +1,76 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing product</h1>
+<%= turbo_stream_from "product" %>
+<%= turbo_stream_from "notification_product_#{@resource.id}" %>
+<%= turbo_stream_from "errors" %>
+<% flash.each do |type, message| %>
+  <%= render Notification::Component.new(name: :edit, type: type, message: message) %>
+<% end %>
+<%= render partial: 'navigation', locals: { resource: @resource } %>
+<%= render ResourceActions::Component.new do |component| %>
+  <% component.with_button(
+         id: dom_id(@resource, :list),
+         label: t('button.labels.list'),
+         options: {
+             title: polymorphic_path(resource_class),
+             icon: { name: :arrow_left, colour: :white },
+             colour_classes: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-200',
+             data: {
+                 params: [{ name: 'resource-url', value: polymorphic_path(resource_class) }],
+                 action: 'click->resource#navigate'
+             }
+         }
+     ) %>
+  <% component.with_button(
+         id: dom_id(@resource, :update),
+         label: t('button.labels.update'),
+         options: {
+             icon: { name: :save, colour: :white },
+             colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
+             data: {
+                 params: [{ name: 'resource-form-id', value: dom_id(@resource, :form) }],
+                 action: 'click->resource#update'
+             }
+         }
+     ) %>
+  <% component.with_button(
+         id: dom_id(@resource, :delete),
+         label: t('button.labels.delete'),
+         options: {
+             icon: { name: :trash, colour: :white },
+             colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
+             data: {
+                 params: [
+                     { name: 'resource-id', value: @resource.id },
+                     { name: 'resource-modal-name', value: :products_delete_confirmation }
+                 ],
+                 action: 'click->resource#confirmDelete'
+             }
+         }
+     )  %>
+<% end %>
 
-  <%= render "form", product: @resource %>
+<%= render partial: 'resource', locals: { action: :edit, resource: @resource, readonly: false, token: form_authenticity_token } %>
 
-  <%= link_to "Show this product", @resource, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to products", products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+<%= render Modal::Component.new(name: :products_delete_confirmation) do |modal| %>
+  <%= modal.with_confirmation(
+          name: :products_delete_confirmation,
+          title: t('modals.deletion.title'),
+          icon_options: { name: :exclamation, colour: :red, options: { classes: '' } },
+          message: t('modals.deletion.message')
+      ) %>
+  <% modal.with_button(
+         id: :confirm_delete,
+         label: t('modals.deletion.buttons.delete.label'),
+         options: {
+             icon: { name: :trash, colour: :white },
+             colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
+             data: {
+                 params: [
+                     { name: 'resource-id', value: @resource.id },
+                     { name: 'resource-url', value: polymorphic_path(resource_class) },
+                     { name: 'resource-modal-name', value: :products_delete_confirmation }
+                 ],
+                 action: 'click->resource#delete'
+             }
+         }) %>
+<% end %>
+<div id="notifications"></div>

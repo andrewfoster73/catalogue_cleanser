@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class ProductDuplicatesTest < ApplicationSystemTestCase
   setup do
-    @product_duplicate = product_duplicates(:one)
+    @product_duplicate = product_duplicates(:lager)
   end
 
   test 'redirects if not logged in' do

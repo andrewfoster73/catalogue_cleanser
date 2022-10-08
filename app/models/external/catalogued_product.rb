@@ -4,5 +4,8 @@ module External
   # Connects to external Goods::CataloguedProduct class
   class CataloguedProduct < External::ApplicationRecord
     self.table_name = :goods_catalogued_products
+
+    belongs_to :external_product,
+               class_name: 'External::Product', foreign_key: :product_id, inverse_of: :catalogued_products
   end
 end

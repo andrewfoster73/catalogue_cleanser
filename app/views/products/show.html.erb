@@ -1,15 +1,36 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if success.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="success"><%= success %></p>
-    <% end %>
-
-    <%= render @resource %>
-
-    <%= link_to 'Edit this product', edit_product_path(@resource), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this product', product_path(@resource), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to products', products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
-</div>
+<%= turbo_stream_from "product" %>
+<%= turbo_stream_from "notification_product_#{@resource.id}" %>
+<% flash.each do |type, message| %>
+  <%= render Notification::Component.new(name: :show, type: type, message: message) %>
+<% end %>
+<%= render partial: 'navigation', locals: { resource: @resource } %>
+<%= render ResourceActions::Component.new do |component| %>
+  <% component.with_button(
+         id: dom_id(@resource, :list),
+         label: t('button.labels.list'),
+         options: {
+             title: polymorphic_path(resource_class),
+             icon: { name: :arrow_left, colour: :white },
+             colour_classes: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-200',
+             data: {
+                 params: [{ name: 'resource-url', value: polymorphic_path(resource_class) }],
+                 action: 'click->resource#navigate'
+             }
+         }
+     ) %>
+  <% component.with_button(
+         id: dom_id(@resource, :edit),
+         label: t('button.labels.edit'),
+         options: {
+             title: polymorphic_path([:edit, @resource]),
+             icon: { name: :pencil, colour: :white },
+             colour_classes: 'text-white bg-amber-600 hover:bg-amber-700 focus:ring-amber-200',
+             data: {
+                 params: [{ name: 'resource-url', value: polymorphic_path([:edit, @resource]) }],
+                 action: 'click->resource#navigate'
+             }
+         }
+     ) %>
+<% end %>
+<%= render partial: 'resource', locals: { action: :show, resource: @resource, readonly: true, token: form_authenticity_token } %>
+<div id="notifications"></div>

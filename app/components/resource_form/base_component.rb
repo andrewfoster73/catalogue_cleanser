@@ -22,7 +22,7 @@ module ResourceForm
     # @option options [Boolean] :editable is this attribute ever editable?
     # @option options [Boolean] :required is this attribute required to have a value?
     # @option options [String] :invalid_message if this field is invalid what message to display
-    # @option options [String] :url will convert display to be link to another page
+    # @option options [String] :url will convert display to be a link to another page
     def initialize(attribute:, label:, resource:, options: {})
       super
       @attribute = attribute

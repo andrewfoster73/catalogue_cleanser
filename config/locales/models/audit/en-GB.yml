@@ -7,7 +7,12 @@ en-GB:
         audited_changes: Changes
         created_at: Created At
         email: Email
+        user: User
+        username: Username
     models:
       audited/audit:
         one: Audit
         other: Audits
+  audit:
+    changes:
+      empty: Empty

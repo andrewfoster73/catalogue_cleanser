@@ -1,13 +1,14 @@
 class CreateProducts < ActiveRecord::Migration[7.0]
-  def change
+  def up
+    execute <<-SQL
+      CREATE TYPE product_action AS ENUM ('delete', 'map', 'none', 'pending');
+    SQL
     create_table :products do |t|
       t.integer :product_id
-      t.string :status
       t.decimal :duplication_certainty, precision: 8, scale: 2
       t.decimal :canonical_certainty, precision: 8, scale: 2
-      t.string :action
+      t.boolean :canonical, default: false
       t.timestamp :collected_statistics_at
-      t.integer :spelling_mistakes
       t.integer :catalogue_count
       t.integer :buy_list_count
       t.integer :priced_catalogue_count
@@ -34,5 +35,11 @@ class CreateProducts < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_column :products, :action, :product_action
+  end
+
+  def down
+    drop_table :products
   end
 end

@@ -83,6 +83,6 @@ module TurboActions
   end
 
   def editable_cell_formatter
-    resource_class.attribute_types[editable_cell_attribute].type
+    resource_class.attribute_types[editable_cell_attribute.to_s].type
   end
 end

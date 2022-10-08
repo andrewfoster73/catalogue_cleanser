@@ -9,7 +9,6 @@
       <% if nested? %>
         <% c.with_attribute_hidden(
                attribute: :item_sell_pack_id,
-               label: resource_class.human_attribute_name(:item_sell_pack_id),
                resource: resource,
                options: { value: @parent.id }
            ) %>

@@ -19,10 +19,10 @@ class UpdateAuditFormatter < BaseAuditFormatter
   end
 
   def from_value(changes:)
-    changes.values.first.first
+    changes.values.first.first.presence || I18n.t('audits.index.empty')
   end
 
   def to_value(changes:)
-    changes.values.first.second
+    changes.values.first.second.presence || I18n.t('audits.index.empty')
   end
 end

@@ -1,6 +1,6 @@
 <div id="<%= dom_id(resource, "#{attribute}_turbo_stream") %>">
   <turbo-frame id="<%= dom_id(resource, "#{attribute}_turbo_frame") %>" class="contents">
-    <%= link_to url, class: "editable-element" do %>
+    <%= link_to url, id: dom_id(resource, "#{attribute}_editable_element"), class: "editable-element" do %>
       <%= display %>
     <% end %>
     <% if error %>

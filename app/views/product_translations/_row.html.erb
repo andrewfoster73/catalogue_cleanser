@@ -1,0 +1,55 @@
+<tr
+  class="collection-rows__row"
+  id="<%= dom_id(resource, "turbo_stream") %>"
+  data-controller="resource-form--component editor"
+  data-transition-enter="transition ease-in-out duration-500"
+  data-transition-enter-start="bg-transparent translate-y-6"
+  data-transition-enter-end="bg-sky-200 translate-y-0"
+>
+  <td id="<%= dom_id(resource, :locale_cell) %>" class="border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :locale) %>
+  </td>
+  <td id="<%= dom_id(resource, :item_description_cell) %>" class="border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :item_description) %>
+  </td>
+  <td id="<%= dom_id(resource, :brand_cell) %>" class="border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :brand) %>
+  </td>
+  <td id="<%= dom_id(resource, :item_size_cell) %>" class="border-b border-gray-200 px-3 py-4 text-sm text-gray-500 text-right">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :item_size, formatter: :decimal) %>
+  </td>
+  <td id="<%= dom_id(resource, :item_measure_cell) %>" class="border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :item_measure) %>
+  </td>
+  <td id="<%= dom_id(resource, :item_pack_name_cell) %>" class="border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :item_pack_name) %>
+  </td>
+  <td id="<%= dom_id(resource, :item_sell_quantity_cell) %>" class="border-b border-gray-200 px-3 py-4 text-sm text-gray-500 text-right">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :item_sell_quantity, formatter: :decimal) %>
+  </td>
+  <td id="<%= dom_id(resource, :item_sell_pack_name_cell) %>" class="border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :item_sell_pack_name) %>
+  </td>
+  <td id="<%= dom_id(resource, :actions_cell) %>" class="whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+    <%= render Button::ViewResourceComponent.new(
+        id: dom_id(resource, :view),
+        options: {
+            title: polymorphic_path(resource),
+            data: {
+                params: [{ name: 'resource-url', value: polymorphic_path(resource) }]
+            }
+        }
+    ) %>
+    <%= render Button::DeleteResourceComponent.new(
+        id: dom_id(resource, :delete),
+        options: {
+            data: {
+                params: [
+                    { name: 'resource-id', value: resource.id },
+                    { name: 'resource-modal-name', value: :product_translations_delete_confirmation }
+                ]
+            }
+        }
+    ) %>
+  </td>
+</tr>

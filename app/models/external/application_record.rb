@@ -4,6 +4,6 @@ module External
   class ApplicationRecord < ActiveRecord::Base
     self.abstract_class = true
 
-    connects_to database: { writing: :external, reading: :external }
+    connects_to database: { writing: :external, reading: :read_only }
   end
 end

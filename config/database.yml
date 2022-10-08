@@ -29,6 +29,10 @@ development:
     <<: *default
     database: purchaseplus_dev
     database_tasks: false
+  read_only:
+    <<: *default
+    database: purchaseplus_dev
+    database_tasks: false
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -71,10 +75,16 @@ test:
     <<: *default
     host: <%= ENV['EXTERNAL_DATABASE_HOST'] || 'localhost' %>
     database: <%= ENV['EXTERNAL_DATABASE_NAME'] || 'external_test' %>
-    username: <%= ENV['EXTERNAL_DATABASE_USER'] || 'rails' %>
-    password: <%= ENV['EXTERNAL_DATABASE_PASSWORD'] || 'password' %>
+    username: <%= ENV['EXTERNAL_DATABASE_USER'] || 'postgres' %>
+    password: <%= ENV['EXTERNAL_DATABASE_PASSWORD'] %>
     database_tasks: false
-
+  read_only:
+    <<: *default
+    host: <%= ENV['EXTERNAL_DATABASE_HOST'] || 'localhost' %>
+    database: <%= ENV['EXTERNAL_DATABASE_NAME'] || 'external_test' %>
+    username: <%= ENV['EXTERNAL_DATABASE_USER'] || 'postgres' %>
+    password: <%= ENV['EXTERNAL_DATABASE_PASSWORD'] %>
+    database_tasks: false
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.

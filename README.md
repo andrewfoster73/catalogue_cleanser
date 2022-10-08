@@ -20,6 +20,8 @@
 ####Database Initialisation:
 * TODO
 
+`psql -h localhost -d external_test -U postgres -f db/external_database_schema.sql`
+
 ####Generating Storybook Stories:
 
 `rails view_component_storybook:write_stories_json`

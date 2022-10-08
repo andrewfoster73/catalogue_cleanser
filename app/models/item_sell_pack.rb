@@ -8,6 +8,8 @@ class ItemSellPack < ApplicationRecord
 
   audited
 
+  scope :canonical, -> { where(canonical: true) }
+
   before_validation :clean
 
   validates :name, presence: true, uniqueness: true

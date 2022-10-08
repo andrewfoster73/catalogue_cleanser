@@ -11,11 +11,13 @@ module Tasks
     protected
 
     def execute
-      names.each do |name|
-        ItemSellPack.find_or_create_by!(
-          name: name,
-          canonical: true
-        )
+      Audited.audit_class.as_user("task-initialise-item-sell-packs-#{id}") do
+        names.each do |name|
+          ItemSellPack.find_or_create_by!(
+            name: name,
+            canonical: true
+          )
+        end
       end
     end
 

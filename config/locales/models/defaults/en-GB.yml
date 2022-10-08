@@ -1,5 +1,9 @@
 ---
 en-GB:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: This record is invalid.
   errors:
     messages:
       taken: has already been taken
