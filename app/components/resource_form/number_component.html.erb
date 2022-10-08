@@ -1,0 +1,47 @@
+<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5" data-controller="resource-form--component">
+  <div>
+    <label id="<%= field_id %>--label" for="<%= field_id %>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-">
+      <%= label %>
+    </label>
+    <% if help.present? %>
+      <div id="<%= field_id %>--help" class="mt-2 text-sm text-gray-300 inline-flex items-center">
+        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= help %>
+      </div>
+    <% end %>
+  </div>
+  <div class="mt-1 sm:mt-0 sm:col-span-2">
+    <% if display_only? %>
+      <p id="<%= field_id %>" class="mt-2 text-sm text-gray-500"><%= resource.public_send(attribute) %></p>
+    <% else %>
+    <turbo-frame id="<%= dom_id(resource, "#{attribute}_turbo_frame") %>" class="contents">
+      <input
+        class="peer block max-w-lg w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md"
+        autofocus="autofocus"
+        type="number"
+        <%= 'required' if required? %>
+        <%= "min=#{min}" if min %>
+        <%= "max=#{max}" if max %>
+        <%= "step=#{step}" if step %>
+        value="<%= resource.public_send(attribute) %>"
+        name="<%= field_name %>"
+        id="<%= field_id %>"
+        data-action="<%= data_actions.join(' ') %>"
+        data-resource-form--component-field-id-param="<%= field_id %>"
+        data-editor-url-param="<%= polymorphic_path(resource) %>"
+        data-editor-attribute-param="<%= attribute %>"
+        data-editor-resource-name-param="<%= resource.resource_name %>"
+      >
+      <div id="<%= field_id %>--server_side_invalid_message" class="text-red-700 font-light">
+        <% if resource.errors[attribute].any? %>
+          <% resource.errors[attribute].each do |error| %>
+            <p><%= [attribute.capitalize, error].join(' ') %></p>
+          <% end %>
+        <% end %>
+      </div>
+      <p id="<%= field_id %>--client_side_invalid_message" class="invisible peer-invalid:visible text-red-700 font-light">
+        <%= invalid_message %>
+      </p>
+    </turbo-frame>
+    <% end %>
+  </div>
+</div>

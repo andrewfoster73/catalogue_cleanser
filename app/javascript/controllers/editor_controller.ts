@@ -32,12 +32,7 @@ export default class extends Controller {
     }
   }
 
-  editNextAttribute(id: string) {
-    const currentRow = cash(`#${id}`).closest('.collection-rows__row')
-    const nextRow = currentRow.next('.collection-rows__row')
-    nextRow.find('.editable-element').trigger('click')
-  }
-
+  // Toggle inputs
   toggle(event: ActionEvent) {
     event.preventDefault();
     const resourceUrl = event.params.url
@@ -49,9 +44,20 @@ export default class extends Controller {
     patch(resourceUrl, { body: body, responseKind: 'json' })
   }
 
-  async save(event: ActionEvent & KeyboardEvent) {
-    const fieldId = event.params.fieldId
+  // Dropdown inputs
+  select(event: ActionEvent) {
+    event.preventDefault();
+    const resourceUrl = event.params.url
+    const attribute = event.params.attribute
+    const input = cash(`#${event.params.fieldId}`)[0] as HTMLInputElement
+    const body: UpdateBody = {}
 
+    body[attribute] = input.value
+    patch(resourceUrl, { body: body, responseKind: 'turbo-stream' })
+  }
+
+  // Text & Number inputs
+  save(event: ActionEvent & KeyboardEvent) {
     if (event.key === 'Enter' || event.key === 'Tab') {
       event.preventDefault();
       const resourceUrl = event.params.url
@@ -60,10 +66,7 @@ export default class extends Controller {
       const body: UpdateBody = {}
 
       body[attribute] = input.value
-      const response = await patch(resourceUrl, { body: body, responseKind: 'turbo-stream' })
-      if (response.ok) {
-        this.editNextAttribute(fieldId)
-      }
+      patch(resourceUrl, { body: body, responseKind: 'turbo-stream' })
     }
   }
 

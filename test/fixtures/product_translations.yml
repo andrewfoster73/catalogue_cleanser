@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+lager:
+  product: lager
+  locale: en
+  item_description: Lager
+  brand: Innis & Gunn
+  item_size: 500.0
+  item_measure: ml
+  item_pack_name: bottle
+  item_sell_quantity: 6
+  item_sell_pack_name: carton
+
+apple:
+  product: apple
+  locale: en
+  item_description: Apple
+  brand:
+  item_size: 1
+  item_measure: kg
+  item_pack_name:
+  item_sell_quantity: 1
+  item_sell_pack_name: each

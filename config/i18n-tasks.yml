@@ -122,6 +122,7 @@ translation:
 ignore_unused:
   - 'activerecord.models.*'
   - 'activerecord.attributes.*'
+  - 'activerecord.errors.*'
   - 'datetime.distance_in_words.*'
   - 'datetime.prompts.*'
   - 'errors.messages.*'

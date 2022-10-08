@@ -30,7 +30,6 @@
       data-action="click->resource-form--component#toggle click->editor#toggle"
       data-editor-url-param="<%= polymorphic_path(resource) %>"
       data-editor-attribute-param="confirmed"
-      data-editor-field-id-param="<%= dom_id(resource, :confirmed) %>"
       data-resource-form--component-toggle-id-param="<%= dom_id(resource, :confirmed_toggle) %>"
       data-resource-form--component-field-id-param="<%= dom_id(resource, :confirmed) %>"
     >
@@ -45,7 +44,7 @@
   <td id="<%= dom_id(resource, :updated_at_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
     <%= time_ago_in_words(resource.updated_at, include_seconds: true) %> ago
   </td>
-  <td id="<%= dom_id(resource, :actions_cell) %>" class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+  <td id="<%= dom_id(resource, :actions_cell) %>" class="whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
     <%= render Button::ViewResourceComponent.new(
         id: dom_id(resource, :view),
         options: {

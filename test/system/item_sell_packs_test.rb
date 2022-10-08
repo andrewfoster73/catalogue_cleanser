@@ -38,16 +38,21 @@ class ItemSellPacksTest < ApplicationSystemTestCase
 
     # Click to edit
     click_on 'carton'
-    assert_selector("input#item_sell_pack_#{item_sell_packs(:carton).id}_name")
+    assert_selector("input#item_sell_pack_#{@item_sell_pack.id}_name")
 
     # Escape to cancel
-    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys(:escape)
-    assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'carton')
+    find("input#item_sell_pack_#{@item_sell_pack.id}_name").send_keys(:escape)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, @item_sell_pack])}\"]", text: 'carton')
 
     # Enter to save
     click_on 'carton'
-    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys('pack', :enter)
-    assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'pack')
+    find("input#item_sell_pack_#{@item_sell_pack.id}_name").send_keys('pack', :enter)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, @item_sell_pack])}\"]", text: 'pack')
+
+    # Canonical
+    assert_selector("#canonical_item_sell_pack_#{@item_sell_pack.id}[value=\"true\"]", visible: false)
+    find("#canonical_toggle_item_sell_pack_#{@item_sell_pack.id}--button").click
+    assert_selector("#canonical_item_sell_pack_#{@item_sell_pack.id}[value=\"false\"]", visible: false)
   end
 
   test 'inline editing validation' do
@@ -56,19 +61,19 @@ class ItemSellPacksTest < ApplicationSystemTestCase
 
     # Click to edit
     click_on 'carton'
-    assert_selector("input#item_sell_pack_#{item_sell_packs(:carton).id}_name")
+    assert_selector("input#item_sell_pack_#{@item_sell_pack.id}_name")
 
     # Set to blank
-    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys(:backspace)
+    find("input#item_sell_pack_#{@item_sell_pack.id}_name").send_keys(:backspace)
     assert_selector(
-      "#item_sell_pack_#{item_sell_packs(:carton).id}_name--client_side_invalid_message",
+      "#item_sell_pack_#{@item_sell_pack.id}_name--client_side_invalid_message",
       text: 'A name must be entered'
     )
 
     # Use a name that already exists
-    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys('box', :enter)
+    find("input#item_sell_pack_#{@item_sell_pack.id}_name").send_keys('box', :enter)
     assert_selector(
-      "#item_sell_pack_#{item_sell_packs(:carton).id}_name--server_side_invalid_message",
+      "#item_sell_pack_#{@item_sell_pack.id}_name--server_side_invalid_message",
       text: 'Name has already been taken'
     )
   end
@@ -82,12 +87,12 @@ class ItemSellPacksTest < ApplicationSystemTestCase
     end
 
     click_on 'carton'
-    assert_selector("input#item_sell_pack_#{item_sell_packs(:carton).id}_name")
-    find("input#item_sell_pack_#{item_sell_packs(:carton).id}_name").send_keys('pack', :enter)
-    assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'pack')
+    assert_selector("input#item_sell_pack_#{@item_sell_pack.id}_name")
+    find("input#item_sell_pack_#{@item_sell_pack.id}_name").send_keys('pack', :enter)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, @item_sell_pack])}\"]", text: 'pack')
 
     within_window new_window do
-      assert_selector("a[href=\"#{polymorphic_path([:edit, item_sell_packs(:carton)])}\"]", text: 'pack')
+      assert_selector("a[href=\"#{polymorphic_path([:edit, @item_sell_pack])}\"]", text: 'pack')
     end
   end
 

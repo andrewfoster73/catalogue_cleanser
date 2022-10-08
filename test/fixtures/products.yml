@@ -1,13 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+lager:
   product_id: 1
-  status: MyString
   duplication_certainty: 9.99
   canonical_certainty: 9.99
-  action: MyString
+  action: none
   collected_statistics_at: 2022-06-09
-  spelling_mistakes: 1
   catalogue_count: 1
   buy_list_count: 1
   priced_catalogue_count: 1
@@ -31,15 +29,21 @@ one:
   receiving_document_line_items_count: 1
   recipes_count: 1
   requisition_line_items_count: 1
+  locale: en
+  item_description: Lager
+  brand: Innis & Gunn
+  item_size: 500.0
+  item_measure: ml
+  item_pack_name: bottle
+  item_sell_quantity: 6
+  item_sell_pack_name: carton
 
-two:
+apple:
   product_id: 2
-  status: MyString
   duplication_certainty: 9.99
   canonical_certainty: 9.99
-  action: MyString
+  action: none
   collected_statistics_at: 2022-06-09
-  spelling_mistakes: 1
   catalogue_count: 1
   buy_list_count: 1
   priced_catalogue_count: 1
@@ -63,3 +67,49 @@ two:
   receiving_document_line_items_count: 1
   recipes_count: 1
   requisition_line_items_count: 1
+  locale: en
+  item_description: Apple
+  brand:
+  item_size: 1
+  item_measure: kg
+  item_pack_name:
+  item_sell_quantity: 1
+  item_sell_pack_name: each
+
+mince:
+  product_id: 3
+  duplication_certainty: 9.99
+  canonical_certainty: 9.99
+  action: none
+  collected_statistics_at: 2022-06-09
+  catalogue_count: 1
+  buy_list_count: 1
+  priced_catalogue_count: 1
+  average_price: 9.99
+  maximum_price: 9.99
+  minimum_price: 9.99
+  standard_deviation: 9.99
+  variance: 9.99
+  inventory_barcodes_count: 1
+  inventory_derived_period_balances_count: 1
+  inventory_internal_requisition_lines_count: 1
+  inventory_stock_counts_count: 1
+  inventory_stock_levels_count: 1
+  inventory_transfer_items_count: 1
+  invoice_line_items_count: 1
+  point_of_sale_lines_count: 1
+  procurement_products_count: 1
+  product_supplier_preferences_count: 1
+  purchase_order_line_items_count: 1
+  rebates_profile_products_count: 1
+  receiving_document_line_items_count: 1
+  recipes_count: 1
+  requisition_line_items_count: 1
+  locale: en
+  item_description: Beef Mince
+  brand: Coles
+  item_size: 500
+  item_measure: g
+  item_pack_name: packet
+  item_sell_quantity: 1
+  item_sell_pack_name: each

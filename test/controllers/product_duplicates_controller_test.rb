@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ProductDuplicatesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @product_duplicate = product_duplicates(:one)
+    @product_duplicate = product_duplicates(:lager)
   end
 
   test 'should redirect if not authenticated' do

@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_09_134809) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_04_163702) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "product_action", ["delete", "map", "none", "pending"]
+  create_enum "product_issue_status", ["pending", "confirmed", "ignored", "fixed"]
   create_enum "task_status", ["pending", "processing", "complete", "error"]
 
   create_table "abbreviations", force: :cascade do |t|
@@ -150,14 +152,42 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_134809) do
     t.index ["product_id"], name: "index_product_duplicates_on_product_id"
   end
 
+  create_table "product_issues", force: :cascade do |t|
+    t.bigint "product_id"
+    t.string "type"
+    t.string "attribute"
+    t.string "resolution_task_type"
+    t.string "resolution_suggested_replacement"
+    t.string "resolution_message_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.enum "status", enum_type: "product_issue_status"
+    t.index ["product_id"], name: "index_product_issues_on_product_id"
+  end
+
+  create_table "product_translations", force: :cascade do |t|
+    t.bigint "product_id"
+    t.string "locale"
+    t.text "item_description"
+    t.string "brand"
+    t.decimal "item_size", precision: 19, scale: 4
+    t.string "item_measure"
+    t.string "item_pack_name"
+    t.decimal "item_sell_quantity", precision: 19, scale: 4
+    t.string "item_sell_pack_name"
+    t.boolean "valid_locale", default: false, null: false
+    t.boolean "valid_translations", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_translations_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.integer "product_id", null: false
-    t.string "status"
     t.decimal "duplication_certainty", precision: 8, scale: 2
     t.decimal "canonical_certainty", precision: 8, scale: 2
-    t.string "action"
+    t.boolean "canonical", default: false
     t.datetime "collected_statistics_at", precision: nil
-    t.integer "spelling_mistakes"
     t.integer "catalogue_count"
     t.integer "buy_list_count"
     t.integer "priced_catalogue_count"
@@ -183,6 +213,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_134809) do
     t.integer "requisition_line_items_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "action", enum_type: "product_action"
+    t.text "item_description"
+    t.string "brand"
+    t.decimal "item_size"
+    t.string "item_measure"
+    t.string "item_pack_name"
+    t.decimal "item_sell_quantity"
+    t.string "item_sell_pack_name"
+    t.decimal "volume_in_litres"
+    t.bigint "category_id"
+    t.text "category_path"
+    t.string "image_file_name"
+    t.datetime "image_updated_at", precision: nil
+    t.datetime "last_synced_at", precision: nil
+    t.string "locale"
+    t.integer "issues_count", default: 0, null: false
+    t.integer "translations_count", default: 0, null: false
+    t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["product_id"], name: "index_products_on_product_id", unique: true
     t.check_constraint "average_price >= 0::numeric", name: "average_price_check"
     t.check_constraint "buy_list_count >= 0", name: "buy_list_count_check"
@@ -206,7 +254,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_134809) do
     t.check_constraint "receiving_document_line_items_count >= 0", name: "receiving_document_line_items_count_check"
     t.check_constraint "recipes_count >= 0", name: "recipes_count_check"
     t.check_constraint "requisition_line_items_count >= 0", name: "requisition_line_items_count_check"
-    t.check_constraint "spelling_mistakes >= 0", name: "spelling_mistakes_check"
     t.check_constraint "standard_deviation >= 0::numeric", name: "standard_deviation_check"
     t.check_constraint "variance >= 0::numeric", name: "variance_check"
   end

@@ -29,13 +29,17 @@ module Broadcast
       broadcast_replace_later_to(
         resource_name,
         partial: "#{resource_name_plural}/resource",
-        locals: { action: :show, resource: self, readonly: true, token: form_authenticity_token },
+        locals: {
+          action: :show, resource: self, resource_class: self.class, readonly: true, token: form_authenticity_token
+        },
         target: "turbo_stream_show_#{resource_name}_#{id}"
       )
       broadcast_replace_later_to(
         resource_name,
         partial: "#{resource_name_plural}/resource",
-        locals: { action: :edit, resource: self, readonly: false, token: form_authenticity_token },
+        locals: {
+          action: :edit, resource: self, resource_class: self.class, readonly: false, token: form_authenticity_token
+        },
         target: "turbo_stream_edit_#{resource_name}_#{id}"
       )
       broadcast_replace_later_to(

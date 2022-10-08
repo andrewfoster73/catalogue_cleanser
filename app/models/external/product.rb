@@ -8,7 +8,10 @@ module External
     MASTER_CATALOGUE_ID = 1
     private_constant :MASTER_CATALOGUE_ID
 
+    belongs_to :category, class_name: 'External::Category', optional: true
+    has_one :product, class_name: 'Product', dependent: :destroy
     has_many :catalogued_products, class_name: 'External::CataloguedProduct', dependent: :destroy
+    has_many :translations, class_name: 'External::ProductTranslation', dependent: :destroy
 
     # Belong to the "master" or "central" catalogue managed by Marketboomer
     scope :managed, lambda {

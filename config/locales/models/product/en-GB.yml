@@ -1,0 +1,24 @@
+---
+en-GB:
+  activerecord:
+    attributes:
+      product:
+        brand: Brand
+        created_at: Created At
+        item_description: Description
+        item_measure: Measure
+        item_pack_name: Pack Name
+        item_sell_pack_name: Sell Name
+        item_sell_quantity: Sell Size
+        item_size: Size
+        updated_at: Updated At
+    errors:
+      models:
+        product:
+          attributes:
+            external_product:
+              required: An external product must be attached
+    models:
+      product:
+        one: Product
+        other: Products

@@ -11,7 +11,8 @@ module Errors
 
   private
 
-  def show_error(_exception)
+  def show_error(exception)
+    Rails.logger.error(exception)
     Turbo::StreamsChannel.broadcast_append_to(
       'errors',
       partial: 'notification',

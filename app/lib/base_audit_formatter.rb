@@ -29,7 +29,7 @@ class BaseAuditFormatter
     return if resource.nil?
 
     resource.map do |k, v|
-      "#{type_class.human_attribute_name(k)} - #{v}"
+      "#{type_class.human_attribute_name(k)} - #{v.nil? ? I18n.t('audit.changes.empty') : v}"
     end.join(', ')
   end
 end

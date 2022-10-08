@@ -4,7 +4,9 @@ require 'application_system_test_case'
 
 class ProductsTest < ApplicationSystemTestCase
   setup do
-    @product = products(:one)
+    @product = products(:lager)
+    @external_product = create(:external_product)
+    @product.update!(external_product: @external_product)
   end
 
   test 'redirects if not logged in' do
@@ -16,95 +18,177 @@ class ProductsTest < ApplicationSystemTestCase
     login
     visit products_url
     assert_selector 'h1', text: 'Products'
+    assert_selector('label', text: 'Description contains')
+    assert_selector('input#filter_item_description[name="q[item_description_cont]"]')
   end
 
-  test 'should create product' do
+  test 'should automatically page' do
     login
     visit products_url
-    click_on 'New product'
-
-    fill_in 'Action', with: @product.action
-    fill_in 'Average price', with: @product.average_price
-    fill_in 'Buy list count', with: @product.buy_list_count
-    fill_in 'Canonical certainty', with: @product.canonical_certainty
-    fill_in 'Catalogue count', with: @product.catalogue_count
-    fill_in 'Collected statistics at', with: @product.collected_statistics_at
-    fill_in 'Duplication certainty', with: @product.duplication_certainty
-    fill_in 'Inventory barcodes count', with: @product.inventory_barcodes_count
-    fill_in 'Inventory derived period balances count', with: @product.inventory_derived_period_balances_count
-    fill_in 'Inventory internal requisition lines count', with: @product.inventory_internal_requisition_lines_count
-    fill_in 'Inventory stock counts count', with: @product.inventory_stock_counts_count
-    fill_in 'Inventory stock levels count', with: @product.inventory_stock_levels_count
-    fill_in 'Inventory transfer items count', with: @product.inventory_transfer_items_count
-    fill_in 'Invoice line items count', with: @product.invoice_line_items_count
-    fill_in 'Maximum price', with: @product.maximum_price
-    fill_in 'Minimum price', with: @product.minimum_price
-    fill_in 'Point of sale lines count', with: @product.point_of_sale_lines_count
-    fill_in 'Priced catalogue count', with: @product.priced_catalogue_count
-    fill_in 'Procurement products count', with: @product.procurement_products_count
-    fill_in 'Product', with: Product.maximum(:id) + 1
-    fill_in 'Product supplier preferences count', with: @product.product_supplier_preferences_count
-    fill_in 'Purchase order line items count', with: @product.purchase_order_line_items_count
-    fill_in 'Rebates profile products count', with: @product.rebates_profile_products_count
-    fill_in 'Receiving document line items count', with: @product.receiving_document_line_items_count
-    fill_in 'Recipes count', with: @product.recipes_count
-    fill_in 'Requisition line items count', with: @product.requisition_line_items_count
-    fill_in 'Spelling mistakes', with: @product.spelling_mistakes
-    fill_in 'Standard deviation', with: @product.standard_deviation
-    fill_in 'Status', with: @product.status
-    fill_in 'Variance', with: @product.variance
-    click_on 'Create Product'
-
-    assert_text "Product '' was successfully created"
-    click_on 'Back'
+    assert_selector("#item_description_cell_product_#{products(:lager).id}", text: 'Lager')
+    assert_selector("#item_description_cell_product_#{products(:apple).id}", text: 'Apple')
+    assert_selector("#item_description_cell_product_#{products(:mince).id}", text: 'Beef Mince')
   end
 
-  test 'should update Product' do
+  test 'inline editing and cancelling' do
+    login
+    visit products_url
+
+    # Click to edit
+    click_on 'Lager'
+    assert_selector("input#product_#{@product.id}_item_description")
+
+    # Escape to cancel
+    find("input#product_#{@product.id}_item_description").send_keys(:escape)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, @product])}\"]", text: 'Lager')
+
+    # Enter to save
+    click_on 'Lager'
+    find("input#product_#{@product.id}_item_description").send_keys('Beer', :enter)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, @product])}\"]", text: 'Beer')
+
+    # Click to edit
+    click_on 'carton'
+    assert_selector("input#product_#{@product.id}_item_sell_pack_name--input")
+
+    # Escape to cancel
+    find("input#product_#{@product.id}_item_sell_pack_name--input").send_keys(:escape)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, @product])}\"]", text: 'carton')
+
+    # Select to save
+    click_on 'carton'
+    find("#product_#{@product.id}_item_sell_pack_name--button").click
+    find("#product_#{@product.id}_item_sell_pack_name--box-value").click
+    assert_selector("a[href=\"#{polymorphic_path([:edit, @product])}\"]", text: 'box')
+  end
+
+  test 'inline editing validation' do
+    login
+    visit products_url
+
+    # Click to edit
+    click_on 'Lager'
+    assert_selector("input#product_#{@product.id}_item_description")
+
+    # Set to blank
+    find("input#product_#{@product.id}_item_description").send_keys(:backspace)
+    assert_selector(
+      "#product_#{@product.id}_item_description--client_side_invalid_message",
+      text: 'A description must be entered'
+    )
+  end
+
+  test 'broadcasting updates to multiple tabs' do
+    login
+    visit products_url
+    new_window = open_new_window
+    within_window new_window do
+      visit products_url
+    end
+
+    click_on 'Lager'
+    assert_selector("input#product_#{@product.id}_item_description")
+    find("input#product_#{@product.id}_item_description").send_keys('Beer', :enter)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, @product])}\"]", text: 'Beer')
+
+    within_window new_window do
+      assert_selector("a[href=\"#{polymorphic_path([:edit, @product])}\"]", text: 'Beer')
+    end
+  end
+
+  test 'should update product' do
     login
     visit product_url(@product)
-    click_on 'Edit this product', match: :first
+    click_on 'Edit', exact: true
 
-    fill_in 'Action', with: @product.action
-    fill_in 'Average price', with: @product.average_price
-    fill_in 'Buy list count', with: @product.buy_list_count
-    fill_in 'Canonical certainty', with: @product.canonical_certainty
-    fill_in 'Catalogue count', with: @product.catalogue_count
-    fill_in 'Collected statistics at', with: @product.collected_statistics_at
-    fill_in 'Duplication certainty', with: @product.duplication_certainty
-    fill_in 'Inventory barcodes count', with: @product.inventory_barcodes_count
-    fill_in 'Inventory derived period balances count', with: @product.inventory_derived_period_balances_count
-    fill_in 'Inventory internal requisition lines count', with: @product.inventory_internal_requisition_lines_count
-    fill_in 'Inventory stock counts count', with: @product.inventory_stock_counts_count
-    fill_in 'Inventory stock levels count', with: @product.inventory_stock_levels_count
-    fill_in 'Inventory transfer items count', with: @product.inventory_transfer_items_count
-    fill_in 'Invoice line items count', with: @product.invoice_line_items_count
-    fill_in 'Maximum price', with: @product.maximum_price
-    fill_in 'Minimum price', with: @product.minimum_price
-    fill_in 'Point of sale lines count', with: @product.point_of_sale_lines_count
-    fill_in 'Priced catalogue count', with: @product.priced_catalogue_count
-    fill_in 'Procurement products count', with: @product.procurement_products_count
-    fill_in 'Product', with: @product.product_id
-    fill_in 'Product supplier preferences count', with: @product.product_supplier_preferences_count
-    fill_in 'Purchase order line items count', with: @product.purchase_order_line_items_count
-    fill_in 'Rebates profile products count', with: @product.rebates_profile_products_count
-    fill_in 'Receiving document line items count', with: @product.receiving_document_line_items_count
-    fill_in 'Recipes count', with: @product.recipes_count
-    fill_in 'Requisition line items count', with: @product.requisition_line_items_count
-    fill_in 'Spelling mistakes', with: @product.spelling_mistakes
-    fill_in 'Standard deviation', with: @product.standard_deviation
-    fill_in 'Status', with: @product.status
-    fill_in 'Variance', with: @product.variance
-    click_on 'Update Product'
+    fill_in 'Description', with: @product.item_description
+    click_on 'Update'
 
     assert_text "Product '#{@product}' was successfully updated"
-    click_on 'Back'
+    click_on 'List'
   end
 
-  test 'should destroy Product' do
+  test 'should show validation errors on product update' do
     login
     visit product_url(@product)
-    click_on 'Destroy this product', match: :first
+    click_on 'Edit', exact: true
+
+    fill_in 'Description', with: ''
+    assert_selector(
+      "#product_#{@product.id}_item_description--client_side_invalid_message",
+      text: 'A description must be entered'
+    )
+  end
+
+  test 'should destroy product' do
+    login
+    visit edit_product_url(@product)
+    find("#delete_product_#{@product.id}").click
+    find('#confirm_delete').click
 
     assert_text "Product '#{@product}' was successfully deleted"
+  end
+
+  test 'should destroy product inline' do
+    login
+    visit products_url
+
+    assert_selector("#turbo_stream_product_#{@product.id}")
+
+    find("#delete_product_#{@product.id}").click
+    find('#confirm_delete').click
+
+    assert_no_selector("#turbo_stream_product_#{@product.id}")
+  end
+
+  test 'should view product' do
+    login
+    visit products_url
+    find("#view_product_#{@product.id}").click
+    assert_current_path(product_path(@product))
+  end
+
+  test 'show page tabs' do
+    login
+    visit product_url(@product)
+    assert_selector("a#tab_product_#{@product.id}_details", text: 'Details')
+    assert_selector("a#tab_product_#{@product.id}_product_translations", text: 'Translations')
+    assert_selector("a#tab_product_#{@product.id}_audit", text: 'Audit')
+
+    click_on 'Details'
+    assert_current_path(product_url(@product))
+    click_on 'Translations'
+    assert_current_path(product_product_translations_url(product_id: @product))
+  end
+
+  test 'edit page tabs' do
+    login
+    visit edit_product_url(@product)
+    assert_selector("a#tab_product_#{@product.id}_details", text: 'Details')
+    assert_selector("a#tab_product_#{@product.id}_product_translations", text: 'Translations')
+    assert_selector("a#tab_product_#{@product.id}_audit", text: 'Audit')
+
+    click_on 'Details'
+    assert_current_path(edit_product_url(@product))
+    click_on 'Translations'
+    assert_current_path(product_product_translations_url(product_id: @product))
+  end
+
+  test 'updating record should update audits badge count' do
+    badge_count = @product.own_and_associated_audits.size
+    login
+    visit edit_product_url(@product)
+    assert_selector(
+      "#tab_product_#{@product.id}_audit--badge_count__integer",
+      text: badge_count
+    )
+
+    fill_in 'Description', with: "updated #{@product.item_description}"
+    click_on 'Update'
+
+    assert_selector(
+      "#tab_product_#{@product.id}_audit--badge_count__integer",
+      text: badge_count + 1
+    )
   end
 end

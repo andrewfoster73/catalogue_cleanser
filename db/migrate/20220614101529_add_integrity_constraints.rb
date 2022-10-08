@@ -13,7 +13,6 @@ class AddIntegrityConstraints < ActiveRecord::Migration[7.0]
     change_column_null :item_sell_pack_aliases, :alias, false
     change_column_null :products, :product_id, false
     add_check_constraint :products, 'buy_list_count >= 0', name: 'buy_list_count_check'
-    add_check_constraint :products, 'spelling_mistakes >= 0', name: 'spelling_mistakes_check'
     add_check_constraint :products, 'catalogue_count >= 0', name: 'catalogue_count_check'
     add_check_constraint :products, 'inventory_barcodes_count >= 0', name: 'inventory_barcodes_count_check'
     add_check_constraint :products, 'inventory_derived_period_balances_count >= 0', name: 'inventory_derived_period_balances_count_check'

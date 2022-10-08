@@ -1,0 +1,19 @@
+---
+en-GB:
+  activerecord:
+    attributes:
+      product_translation:
+        brand: Brand
+        created_at: Created At
+        item_description: Description
+        item_measure: Measure
+        item_pack_name: Pack Name
+        item_sell_pack_name: Sell Name
+        item_sell_quantity: Sell Size
+        item_size: Size
+        locale: Locale
+        updated_at: Updated At
+    models:
+      product_translation:
+        one: Translation
+        other: Translations
