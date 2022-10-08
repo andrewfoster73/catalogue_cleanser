@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 lager:
-  product_id: 1
+  external_product: lager
   duplication_certainty: 9.99
   canonical_certainty: 9.99
   action: none
@@ -39,7 +39,7 @@ lager:
   item_sell_pack_name: carton
 
 apple:
-  product_id: 2
+  external_product: apple
   duplication_certainty: 9.99
   canonical_certainty: 9.99
   action: none
@@ -77,7 +77,7 @@ apple:
   item_sell_pack_name: each
 
 mince:
-  product_id: 3
+  external_product: mince
   duplication_certainty: 9.99
   canonical_certainty: 9.99
   action: none

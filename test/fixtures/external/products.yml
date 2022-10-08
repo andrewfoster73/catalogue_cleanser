@@ -1,0 +1,32 @@
+_fixture:
+  model_class: External::Product
+
+lager:
+  locale: en
+  item_description: Lager
+  brand: Innis & Gunn
+  item_size: 440.0
+  item_measure: ml
+  item_pack_name: can
+  item_sell_quantity: 6
+  item_sell_pack_name: carton
+
+apple:
+  locale: en
+  item_description: Apple
+  brand:
+  item_size: 1
+  item_measure: kg
+  item_pack_name:
+  item_sell_quantity: 1
+  item_sell_pack_name: each
+
+mince:
+  locale: en
+  item_description: Beef Mince
+  brand: Coles
+  item_size: 500
+  item_measure: g
+  item_pack_name: packet
+  item_sell_quantity: 1
+  item_sell_pack_name: each

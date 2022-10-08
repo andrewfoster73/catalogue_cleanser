@@ -5,8 +5,6 @@ require 'application_system_test_case'
 class ProductsTest < ApplicationSystemTestCase
   setup do
     @product = products(:lager)
-    @external_product = create(:external_product)
-    @product.update!(external_product: @external_product)
   end
 
   test 'redirects if not logged in' do

@@ -5,8 +5,6 @@ require 'test_helper'
 class ProductsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @product = products(:lager)
-    @external_product = create(:external_product)
-    @product.update!(external_product: @external_product)
   end
 
   test 'should redirect if not authenticated' do
