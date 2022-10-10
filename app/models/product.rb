@@ -4,8 +4,8 @@ class Product < ApplicationRecord
   include Broadcast
 
   belongs_to :external_product, class_name: 'External::Product', foreign_key: :product_id, inverse_of: :product
-  has_many :product_duplicates, dependent: :destroy
-  has_many :product_translations, dependent: :destroy
+  has_many :product_duplicates, dependent: :destroy, strict_loading: true
+  has_many :product_translations, dependent: :destroy, strict_loading: true
 
   has_associated_audits
 

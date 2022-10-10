@@ -28,7 +28,7 @@ module Resources
   end
 
   def set_resource
-    @resource = resource_class.find(params[:id])
+    @resource = resource_class.preload(collection_preloads).find(params[:id])
     @resource.form_authenticity_token = form_authenticity_token
   end
 

@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_04_163702) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_10_131051) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
@@ -44,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_163702) do
     t.string "remote_address"
     t.string "request_uuid"
     t.datetime "created_at"
+    t.index ["action"], name: "index_audits_on_action"
     t.index ["associated_type", "associated_id"], name: "associated_index"
     t.index ["auditable_type", "auditable_id", "version"], name: "auditable_index"
     t.index ["created_at"], name: "index_audits_on_created_at"
@@ -128,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_163702) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["alias"], name: "index_item_sell_pack_aliases_on_alias", unique: true
+    t.index ["confirmed"], name: "index_item_sell_pack_aliases_on_confirmed"
     t.index ["item_sell_pack_id"], name: "index_item_sell_pack_aliases_on_item_sell_pack_id"
   end
 
@@ -136,6 +139,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_163702) do
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["canonical"], name: "index_item_sell_packs_on_canonical"
     t.index ["name"], name: "index_item_sell_packs_on_name", unique: true
   end
 
@@ -231,6 +235,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_163702) do
     t.integer "issues_count", default: 0, null: false
     t.integer "translations_count", default: 0, null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["item_description"], name: "index_products_item_description_gin", opclass: :gin_trgm_ops, using: :gin
+    t.index ["item_sell_pack_name"], name: "idx_products_item_sell_pack_name"
     t.index ["product_id"], name: "index_products_on_product_id", unique: true
     t.check_constraint "average_price >= 0::numeric", name: "average_price_check"
     t.check_constraint "buy_list_count >= 0", name: "buy_list_count_check"

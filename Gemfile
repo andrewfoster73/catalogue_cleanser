@@ -92,6 +92,14 @@ group :development, :test do
   gem 'deepl-rb'
   gem 'easy_translate'
   gem 'i18n-tasks', '~> 1.0.11'
+
+  # N+1 query locator
+  gem 'pg_query'
+  gem 'prosopite'
+
+  # Missing index locator
+  gem 'lol_dba'
+
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false

@@ -73,6 +73,11 @@ Rails.application.configure do
   config.action_controller.asset_host = 'http://localhost:3000'
 
   config.view_component.instrumentation_enabled = true
+
+  config.after_initialize do
+    Prosopite.rails_logger = true
+    Prosopite.prosopite_logger = true
+  end
 end
 
 ActiveSupport::Notifications.subscribe('!render.view_component') do |*args|

@@ -40,8 +40,12 @@ class ItemSellPackAliasesController < ResourcesController
   end
 
   def parent
-    @parent ||=
-      parent_class
-      .find_by(id: params[:item_sell_pack_id] || params.dig(:item_sell_pack_alias, :item_sell_pack_id))
+    return nil unless parent_id
+
+    @parent ||= parent_class.find_by(id: parent_id)
+  end
+
+  def parent_id
+    params[:item_sell_pack_id] || params.dig(:item_sell_pack_alias, :item_sell_pack_id)
   end
 end
