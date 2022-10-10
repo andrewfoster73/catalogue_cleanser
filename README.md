@@ -8,7 +8,7 @@
 # README
 
 ####Requirements:
-* Ruby 3.0.2
+* Ruby 3.0.4
 * Bundler
 
 ####Installation:
