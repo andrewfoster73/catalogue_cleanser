@@ -36,8 +36,12 @@ class ProductTranslationsController < ResourcesController
   end
 
   def parent
-    @parent ||=
-      parent_class
-      .find_by(id: params[:product_id] || params.dig(:product_translation, :product_id))
+    return unless parent_id
+
+    @parent ||= parent_class.find_by(id: parent_id)
+  end
+
+  def parent_id
+    params[:product_id] || params.dig(:product_translation, :product_id)
   end
 end

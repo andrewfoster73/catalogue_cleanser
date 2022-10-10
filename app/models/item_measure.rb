@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ItemMeasure < ApplicationRecord
-  has_many :item_measure_aliases, dependent: :destroy
+  has_many :item_measure_aliases, dependent: :destroy, strict_loading: true
   has_associated_audits
 
   audited

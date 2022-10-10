@@ -3,7 +3,7 @@
 class ItemSellPack < ApplicationRecord
   include Broadcast
 
-  has_many :item_sell_pack_aliases, dependent: :destroy
+  has_many :item_sell_pack_aliases, dependent: :destroy, strict_loading: true
   has_associated_audits
 
   audited

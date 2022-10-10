@@ -107,7 +107,7 @@ class ItemSellPackAliasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'raises error for HTML' do
-    ItemSellPackAlias.stub(:find, -> (_id) { raise(StandardError) }) do
+    ItemSellPackAlias.stub(:preload, -> (_id) { raise(StandardError) }) do
       authenticate
 
       assert_raises(StandardError) do

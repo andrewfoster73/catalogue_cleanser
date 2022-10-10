@@ -5,6 +5,10 @@ class ProductsController < ResourcesController
 
   private
 
+  def collection_preloads
+    [:product_translations, :product_duplicates]
+  end
+
   # Only allow a list of trusted parameters through.
   def permitted_params
     super | %i[item_description brand item_size item_measure item_pack_name item_sell_quantity item_sell_pack_name]
