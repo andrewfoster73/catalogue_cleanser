@@ -19,4 +19,16 @@ class ItemMeasureAliasTest < ActiveSupport::TestCase
     item_measure_alias.valid?
     assert_equal('btl', item_measure_alias.alias, 'Item measure alias contains illegal whitespace')
   end
+
+  test 'parent' do
+    item_measure = build(:item_measure, name: 'each')
+    item_measure_alias = build(:item_measure_alias, item_measure: item_measure, alias: 'ea')
+    assert_equal(item_measure, item_measure_alias.parent)
+  end
+
+  test 'to_s' do
+    item_measure = build(:item_measure, name: 'each')
+    item_measure_alias = build(:item_measure_alias, item_measure: item_measure, alias: 'ea')
+    assert_equal('ea (each)', item_measure_alias.to_s)
+  end
 end

@@ -17,7 +17,7 @@ class ItemSellPackAlias < ApplicationRecord
   end
 
   def to_s
-    self.alias
+    "#{self.alias} (#{item_sell_pack})"
   end
 
   protected

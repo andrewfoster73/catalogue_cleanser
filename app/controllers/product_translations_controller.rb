@@ -6,8 +6,14 @@ class ProductTranslationsController < ResourcesController
 
   private
 
+  def update_resource
+    super
+    @resource.product.resolve_issues!
+    # Create task to update P+ Product Translation
+  end
+
   def collection_preloads
-    [:product]
+    [{ product: %i[product_translations product_issues] }, :product_issues]
   end
 
   def collection_path_method
@@ -18,7 +24,8 @@ class ProductTranslationsController < ResourcesController
 
   # Only allow a list of trusted parameters through.
   def permitted_params
-    super | %i[locale item_description brand item_size item_measure item_pack_name item_sell_size item_sell_pack_name]
+    super |
+      %i[locale item_description brand item_size item_measure item_pack_name item_sell_quantity item_sell_pack_name]
   end
 
   def default_sort

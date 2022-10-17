@@ -2,16 +2,18 @@
 
 class Product < ApplicationRecord
   include Broadcast
+  include IssueDiscovery
 
-  belongs_to :external_product, class_name: 'External::Product', foreign_key: :product_id, inverse_of: :product
+  belongs_to :external_product, class_name: 'External::Product', inverse_of: :product
   has_many :product_duplicates, dependent: :destroy, strict_loading: true
   has_many :product_translations, dependent: :destroy, strict_loading: true
+  has_many :product_issues, dependent: :destroy, strict_loading: true
 
   has_associated_audits
 
   audited
 
-  validates :product_id, presence: true, uniqueness: true
+  validates :external_product_id, presence: true, uniqueness: true
   validates :buy_list_count, :catalogue_count, :inventory_barcodes_count,
             :inventory_derived_period_balances_count, :inventory_internal_requisition_lines_count,
             :inventory_stock_counts_count, :inventory_stock_levels_count, :inventory_transfer_items_count,
@@ -38,17 +40,40 @@ class Product < ApplicationRecord
     # None / Low / Medium / High
   end
 
-  def issues
+  def discover_issues!
+    possible_issues.each { |issue| issue.save! unless issue.already_identified? }
+
     # [Spelling Mistakes]
-    # [Missing Compulsory Attributes]
     # [Missing Volume In Litres]
-    # [Illegal Locale]
     # [Brand Incorrect]
     # [Item Measure Incorrect]
     # [Item Pack Incorrect]
     # [Item Sell Pack Name Incorrect]
     # [Incorrect Translation]
     # [Illegal Translation]
+    # [Missing Translation]
     # [Possible Duplication]
+    # [UpperCase -> LowerCase]
+    # [All Upper]
+    # [Missing Category]
+  end
+
+  def resolve_issues!
+    product_issues.each do |issue|
+      issue.fixed! unless issue.issue?
+    end
+  end
+
+  def possible_issues
+    super | product_translations.map(&:possible_issues).flatten
+  end
+
+  private
+
+  def clean
+    assign_attributes(
+      item_description: item_description&.squeeze(' ')&.strip.presence,
+      brand: brand&.squeeze(' ')&.strip.presence
+    )
   end
 end

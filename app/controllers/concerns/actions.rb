@@ -23,7 +23,7 @@ module Actions
     build_resource
 
     respond_to do |format|
-      if @resource.save
+      if create_resource
         format.html do
           redirect_to(
             resource_url(@resource, { format: :html }),
@@ -41,7 +41,7 @@ module Actions
   # PATCH/PUT /collection/1 or /collection/1.json
   def update
     respond_to do |format|
-      if @resource.update(resource_params)
+      if update_resource
         format.html do
           redirect_to(
             resource_url(@resource),
@@ -61,7 +61,7 @@ module Actions
 
   # DELETE /collection/1 or /collection/1.json
   def destroy
-    @resource.destroy!
+    destroy_resource
 
     respond_to do |format|
       format.html do

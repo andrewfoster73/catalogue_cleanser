@@ -36,6 +36,20 @@ module Resources
     @resource = resource_class.new(resource_params)
   end
 
+  # rubocop:disable Rails/SaveBang
+  def create_resource
+    @resource.save
+  end
+
+  def update_resource
+    @resource.update(resource_params)
+  end
+  # rubocop:enable Rails/SaveBang
+
+  def destroy_resource
+    @resource.destroy!
+  end
+
   def resource_class
     # eg ItemSellPacksController -> ItemSellPack
     @resource_class ||= controller_name.gsub('Controller', '').singularize.classify.safe_constantize

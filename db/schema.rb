@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_10_131051) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -159,14 +159,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_131051) do
   create_table "product_issues", force: :cascade do |t|
     t.bigint "product_id"
     t.string "type"
-    t.string "attribute"
+    t.string "test_attribute"
     t.string "resolution_task_type"
     t.string "resolution_suggested_replacement"
     t.string "resolution_message_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "status", enum_type: "product_issue_status"
+    t.bigint "resolution_task_id"
+    t.bigint "product_translation_id"
     t.index ["product_id"], name: "index_product_issues_on_product_id"
+    t.index ["product_translation_id"], name: "index_product_issues_on_product_translation_id"
+    t.index ["resolution_task_id"], name: "index_product_issues_on_resolution_task_id"
   end
 
   create_table "product_translations", force: :cascade do |t|
@@ -183,11 +187,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_131051) do
     t.boolean "valid_translations", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "external_product_translation_id"
+    t.index ["external_product_translation_id"], name: "index_product_translations_on_external_product_translation_id"
     t.index ["product_id"], name: "index_product_translations_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer "product_id", null: false
+    t.integer "external_product_id", null: false
     t.decimal "duplication_certainty", precision: 8, scale: 2
     t.decimal "canonical_certainty", precision: 8, scale: 2
     t.boolean "canonical", default: false
@@ -235,9 +241,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_131051) do
     t.integer "issues_count", default: 0, null: false
     t.integer "translations_count", default: 0, null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true
     t.index ["item_description"], name: "index_products_item_description_gin", opclass: :gin_trgm_ops, using: :gin
-    t.index ["item_sell_pack_name"], name: "idx_products_item_sell_pack_name"
-    t.index ["product_id"], name: "index_products_on_product_id", unique: true
     t.check_constraint "average_price >= 0::numeric", name: "average_price_check"
     t.check_constraint "buy_list_count >= 0", name: "buy_list_count_check"
     t.check_constraint "canonical_certainty >= 0::numeric", name: "canonical_certainty_check"

@@ -24,4 +24,16 @@ class BrandAliasTest < ActiveSupport::TestCase
     brand_alias.valid?
     assert_equal('APL', brand_alias.alias, 'Brand alias contains illegal whitespace')
   end
+
+  test 'parent' do
+    brand = build(:brand, name: 'Lee Kum Kee')
+    brand_alias = build(:brand_alias, brand: brand, alias: 'leekumkee')
+    assert_equal(brand, brand_alias.parent)
+  end
+
+  test 'to_s' do
+    brand = build(:brand, name: 'Lee Kum Kee')
+    brand_alias = build(:brand_alias, brand: brand, alias: 'leekumkee')
+    assert_equal('leekumkee (Lee Kum Kee)', brand_alias.to_s)
+  end
 end

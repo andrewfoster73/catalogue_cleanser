@@ -186,7 +186,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     assert_selector(
       "#tab_product_#{@product.id}_audit--badge_count__integer",
-      text: badge_count + 1
+      text: badge_count + 3
     )
   end
 end

@@ -19,4 +19,9 @@ class DictionaryEntryTest < ActiveSupport::TestCase
     dictionary_entry.valid?
     assert_equal("Conway's Law", dictionary_entry.phrase, 'Dictionary entry contains illegal whitespace')
   end
+
+  test 'to_s' do
+    dictionary_entry = build(:dictionary_entry, phrase: "Conway's Law")
+    assert_equal("Conway's Law", dictionary_entry.to_s, 'Dictionary entry to string should be the phrase')
+  end
 end

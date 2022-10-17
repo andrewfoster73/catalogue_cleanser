@@ -4,6 +4,9 @@
 <% flash.each do |type, message| %>
   <%= render Notification::Component.new(name: :edit, type: type, message: message) %>
 <% end %>
+
+<%= render partial: 'navigation', locals: { resource: @resource } %>
+
 <%= render ResourceActions::Component.new do |component| %>
   <% component.with_button(
          id: dom_id(@resource, :list),

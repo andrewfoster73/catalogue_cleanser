@@ -4,6 +4,7 @@ class Task < ApplicationRecord
   audited
 
   belongs_to :approved_by, optional: true
+  belongs_to :context, polymorphic: true, optional: true
 
   enum status: {
     pending: 'pending',
@@ -15,6 +16,7 @@ class Task < ApplicationRecord
   def initialize(attributes = nil)
     super
     self.status = 'pending'
+    self.description ||= 'This is a base task, it does nothing.'
   end
 
   def call

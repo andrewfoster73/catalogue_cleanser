@@ -20,8 +20,12 @@ Rails.application.routes.draw do
   resources :tasks
   resources :products, shallow: true, except: %i[new create], concerns: %i[audited] do
     resources :product_translations, only: %i[index create]
+    resources :product_issues, only: %i[index]
   end
-  resources :product_translations, except: %i[new]
+  resources :product_translations, shallow: true, except: %i[new], concerns: %i[audited] do
+    resources :product_issues, only: %i[index]
+  end
+  resources :product_issues, only: %i[index update destroy]
   resources :product_duplicates
   resources :comments
   resources :abbreviations

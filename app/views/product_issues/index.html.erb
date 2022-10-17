@@ -1,0 +1,77 @@
+<% if nested? %>
+  <%= turbo_stream_from "#{@parent.resource_name}_#{@parent.id}_product_issues" %>
+<% else %>
+  <%= turbo_stream_from "product_issues" %>
+<% end %>
+<%= turbo_stream_from "errors" %>
+<div class="w-full" data-controller="errors tab-navigation--component" data-action="resource:error->errors#show editor:increment->tab-navigation--component#increment editor:decrement->tab-navigation--component#decrement">
+  <% flash.each do |type, message| %>
+    <%= render Notification::Component.new(name: :index, type: type, message: message) %>
+  <% end %>
+
+  <% if nested? %>
+    <%= render partial: "#{@parent_class.name.underscore.pluralize.downcase}/navigation", locals: { resource: @parent } %>
+  <% end %>
+
+  <%= render PageHeading::Component.new(title: resource_class.model_name.human(count: 2), description: t('.description')) %>
+
+  <%= render CollectionFilter::Component.new(filter: @q, url: filter_url) do |c| %>
+
+  <% end %>
+
+  <%= turbo_frame_tag "page_handler" %>
+  <div
+    id="collection"
+    class=min-w-full"
+    data-controller="editor"
+    data-action="turbo:before-stream-render@document->editor#animate"
+  >
+    <%= render Collection::Component.new do |collection_component| %>
+      <%= collection_component.with_header(columns: [
+          {
+              sorter: sort_link(@q, :type, resource_class.human_attribute_name(:type), default_order: :desc, class: 'group inline-flex'),
+              classes: 'py-3.5 pl-4 pr-3 sm:pl-6 lg:pl-8'
+          },
+          { sorter: sort_link(@q, :product_translation, resource_class.human_attribute_name(:product_translation), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :test_attribute, resource_class.human_attribute_name(:test_attribute), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :status, resource_class.human_attribute_name(:status), default_order: :desc, class: 'group inline-flex') },
+      ]) %>
+      <% if @collection.any? %>
+        <%= collection_component.with_rows do |rows_component| %>
+          <%= render partial: 'rows', locals: { rows_component: rows_component } %>
+        <% end %>
+      <% end %>
+      <%= collection_component.with_pager(
+              paginator: @pagy,
+              collection_path_method: collection_path_method,
+              parent_param: ( @parent if nested?),
+              filter_params: params[:q]) %>
+    <% end %>
+  </div>
+
+  <%= render Modal::Component.new(name: :product_issues_delete_confirmation) do |modal| %>
+    <%= modal.with_confirmation(
+            title: t('modals.deletion.title'),
+            icon_options: { name: :exclamation, colour: :red, options: { classes: '' } },
+            message: t('modals.deletion.message')
+        ) %>
+    <% modal.with_button(
+           id: :confirm_delete,
+           label: t('modals.deletion.buttons.delete.label'),
+           options: {
+               icon: { name: :trash, colour: :white },
+               colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
+               data: {
+                   params: [
+                       { name: 'resource-id', value: '' },
+                       { name: 'resource-url', value: polymorphic_path(resource_class) },
+                       { name: 'resource-modal-name', value: :product_issues_delete_confirmation }
+                   ],
+                   action: 'click->resource#inlineDelete'
+               }
+           }) %>
+  <% end %>
+  <div id="notifications"></div>
+</div>
+
+

@@ -24,4 +24,9 @@ class BrandTest < ActiveSupport::TestCase
     brand.valid?
     assert_equal('Apple (U.S.A.)', brand.name, 'Brand contains illegal whitespace')
   end
+
+  test 'to_s' do
+    brand = build(:brand, name: 'Microsoft')
+    assert_equal('Microsoft', brand.to_s, 'Brand to string should be the name')
+  end
 end

@@ -16,7 +16,7 @@
   <%= render PageHeading::Component.new(title: resource_class.model_name.human(count: 2), description: t('.description')) do |c| %>
     <% if nested? %>
       <%= c.with_actions do %>
-        <%= render Button::NewResourceComponent.new(id: :item_sell_pack_aliases_new) %>
+        <%= render Button::NewResourceComponent.new(id: :product_translations_new) %>
       <% end %>
     <% end %>
   <% end %>
@@ -97,7 +97,7 @@
                   data: {
                       params: [
                           { name: 'resource-url', value: polymorphic_url(resource_class) },
-                          { name: 'resource-name', value: :item_sell_pack_alias_new },
+                          { name: 'resource-name', value: :product_translation_new },
                           { name: 'resource-form-id', value: dom_id(resource_class.new, :form) },
                           { name: 'resource-modal-name', value: :product_translations_new }
                       ],
