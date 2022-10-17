@@ -9,8 +9,12 @@ class ItemPackAlias < ApplicationRecord
 
   validates :alias, presence: true, uniqueness: true
 
+  def parent
+    item_pack
+  end
+
   def to_s
-    self.alias
+    "#{self.alias} (#{item_pack})"
   end
 
   protected

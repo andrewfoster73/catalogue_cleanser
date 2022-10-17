@@ -19,4 +19,16 @@ class ItemSellPackAliasTest < ActiveSupport::TestCase
     item_sell_pack_alias.valid?
     assert_equal('btl', item_sell_pack_alias.alias, 'Item sell pack alias contains illegal whitespace')
   end
+
+  test 'parent' do
+    item_sell_pack = build(:item_sell_pack, name: 'carton')
+    item_sell_pack_alias = build(:item_sell_pack_alias, item_sell_pack: item_sell_pack, alias: 'ctn')
+    assert_equal(item_sell_pack, item_sell_pack_alias.parent)
+  end
+
+  test 'to_s' do
+    item_sell_pack = build(:item_sell_pack, name: 'carton')
+    item_sell_pack_alias = build(:item_sell_pack_alias, item_sell_pack: item_sell_pack, alias: 'ctn')
+    assert_equal('ctn (carton)', item_sell_pack_alias.to_s)
+  end
 end

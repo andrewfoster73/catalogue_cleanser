@@ -9,8 +9,12 @@ class ItemMeasureAlias < ApplicationRecord
 
   validates :alias, presence: true, uniqueness: true
 
+  def parent
+    item_measure
+  end
+
   def to_s
-    self.alias
+    "#{self.alias} (#{item_measure})"
   end
 
   protected

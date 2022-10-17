@@ -19,4 +19,16 @@ class AbbreviationTest < ActiveSupport::TestCase
     abbreviation.valid?
     assert_equal('C.L.', abbreviation.letters, 'Abbreviation letters contains illegal whitespace')
   end
+
+  test 'parent' do
+    dictionary_entry = build(:dictionary_entry, phrase: 'skin on')
+    abbreviation = build(:abbreviation, dictionary_entry: dictionary_entry, letters: 's/on')
+    assert_equal(dictionary_entry, abbreviation.parent)
+  end
+
+  test 'to_s' do
+    dictionary_entry = build(:dictionary_entry, phrase: 'skin on')
+    abbreviation = build(:abbreviation, dictionary_entry: dictionary_entry, letters: 's/on')
+    assert_equal('s/on (skin on)', abbreviation.to_s)
+  end
 end

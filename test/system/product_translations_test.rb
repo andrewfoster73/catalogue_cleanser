@@ -21,6 +21,24 @@ class ProductTranslationsTest < ApplicationSystemTestCase
     assert_selector('input#filter_item_description[name="q[item_description_cont]"]')
   end
 
+  test 'index page tabs' do
+    login
+    visit product_product_translations_url(product_id: @product)
+    assert_selector("a#tab_product_#{@product.id}_details", text: 'Details')
+    assert_selector("a#tab_product_#{@product.id}_product_translations", text: 'Translations')
+    assert_selector("a#tab_product_#{@product.id}_product_issues", text: 'Issues')
+    assert_selector("a#tab_product_#{@product.id}_audit", text: 'Audit')
+
+    click_on 'Details'
+    assert_current_path(product_url(@product))
+    click_on 'Translations'
+    assert_current_path(product_product_translations_url(product_id: @product))
+    click_on 'Issues'
+    assert_current_path(product_product_issues_url(product_id: @product))
+    click_on 'Audit'
+    assert_current_path(product_audits_url(product_id: @product))
+  end
+
   test 'inline editing and cancelling' do
     login
     visit product_product_translations_url(product_id: @product)

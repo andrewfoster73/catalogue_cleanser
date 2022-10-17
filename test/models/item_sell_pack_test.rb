@@ -19,4 +19,9 @@ class ItemSellPackTest < ActiveSupport::TestCase
     item_sell_pack.valid?
     assert_equal('btl', item_sell_pack.name, 'Item sell pack contains illegal whitespace')
   end
+
+  test 'to_s' do
+    item_sell_pack = build(:item_sell_pack, name: 'carton')
+    assert_equal('carton', item_sell_pack.to_s, 'Item sell pack to string should be the name')
+  end
 end

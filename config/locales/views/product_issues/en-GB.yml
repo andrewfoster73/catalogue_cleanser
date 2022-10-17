@@ -1,0 +1,5 @@
+---
+en-GB:
+  product_issues:
+    index:
+      description: These are the issues that have been identified for this product and its translations

@@ -19,4 +19,9 @@ class ItemMeasureTest < ActiveSupport::TestCase
     item_measure.valid?
     assert_equal('btl', item_measure.name, 'Item measure contains illegal whitespace')
   end
+
+  test 'to_s' do
+    item_measure = build(:item_measure, name: 'each')
+    assert_equal('each', item_measure.to_s, 'Item measure to string should be the name')
+  end
 end

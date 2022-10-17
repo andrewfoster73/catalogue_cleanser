@@ -1,0 +1,20 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+missing_compulsory:
+  type: ProductIssues::MissingCompulsory
+  product: lager
+  test_attribute: item_size
+  status: confirmed
+
+additional_whitespace:
+  type: ProductIssues::AdditionalWhitespace
+  product: mince
+  test_attribute: item_description
+  status: fixed
+
+invalid_locale:
+  type: ProductIssues::InvalidLocale
+  product: lager
+  product_translation: lager
+  test_attribute: locale
+  status: confirmed

@@ -10,7 +10,7 @@ module Urls
     polymorphic_url(resource, options)
   end
 
-  def collection_url
-    polymorphic_url(resource_class)
+  def collection_url(options = {})
+    polymorphic_url(resource_class, options)
   end
 end

@@ -54,7 +54,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
               point_of_sale_lines_count: @product.point_of_sale_lines_count,
               priced_catalogue_count: @product.priced_catalogue_count,
               procurement_products_count: @product.procurement_products_count,
-              product_id: @product.product_id,
+              external_product_id: @product.external_product_id,
               product_supplier_preferences_count: @product.product_supplier_preferences_count,
               purchase_order_line_items_count: @product.purchase_order_line_items_count,
               rebates_profile_products_count: @product.rebates_profile_products_count,
@@ -73,6 +73,24 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
             }
           }
     assert_redirected_to product_url(@product, format: :html)
+  end
+
+  test 'should resolve an issues that were fixed by the update' do
+    authenticate
+    product = create(:product, item_description: nil)
+    product = Product.includes(:product_translations, :product_issues).find(product.id)
+    product.discover_issues!
+    assert_equal(1, product.product_issues.size)
+
+    patch product_url(product),
+          params: {
+            product: {
+              item_description: 'Corn'
+            }
+          }
+
+    issue = ProductIssue.find_by(product_id: product.id)
+    assert_equal('fixed', issue.status)
   end
 
   test 'should destroy product' do

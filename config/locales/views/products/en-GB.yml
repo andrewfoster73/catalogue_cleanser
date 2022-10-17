@@ -14,7 +14,6 @@ en-GB:
       invalid_message:
         item_description: A description must be entered.
         item_measure: A measure must be entered.
-        item_pack_name: A pack name must be entered.
         item_sell_pack_name: A sell pack name must be entered.
         item_sell_quantity: Item sell size must be a number greater than or equal to 0, with up to 4 decimal places.
         item_size: Item size must be a number greater than or equal to 0, with up to 4 decimal places.

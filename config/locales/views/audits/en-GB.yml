@@ -5,6 +5,7 @@ en-GB:
       changes:
         create: "%{model} with attributes: [%{attributes}] was created."
         destroy: "%{model} with attributes: [%{attributes}] was deleted."
+        resource: "%{model} with changes:"
         update: "%{attribute} was changed from %{from} to %{to}"
       description: The history of all changes to this record
       empty: Empty

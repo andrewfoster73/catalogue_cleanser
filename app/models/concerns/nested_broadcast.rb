@@ -5,6 +5,8 @@ module NestedBroadcast
 
   included do
     after_create_commit lambda {
+      return unless broadcast_creation?
+
       broadcast_nested_resource_creation
       broadcast_nested_resource_count
     }
@@ -15,6 +17,8 @@ module NestedBroadcast
     }
 
     after_update_commit lambda {
+      return unless broadcast_creation?
+
       broadcast_nested_resource_update
     }
   end
@@ -53,7 +57,7 @@ module NestedBroadcast
       partial: 'badge_count',
       locals: {
         tab_id: nested_resource_collection_id,
-        badge_count: parent.public_send(parent.klass_association_name(klass: self.class)).size
+        badge_count: parent.public_send(nested_association_name).size
       },
       target: "tab_#{nested_resource_collection_id}--badge_count__integer"
     )
@@ -64,6 +68,10 @@ module NestedBroadcast
   end
 
   def nested_resource_collection_id
-    "#{parent.resource_name}_#{parent.id}_#{parent.klass_association_name(klass: self.class)}"
+    "#{parent.resource_name}_#{parent.id}_#{nested_association_name}"
+  end
+
+  def nested_association_name
+    parent.klass_association_name(klass: self.class)
   end
 end

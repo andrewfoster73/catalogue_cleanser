@@ -194,6 +194,8 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     visit item_sell_pack_item_sell_pack_aliases_url(item_sell_pack_id: item_sell_packs(:carton))
     click_on 'Aliases'
     assert_current_path(item_sell_pack_item_sell_pack_aliases_url(item_sell_pack_id: item_sell_packs(:carton)))
+    click_on 'Audit'
+    assert_current_path(item_sell_pack_audits_url(item_sell_pack_id: item_sell_packs(:carton)))
   end
 
   test 'creating and destroying aliases should update badge count' do

@@ -1,0 +1,34 @@
+<tr
+  class="collection-rows__row"
+  id="<%= "turbo_stream_product_issue_#{resource.id}" %>"
+  data-controller="resource-form--component editor"
+  data-transition-enter="transition ease-in-out duration-500"
+  data-transition-enter-start="bg-transparent translate-y-6"
+  data-transition-enter-end="bg-sky-200 translate-y-0"
+>
+  <td id="<%= "type_cell_product_issue_#{resource.id}" %>" class="border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+    <%= resource.type.safe_constantize.model_name.human %>
+  </td>
+  <td id="<%= "product_translation_cell_product_issue_#{resource.id}" %>" class="border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+    <%= link_to(resource.product_translation, edit_product_translation_path(resource.product_translation), { target: '_blank', class: 'font-bold text-sky-500 hover:text-sky-700' }) if resource.product_translation %>
+  </td>
+  <td id="<%= "test_attribute_cell_product_issue_#{resource.id}" %>" class="border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+    <%= resource.test_attribute %>
+  </td>
+  <td id="<%= "status_cell_product_issue_#{resource.id}" %>" class="border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+    <%= resource.status.titleize %>
+  </td>
+  <td id="<%= "actions_cell_product_issue_#{resource.id}" %>" class="whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+    <%= render Button::DeleteResourceComponent.new(
+        id: "delete_product_issue_#{resource.id}",
+        options: {
+            data: {
+                params: [
+                    { name: 'resource-id', value: resource.id },
+                    { name: 'resource-modal-name', value: :product_issues_delete_confirmation }
+                ]
+            }
+        }
+    ) %>
+  </td>
+</tr>

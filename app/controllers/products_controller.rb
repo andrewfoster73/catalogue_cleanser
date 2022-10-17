@@ -5,8 +5,14 @@ class ProductsController < ResourcesController
 
   private
 
+  def update_resource
+    super
+    @resource.resolve_issues!
+    # Create task to update P+ Product
+  end
+
   def collection_preloads
-    %i[product_translations product_duplicates]
+    [{ product_translations: :product_issues }, :product_duplicates, :product_issues]
   end
 
   # Only allow a list of trusted parameters through.

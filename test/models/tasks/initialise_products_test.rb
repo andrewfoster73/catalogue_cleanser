@@ -4,7 +4,7 @@ require 'test_helper'
 
 class Tasks::InitialiseProductsTest < ActiveSupport::TestCase
   setup do
-    @external_product = create(:external_product)
+    @external_product = create(:external_product, item_description: 'Too    many spaces  ')
     @external_translation = create(:external_product_translation, external_product: @external_product)
     @master_catalogue = create(:external_catalogue)
     @external_catalogued_product = create(:external_catalogued_product, external_product: @external_product)
@@ -16,6 +16,7 @@ class Tasks::InitialiseProductsTest < ActiveSupport::TestCase
     @task.call
     assert_equal(4, Product.count, 'Number of Products created is not 4')
     assert_equal(3, ProductTranslation.count, 'Number of Product Translations created is not 3')
+    assert_equal(4, ProductIssue.count, 'Number of Product Issues is not 4')
     assert_equal('complete', @task.status, 'Task final status is not complete')
   end
 end

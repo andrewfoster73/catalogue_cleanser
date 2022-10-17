@@ -42,7 +42,7 @@
              attribute: :item_pack_name,
              label: resource_class.human_attribute_name(:item_pack_name),
              resource: resource,
-             options: { readonly: readonly, required: true, invalid_message: t('.invalid_message.item_pack_name') }
+             options: { readonly: readonly }
          ) %>
     <% end %>
     <% component.with_field do |c| %>

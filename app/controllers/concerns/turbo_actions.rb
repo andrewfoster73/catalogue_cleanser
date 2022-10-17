@@ -22,11 +22,9 @@ module TurboActions
   # PATCH/PUT /collection/1 or /collection/1.json
   def update
     respond_to do |format|
-      if @resource.update(resource_params)
+      if update_resource
         format.html do
-          redirect_to(resource_url(@resource, { format: :html }),
-                      success: t('actions.update.success', name: resource_human_name, resource: @resource.to_s)
-                     )
+          redirect_after_update
         end
         format.json { render(:show, status: :ok, location: @resource) }
         format.turbo_stream do
@@ -59,7 +57,7 @@ module TurboActions
 
   # DELETE /collection/1 or /collection/1.json
   def destroy
-    @resource.destroy!
+    destroy_resource
 
     respond_to do |format|
       format.html do
@@ -84,5 +82,11 @@ module TurboActions
 
   def editable_cell_formatter
     resource_class.attribute_types[editable_cell_attribute.to_s].type
+  end
+
+  def redirect_after_update
+    redirect_to(resource_url(@resource, { format: :html }),
+                success: t('actions.update.success', name: resource_human_name, resource: @resource.to_s)
+               )
   end
 end

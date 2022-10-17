@@ -5,6 +5,8 @@ module Broadcast
 
   included do
     after_create_commit lambda {
+      return unless broadcast_creation?
+
       broadcast_resource_creation
     }
 
@@ -25,6 +27,8 @@ module Broadcast
     }
 
     after_update_commit lambda {
+      return unless broadcast_update?
+
       broadcast_resource_update
       broadcast_replace_later_to(
         resource_name,
@@ -53,6 +57,14 @@ module Broadcast
   end
 
   private
+
+  def broadcast_creation?
+    true
+  end
+
+  def broadcast_update?
+    true
+  end
 
   def broadcast_notification(type:, message:)
     broadcast_append_later_to(
