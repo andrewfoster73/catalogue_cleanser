@@ -5,6 +5,7 @@ en-GB:
       product:
         brand: Brand
         created_at: Created At
+        image_file_name: Image
         item_description: Description
         item_measure: Measure
         item_pack_name: Pack Name

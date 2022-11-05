@@ -6,29 +6,29 @@ lager:
   canonical_certainty: 9.99
   action: none
   collected_statistics_at: 2022-06-09
-  catalogue_count: 1
-  buy_list_count: 1
-  priced_catalogue_count: 1
+  catalogue_count: 24
+  buy_list_count: 12
+  priced_catalogue_count: 12
   average_price: 9.99
   maximum_price: 9.99
   minimum_price: 9.99
   standard_deviation: 9.99
   variance: 9.99
-  inventory_barcodes_count: 1
+  inventory_barcodes_count: 9
   inventory_derived_period_balances_count: 1
   inventory_internal_requisition_lines_count: 1
   inventory_stock_counts_count: 1
   inventory_stock_levels_count: 1
-  inventory_transfer_items_count: 1
-  invoice_line_items_count: 1
+  inventory_transfer_items_count: 41
+  invoice_line_items_count: 12
   point_of_sale_lines_count: 1
-  procurement_products_count: 1
+  procurement_products_count: 12
   product_supplier_preferences_count: 1
   purchase_order_line_items_count: 1
   rebates_profile_products_count: 1
-  receiving_document_line_items_count: 1
+  receiving_document_line_items_count: 10
   recipes_count: 1
-  requisition_line_items_count: 1
+  requisition_line_items_count:
   locale: en
   item_description: Lager
   brand: Innis & Gunn
@@ -44,29 +44,29 @@ apple:
   canonical_certainty: 9.99
   action: none
   collected_statistics_at: 2022-06-09
-  catalogue_count: 1
-  buy_list_count: 1
-  priced_catalogue_count: 1
+  catalogue_count: 30
+  buy_list_count: 10
+  priced_catalogue_count: 20
   average_price: 9.99
   maximum_price: 9.99
   minimum_price: 9.99
   standard_deviation: 9.99
   variance: 9.99
-  inventory_barcodes_count: 1
+  inventory_barcodes_count: 5
   inventory_derived_period_balances_count: 1
-  inventory_internal_requisition_lines_count: 1
+  inventory_internal_requisition_lines_count: 18
   inventory_stock_counts_count: 1
   inventory_stock_levels_count: 1
-  inventory_transfer_items_count: 1
-  invoice_line_items_count: 1
+  inventory_transfer_items_count: 19
+  invoice_line_items_count: 45
   point_of_sale_lines_count: 1
-  procurement_products_count: 1
-  product_supplier_preferences_count: 1
-  purchase_order_line_items_count: 1
-  rebates_profile_products_count: 1
+  procurement_products_count: 17
+  product_supplier_preferences_count: 14
+  purchase_order_line_items_count: 22
+  rebates_profile_products_count: 5
   receiving_document_line_items_count: 1
   recipes_count: 1
-  requisition_line_items_count: 1
+  requisition_line_items_count: 43
   locale: en
   item_description: Apple
   brand:
@@ -82,8 +82,8 @@ mince:
   canonical_certainty: 9.99
   action: none
   collected_statistics_at: 2022-06-09
-  catalogue_count: 1
-  buy_list_count: 1
+  catalogue_count: 4
+  buy_list_count: 3
   priced_catalogue_count: 1
   average_price: 9.99
   maximum_price: 9.99
@@ -95,16 +95,16 @@ mince:
   inventory_internal_requisition_lines_count: 1
   inventory_stock_counts_count: 1
   inventory_stock_levels_count: 1
-  inventory_transfer_items_count: 1
-  invoice_line_items_count: 1
+  inventory_transfer_items_count: 55
+  invoice_line_items_count: 5
   point_of_sale_lines_count: 1
-  procurement_products_count: 1
+  procurement_products_count: 8
   product_supplier_preferences_count: 1
   purchase_order_line_items_count: 1
   rebates_profile_products_count: 1
   receiving_document_line_items_count: 1
   recipes_count: 1
-  requisition_line_items_count: 1
+  requisition_line_items_count: 7
   locale: en
   item_description: Beef Mince
   brand: Coles

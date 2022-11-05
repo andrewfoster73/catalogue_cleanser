@@ -81,4 +81,46 @@ class ProductTest < ActiveSupport::TestCase
       product.resolve_issues!
     end
   end
+
+  test 'transaction usage count' do
+    assert_equal(67.0, products(:lager).transaction_usage_count)
+    assert_equal(150.0, products(:apple).transaction_usage_count)
+    assert_equal(72.0, products(:mince).transaction_usage_count)
+  end
+
+  test 'transaction usage ranking' do
+    zero_usage_product = create(:product)
+    assert_equal('none', zero_usage_product.transaction_usage_ranking)
+    assert_equal('lowest', products(:lager).transaction_usage_ranking)
+    assert_equal('high', products(:apple).transaction_usage_ranking)
+    assert_equal('lowest', products(:mince).transaction_usage_ranking)
+  end
+
+  test 'catalogue usage count' do
+    assert_equal(27.0, products(:lager).catalogue_usage_count)
+    assert_equal(33.0, products(:apple).catalogue_usage_count)
+    assert_equal(7.0, products(:mince).catalogue_usage_count)
+  end
+
+  test 'catalogue usage ranking' do
+    zero_usage_product = create(:product)
+    assert_equal('none', zero_usage_product.catalogue_usage_ranking)
+    assert_equal('low', products(:lager).catalogue_usage_ranking)
+    assert_equal('high', products(:apple).catalogue_usage_ranking)
+    assert_equal('lowest', products(:mince).catalogue_usage_ranking)
+  end
+
+  test 'settings usage count' do
+    assert_equal(23.0, products(:lager).settings_usage_count)
+    assert_equal(41.0, products(:apple).settings_usage_count)
+    assert_equal(11.0, products(:mince).settings_usage_count)
+  end
+
+  test 'settings usage ranking' do
+    zero_usage_product = create(:product)
+    assert_equal('none', zero_usage_product.settings_usage_ranking)
+    assert_equal('low', products(:lager).settings_usage_ranking)
+    assert_equal('high', products(:apple).settings_usage_ranking)
+    assert_equal('lowest', products(:mince).settings_usage_ranking)
+  end
 end

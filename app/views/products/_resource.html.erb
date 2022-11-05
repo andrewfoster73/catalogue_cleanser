@@ -6,6 +6,14 @@
       token: token,
       action: action) do |component| %>
     <% component.with_field do |c| %>
+      <% c.with_attribute_image(
+             attribute: :image_url,
+             label: resource_class.human_attribute_name(:image_file_name),
+             resource: resource,
+             options: { readonly: true }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
       <% c.with_attribute_text(
              attribute: :item_description,
              label: resource_class.human_attribute_name(:item_description),
@@ -69,4 +77,6 @@
       <% c.with_attribute_timestamp(attribute: :updated_at, label: resource_class.human_attribute_name(:updated_at), resource: resource) %>
     <% end %>
   <% end %>
+
+  <%= render ProductUsage::Component.new(resource: resource) %>
 </div>
