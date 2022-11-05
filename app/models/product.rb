@@ -114,15 +114,15 @@ class Product < ApplicationRecord
   end
 
   def transaction_quartiles
-    @transaction_quartiles ||= Queries::TransactionUsageQuartiles.call
+    @transaction_quartiles ||= Queries::TransactionUsageQuartiles.call(scope: self.class.all)
   end
 
   def catalogue_quartiles
-    @catalogue_quartiles ||= Queries::CatalogueUsageQuartiles.call
+    @catalogue_quartiles ||= Queries::CatalogueUsageQuartiles.call(scope: self.class.all)
   end
 
   def settings_quartiles
-    @settings_quartiles ||= Queries::SettingsUsageQuartiles.call
+    @settings_quartiles ||= Queries::SettingsUsageQuartiles.call(scope: self.class.all)
   end
 
   # def broadcast_update?

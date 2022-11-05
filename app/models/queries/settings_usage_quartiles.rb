@@ -2,10 +2,6 @@
 
 module Queries
   class SettingsUsageQuartiles < Base
-    def initialize(scope: nil)
-      super(scope: scope || Product.all)
-    end
-
     def call(*)
       @scope
         .select(
