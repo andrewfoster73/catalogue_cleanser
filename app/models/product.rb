@@ -33,37 +33,27 @@ class Product < ApplicationRecord
   end
 
   def catalogue_usage_count
-    @catalogue_usage_count ||= [
-      catalogue_count, recipes_count, inventory_stock_levels_count,
-      inventory_derived_period_balances_count
-    ].compact.sum
+    @catalogue_usage_count ||= catalogue_usage_attributes.map { |attr| public_send(attr) }.compact.sum
   end
 
   def catalogue_usage_ranking
-    usage_ranking(count: catalogue_usage_count, quartiles: catalogue_quartiles)
+    usage_ranking(count: catalogue_usage_count, quartiles: quartiles(attributes: catalogue_usage_attributes))
   end
 
   def transaction_usage_count
-    @transaction_usage_count ||= [
-      invoice_line_items_count, requisition_line_items_count, purchase_order_line_items_count,
-      receiving_document_line_items_count, inventory_internal_requisition_lines_count, inventory_transfer_items_count,
-      inventory_stock_counts_count, point_of_sale_lines_count
-    ].compact.sum
+    @transaction_usage_count ||= transaction_usage_attributes.map { |attr| public_send(attr) }.compact.sum
   end
 
   def transaction_usage_ranking
-    usage_ranking(count: transaction_usage_count, quartiles: transaction_quartiles)
+    usage_ranking(count: transaction_usage_count, quartiles: quartiles(attributes: transaction_usage_attributes))
   end
 
   def settings_usage_count
-    @settings_usage_count ||= [
-      inventory_barcodes_count, procurement_products_count, product_supplier_preferences_count,
-      rebates_profile_products_count
-    ].compact.sum
+    @settings_usage_count ||= settings_usage_attributes.map { |attr| public_send(attr) }.compact.sum
   end
 
   def settings_usage_ranking
-    usage_ranking(count: settings_usage_count, quartiles: settings_quartiles)
+    usage_ranking(count: settings_usage_count, quartiles: quartiles(attributes: settings_usage_attributes))
   end
 
   def discover_issues!
@@ -96,6 +86,25 @@ class Product < ApplicationRecord
     super | product_translations.map(&:possible_issues).flatten
   end
 
+  def catalogue_usage_attributes
+    %w[catalogue_count recipes_count inventory_stock_levels_count inventory_derived_period_balances_count]
+  end
+
+  def transaction_usage_attributes
+    %w[
+      invoice_line_items_count requisition_line_items_count purchase_order_line_items_count
+      receiving_document_line_items_count inventory_internal_requisition_lines_count inventory_transfer_items_count
+      inventory_stock_counts_count point_of_sale_lines_count
+    ]
+  end
+
+  def settings_usage_attributes
+    %w[
+      inventory_barcodes_count procurement_products_count product_supplier_preferences_count
+      rebates_profile_products_count
+    ]
+  end
+
   private
 
   def usage_ranking(count:, quartiles:)
@@ -113,16 +122,10 @@ class Product < ApplicationRecord
     end
   end
 
-  def transaction_quartiles
-    @transaction_quartiles ||= Queries::TransactionUsageQuartiles.call(scope: self.class.all)
-  end
-
-  def catalogue_quartiles
-    @catalogue_quartiles ||= Queries::CatalogueUsageQuartiles.call(scope: self.class.all)
-  end
-
-  def settings_quartiles
-    @settings_quartiles ||= Queries::SettingsUsageQuartiles.call(scope: self.class.all)
+  def quartiles(attributes:)
+    Queries::UsageQuartiles.call(
+      scope: self.class.all, options: { attributes: attributes }
+    )
   end
 
   # def broadcast_update?
