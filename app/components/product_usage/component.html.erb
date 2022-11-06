@@ -1,0 +1,420 @@
+<div class="mt-4 bg-purple-100 shadow sm:rounded-md">
+  <div class="p-5">
+
+    <div>
+      <h3 class="text-lg font-medium leading-6 text-gray-900">
+        <%= t('product_usage.component.headings.usage_rankings') %>
+      </h3>
+      <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+          <dt>
+            <div class="absolute rounded-md bg-teal-500 p-3">
+              <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+            </div>
+            <p id="<%= dom_id(resource) %>--transaction_usage_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+              <%= t('product_usage.component.usage_rankings.transaction_ranking') %>
+            </p>
+          </dt>
+          <dd class="ml-16 flex items-center">
+            <p id="<%= dom_id(resource) %>--transaction_usage_count__value" class="text-3xl tracking-tight font-semibold text-gray-900 pr-2">
+              <%= number_with_delimiter(resource.transaction_usage_count || 0) %>
+            </p>
+            <span class="inline-flex items-center <%= usage_badge_classes(ranking: resource.transaction_usage_ranking) %> rounded-full px-3 py-0.5 text-sm font-medium">
+              <%= t("product_usage.component.rankings.#{resource.transaction_usage_ranking}") %>
+            </span>
+          </dd>
+        </div>
+
+        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+          <dt>
+            <div class="absolute rounded-md bg-cyan-500 p-3">
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+            </div>
+            <p id="<%= dom_id(resource) %>--catalogue_usage_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+              <%= t('product_usage.component.usage_rankings.catalogue_ranking') %>
+            </p>
+          </dt>
+          <dd class="ml-16 flex items-center">
+            <p id="<%= dom_id(resource) %>--catalogue_usage_count__value" class="text-3xl tracking-tight font-semibold text-gray-900 pr-2">
+              <%= number_with_delimiter(resource.catalogue_usage_count || 0) %>
+            </p>
+            <span class="inline-flex items-center <%= usage_badge_classes(ranking: resource.catalogue_usage_ranking) %> rounded-full px-3 py-0.5 text-sm font-medium">
+              <%= t("product_usage.component.rankings.#{resource.catalogue_usage_ranking}") %>
+            </span>
+          </dd>
+        </div>
+
+        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+          <dt>
+            <div class="absolute rounded-md bg-yellow-500 p-3">
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <p id="<%= dom_id(resource) %>--settings_usage_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+              <%= t('product_usage.component.usage_rankings.settings_ranking') %>
+            </p>
+          </dt>
+          <dd class="ml-16 flex items-center">
+            <p id="<%= dom_id(resource) %>--settings_usage_count__value" class="text-3xl tracking-tight font-semibold text-gray-900 pr-2">
+              <%= number_with_delimiter(resource.settings_usage_count || 0) %>
+            </p>
+            <span class="inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium <%= usage_badge_classes(ranking: resource.settings_usage_ranking) %>">
+              <%= t("product_usage.component.rankings.#{resource.settings_usage_ranking}") %>
+            </span>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <h3 id="<%= dom_id(resource) %>--product_usage_heading" class="pt-5 text-lg font-medium leading-6 text-gray-900">
+      <%= t('product_usage.component.headings.usage_statistics') %>
+    </h3>
+    <h4 id="<%= dom_id(resource) %>--product_usage_timestamp" class="text-sm leading-6 text-gray-500">
+      <%= t('product_usage.component.usage_statistics.last_collected_at', timestamp: resource.collected_statistics_at) %>
+    </h4>
+
+    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-teal-500 p-3">
+            <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--requisition_line_items_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.requisition_line_items_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--requisition_line_items_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.requisition_line_items_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-teal-500 p-3">
+            <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <p class="ml-16 truncate text-sm font-medium text-gray-500" id="<%= dom_id(resource) %>--purchase_order_line_items_count__heading">
+            <%= t('product_usage.component.usage_statistics.purchase_order_line_items_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--purchase_order_line_items_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.purchase_order_line_items_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-teal-500 p-3">
+            <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--invoice_line_items_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.invoice_line_items_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--invoice_line_items_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.invoice_line_items_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-teal-500 p-3">
+            <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--receiving_document_line_items_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.receiving_document_line_items_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--receiving_document_line_items_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.receiving_document_line_items_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-teal-500 p-3">
+            <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--inventory_internal_requisition_lines_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.inventory_internal_requisition_lines_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--inventory_internal_requisition_lines_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.inventory_internal_requisition_lines_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-teal-500 p-3">
+            <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--inventory_transfer_items_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.inventory_transfer_items_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--inventory_transfer_items_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.inventory_transfer_items_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-teal-500 p-3">
+            <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--inventory_stock_counts_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.inventory_stock_counts_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--inventory_stock_counts_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.inventory_stock_counts_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-teal-500 p-3">
+            <svg class="h-6 w-6 text-white"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--point_of_sale_lines_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.point_of_sale_lines_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--point_of_sale_lines_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.point_of_sale_lines_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-cyan-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--catalogue_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.catalogue_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--catalogue_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.catalogue_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-cyan-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--buy_list_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.buy_list_count') %></p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--buy_list_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.buy_list_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-cyan-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--priced_catalogue_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.priced_catalogue_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--priced_catalogue_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.priced_catalogue_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-cyan-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--recipes_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.recipes_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--recipes_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.recipes_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-cyan-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--inventory_stock_levels_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.inventory_stock_levels_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--inventory_stock_levels_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.inventory_stock_levels_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-cyan-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+          </div>
+          <p
+            id="<%= dom_id(resource) %>--inventory_derived_period_balances_count__heading"
+            class="ml-16 truncate text-sm font-medium text-gray-500"
+            title="<%= t('product_usage.component.usage_statistics.inventory_derived_period_balances_count') %>"
+          >
+            <%= t('product_usage.component.usage_statistics.inventory_derived_period_balances_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--inventory_derived_period_balances_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.inventory_derived_period_balances_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-yellow-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--inventory_barcodes_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.inventory_barcodes_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--inventory_barcodes_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.inventory_barcodes_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-yellow-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--procurement_products_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.procurement_products_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--procurement_products_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.procurement_products_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-yellow-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <p
+            id="<%= dom_id(resource) %>--product_supplier_preferences_count__heading"
+            class="ml-16 truncate text-sm font-medium text-gray-500"
+            title="<%= t('product_usage.component.usage_statistics.product_supplier_preferences_count') %>"
+          >
+            <%= t('product_usage.component.usage_statistics.product_supplier_preferences_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--product_supplier_preferences_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.product_supplier_preferences_count || 0) %>
+          </p>
+        </dd>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg bg-white px-4 pt-5 shadow sm:px-6 sm:pt-6">
+        <dt>
+          <div class="absolute rounded-md bg-yellow-500 p-3">
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <p id="<%= dom_id(resource) %>--rebates_profile_products_count__heading" class="ml-16 truncate text-sm font-medium text-gray-500">
+            <%= t('product_usage.component.usage_statistics.rebates_profile_products_count') %>
+          </p>
+        </dt>
+        <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+          <p id="<%= dom_id(resource) %>--rebates_profile_products_count__value" class="text-2xl font-semibold text-gray-900">
+            <%= number_with_delimiter(resource.rebates_profile_products_count || 0) %>
+          </p>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
