@@ -1,0 +1,15 @@
+---
+en-GB:
+  activerecord:
+    attributes:
+      brand_alias:
+        alias: Alias
+        brand: Brand
+        brand_id: Brand ID
+        confirmed: Confirmed
+        created_at: Created At
+        updated_at: Updated At
+    models:
+      brand_alias:
+        one: Brand Alias
+        other: Brand Aliases

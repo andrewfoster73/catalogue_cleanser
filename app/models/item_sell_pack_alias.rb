@@ -3,12 +3,13 @@
 class ItemSellPackAlias < ApplicationRecord
   include Broadcast
   include NestedBroadcast
+  include Importable
 
   belongs_to :item_sell_pack, inverse_of: :item_sell_pack_aliases
 
   audited associated_with: :item_sell_pack
 
-  before_validation :clean
+  before_validation :clean, if: -> { data_source == 'manual' }
 
   validates :alias, presence: true, uniqueness: true
 

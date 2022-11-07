@@ -16,7 +16,7 @@ module Tasks
           ItemSellPack.find_or_create_by!(
             name: name,
             canonical: true
-          )
+          ).tap { |pack| pack.update!(data_source: :import) }
         end
       end
     end

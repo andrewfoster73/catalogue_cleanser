@@ -3,6 +3,7 @@
 class Product < ApplicationRecord
   include Broadcast
   include IssueDiscovery
+  include Importable
 
   belongs_to :external_product, class_name: 'External::Product', inverse_of: :product
   has_many :product_duplicates, dependent: :destroy, strict_loading: true
@@ -12,6 +13,8 @@ class Product < ApplicationRecord
 
   has_associated_audits
   audited
+
+  before_validation :clean, if: -> { data_source == 'manual' }
 
   validates :external_product_id, presence: true, uniqueness: true
   validates :buy_list_count, :catalogue_count, :inventory_barcodes_count,
@@ -28,10 +31,13 @@ class Product < ApplicationRecord
     "https://cdn.purchaseplus.com/images/products/#{image_file_name}" if image_file_name
   end
 
+  # A string representation of the Product that is used whenever an instance is converted to a string
+  # @return [String] the item_description of the Product
   def to_s
     item_description
   end
 
+  # A count of the catalogues
   def catalogue_usage_count
     @catalogue_usage_count ||= catalogue_usage_attributes.map { |attr| public_send(attr) }.compact.sum
   end
@@ -107,6 +113,13 @@ class Product < ApplicationRecord
 
   private
 
+  def clean
+    assign_attributes(
+      item_description: item_description&.squeeze(' ')&.strip.presence,
+      brand: brand&.squeeze(' ')&.strip.presence
+    )
+  end
+
   def usage_ranking(count:, quartiles:)
     case count
     when 0
@@ -127,8 +140,4 @@ class Product < ApplicationRecord
       scope: self.class.all, options: { attributes: attributes }
     )
   end
-
-  # def broadcast_update?
-  #   false
-  # end
 end

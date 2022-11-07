@@ -1,0 +1,16 @@
+---
+en-GB:
+  brand_aliases:
+    index:
+      description: These are alternative names (or common mispellings) for a Brand e.g. Nature's Fresh for Natures Fresh
+      filters:
+        alias:
+          label: Alias contains
+        confirmed:
+          label: Confirmed
+    resource:
+      description: An alternative name (or mispelling) for a single Brand e.g. Nature's Fresh for Natures Fresh
+      help:
+        confirmed: Is this a confirmed alias of the Brand name?
+      invalid_message:
+        alias: An alias must be entered.

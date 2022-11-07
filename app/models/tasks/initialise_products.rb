@@ -27,7 +27,8 @@ module Tasks
               category_path: product.category&.path,
               image_file_name: product.image_file_name,
               image_updated_at: product.image_updated_at,
-              locale: product.locale
+              locale: product.locale,
+              data_source: :import
             )
 
             # Create translations from external product translations
@@ -41,7 +42,8 @@ module Tasks
                   item_measure: translation.item_measure,
                   item_pack_name: translation.item_pack_name,
                   item_sell_quantity: translation.item_sell_quantity,
-                  item_sell_pack_name: translation.item_sell_pack_name
+                  item_sell_pack_name: translation.item_sell_pack_name,
+                  data_source: :import
                 )
               end
             end

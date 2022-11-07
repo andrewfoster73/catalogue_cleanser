@@ -6,7 +6,7 @@ class ItemMeasure < ApplicationRecord
 
   audited
 
-  before_validation :clean
+  before_validation :clean, if: -> { data_source == 'manual' }
 
   validates :name, presence: true, uniqueness: true
 

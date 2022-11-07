@@ -14,8 +14,8 @@ class Tasks::InitialiseProductsTest < ActiveSupport::TestCase
   test 'creates products and translations' do
     assert_equal('pending', @task.status, 'Task initial status is not pending')
     @task.call
-    assert_equal(4, Product.count, 'Number of Products created is not 4')
-    assert_equal(3, ProductTranslation.count, 'Number of Product Translations created is not 3')
+    assert_equal(1, Product.imported.count, 'Number of Products created is not 1')
+    assert_equal(1, ProductTranslation.imported.count, 'Number of Product Translations created is not 3')
     assert_equal(4, ProductIssue.count, 'Number of Product Issues is not 4')
     assert_equal('complete', @task.status, 'Task final status is not complete')
   end

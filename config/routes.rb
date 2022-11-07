@@ -30,8 +30,10 @@ Rails.application.routes.draw do
   resources :comments
   resources :abbreviations
   resources :dictionary_entries
-  resources :brand_aliases
-  resources :brands
+  resources :brand_aliases, except: %i[new]
+  resources :brands, shallow: true, except: %i[new], concerns: %i[audited] do
+    resources :brand_aliases, only: %i[index create]
+  end
   resources :item_pack_aliases
   resources :item_packs
   resources :item_measure_aliases

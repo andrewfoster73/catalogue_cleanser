@@ -15,7 +15,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
   test 'visiting the index' do
     login
     visit item_sell_pack_aliases_url
-    assert_selector 'h1', text: 'Item Sell Pack Aliases'
+    assert_selector('h1', text: 'Item Sell Pack Aliases')
     assert_selector('label', text: 'Alias contains')
     assert_selector('input#filter_alias[name="q[alias_cont]"]')
     assert_selector('label', text: 'Confirmed')
@@ -154,7 +154,7 @@ class ItemSellPackAliasesTest < ApplicationSystemTestCase
     )
   end
 
-  test 'should destroy Item sell pack' do
+  test 'should destroy Item sell pack alias' do
     login
     visit edit_item_sell_pack_alias_url(@item_sell_pack_alias)
     find("#delete_item_sell_pack_alias_#{@item_sell_pack_alias.id}").click

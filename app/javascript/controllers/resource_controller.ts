@@ -4,7 +4,11 @@ import cash from "cash-dom"
 
 export default class extends Controller {
   navigate(event: ActionEvent) {
-    window.location = event.params.url
+    if (event.params.url && event.params.target) {
+      window.open(event.params.url, event.params.target);
+    } else {
+      window.location = event.params.url
+    }
   }
 
   new(event: ActionEvent) {

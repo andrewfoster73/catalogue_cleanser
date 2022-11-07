@@ -5,7 +5,7 @@ class ItemMeasureAlias < ApplicationRecord
 
   audited associated_with: :item_measure
 
-  before_validation :clean
+  before_validation :clean, if: -> { data_source == 'manual' }
 
   validates :alias, presence: true, uniqueness: true
 
