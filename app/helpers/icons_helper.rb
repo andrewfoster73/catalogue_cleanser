@@ -3,6 +3,7 @@
 module IconsHelper
   # @see https://heroicons.com/ Available Heroicon names
   # @see https://tailwindcss.com/docs/customizing-colors Standard TailwindCSS colours
+  # Constructs an HTML content_tag for a Heroicon
   # @param [Symbol] name the name of the Heroicon to display
   # @param [Symbol] colour the TailwindCSS colour the icon will use
   # @param [Boolean] active the style of the icon will change depending on whether it is active or not
@@ -15,6 +16,7 @@ module IconsHelper
   #   icon(name: :trash, colour: :white)
   # @example With a different size specified
   #   icon(name: :question_mark_circle, colour: :blue, options: { size: 5 })
+  # @return [HTML] an svg HTML tag containing the Heroicon
   def icon(name:, colour:, active: false, options: {})
     options.reverse_merge!(default_icon_options)
     content_tag(:svg, {
@@ -60,6 +62,7 @@ module IconsHelper
     {
       outline: {
         arrow_left: ['M10 19l-7-7m0 0l7-7m-7 7h18'],
+        arrow_top_right_on_square: ['M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'],
         calendar: ['M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'],
         check_circle: ['M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
         chevron_left: ['M15 19l-7-7 7-7'],

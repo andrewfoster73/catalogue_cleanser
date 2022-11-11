@@ -23,7 +23,7 @@ carton: carton
 cartridge: cartridge
 case: case
 cask: cask
-catering_pack: catering_pack
+catering_pack: catering pack
 cone: cone
 container: container
 crate: crate
@@ -47,7 +47,6 @@ leg: leg
 length: length
 loaf: loaf
 log: log
-outer: packet
 packet: packet
 pack: pack
 pair: pair

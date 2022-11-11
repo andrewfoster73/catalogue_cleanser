@@ -3,11 +3,17 @@
 one:
   brand: one
   alias: one alias
-  confirmed: false
+  confirmed: true
   count: 1
 
 two:
+  brand: one
+  alias: another one
+  confirmed: true
+  count: 1
+
+three:
   brand: two
   alias: two alias
-  confirmed: false
-  count: 1
+  confirmed: true
+  count: 0

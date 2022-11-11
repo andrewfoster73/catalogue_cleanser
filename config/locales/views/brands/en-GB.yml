@@ -1,0 +1,27 @@
+---
+en-GB:
+  brands:
+    edit:
+      button:
+        labels:
+          check_trademark: Trademark
+    index:
+      description: These are the names for product and service branding, they should not describe the product itself.
+      filters:
+        canonical:
+          label: Canonical
+        name:
+          label: Name contains
+    navigation:
+      tabs:
+        details: Details
+    resource:
+      description: The name for a brand on a product or service
+      help:
+        canonical: Name is acceptable to all users?
+      invalid_message:
+        name: A name must be entered.
+    show:
+      button:
+        labels:
+          check_trademark: Trademark

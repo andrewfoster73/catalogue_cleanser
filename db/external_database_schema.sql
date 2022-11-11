@@ -857,14 +857,14 @@ SELECT gp.id,
         WHERE inventory_transfer_items.product_id = gp.id)             AS inventory_transfer_items_count,
        (SELECT count(cp.id) AS count
         FROM goods_catalogued_products cp
-        WHERE cp.product_id = gp.id)                                   AS catalogue_count,
+        WHERE cp.product_id = gp.id AND cp.catalogue_id != 1)          AS catalogue_count,
        (SELECT count(cp.id) AS count
         FROM goods_catalogued_products cp
-                 JOIN catalogues c ON c.id = cp.catalogue_id AND c.catalogue_type::text = 'Product'::text
+                 JOIN catalogues c ON c.id = cp.catalogue_id AND c.catalogue_type::text = 'Product'::text AND cp.catalogue_id != 1
         WHERE cp.product_id = gp.id)                                   AS buy_list_count,
        (SELECT count(cp.id) AS count
         FROM goods_catalogued_products cp
-                 JOIN catalogues c ON c.id = cp.catalogue_id AND c.catalogue_type::text = 'Priced'::text
+                 JOIN catalogues c ON c.id = cp.catalogue_id AND c.catalogue_type::text = 'Priced'::text AND cp.catalogue_id != 1
         WHERE cp.product_id = gp.id)                                   AS priced_catalogue_count,
        (SELECT count(inventory_barcodes.id) AS count
         FROM inventory_barcodes

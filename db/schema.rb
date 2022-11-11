@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "data_source_type", ["import", "manual"]
   create_enum "product_action", ["delete", "map", "none", "pending"]
   create_enum "product_issue_status", ["pending", "confirmed", "ignored", "fixed"]
   create_enum "task_status", ["pending", "processing", "complete", "error"]
@@ -60,6 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["alias"], name: "index_brand_aliases_on_alias", unique: true
     t.index ["brand_id"], name: "index_brand_aliases_on_brand_id"
   end
@@ -70,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
 
@@ -93,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.boolean "confirmed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["alias"], name: "index_item_measure_aliases_on_alias", unique: true
     t.index ["item_measure_id"], name: "index_item_measure_aliases_on_item_measure_id"
   end
@@ -102,6 +106,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["name"], name: "index_item_measures_on_name", unique: true
   end
 
@@ -111,6 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.boolean "confirmed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["alias"], name: "index_item_pack_aliases_on_alias", unique: true
     t.index ["item_pack_id"], name: "index_item_pack_aliases_on_item_pack_id"
   end
@@ -120,6 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["name"], name: "index_item_packs_on_name", unique: true
   end
 
@@ -129,6 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.boolean "confirmed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["alias"], name: "index_item_sell_pack_aliases_on_alias", unique: true
     t.index ["confirmed"], name: "index_item_sell_pack_aliases_on_confirmed"
     t.index ["item_sell_pack_id"], name: "index_item_sell_pack_aliases_on_item_sell_pack_id"
@@ -139,6 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["canonical"], name: "index_item_sell_packs_on_canonical"
     t.index ["name"], name: "index_item_sell_packs_on_name", unique: true
   end
@@ -188,6 +197,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "external_product_translation_id"
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["external_product_translation_id"], name: "index_product_translations_on_external_product_translation_id"
     t.index ["product_id"], name: "index_product_translations_on_product_id"
   end
@@ -240,6 +250,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_162653) do
     t.string "locale"
     t.integer "issues_count", default: 0, null: false
     t.integer "translations_count", default: 0, null: false
+    t.enum "data_source", default: "manual", enum_type: "data_source_type"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true
     t.index ["item_description"], name: "index_products_item_description_gin", opclass: :gin_trgm_ops, using: :gin

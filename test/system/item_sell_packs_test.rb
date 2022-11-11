@@ -15,7 +15,7 @@ class ItemSellPacksTest < ApplicationSystemTestCase
   test 'visiting the index' do
     login
     visit item_sell_packs_url
-    assert_selector 'h1', text: 'Item Sell Packs'
+    assert_selector('h1', text: 'Item Sell Packs')
     assert_selector('label', text: 'Name contains')
     assert_selector('input#filter_name[name="q[name_cont]"]')
     assert_selector('label', text: 'Canonical')

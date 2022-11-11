@@ -1,0 +1,13 @@
+---
+en-GB:
+  activerecord:
+    attributes:
+      brand:
+        canonical: Canonical
+        created_at: Created At
+        name: Name
+        updated_at: Updated At
+    models:
+      brand:
+        one: Brand
+        other: Brands

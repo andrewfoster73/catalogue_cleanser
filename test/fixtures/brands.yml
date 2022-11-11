@@ -2,10 +2,15 @@
 
 one:
   name: Heinz
-  canonical: false
+  canonical: true
   count: 1
 
 two:
-  name: SPC
-  canonical: false
+  name: S.P.C.
+  canonical: true
   count: 1
+
+three:
+  name: Apple
+  canonical: true
+  count: 0

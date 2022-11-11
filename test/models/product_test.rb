@@ -3,6 +3,13 @@
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
+  test 'cleaning' do
+    product = build(:product, item_description: ' iPhone 14  Pro Max   ', brand: " Apple (U.S.A.)  \n")
+    product.valid?
+    assert_equal('iPhone 14 Pro Max', product.item_description, 'Item description contains illegal whitespace')
+    assert_equal('Apple (U.S.A.)', product.brand, 'Brand contains illegal whitespace')
+  end
+
   test 'external product presence validation' do
     product = build(:product, external_product: nil)
     assert_not(product.save, 'Saved the product without required attributes')
