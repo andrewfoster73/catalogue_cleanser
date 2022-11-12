@@ -1,14 +1,94 @@
-<div class="w-full">
-  <% if success.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="success"><%= success %></p>
+<%= turbo_stream_from "item_measures" %>
+<%= turbo_stream_from "errors" %>
+<div class="w-full" data-controller="errors" data-action="resource:error->errors#show">
+  <% flash.each do |type, message| %>
+    <%= render Notification::Component.new(name: :index, type: type, message: message) %>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Item measures</h1>
-    <%= link_to 'New item measure', new_item_measure_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <%= render PageHeading::Component.new(title: resource_class.model_name.human(count: 2), description: t('.description')) do |c| %>
+    <%= c.with_actions do %>
+      <%= render Button::NewResourceComponent.new(id: :item_measures_new) %>
+    <% end %>
+  <% end %>
+
+  <%= render CollectionFilter::Component.new(filter: @q, url: public_send(collection_path_method)) do |c| %>
+    <% c.with_element do |e| %>
+      <% e.with_component_contains(label: t('.filters.name.label'), attribute: :name) %>
+    <% end %>
+    <% c.with_element do |e| %>
+      <% e.with_component_toggle(label: t('.filters.canonical.label'), attribute: :canonical) %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag "page_handler" %>
+  <div
+    id="collection"
+    class=min-w-full"
+    data-controller="editor"
+    data-action="turbo:before-stream-render@document->editor#animate"
+  >
+    <%= render Collection::Component.new do |collection_component| %>
+      <%= collection_component.with_header(columns: [
+          {
+              sorter: sort_link(@q, :name, resource_class.human_attribute_name(:name), default_order: :desc, class: 'group inline-flex'),
+              classes: 'py-3.5 pl-4 pr-3 sm:pl-6 lg:pl-8'
+          },
+          { sorter: sort_link(@q, :canonical, resource_class.human_attribute_name(:canonical), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :created_at, resource_class.human_attribute_name(:created_at), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :updated_at, resource_class.human_attribute_name(:updated_at), default_order: :desc, class: 'group inline-flex') }
+      ]) %>
+      <% if @collection.any? %>
+        <%= collection_component.with_rows do |rows_component| %>
+          <%= render partial: 'rows', locals: { rows_component: rows_component } %>
+        <% end %>
+      <% end %>
+      <%= collection_component.with_pager(paginator: @pagy, collection_path_method: collection_path_method, filter_params: params[:q]) %>
+    <% end %>
   </div>
 
-  <div id="item_measures" class="min-w-full">
-    <%= render @collection %>
-  </div>
+  <%= render Modal::Component.new(name: :item_measures_delete_confirmation) do |modal| %>
+    <%= modal.with_confirmation(
+            title: t('modals.deletion.title'),
+            icon_options: { name: :exclamation, colour: :red, options: { classes: '' } },
+            message: t('modals.deletion.message')
+        ) %>
+    <% modal.with_button(
+           id: :confirm_delete,
+           label: t('modals.deletion.buttons.delete.label'),
+           options: {
+               icon: { name: :trash, colour: :white },
+               colour_classes: 'text-white bg-rose-500 hover:bg-rose-600 focus:ring-rose-200',
+               data: {
+                   params: [
+                       { name: 'resource-id', value: '' },
+                       { name: 'resource-url', value: polymorphic_path(resource_class) },
+                       { name: 'resource-modal-name', value: :item_measures_delete_confirmation }
+                   ],
+                   action: 'click->resource#inlineDelete'
+               }
+           }) %>
+  <% end %>
+  <%= render Modal::Component.new(name: :item_measures_new) do |modal| %>
+    <%= modal.with_form do %>
+      <%= render(partial: 'resource', locals: { action: :new, resource: resource_class.new, readonly: false, token: form_authenticity_token }) %>
+    <% end %>
+    <%= modal.with_button(
+            id: :save_new,
+            label: t('modals.new.buttons.save.label'),
+            options: {
+                icon: { name: :save, colour: :white },
+                colour_classes: 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-200',
+                data: {
+                    params: [
+                        { name: 'resource-url', value: polymorphic_url(resource_class) },
+                        { name: 'resource-name', value: :item_measure_new },
+                        { name: 'resource-form-id', value: dom_id(resource_class.new, :form) },
+                        { name: 'resource-modal-name', value: :item_measures_new }
+                    ],
+                    action: 'click->resource#create'
+                }
+            }) %>
+  <% end %>
+  <div id="notifications"></div>
 </div>
+

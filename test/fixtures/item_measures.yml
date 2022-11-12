@@ -2,8 +2,12 @@
 
 one:
   name: ml
-  canonical: false
+  canonical: true
 
 two:
   name: l
-  canonical: false
+  canonical: true
+
+three:
+  name: kg
+  canonical: true

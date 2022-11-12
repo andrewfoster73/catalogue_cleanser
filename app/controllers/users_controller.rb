@@ -7,4 +7,8 @@ class UsersController < ResourcesController
   def permitted_params
     super | %i[locale country_alpha2]
   end
+
+  def navigation_path
+    user_url
+  end
 end

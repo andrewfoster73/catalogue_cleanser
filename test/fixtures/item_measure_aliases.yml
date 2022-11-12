@@ -3,9 +3,14 @@
 one:
   item_measure: one
   alias: one alias
-  confirmed: false
+  confirmed: true
 
 two:
   item_measure: two
   alias: two alias
-  confirmed: false
+  confirmed: true
+
+three:
+  item_measure: one
+  alias: another one
+  confirmed: true

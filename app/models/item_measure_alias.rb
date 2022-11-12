@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ItemMeasureAlias < ApplicationRecord
+  include Broadcast
+  include NestedBroadcast
+  include Importable
+
   belongs_to :item_measure
 
   audited associated_with: :item_measure
@@ -9,10 +13,14 @@ class ItemMeasureAlias < ApplicationRecord
 
   validates :alias, presence: true, uniqueness: true
 
+  # The parent object to use whenever the ItemMeasureAlias appears nested
+  # @return [ItemMeasure] the item measure this alias belongs to
   def parent
     item_measure
   end
 
+  # A string representation of the ItemMeasureAlias that is used whenever an instance is converted to a string
+  # @return [String] the alias concatenated with the string description of the item measure it belongs to
   def to_s
     "#{self.alias} (#{item_measure})"
   end

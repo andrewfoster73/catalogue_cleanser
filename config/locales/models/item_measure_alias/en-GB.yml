@@ -1,0 +1,15 @@
+---
+en-GB:
+  activerecord:
+    attributes:
+      item_measure_alias:
+        alias: Alias
+        confirmed: Confirmed
+        created_at: Created At
+        item_measure: Item Measure
+        item_measure_id: Item Measure ID
+        updated_at: Updated At
+    models:
+      item_measure_alias:
+        one: Item Measure Alias
+        other: Item Measure Aliases
