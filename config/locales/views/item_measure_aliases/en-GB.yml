@@ -1,0 +1,16 @@
+---
+en-GB:
+  item_measure_aliases:
+    index:
+      description: These are alternative names for a single Item Measure e.g. btl for bottle
+      filters:
+        alias:
+          label: Alias contains
+        confirmed:
+          label: Confirmed
+    resource:
+      description: An alternative name for a single Item Measure e.g. btl for bottle
+      help:
+        confirmed: Is this a confirmed alias of the Item Measure name?
+      invalid_message:
+        alias: An alias must be entered.

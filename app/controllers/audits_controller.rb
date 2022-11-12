@@ -57,4 +57,16 @@ class AuditsController < ApplicationController
   def parameter_introspection
     @parameter_introspection ||= ::ParameterIntrospection.new(parameters: params)
   end
+
+  def navigation_path
+    if nested?
+      return begin
+        public_send(:"#{parent_class.name.underscore.pluralize}_url")
+      rescue StandardError
+        request.original_url.split('?').first
+      end
+    end
+
+    super
+  end
 end

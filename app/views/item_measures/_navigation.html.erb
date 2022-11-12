@@ -1,0 +1,35 @@
+<%= render BreadcrumbNavigation::Component.new(id: dom_id(resource)) do |component| %>
+  <% component.with_breadcrumb(id: :item_measures, label: resource.class.model_name.human(count: 2), url: item_measures_url) %>
+  <% component.with_breadcrumb(id: dom_id(resource), label: resource.to_s, url: item_measure_path(resource), active: true) %>
+<% end %>
+<%= render TabNavigation::Component.new(id: dom_id(resource)) do |component| %>
+  <% component.with_tab(
+         id: :details,
+         label: t('.tabs.details'),
+         url: action_name == 'edit' ? edit_item_measure_path(resource) : item_measure_path(resource),
+         active: controller.controller_name == 'item_measures',
+         options: { parent: resource, icon_options: { name: :library, colour: :gray } }
+     ) %>
+  <% component.with_tab(
+         id: :item_measure_aliases,
+         label: ItemMeasureAlias.model_name.human(count: 2),
+         url: item_measure_item_measure_aliases_path(item_measure_id: resource),
+         active: controller.controller_name == 'item_measure_aliases',
+         options: {
+             parent: resource,
+             icon_options: { name: :folder_open, colour: :gray },
+             badge_count: resource.item_measure_aliases.size
+         }
+     ) %>
+  <% component.with_tab(
+         id: :audit,
+         label: Audited::Audit.model_name.human,
+         url: item_measure_audits_path(item_measure_id: resource),
+         active: controller.controller_name == 'audits',
+         options: {
+             parent: resource,
+             icon_options: { name: :database, colour: :gray },
+             badge_count: resource.own_and_associated_audits.size
+         }
+     ) %>
+<% end %>

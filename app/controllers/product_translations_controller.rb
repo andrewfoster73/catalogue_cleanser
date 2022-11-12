@@ -51,4 +51,10 @@ class ProductTranslationsController < ResourcesController
   def parent_id
     params[:product_id] || params.dig(:product_translation, :product_id)
   end
+
+  def navigation_path
+    return products_url if nested?
+
+    super
+  end
 end

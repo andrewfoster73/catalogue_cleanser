@@ -1,0 +1,12 @@
+<%= turbo_frame_tag 'page_handler' do %>
+  <%= turbo_stream_action_tag(
+          'append',
+          target: 'collection_rows',
+          template: %(#{render CollectionRows::Component.new do |component| render partial: 'rows', locals: { rows_component: component } end})
+      ) %>
+  <%= turbo_stream_action_tag(
+          'replace',
+          target: 'collection_pager',
+          template: %(#{render CollectionPager::Component.new(paginator: @pagy, collection_path_method: :item_measures_path, filter_params: params[:q])})
+      ) %>
+<% end %>

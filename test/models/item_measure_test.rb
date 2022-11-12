@@ -15,9 +15,9 @@ class ItemMeasureTest < ActiveSupport::TestCase
   end
 
   test 'cleaning' do
-    item_measure = build(:item_measure, name: " 5  Btl  \n")
+    item_measure = build(:item_measure, name: "   Btl  \n")
     item_measure.valid?
-    assert_equal('btl', item_measure.name, 'Item measure contains illegal whitespace')
+    assert_equal('Btl', item_measure.name, 'Item measure contains illegal whitespace')
   end
 
   test 'to_s' do

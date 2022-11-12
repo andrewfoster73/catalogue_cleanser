@@ -55,4 +55,10 @@ class ProductIssuesController < ResourcesController
                 success: t('actions.update.success', name: resource_human_name, resource: @resource.to_s)
                )
   end
+
+  def navigation_path
+    return products_url if nested?
+
+    super
+  end
 end

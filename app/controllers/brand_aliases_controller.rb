@@ -48,4 +48,10 @@ class BrandAliasesController < ResourcesController
   def parent_id
     params[:brand_id] || params.dig(:brand_alias, :brand_id)
   end
+
+  def navigation_path
+    return brands_url if nested?
+
+    super
+  end
 end

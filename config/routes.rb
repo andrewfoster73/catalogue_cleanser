@@ -36,8 +36,10 @@ Rails.application.routes.draw do
   end
   resources :item_pack_aliases
   resources :item_packs
-  resources :item_measure_aliases
-  resources :item_measures
+  resources :item_measure_aliases, except: %i[new]
+  resources :item_measures, shallow: true, except: %i[new], concerns: %i[audited] do
+    resources :item_measure_aliases, only: %i[index create]
+  end
   resources :item_sell_pack_aliases, except: %i[new]
   resources :item_sell_packs, shallow: true, except: %i[new], concerns: %i[audited] do
     resources :item_sell_pack_aliases, only: %i[index create]

@@ -48,4 +48,10 @@ class ItemSellPackAliasesController < ResourcesController
   def parent_id
     params[:item_sell_pack_id] || params.dig(:item_sell_pack_alias, :item_sell_pack_id)
   end
+
+  def navigation_path
+    return item_sell_packs_url if nested?
+
+    super
+  end
 end

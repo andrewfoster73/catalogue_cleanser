@@ -1,0 +1,19 @@
+---
+en-GB:
+  item_measures:
+    index:
+      description: These are the names for to measure the contents of a single item
+      filters:
+        canonical:
+          label: Canonical
+        name:
+          label: Name contains
+    navigation:
+      tabs:
+        details: Details
+    resource:
+      description: The name for how to measure the contents of a single item
+      help:
+        canonical: Name is acceptable to all users?
+      invalid_message:
+        name: A name must be entered.
