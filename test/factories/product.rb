@@ -11,5 +11,7 @@ FactoryBot.define do
     item_pack_name { 'can' }
     item_sell_quantity { 6 }
     item_sell_pack_name { 'carton' }
+    image_file_name { '/some/url' }
+    data_source { 'import' }
   end
 end

@@ -1,0 +1,11 @@
+<turbo-stream action="replace" target="<%= dom_id(@resource, "#{attribute}_turbo_stream") %>">
+  <template>
+    <%= render EditableCell::Component.new(
+        url: product_issue_path(@resource),
+        resource: @resource,
+        attribute: attribute,
+        formatter: formatter,
+        error: error
+    ) %>
+  </template>
+</turbo-stream>

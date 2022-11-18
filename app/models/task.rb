@@ -5,6 +5,7 @@ class Task < ApplicationRecord
 
   belongs_to :approved_by, optional: true
   belongs_to :context, polymorphic: true, optional: true
+  belongs_to :product_issue, polymorphic: true, optional: true
 
   enum status: {
     pending: 'pending',
@@ -20,6 +21,8 @@ class Task < ApplicationRecord
   end
 
   def call
+    return if requires_approval? && !approved
+
     processing!
     execute
     complete!

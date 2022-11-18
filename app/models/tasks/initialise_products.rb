@@ -49,7 +49,7 @@ module Tasks
             end
 
             # Look for any issues
-            Product.includes(:product_translations).find(p.id).discover_issues!
+            Product.includes(:product_translations).find(p.id).discover_and_fix_issues!
           end
         end
       end

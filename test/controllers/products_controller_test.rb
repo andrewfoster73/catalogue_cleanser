@@ -79,7 +79,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     authenticate
     product = create(:product, item_description: nil)
     product = Product.includes(:product_translations, :product_issues).find(product.id)
-    product.discover_issues!
+    product.discover_and_fix_issues!
     assert_equal(1, product.product_issues.size)
 
     patch product_url(product),

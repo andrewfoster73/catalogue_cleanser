@@ -7,7 +7,7 @@ class BrandAlias < ApplicationRecord
 
   belongs_to :brand
 
-  audited associated_with: :brand
+  audited associated_with: :brand, counter_cache: true
 
   before_validation :clean, if: -> { data_source == 'manual' }
 

@@ -6,9 +6,8 @@ class ProductsController < ResourcesController
   private
 
   def update_resource
-    super
+    @resource.update_and_propagate(resource_params)
     @resource.resolve_issues!
-    # Create task to update P+ Product
   end
 
   def collection_preloads

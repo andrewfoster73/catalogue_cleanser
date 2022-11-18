@@ -5,7 +5,7 @@ class ItemMeasureAlias < ApplicationRecord
   include NestedBroadcast
   include Importable
 
-  belongs_to :item_measure
+  belongs_to :item_measure, counter_cache: true
 
   audited associated_with: :item_measure
 

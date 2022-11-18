@@ -4,8 +4,9 @@ class ProductIssue < ApplicationRecord
   include Broadcast
   include NestedBroadcast
 
-  belongs_to :product, inverse_of: :product_issues, optional: true
+  belongs_to :product, inverse_of: :product_issues, optional: true, counter_cache: true
   belongs_to :product_translation, inverse_of: :product_issues, optional: true
+  counter_culture :product, column_names: -> { { ProductIssue.outstanding => :product_issues_outstanding_count } }
 
   audited associated_with: :product
 
@@ -17,6 +18,10 @@ class ProductIssue < ApplicationRecord
   }
   scope :outstanding, -> { where.not(status: %i[fixed ignored]) }
 
+  # Pending - identified but may need manual confirmation of validity
+  # Confirmed - issue is deemed valid but not resolved
+  # Ignored - manually marked as not an issue
+  # Fixed - fix has been applied either manually or by automated task
   enum status: {
     pending: 'pending',
     confirmed: 'confirmed',
@@ -82,16 +87,24 @@ class ProductIssue < ApplicationRecord
     self.class.issue?(product: product, product_translation: product_translation, attribute: test_attribute)
   end
 
+  # Is resolution of this issue still outstanding?
+  # @return [Boolean] true if the issue still needs to be resolved, false otherwise
+  def outstanding?
+    %w[fixed ignored].exclude?(status)
+  end
+
   def parent
     product_translation || product
   end
 
+  # If an automatic resolution task is available then call it
+  # Otherwise the user will have to manually edit the product and/or translation in order to resolve any issues
   def fix!
-    # build_resolution_task.call
-    # self.status = 'fixed'
-    raise(NotImplementedError)
+    create_resolution_task.call if resolution_task_type
   end
 
+  # A string representation of the ProductIssue that is used whenever an instance is converted to a string
+  # @return [String] the humanised name of the Issue type and the string representation of it's translation or product
   def to_s
     "#{type.safe_constantize.model_name.human} - #{product_translation || product}"
   end
@@ -102,12 +115,20 @@ class ProductIssue < ApplicationRecord
     false
   end
 
-  def build_resolution_task
+  def create_resolution_task
     raise(NotImplementedError)
   end
 
   def nested_association_name
     # Need to use base class here because this table uses STI
     :product_issues
+  end
+
+  def broadcast_nested_collection_channels
+    # Need to broadcast to both parents (if applicable)
+    [
+      ("#{product_translation.resource_name}_#{product_translation.id}_#{resource_name_plural}" if product_translation),
+      "#{product.resource_name}_#{product.id}_#{resource_name_plural}"
+    ].compact
   end
 end

@@ -13,5 +13,7 @@ en-GB:
         one: Issue
         other: Issues
       product_issues/additional_whitespace: Extraneous Whitespace
+      product_issues/all_uppercase: All Uppercase
       product_issues/invalid_locale: Invalid Locale
       product_issues/missing_compulsory: Missing Compulsory Attribute
+      product_issues/missing_image: Missing Image

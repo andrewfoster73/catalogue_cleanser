@@ -18,14 +18,22 @@ module ProductIssues
       end
     end
 
+    def fix!
+      update!(
+        resolution_suggested_replacement: parent.public_send(test_attribute)&.squeeze(' ')&.strip,
+        resolution_task_type: Tasks::StripWhitespace
+      )
+      super
+    end
+
     private
 
     def automatic_confirmation?
       true
     end
 
-    def build_resolution_task
-      # Tasks::TrimWhitespace.new
+    def create_resolution_task
+      resolution_task_type.safe_constantize.create!(context: parent, product_issue: self)
     end
   end
 end
