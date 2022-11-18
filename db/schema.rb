@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_18_155105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "data_source", default: "manual", enum_type: "data_source_type"
+    t.integer "brand_aliases_count", default: 0, null: false
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
 
@@ -87,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
     t.boolean "canonical", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "abbreviations_count", default: 0, null: false
     t.index ["phrase"], name: "index_dictionary_entries_on_phrase", unique: true
   end
 
@@ -107,6 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "data_source", default: "manual", enum_type: "data_source_type"
+    t.integer "item_measure_aliases_count", default: 0, null: false
     t.index ["name"], name: "index_item_measures_on_name", unique: true
   end
 
@@ -127,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "data_source", default: "manual", enum_type: "data_source_type"
+    t.integer "item_pack_aliases_count", default: 0, null: false
     t.index ["name"], name: "index_item_packs_on_name", unique: true
   end
 
@@ -148,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "data_source", default: "manual", enum_type: "data_source_type"
+    t.integer "item_sell_pack_aliases_count", default: 0, null: false
     t.index ["canonical"], name: "index_item_sell_packs_on_canonical"
     t.index ["name"], name: "index_item_sell_packs_on_name", unique: true
   end
@@ -171,7 +176,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
     t.string "test_attribute"
     t.string "resolution_task_type"
     t.string "resolution_suggested_replacement"
-    t.string "resolution_message_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "status", enum_type: "product_issue_status"
@@ -248,9 +252,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
     t.datetime "image_updated_at", precision: nil
     t.datetime "last_synced_at", precision: nil
     t.string "locale"
-    t.integer "issues_count", default: 0, null: false
-    t.integer "translations_count", default: 0, null: false
     t.enum "data_source", default: "manual", enum_type: "data_source_type"
+    t.integer "product_duplicates_count", default: 0, null: false
+    t.integer "product_issues_count", default: 0, null: false
+    t.integer "product_issues_outstanding_count", default: 0, null: false
+    t.integer "product_translations_count", default: 0, null: false
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true
     t.index ["item_description"], name: "index_products_item_description_gin", opclass: :gin_trgm_ops, using: :gin
@@ -296,7 +302,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_101015) do
     t.text "backtrace"
     t.enum "status", enum_type: "task_status"
     t.bigint "approved_by_id"
+    t.string "product_issue_type"
+    t.bigint "product_issue_id"
     t.index ["approved_by_id"], name: "index_tasks_on_approved_by_id"
+    t.index ["product_issue_type", "product_issue_id"], name: "index_tasks_on_product_issue"
   end
 
   create_table "users", force: :cascade do |t|

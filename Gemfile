@@ -19,6 +19,9 @@ gem 'omniauth-rails_csrf_protection'
 # Country support for a user
 gem 'countries'
 
+# More advanced counter caches for associations (needed specifically for a conditional counter)
+gem 'counter_culture'
+
 # Runtime type checking for Ruby
 gem 'sorbet-runtime'
 

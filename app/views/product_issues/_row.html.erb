@@ -19,6 +19,24 @@
     <%= resource.status.titleize %>
   </td>
   <td id="<%= "actions_cell_product_issue_#{resource.id}" %>" class="whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+    <% if resource.outstanding? %>
+      <%= render Button::Component.new(
+          id: "ignore_product_issue_#{resource.id}",
+          label: 'Ignore',
+          options: {
+              icon: { name: :hand_thumb_up, colour: :white },
+              colour_classes: 'text-white bg-purple-500 hover:bg-purple-600 focus:ring-purple-200',
+              data: {
+                  action: 'click->resource#inlineUpdate',
+                  params: [
+                      { name: 'resource-url', value: product_issue_path(resource) },
+                      { name: 'resource-attribute', value: 'status' },
+                      { name: 'resource-value', value: 'ignored' }
+                  ]
+              }
+          }
+      ) %>
+    <% end %>
     <%= render Button::DeleteResourceComponent.new(
         id: "delete_product_issue_#{resource.id}",
         options: {

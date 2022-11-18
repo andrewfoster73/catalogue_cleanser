@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ItemPackAlias < ApplicationRecord
-  belongs_to :item_pack
+  belongs_to :item_pack, counter_cache: true
 
   audited associated_with: :item_pack
 

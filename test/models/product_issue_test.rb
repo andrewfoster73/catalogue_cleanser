@@ -22,7 +22,7 @@ class ProductIssueTest < ActiveSupport::TestCase
     assert_equal(translation, issue.parent)
   end
 
-  test 'to when it is a product' do
+  test 'to_s when it is a product' do
     product = build_stubbed(:product)
     issue = ProductIssues::MissingCompulsory.new(product: product)
     assert_equal('Missing Compulsory Attribute - Lager', issue.to_s)
@@ -33,5 +33,17 @@ class ProductIssueTest < ActiveSupport::TestCase
     translation = build_stubbed(:product_translation, product: product)
     issue = ProductIssues::InvalidLocale.new(product: product, product_translation: translation)
     assert_equal('Invalid Locale - Lager (en)', issue.to_s)
+  end
+
+  test 'is outstanding unless fixed or ignored' do
+    product = build_stubbed(:product)
+    issue = ProductIssue.new(product: product)
+    assert_equal(true, issue.outstanding?)
+    issue.status = 'confirmed'
+    assert_equal(true, issue.outstanding?)
+    issue.status = 'fixed'
+    assert_equal(false, issue.outstanding?)
+    issue.status = 'ignored'
+    assert_equal(false, issue.outstanding?)
   end
 end

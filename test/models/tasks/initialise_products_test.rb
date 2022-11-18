@@ -16,7 +16,7 @@ class Tasks::InitialiseProductsTest < ActiveSupport::TestCase
     @task.call
     assert_equal(1, Product.imported.count, 'Number of Products created is not 1')
     assert_equal(1, ProductTranslation.imported.count, 'Number of Product Translations created is not 3')
-    assert_equal(4, ProductIssue.count, 'Number of Product Issues is not 4')
+    assert_equal(5, ProductIssue.count, 'Number of Product Issues is not 5')
     assert_equal('complete', @task.status, 'Task final status is not complete')
   end
 end

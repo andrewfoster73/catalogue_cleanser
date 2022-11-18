@@ -6,7 +6,7 @@ class ProductTranslation < ApplicationRecord
   include IssueDiscovery
   include Importable
 
-  belongs_to :product, inverse_of: :product_translations
+  belongs_to :product, inverse_of: :product_translations, counter_cache: true
   belongs_to :external_product_translation,
              class_name: 'External::ProductTranslation',
              inverse_of: :product_translation,

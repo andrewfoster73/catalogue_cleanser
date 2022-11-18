@@ -65,4 +65,15 @@ class ProductIssues::AdditionalWhitespaceTest < ActiveSupport::TestCase
     issue = ProductIssues::AdditionalWhitespace.issue?(**{ product: nil, attribute: :item_description })
     assert_equal(true, issue)
   end
+
+  test 'fix! should create StripWhitespace task' do
+    product = create(:product, item_description: 'This is   not fine')
+    issue = ProductIssues::AdditionalWhitespace.create!(product: product, test_attribute: 'item_description')
+    assert_changes(-> { Tasks::StripWhitespace.count }) do
+      issue.fix!
+      issue.reload
+      assert_equal('Tasks::StripWhitespace', issue.resolution_task_type)
+      assert_equal('This is not fine', issue.resolution_suggested_replacement)
+    end
+  end
 end

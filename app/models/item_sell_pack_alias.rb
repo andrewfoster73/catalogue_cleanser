@@ -5,7 +5,7 @@ class ItemSellPackAlias < ApplicationRecord
   include NestedBroadcast
   include Importable
 
-  belongs_to :item_sell_pack, inverse_of: :item_sell_pack_aliases
+  belongs_to :item_sell_pack, inverse_of: :item_sell_pack_aliases, counter_cache: true
 
   audited associated_with: :item_sell_pack
 

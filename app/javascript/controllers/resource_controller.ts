@@ -1,4 +1,4 @@
-import {post, destroy} from "@rails/request.js";
+import {patch, post, destroy} from "@rails/request.js";
 import {ActionEvent, Controller} from "@hotwired/stimulus"
 import cash from "cash-dom"
 
@@ -47,6 +47,16 @@ export default class extends Controller {
     if (form.checkValidity()) {
       form.requestSubmit()
     }
+  }
+
+  inlineUpdate(event: ActionEvent) {
+    const resourceUrl = event.params.url
+    const resourceAttribute = event.params.attribute
+    const resourceValue = event.params.value
+    let body: {[k: string]: any} = { }
+
+    body[resourceAttribute] = resourceValue
+    patch(`${resourceUrl}`, {body: body, responseKind: 'turbo-stream'})
   }
 
   confirmDelete(event: ActionEvent) {

@@ -27,8 +27,23 @@ class Product < ApplicationRecord
   validates :duplication_certainty, :canonical_certainty, :average_price, :maximum_price, :minimum_price,
             :standard_deviation, :variance, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
+  # This is the URL where PurchasePlus stores images for central catalogue items
+  # @return [String] full URL to retrieve the product image
   def image_url
     "https://cdn.purchaseplus.com/images/products/#{image_file_name}" if image_file_name
+  end
+
+  # Use this when the product changes should possibly be propagated to the external product as well.
+  # This will only occur if the attributes changed match those being mirrored from the external product.
+  # @param [Hash] attributes the changed attributes to save
+  # @return [Boolean] true if the update was successful, false otherwise
+  def update_and_propagate(attributes)
+    saved = update(attributes)
+    # TODO: Perform asynchronously
+    if saved && Tasks::UpdateExternalProduct.executable?(previous_changes)
+      Tasks::UpdateExternalProduct.create!(context: self).tap(&:call)
+    end
+    saved
   end
 
   # A string representation of the Product that is used whenever an instance is converted to a string
@@ -37,7 +52,7 @@ class Product < ApplicationRecord
     item_description
   end
 
-  # A count of the catalogues
+  # @return [Integer] a count of the catalogues or catalogue-like locations where the product is in use
   def catalogue_usage_count
     @catalogue_usage_count ||= catalogue_usage_attributes.map { |attr| public_send(attr) }.compact.sum
   end
@@ -62,8 +77,14 @@ class Product < ApplicationRecord
     usage_ranking(count: settings_usage_count, quartiles: quartiles(attributes: settings_usage_attributes))
   end
 
-  def discover_issues!
-    possible_issues.each { |issue| issue.save! unless issue.already_identified? }
+  # Look for any issues and automatically fix them when possible
+  def discover_and_fix_issues!
+    possible_issues.each do |issue|
+      next if issue.already_identified?
+
+      issue.save!
+      issue.fix! if issue.confirmed?
+    end
 
     # [Spelling Mistakes]
     # [Missing Volume In Litres]
@@ -76,12 +97,11 @@ class Product < ApplicationRecord
     # [Missing Translation]
     # [Possible Duplication]
     # [UpperCase -> LowerCase]
-    # [All Upper]
     # [Missing Category]
-    # [Brand in Product]
-    # [Missing Image]
+    # [Brand in Item Description]
   end
 
+  # Mark any issues that have already been resolved as fixed
   def resolve_issues!
     product_issues.each do |issue|
       issue.fixed! unless issue.issue?
