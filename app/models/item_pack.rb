@@ -1,15 +1,20 @@
 # frozen_string_literal: true
 
 class ItemPack < ApplicationRecord
-  has_many :item_pack_aliases, dependent: :destroy
+  include Broadcast
+  include Importable
+
+  has_many :item_pack_aliases, dependent: :destroy, strict_loading: true
   has_associated_audits
 
   audited
 
-  before_validation :clean
+  before_validation :clean, if: -> { data_source == 'manual' }
 
   validates :name, presence: true, uniqueness: true
 
+  # A string representation of the Item Pack that is used whenever an instance is converted to a string
+  # @return [String] the name of the Item Pack
   def to_s
     name
   end
