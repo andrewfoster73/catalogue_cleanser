@@ -1,0 +1,15 @@
+---
+en-GB:
+  activerecord:
+    attributes:
+      item_pack_alias:
+        alias: Alias
+        confirmed: Confirmed
+        created_at: Created At
+        item_pack: Item Pack
+        item_pack_id: Item Pack ID
+        updated_at: Updated At
+    models:
+      item_pack_alias:
+        one: Item Pack Alias
+        other: Item Pack Aliases

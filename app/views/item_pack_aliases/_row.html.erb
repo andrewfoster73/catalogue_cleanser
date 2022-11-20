@@ -1,0 +1,69 @@
+<tr
+  class="collection-rows__row"
+  id="<%= dom_id(resource, "turbo_stream") %>"
+  data-controller="resource-form--component editor"
+  data-transition-enter="transition ease-in-out duration-500"
+  data-transition-enter-start="bg-transparent translate-y-6"
+  data-transition-enter-end="bg-sky-200 translate-y-0"
+>
+  <td id="<%= dom_id(resource, :alias_cell) %>" class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+    <%= render EditableCell::Component.new(url: polymorphic_path([:edit, resource]), resource: resource, attribute: :alias) %>
+  </td>
+  <td id="<%= dom_id(resource, :item_pack_cell) %>" class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+    <%= link_to(item_pack_path(resource.item_pack), class: 'text-sky-600 hover:text-sky-900 text-sm font-medium') do %>
+      <%= resource.item_pack %>
+    <% end %>
+  </td>
+  <td id="<%= dom_id(resource, :confirmed_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <input
+      type="hidden"
+      value="<%= resource.confirmed %>"
+      name="<%= "#{resource.resource_name}[confirmed]" %>"
+      id="<%= dom_id(resource, :confirmed) %>"
+    >
+    <!-- Enabled: "bg-sky-600", Not Enabled: "bg-gray-200" -->
+    <button
+      type="button"
+      class="<%= resource.confirmed? ? 'bg-sky-600' : 'bg-gray-200' %> relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+      role="switch"
+      aria-checked="false"
+      data-action="click->resource-form--component#toggle click->editor#toggle"
+      data-editor-url-param="<%= polymorphic_path(resource) %>"
+      data-editor-attribute-param="confirmed"
+      data-resource-form--component-toggle-id-param="<%= dom_id(resource, :confirmed_toggle) %>"
+      data-resource-form--component-field-id-param="<%= dom_id(resource, :confirmed) %>"
+    >
+      <span class="sr-only">Confirmed</span>
+      <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+      <span id="<%= dom_id(resource, :confirmed_toggle) %>" aria-hidden="true" class="<%= resource.confirmed ? 'translate-x-5' : 'translate-x-0' %> pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>
+    </button>
+  </td>
+  <td id="<%= dom_id(resource, :created_at_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= time_ago_in_words(resource.created_at, include_seconds: true) %> ago
+  </td>
+  <td id="<%= dom_id(resource, :updated_at_cell) %>" class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= time_ago_in_words(resource.updated_at, include_seconds: true) %> ago
+  </td>
+  <td id="<%= dom_id(resource, :actions_cell) %>" class="whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+    <%= render Button::ViewResourceComponent.new(
+        id: dom_id(resource, :view),
+        options: {
+            title: polymorphic_path(resource),
+            data: {
+                params: [{ name: 'resource-url', value: polymorphic_path(resource) }]
+            }
+        }
+    ) %>
+    <%= render Button::DeleteResourceComponent.new(
+        id: dom_id(resource, :delete),
+        options: {
+            data: {
+                params: [
+                    { name: 'resource-id', value: resource.id },
+                    { name: 'resource-modal-name', value: :item_pack_aliases_delete_confirmation }
+                ]
+            }
+        }
+    ) %>
+  </td>
+</tr>

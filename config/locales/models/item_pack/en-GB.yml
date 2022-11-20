@@ -1,0 +1,13 @@
+---
+en-GB:
+  activerecord:
+    attributes:
+      item_pack:
+        canonical: Canonical
+        created_at: Created At
+        name: Name
+        updated_at: Updated At
+    models:
+      item_pack:
+        one: Item Pack
+        other: Item Packs

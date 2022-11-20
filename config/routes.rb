@@ -34,8 +34,10 @@ Rails.application.routes.draw do
   resources :brands, shallow: true, except: %i[new], concerns: %i[audited] do
     resources :brand_aliases, only: %i[index create]
   end
-  resources :item_pack_aliases
-  resources :item_packs
+  resources :item_pack_aliases, except: %i[new]
+  resources :item_packs, shallow: true, except: %i[new], concerns: %i[audited] do
+    resources :item_pack_aliases, only: %i[index create]
+  end
   resources :item_measure_aliases, except: %i[new]
   resources :item_measures, shallow: true, except: %i[new], concerns: %i[audited] do
     resources :item_measure_aliases, only: %i[index create]

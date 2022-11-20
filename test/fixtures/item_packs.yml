@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+carton:
   name: carton
-  canonical: false
+  canonical: true
 
-two:
+each:
   name: each
-  canonical: false
+  canonical: true
+
+box:
+  name: box
+  canonical: true

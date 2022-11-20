@@ -9,8 +9,8 @@ class ItemPackAliasTest < ActiveSupport::TestCase
   end
 
   test 'alias uniqueness validation' do
-    # NOTE: there is an ItemPackAlias with a name of 'one alias' already in the fixtures
-    item_pack_alias = build(:item_pack_alias, alias: 'one alias', confirmed: nil)
+    # NOTE: there is an ItemPackAlias with a name of 'ctn' already in the fixtures
+    item_pack_alias = build(:item_pack_alias, alias: 'ctn', confirmed: nil)
     assert_not(item_pack_alias.save, 'Saved the item pack alias using a duplicate name')
   end
 

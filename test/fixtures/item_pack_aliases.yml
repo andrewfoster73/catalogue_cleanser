@@ -1,11 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  item_pack: one
-  alias: one alias
+ctn:
+  item_pack: carton
+  alias: ctn
+  confirmed: true
+
+ct:
+  item_pack: carton
+  alias: ct
   confirmed: false
 
-two:
-  item_pack: two
-  alias: two alias
+ea:
+  item_pack: each
+  alias: ea
+  confirmed: true
+
+bx:
+  item_pack: box
+  alias: bx
   confirmed: false
