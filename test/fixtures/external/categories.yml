@@ -1,0 +1,10 @@
+_fixture:
+  model_class: External::Category
+
+booze:
+  name: Booze
+  parent: nil
+
+brewskis:
+  name: Brewskis
+  parent: booze

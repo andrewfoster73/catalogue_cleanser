@@ -37,6 +37,7 @@ lager:
   item_pack_name: bottle
   item_sell_quantity: 6
   item_sell_pack_name: carton
+  category: brewskis
 
 apple:
   external_product: apple

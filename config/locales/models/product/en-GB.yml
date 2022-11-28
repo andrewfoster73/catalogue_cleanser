@@ -4,6 +4,7 @@ en-GB:
     attributes:
       product:
         brand: Brand
+        category: Category
         created_at: Created At
         image_file_name: Image
         item_description: Description

@@ -71,6 +71,15 @@
          ) %>
     <% end %>
     <% component.with_field do |c| %>
+      <% c.with_attribute_tree_select(
+             attribute: :category_id,
+             label: resource_class.human_attribute_name(:category),
+             resource: resource,
+             root_class: External::Category,
+             options: { readonly: readonly, required: true, invalid_message: t('.invalid_message.category') }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
       <% c.with_attribute_timestamp(attribute: :created_at, label: resource_class.human_attribute_name(:created_at), resource: resource) %>
     <% end %>
     <% component.with_field do |c| %>

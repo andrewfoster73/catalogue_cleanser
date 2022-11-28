@@ -13,7 +13,8 @@ module ResourceForm
       image: ResourceForm::ImageComponent,
       dropdown: ResourceForm::DropdownComponent,
       country_dropdown: ResourceForm::CountryDropdownComponent,
-      locale_dropdown: ResourceForm::LocaleDropdownComponent
+      locale_dropdown: ResourceForm::LocaleDropdownComponent,
+      tree_select: ResourceForm::TreeSelectComponent
     }
   end
 end

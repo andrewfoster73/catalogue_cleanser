@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   include Importable
 
   belongs_to :external_product, class_name: 'External::Product', inverse_of: :product
+  belongs_to :category, class_name: 'External::Category'
   has_many :product_duplicates, dependent: :destroy, strict_loading: true
   has_many :product_translations, dependent: :destroy, strict_loading: true
   has_many :product_issues, dependent: :destroy, strict_loading: true

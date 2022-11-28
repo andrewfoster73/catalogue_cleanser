@@ -26,3 +26,6 @@ application.register("resource-form--component", ResourceForm__ComponentControll
 
 import ResourceForm__DropdownComponentController from "./resource_form/dropdown_component_controller"
 application.register("resource-form--dropdown-component", ResourceForm__DropdownComponentController)
+
+import ResourceForm__TreeSelectComponentController from "./resource_form/tree_select_component_controller"
+application.register("resource-form--tree-select-component", ResourceForm__TreeSelectComponentController)
