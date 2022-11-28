@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :audits, only: %i[index]
   end
 
-  resources :users, only: %i[show edit update], concerns: %i[audited]
+  resources :users, only: %i[index show edit update], concerns: %i[audited]
 
   resources :tasks
   resources :products, shallow: true, except: %i[new create], concerns: %i[audited] do

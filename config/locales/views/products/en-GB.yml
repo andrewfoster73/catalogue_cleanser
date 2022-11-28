@@ -12,6 +12,7 @@ en-GB:
     resource:
       description: A product that is sold in the PurchasePlus master catalogue
       invalid_message:
+        category: A category must be selected.
         item_description: A description must be entered.
         item_measure: A measure must be entered.
         item_sell_pack_name: A sell pack name must be entered.

@@ -21,14 +21,14 @@
            data-resource-form--dropdown-component-input-id-value="<%= field_id %>--input"
            data-resource-form--component-field-id-param="<%= field_id %>"
       >
-        <div class="relative mt-1">
+        <div class="relative mt-1 w-full max-w-2xl">
           <input
             id="<%= field_id %>--input"
             value="<%= selected_text %>"
             data-action="keydown->editor#cancel"
             autofocus
             type="text"
-            class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-12 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            class="w-full max-w-2xl rounded-md border border-gray-300 bg-white py-2 pl-3 pr-12 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             role="combobox" aria-controls="options" aria-expanded="false" autocomplete="off"
             data-editor-url-param="<%= polymorphic_path(resource) %>"
             data-editor-field-id-param="<%= field_id %>--hidden-input"

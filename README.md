@@ -7,6 +7,12 @@
 
 # README
 
+####Philosophy:
+* Products are taken from the PurchasePlus goods_products table and exist as a "shadow" version of those products.
+* The shadow products are examined for issues, such as extra whitespace, missing or incorrect attributes, or whether the product is considered a duplicate.
+* These issues can spawn self-repairing tasks if a known solution is available.
+* Otherwise a human user can edit the products manually to resolve other types of issues where the system cannot determine the correct solution alone.
+
 ####Requirements:
 * Ruby 3.0.4
 * Bundler
@@ -28,6 +34,7 @@
 
 ####Running Storybook:
 
+`export NODE_OPTIONS=--openssl-legacy-provider`
 `yarn storybook`
 
 ####After adding/deleting Stimulus controllers:

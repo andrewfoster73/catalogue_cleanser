@@ -1,0 +1,121 @@
+<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5" data-controller="resource-form--component">
+  <div>
+    <label id="<%= field_id %>--label" for="<%= field_id %>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-">
+      <%= label %>
+    </label>
+    <% if help.present? %>
+      <div id="<%= field_id %>--help" class="mt-2 text-sm text-gray-300 inline-flex items-center">
+        <%= icon(name: :question_mark_circle, colour: :blue, options: { size: 5 }) %><%= help %>
+      </div>
+    <% end %>
+  </div>
+  <div class="mt-1 sm:mt-0 sm:col-span-2">
+    <turbo-frame id="<%= dom_id(resource, "#{attribute}_turbo_frame") %>" class="contents">
+      <% if display_only? %>
+        <p id="<%= field_id %>" class="mt-2 text-sm text-gray-500"><%= selected_text %></p>
+      <% else %>
+        <div class="w-full max-w-2xl"
+             data-controller="resource-form--tree-select-component"
+             data-resource-form--tree-select-component-tree-list-id-value="<%= field_id %>--tree-list"
+             data-resource-form--tree-select-component-hidden-input-id-value="<%= field_id %>--hidden-input"
+             data-resource-form--tree-select-component-input-id-value="<%= field_id %>--input"
+             data-resource-form--component-field-id-param="<%= field_id %>"
+        >
+          <div class="relative mt-1 w-full">
+            <input
+              id="<%= field_id %>--input"
+              value="<%= selected_text %>"
+              data-action="keydown->editor#cancel"
+              autofocus
+              type="text"
+              class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-12 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              role="combobox" aria-controls="options" aria-expanded="false" autocomplete="off"
+              data-editor-url-param="<%= polymorphic_path(resource) %>"
+              data-editor-field-id-param="<%= field_id %>--hidden-input"
+              data-editor-attribute-param="<%= attribute %>"
+              data-editor-resource-name-param="<%= resource.resource_name %>"
+            >
+            <input
+              id="<%= field_id %>--hidden-input"
+              value="<%= selected_value %>"
+              type="hidden"
+              name="<%= field_name %>"
+              data-action="change->editor#select"
+              data-editor-url-param="<%= polymorphic_path(resource) %>"
+              data-editor-field-id-param="<%= field_id %>--hidden-input"
+              data-editor-attribute-param="<%= attribute %>"
+            >
+            <% unless display_only? %>
+              <button
+                id="<%= field_id %>--button"
+                type="button"
+                class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none"
+                data-action="click->resource-form--tree-select-component#toggle keydown->editor#cancel"
+                data-editor-url-param="<%= polymorphic_path(resource) %>"
+                data-editor-field-id-param="<%= field_id %>--hidden-input"
+                data-editor-attribute-param="<%= attribute %>"
+                data-editor-resource-name-param="<%= resource.resource_name %>"
+              >
+                <!-- Heroicon name: mini/chevron-up-down -->
+                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            <% end %>
+
+            <ul id="<%= field_id %>--tree-list" <%= 'hidden' if hidden %> class="w-full flex-grow absolute z-10 mt-1 max-h-56 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" id="options" role="listbox">
+              <% roots.each_with_index do |root, root_index| %>
+                <li
+                  id="<%= field_id %>--root-<%= root_index %>"
+                  class="pl-2 pr-2 py-2 font-medium rounded-md hover:bg-sky-700 hover:text-white flex"
+                  data-resource-form--tree-select-component-children-id-param="<%= field_id %>--root-<%= root_index %>__children"
+                  data-resource-form--tree-select-component-expander-id-param="<%= field_id %>--root-<%= root_index %>__expander"
+                  data-action="click->resource-form--tree-select-component#toggleRoot"
+                >
+                  <div><%= root.to_s %></div>
+                  <div class="relative">
+                    <svg id="<%= field_id %>--root-<%= root_index %>__expander" class="text-gray-300 ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150" viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M6 6L14 10L6 14V6Z" fill="currentColor" />
+                    </svg>
+                  </div>
+                </li>
+                <ul id="<%= field_id %>--root-<%= root_index %>__children" class="hidden flex pl-2">
+                  <div class="bg-sky-200 w-1"></div>
+                  <div>
+                    <% root.children.each_with_index do |child, child_index| %>
+                      <li
+                        class="relative pl-7 pr-9 py-1 rounded-md hover:bg-sky-700 hover:text-white"
+                        id="<%= field_id %>--child-<%= child_index %>"
+                        data-resource-form--tree-select-component-child-value-param="<%= child.id %>"
+                        data-resource-form--tree-select-component-child-text-param="<%= child.name %>"
+                        data-resource-form--tree-select-component-checkmark-id-param="<%= field_id %>--<%= child.id %>-checkmark"
+                        data-action="click->resource-form--tree-select-component#select"
+                        role="option"
+                        tabindex="-1"
+                      >
+                        <div class="flex items-center">
+                          <span class="truncate <%= 'font-semibold' if selected?(value: child.id) %>" title="<%= child.name %>">
+                            <%= child.to_s %>
+                          </span>
+                          <span
+                            id="<%= field_id %>--<%= child.id %>-checkmark"
+                            data-resource-form--tree-select-component-target="checkmark"
+                            class="<%= 'hidden' unless selected?(value: child.id) %> absolute inset-y-0 right-0 flex items-center pr-4 text-sky-600">
+                            <!-- Heroicon name: mini/check -->
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                          </span>
+                        </div>
+                      </li>
+                    <% end %>
+                  </div>
+                </ul>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </turbo-frame>
+  </div>
+</div>
