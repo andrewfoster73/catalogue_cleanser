@@ -7,6 +7,11 @@ Rails.application.routes.draw do
 
   # Dashboard
   get '/dashboard' => 'dashboard#index'
+  get '/dashboard/percentage_products_with_issues_vs_none' => 'dashboard#percentage_products_with_issues_vs_none'
+  get '/dashboard/percentage_products_used_vs_not_used' => 'dashboard#percentage_products_used_vs_not_used'
+  get '/dashboard/products_created_by_month' => 'dashboard#products_created_by_month'
+  get '/dashboard/product_issues_by_type' => 'dashboard#product_issues_by_type'
+  get '/dashboard/tasks_completed_by_day' => 'dashboard#tasks_completed_by_day'
 
   # Calendar
   get '/calendar' => 'calendar#index'

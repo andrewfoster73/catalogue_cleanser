@@ -15,6 +15,8 @@ class Product < ApplicationRecord
   has_associated_audits
   audited
 
+  scope :transaction_count, -> {}
+
   before_validation :clean, if: -> { data_source == 'manual' }
 
   validates :external_product_id, presence: true, uniqueness: true
@@ -27,6 +29,29 @@ class Product < ApplicationRecord
             numericality: { greater_than_or_equal_to: 0, only_integer: true }, allow_nil: true
   validates :duplication_certainty, :canonical_certainty, :average_price, :maximum_price, :minimum_price,
             :standard_deviation, :variance, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+
+  delegate :catalogue_usage_attributes, :transaction_usage_attributes, :settings_usage_attributes, to: :class
+
+  class << self
+    def catalogue_usage_attributes
+      %w[catalogue_count recipes_count inventory_stock_levels_count inventory_derived_period_balances_count]
+    end
+
+    def transaction_usage_attributes
+      %w[
+        invoice_line_items_count requisition_line_items_count purchase_order_line_items_count
+        receiving_document_line_items_count inventory_internal_requisition_lines_count inventory_transfer_items_count
+        inventory_stock_counts_count point_of_sale_lines_count
+      ]
+    end
+
+    def settings_usage_attributes
+      %w[
+        inventory_barcodes_count procurement_products_count product_supplier_preferences_count
+        rebates_profile_products_count
+      ]
+    end
+  end
 
   # This is the URL where PurchasePlus stores images for central catalogue items
   # @return [String] full URL to retrieve the product image
@@ -55,15 +80,25 @@ class Product < ApplicationRecord
 
   # @return [Integer] a count of the catalogues or catalogue-like locations where the product is in use
   def catalogue_usage_count
-    @catalogue_usage_count ||= catalogue_usage_attributes.map { |attr| public_send(attr) }.compact.sum
+    @catalogue_usage_count ||=
+      Queries::ProductUsageCounts
+      .call(options: { attributes: catalogue_usage_attributes, product_id: id })
+      .take
+      .usage_count
   end
 
+  # @return [String] a string representation of the usage of this product on catalogue type data structures
+  # in comparison to all other products. Can be `none`, `lowest`, `low`, `medium`, `highest`
   def catalogue_usage_ranking
     usage_ranking(count: catalogue_usage_count, quartiles: quartiles(attributes: catalogue_usage_attributes))
   end
 
   def transaction_usage_count
-    @transaction_usage_count ||= transaction_usage_attributes.map { |attr| public_send(attr) }.compact.sum
+    @transaction_usage_count ||=
+      Queries::ProductUsageCounts
+      .call(options: { attributes: transaction_usage_attributes, product_id: id })
+      .take
+      .usage_count
   end
 
   def transaction_usage_ranking
@@ -71,7 +106,11 @@ class Product < ApplicationRecord
   end
 
   def settings_usage_count
-    @settings_usage_count ||= settings_usage_attributes.map { |attr| public_send(attr) }.compact.sum
+    @settings_usage_count ||=
+      Queries::ProductUsageCounts
+      .call(options: { attributes: settings_usage_attributes, product_id: id })
+      .take
+      .usage_count
   end
 
   def settings_usage_ranking
@@ -111,25 +150,6 @@ class Product < ApplicationRecord
 
   def possible_issues
     super | product_translations.map(&:possible_issues).flatten
-  end
-
-  def catalogue_usage_attributes
-    %w[catalogue_count recipes_count inventory_stock_levels_count inventory_derived_period_balances_count]
-  end
-
-  def transaction_usage_attributes
-    %w[
-      invoice_line_items_count requisition_line_items_count purchase_order_line_items_count
-      receiving_document_line_items_count inventory_internal_requisition_lines_count inventory_transfer_items_count
-      inventory_stock_counts_count point_of_sale_lines_count
-    ]
-  end
-
-  def settings_usage_attributes
-    %w[
-      inventory_barcodes_count procurement_products_count product_supplier_preferences_count
-      rebates_profile_products_count
-    ]
   end
 
   private

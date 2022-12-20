@@ -3,6 +3,7 @@ en-GB:
   navigation:
     menu:
       brands: Brands
+      dashboard: Dashboard
       item_measures: Item Measures
       item_packs: Item Packs
       item_sell_packs: Item Sell Packs

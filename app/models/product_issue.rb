@@ -4,9 +4,11 @@ class ProductIssue < ApplicationRecord
   include Broadcast
   include NestedBroadcast
 
-  belongs_to :product, inverse_of: :product_issues, optional: true, counter_cache: true
+  belongs_to :product, inverse_of: :product_issues, optional: true
   belongs_to :product_translation, inverse_of: :product_issues, optional: true
-  counter_culture :product, column_names: -> { { ProductIssue.outstanding => :product_issues_outstanding_count } }
+  counter_culture :product,
+                  execute_after_commit: true,
+                  column_name: proc { |model| model.outstanding? ? :product_issues_outstanding_count : nil }
 
   audited associated_with: :product
 
@@ -17,6 +19,7 @@ class ProductIssue < ApplicationRecord
     where(product_translation: t, test_attribute: attr).where.not(status: :fixed)
   }
   scope :outstanding, -> { where.not(status: %i[fixed ignored]) }
+  scope :requiring_confirmation, -> { where(status: 'pending') }
 
   # Pending - identified but may need manual confirmation of validity
   # Confirmed - issue is deemed valid but not resolved
@@ -30,6 +33,10 @@ class ProductIssue < ApplicationRecord
   }
 
   class << self
+    def products_with_issues_count
+      outstanding.distinct.pluck(:product_id).size
+    end
+
     # Builds a new Product Issue for the given product and/or translation with an optional attribute that is problematic
     #
     # @param [ActiveRecord] product the product that has an issue

@@ -7,6 +7,7 @@
         <%= image_tag('logo_transparent_small.png', id: 'side_bar--logo', class: 'h-auto w-auto', alt: "Catalogue Cleaner") %>
       </div>
       <nav id="side_bar--navigation" class="mt-5 flex-1 px-2 space-y-1">
+        <%= render_sidenav_item(label: t('navigation.menu.dashboard'), icon: :presentation_chart_bar, link: dashboard_path, active: navigation_path == dashboard_url) %>
         <%= render_sidenav_item(label: t('navigation.menu.products'), icon: :library, link: products_path, active: navigation_path == products_url) %>
         <div class="space-y-1" data-controller="navigation" data-navigation-navigation-path-value="<%= navigation_path %>">
           <!-- Current: "bg-gray-100 text-gray-900", Default: "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->

@@ -7,6 +7,9 @@ class Task < ApplicationRecord
   belongs_to :context, polymorphic: true, optional: true
   belongs_to :product_issue, polymorphic: true, optional: true
 
+  scope :requiring_approval, -> { where(requires_approval: true) }
+  scope :requiring_confirmation, -> { where(status: 'pending') }
+
   enum status: {
     pending: 'pending',
     processing: 'processing',

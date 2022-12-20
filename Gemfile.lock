@@ -68,6 +68,9 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    after_commit_action (1.1.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
     ast (2.4.2)
     audited (5.0.2)
       activerecord (>= 5.0, < 7.1)
@@ -91,6 +94,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    chartkick (4.2.1)
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
     counter_culture (3.3.0)
@@ -381,9 +385,11 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  after_commit_action
   audited (~> 5.0)
   bootsnap
   capybara
+  chartkick
   counter_culture
   countries
   debug
