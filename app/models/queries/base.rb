@@ -6,6 +6,10 @@ module Queries
       def call(scope: nil, options: {})
         new(scope: scope).call(options: options)
       end
+
+      def to_h(scope: nil, options: {})
+        raise(NotImplementedError)
+      end
     end
 
     def initialize(scope: nil)

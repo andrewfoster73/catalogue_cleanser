@@ -2,4 +2,44 @@
 en-GB:
   dashboard:
     index:
-      message: This will be the dashboard eventually
+      labels:
+        central_catalogue_products:
+          title: Central Catalogue Products
+        daily_completed_tasks:
+          title: The number of completed tasks executed each day.
+          xaxis: Day
+          yaxis: Completed Tasks
+        likely_duplicates:
+          title: Likely Duplicates
+        monthly_central_catalogue_products:
+          title: The number of products added to the central catalogue each month.
+          xaxis: Month
+          yaxis: Products Created
+        percentage_products_used_vs_not_used:
+          title: The percentage of products that are being used anywhere (catalogues, transactions, settings) versus those that are entirely unused.
+        percentage_products_with_issues_vs_none:
+          title: The percentage of products that have one or more unresolved issues versus those that have none.
+        product_issue_counts:
+          title: The types of unresolved issues present and their counts.
+          xaxis: Count
+          yaxis: Product Issue
+        product_issues_awaiting_confirmation:
+          title: Product Issues Awaiting Confirmation
+        products_in_settings:
+          title: Products in Settings
+        products_on_buy_lists:
+          title: Products on Buy Lists
+        products_on_priced_catalogues:
+          title: Products on Priced Catalogues
+        products_on_transactions:
+          title: Products on Transactions
+        tasks_awaiting_approval:
+          title: Tasks Awaiting Approval
+    percentage_products_used_vs_not_used:
+      labels:
+        not_used: Not Used
+        used: Used
+    percentage_products_with_issues_vs_none:
+      labels:
+        issues: Issues
+        no_issues: No Issues

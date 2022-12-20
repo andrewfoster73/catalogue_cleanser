@@ -14,7 +14,6 @@ module Tasks
         External::ProductUsageCount.create_temporary_table(prefix: task_id)
         External::ProductUsageCount
           .from_temporary_table(prefix: task_id)
-          .includes(:product)
           .find_each(batch_size: 10_000) { |record| update_counts(record) }
         External::ProductUsageCount.drop_temporary_table(prefix: task_id)
       end
@@ -26,9 +25,11 @@ module Tasks
       "task-gather-usage-statistics-#{id}"
     end
 
+    # rubocop:disable Rails/SkipsModelValidations
     def update_counts(record)
-      Rails.logger.warn("No product: #{record.id}") unless record.product
-      record.product&.update!(
+      Rails.logger.warn("No external product: #{record.id}") unless record.external_product
+      # Using update_columns here because the better performance is required
+      record.product&.update_columns(
         invoice_line_items_count: record.invoice_line_items_count,
         requisition_line_items_count: record.requisition_line_items_count,
         inventory_internal_requisition_lines_count: record.inventory_internal_requisition_lines_count,
@@ -50,5 +51,6 @@ module Tasks
         collected_statistics_at: Time.zone.now
       )
     end
+    # rubocop:enable Rails/SkipsModelValidations
   end
 end

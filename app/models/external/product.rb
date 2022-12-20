@@ -11,7 +11,10 @@ module External
     private_constant :MASTER_CATALOGUE_ID
 
     belongs_to :category, class_name: 'External::Category', optional: true
-    has_one :product, class_name: 'Product', dependent: :destroy
+    has_one :product, class_name: '::Product', dependent: :destroy, foreign_key: :external_product_id,
+                      inverse_of: :external_product
+    has_one :product_usage_count, class_name: 'External::ProductUsageCount', dependent: :destroy, foreign_key: :id,
+                                  inverse_of: :external_product
     has_many :catalogued_products, class_name: 'External::CataloguedProduct', dependent: :destroy
     has_many :translations, class_name: 'External::ProductTranslation', dependent: :destroy
 

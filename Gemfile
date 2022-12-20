@@ -20,6 +20,8 @@ gem 'omniauth-rails_csrf_protection'
 gem 'countries'
 
 # More advanced counter caches for associations (needed specifically for a conditional counter)
+# The after_commit_action gem allows for execute_after_commit: true to be specified
+gem 'after_commit_action'
 gem 'counter_culture'
 
 # Runtime type checking for Ruby
@@ -40,6 +42,9 @@ gem 'pagy'
 
 # Collection filtering and sorting
 gem 'ransack'
+
+# Dashboard graphs
+gem 'chartkick'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.3', '>= 7.0.3.1'

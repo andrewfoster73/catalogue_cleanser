@@ -31,6 +31,19 @@ class ProductTranslation < ApplicationRecord
     end
   end
 
+  # Use this when the product changes should possibly be propagated to the external product as well.
+  # This will only occur if the attributes changed match those being mirrored from the external product.
+  # @param [Hash] attributes the changed attributes to save
+  # @return [Boolean] true if the update was successful, false otherwise
+  def update_and_propagate(attributes)
+    update!(attributes)
+    # TODO: Perform asynchronously
+    # TODO: Task for updating Translations
+    # if saved && Tasks::UpdateExternalProduct.executable?(previous_changes)
+    #   Tasks::UpdateExternalProduct.create!(context: self).tap(&:call)
+    # end
+  end
+
   def parent
     product
   end

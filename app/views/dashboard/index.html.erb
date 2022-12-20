@@ -1,1 +1,117 @@
-<%= t('.message') %>
+<div id="dashboard" class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 bg-gray-50">
+  <div id="dashboard_central_products" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <dt id="dashboard_central_products--label" class="truncate text-sm font-medium text-gray-500">
+      <%= t('.labels.central_catalogue_products.title') %>
+    </dt>
+    <dd id="dashboard_central_products--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
+      <%= number_with_delimiter(dashboard.external_products_size) %>
+    </dd>
+  </div>
+  <div id="dashboard_likely_duplicates" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <dt id="dashboard_likely_duplicates--label" class="truncate text-sm font-medium text-gray-500">
+      <%= t('.labels.likely_duplicates.title') %>
+    </dt>
+    <dd id="dashboard_likely_duplicates--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
+      TBC
+    </dd>
+  </div>
+  <div id="dashboard_tasks_awaiting_approval" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <dt id="dashboard_tasks_awaiting_approval--label" class="truncate text-sm font-medium text-gray-500">
+      <%= t('.labels.tasks_awaiting_approval.title') %>
+    </dt>
+    <dd id="dashboard_tasks_awaiting_approval--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
+      <%= number_with_delimiter(dashboard.tasks_awaiting_approval) %>
+    </dd>
+  </div>
+  <div id="dashboard_issues_awaiting_confirmation" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <dt id="dashboard_issues_awaiting_confirmation--label" class="truncate text-sm font-medium text-gray-500">
+      <%= t('.labels.product_issues_awaiting_confirmation.title') %>
+    </dt>
+    <dd id="dashboard_issues_awaiting_confirmation--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
+      <%= number_with_delimiter(dashboard.product_issues_awaiting_confirmation) %>
+    </dd>
+  </div>
+  <div id="dashboard_products_on_buy_lists" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <dt id="dashboard_products_on_buy_lists--label" class="truncate text-sm font-medium text-gray-500">
+      <%= t('.labels.products_on_buy_lists.title') %>
+    </dt>
+    <dd id="dashboard_products_on_buy_lists--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900 flex items-baseline">
+      <p id="dashboard_products_on_buy_lists--count_number" class="text-2xl font-semibold text-gray-900">
+        <%= number_with_delimiter(dashboard.products_on_buy_lists) %>
+      </p>
+      <p id="dashboard_products_on_buy_lists--count_percentage" class="ml-2 flex items-baseline text-sm font-semibold text-sky-600">
+        <%= number_to_percentage(dashboard.percentage_on_buy_lists, precision: 2) %>
+      </p>
+    </dd>
+  </div>
+  <div id="dashboard_products_on_priced_catalogues" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <dt id="dashboard_products_on_priced_catalogues--label" class="truncate text-sm font-medium text-gray-500">
+      <%= t('.labels.products_on_priced_catalogues.title') %>
+    </dt>
+    <dd id="dashboard_products_on_priced_catalogues--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900 flex items-baseline">
+      <p id="dashboard_products_on_priced_catalogues--count_number" class="text-2xl font-semibold text-gray-900">
+        <%= number_with_delimiter(dashboard.products_on_priced_catalogues) %>
+      </p>
+      <p id="dashboard_products_on_priced_catalogues--count_percentage" class="ml-2 flex items-baseline text-sm font-semibold text-sky-600">
+        <%= number_to_percentage(dashboard.percentage_on_priced_catalogues, precision: 2) %>
+      </p>
+    </dd>
+  </div>
+  <div id="dashboard_products_on_transactions" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <dt id="dashboard_products_on_transactions--label" class="truncate text-sm font-medium text-gray-500">
+      <%= t('.labels.products_on_transactions.title') %>
+    </dt>
+    <dd id="dashboard_products_on_transactions--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900 flex items-baseline">
+      <p id="dashboard_products_on_transactions--count_number" class="text-2xl font-semibold text-gray-900">
+        <%= number_with_delimiter(dashboard.products_on_transactions) %>
+      </p>
+      <p id="dashboard_products_on_transactions--count_percentage" class="ml-2 flex items-baseline text-sm font-semibold text-sky-600">
+        <%= number_to_percentage(dashboard.percentage_on_transactions, precision: 2) %>
+      </p>
+    </dd>
+  </div>
+  <div id="dashboard_products_in_settings" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <dt id="dashboard_products_in_settings--label" class="truncate text-sm font-medium text-gray-500">
+      <%= t('.labels.products_in_settings.title') %>
+    </dt>
+    <dd id="dashboard_products_in_settings--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900 flex items-baseline">
+      <p id="dashboard_products_in_settings--count_number" class="text-2xl font-semibold text-gray-900">
+        <%= number_with_delimiter(dashboard.products_in_settings) %>
+      </p>
+      <p id="dashboard_products_in_settings--count_percentage" class="ml-2 flex items-baseline text-sm font-semibold text-sky-600">
+        <%= number_to_percentage(dashboard.percentage_in_settings, precision: 2) %>
+      </p>
+    </dd>
+  </div>
+  <div id="dashboard_products_used_vs_not_used" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <%= pie_chart(dashboard_percentage_products_used_vs_not_used_path, id: 'dashboard_products_used_vs_not_used--chart', colors: %w[#10b981 #ef4444]) %>
+    <p id="dashboard_products_used_vs_not_used--label" class="font-medium text-gray-500">
+      <%= t('.labels.percentage_products_used_vs_not_used.title') %>
+    </p>
+  </div>
+  <div id="dashboard_products_with_issues_vs_none" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+    <%= pie_chart(dashboard_percentage_products_with_issues_vs_none_path, id: 'dashboard_products_with_issues_vs_none--chart', colors: %w[#06b6d4 #f97316]) %>
+    <p id="dashboard_products_with_issues_vs_none--label" class="font-medium text-gray-500">
+      <%= t('.labels.percentage_products_with_issues_vs_none.title') %>
+    </p>
+  </div>
+  <div id="dashboard_products_issues_by_type" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 col-span-2">
+    <%= bar_chart(dashboard_product_issues_by_type_path, id: 'dashboard_products_issues_by_type--chart', xtitle: t('.labels.product_issue_counts.xaxis'), ytitle: t('.labels.product_issue_counts.yaxis')) %>
+    <p id="dashboard_products_issues_by_type--label" class="font-medium text-gray-500">
+      <%= t('.labels.product_issue_counts.title') %>
+    </p>
+  </div>
+  <div id="dashboard_tasks_completed_by_day" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 col-span-2">
+    <%= line_chart(dashboard_tasks_completed_by_day_path, id: 'dashboard_tasks_completed_by_day--chart', colors: ['#d946ef'], xtitle: t('.labels.daily_completed_tasks.xaxis'), ytitle: t('.labels.daily_completed_tasks.yaxis')) %>
+    <p id="dashboard_tasks_completed_by_day--label" class="font-medium text-gray-500">
+      <%= t('.labels.daily_completed_tasks.title') %>
+    </p>
+  </div>
+  <div id="dashboard_products_created_by_month" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 col-span-2">
+    <%= line_chart(dashboard_products_created_by_month_path, id: 'dashboard_products_created_by_month--chart', colors: ['#d946ef'], xtitle: t('.labels.monthly_central_catalogue_products.xaxis'), ytitle: t('.labels.monthly_central_catalogue_products.yaxis')) %>
+    <p id="dashboard_products_created_by_month--label" class="font-medium text-gray-500">
+      <%= t('.labels.monthly_central_catalogue_products.title') %>
+    </p>
+  </div>
+
+</div>
