@@ -5,6 +5,7 @@ require 'test_helper'
 class Tasks::InitialiseItemMeasuresTest < ActiveSupport::TestCase
   setup do
     @task = Tasks::InitialiseItemMeasures.create!
+    ItemMeasure.includes(:item_measure_aliases).destroy_all
   end
 
   test 'creates item measures' do

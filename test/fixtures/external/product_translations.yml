@@ -1,20 +1,19 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+_fixture:
+  model_class: External::ProductTranslation
 
 lager:
-  product: lager
-  external_product_translation: lager
+  external_product: lager
   locale: en
   item_description: Lager
   brand: Innis & Gunn
-  item_size: 500.0
+  item_size: 440.0
   item_measure: ml
-  item_pack_name: bottle
+  item_pack_name: can
   item_sell_quantity: 6
   item_sell_pack_name: carton
 
 apple:
-  product: apple
-  external_product_translation: apple
+  external_product: apple
   locale: en
   item_description: Apple
   brand:

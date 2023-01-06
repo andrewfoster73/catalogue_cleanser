@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_18_155105) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_04_095301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -257,7 +257,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_155105) do
     t.integer "product_issues_count", default: 0, null: false
     t.integer "product_issues_outstanding_count", default: 0, null: false
     t.integer "product_translations_count", default: 0, null: false
+    t.datetime "deleted_at"
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["deleted_at"], name: "index_products_on_deleted_at"
     t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true
     t.index ["item_description"], name: "index_products_item_description_gin", opclass: :gin_trgm_ops, using: :gin
     t.check_constraint "average_price >= 0::numeric", name: "average_price_check"

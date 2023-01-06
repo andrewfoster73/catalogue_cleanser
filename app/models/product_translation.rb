@@ -13,9 +13,9 @@ class ProductTranslation < ApplicationRecord
              optional: true
   has_many :product_issues, dependent: :destroy, strict_loading: true
 
-  audited associated_with: :product
+  audited associated_with: :product, unless: :imported?
 
-  before_validation :clean, if: -> { data_source == 'manual' }
+  before_validation :clean, unless: :imported?
 
   class << self
     def supported_locales
@@ -36,12 +36,12 @@ class ProductTranslation < ApplicationRecord
   # @param [Hash] attributes the changed attributes to save
   # @return [Boolean] true if the update was successful, false otherwise
   def update_and_propagate(attributes)
-    update!(attributes)
+    saved = update!(attributes)
     # TODO: Perform asynchronously
-    # TODO: Task for updating Translations
-    # if saved && Tasks::UpdateExternalProduct.executable?(previous_changes)
-    #   Tasks::UpdateExternalProduct.create!(context: self).tap(&:call)
-    # end
+    if saved && Tasks::UpdateExternalProductTranslation.executable?(previous_changes)
+      Tasks::UpdateExternalProductTranslation.create!(context: self).tap(&:call)
+    end
+    saved
   end
 
   def parent

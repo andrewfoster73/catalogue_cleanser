@@ -9,7 +9,7 @@ class ItemPackAlias < ApplicationRecord
 
   audited associated_with: :item_pack
 
-  before_validation :clean, if: -> { data_source == 'manual' }
+  before_validation :clean, unless: :imported?
 
   validates :alias, presence: true, uniqueness: true
 

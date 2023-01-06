@@ -99,6 +99,14 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal(2, ProductIssue.where(product: product).count)
   end
 
+  test 'used?' do
+    # When used in a transaction / catalogue / setting
+    assert_equal(true, products(:lager).used?)
+    # When not used anywhere
+    zero_usage_product = create(:product)
+    assert_equal(false, zero_usage_product.used?)
+  end
+
   test 'transaction usage count' do
     assert_equal(67.0, products(:lager).transaction_usage_count)
     assert_equal(150.0, products(:apple).transaction_usage_count)

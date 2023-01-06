@@ -2,6 +2,7 @@
 
 class ItemMeasuresController < ResourcesController
   include TurboActions
+  include ManuallyEditable
 
   private
 

@@ -13,11 +13,13 @@ class Product < ApplicationRecord
   has_many :external_product_usage_counts, class_name: 'External::ProductUsageCount', dependent: nil
 
   has_associated_audits
-  audited
+  audited unless: :imported?
+  # Not using the default scope so it is easier to use filters built on `with_deleted` and `without_deleted`
+  acts_as_paranoid without_default_scope: true
 
   scope :transaction_count, -> {}
 
-  before_validation :clean, if: -> { data_source == 'manual' }
+  before_validation :clean, unless: :imported?
 
   validates :external_product_id, presence: true, uniqueness: true
   validates :buy_list_count, :catalogue_count, :inventory_barcodes_count,
@@ -78,6 +80,11 @@ class Product < ApplicationRecord
     item_description
   end
 
+  # @return [Boolean] has this product been used in any catalogue, transaction or setting?
+  def used?
+    ((catalogue_usage_count || 0) + (transaction_usage_count || 0) + (settings_usage_count || 0)).positive?
+  end
+
   # @return [Integer] a count of the catalogues or catalogue-like locations where the product is in use
   def catalogue_usage_count
     @catalogue_usage_count ||=
@@ -125,20 +132,6 @@ class Product < ApplicationRecord
       issue.save!
       issue.fix! if issue.confirmed?
     end
-
-    # [Spelling Mistakes]
-    # [Missing Volume In Litres]
-    # [Brand Incorrect]
-    # [Item Measure Incorrect]
-    # [Item Pack Incorrect]
-    # [Item Sell Pack Name Incorrect]
-    # [Incorrect Translation]
-    # [Illegal Translation]
-    # [Missing Translation]
-    # [Possible Duplication]
-    # [UpperCase -> LowerCase]
-    # [Missing Category]
-    # [Brand in Item Description]
   end
 
   # Mark any issues that have already been resolved as fixed

@@ -7,11 +7,11 @@ class ItemSellPack < ApplicationRecord
   has_many :item_sell_pack_aliases, dependent: :destroy, strict_loading: true
   has_associated_audits
 
-  audited
+  audited unless: :imported?
 
   scope :canonical, -> { where(canonical: true) }
 
-  before_validation :clean, if: -> { data_source == 'manual' }
+  before_validation :clean, unless: :imported?
 
   validates :name, presence: true, uniqueness: true
   validates :canonical, inclusion: [true, false]

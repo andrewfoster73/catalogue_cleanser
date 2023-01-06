@@ -89,15 +89,14 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
             }
           }
 
-    issue = ProductIssue.find_by(product_id: product.id)
+    issue = ProductIssue.find_by(product_id: product.id, type: 'ProductIssues::MissingCompulsory')
     assert_equal('fixed', issue.status)
   end
 
-  test 'should destroy product' do
+  test 'should soft delete product' do
     authenticate
-    assert_difference('Product.count', -1) do
-      delete product_url(@product)
-    end
+    delete product_url(@product)
+    assert_not_nil(@product.reload.deleted_at)
 
     assert_redirected_to products_url
   end

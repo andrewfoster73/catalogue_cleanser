@@ -11,13 +11,12 @@ module Tasks
     protected
 
     def execute
-      Audited.audit_class.as_user("task-initialise-item-measures-#{id}") do
-        names.each do |name|
-          ItemMeasure.find_or_create_by!(
-            name: name,
-            canonical: true
-          ).tap { |measure| measure.update!(data_source: :import) }
-        end
+      names.each do |name|
+        ItemMeasure.find_or_create_by!(
+          name: name,
+          canonical: true,
+          data_source: :import
+        )
       end
     end
 

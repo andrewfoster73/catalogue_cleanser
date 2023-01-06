@@ -7,9 +7,9 @@ class ItemMeasure < ApplicationRecord
   has_many :item_measure_aliases, dependent: :destroy, strict_loading: true
   has_associated_audits
 
-  audited
+  audited unless: :imported?
 
-  before_validation :clean, if: -> { data_source == 'manual' }
+  before_validation :clean, unless: :imported?
 
   validates :name, presence: true, uniqueness: true
 

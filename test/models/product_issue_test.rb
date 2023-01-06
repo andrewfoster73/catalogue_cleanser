@@ -46,4 +46,9 @@ class ProductIssueTest < ActiveSupport::TestCase
     issue.status = 'ignored'
     assert_equal(false, issue.outstanding?)
   end
+
+  test 'already_identified? returns false if there is no product or translation' do
+    issue = ProductIssue.new
+    assert_equal(false, issue.already_identified?)
+  end
 end

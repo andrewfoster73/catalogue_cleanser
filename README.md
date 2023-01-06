@@ -24,9 +24,13 @@
 * TODO
 
 ####Database Initialisation:
-* TODO
-
-`psql -h localhost -d external_test -U postgres -f db/external_database_schema.sql`
+* (Optional if resetting from scratch) `rails db:drop`
+* `rails db:create`
+* `rails db:schema:load`
+* (Make sure to create external_test db first) `psql -h localhost -d external_test -U postgres -f db/external_database_schema.sql`
+* `rake initialisation:start`
+* `rake scheduled_updates:usage`
+* `rake scheduled_updates:pricing`
 
 ####Generating Storybook Stories:
 

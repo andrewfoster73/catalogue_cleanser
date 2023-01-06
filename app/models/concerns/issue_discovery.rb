@@ -9,7 +9,8 @@ module IssueDiscovery
       additional_whitespace_attributes,
       ProductIssues::InvalidLocale.build(**issue_resources.merge(attribute: :locale)),
       ProductIssues::MissingImage.build(**issue_resources.merge(attribute: :image_file_name)),
-      ProductIssues::AllUppercase.build(**issue_resources.merge(attribute: :item_description))
+      ProductIssues::AllUppercase.build(**issue_resources.merge(attribute: :item_description)),
+      ProductIssues::UnusedProduct.build(**issue_resources)
     ].flatten.compact
   end
 

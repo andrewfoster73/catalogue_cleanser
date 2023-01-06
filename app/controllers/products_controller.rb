@@ -2,6 +2,7 @@
 
 class ProductsController < ResourcesController
   include TurboActions
+  include ManuallyEditable
 
   private
 

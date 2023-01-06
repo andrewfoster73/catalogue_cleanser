@@ -11,16 +11,14 @@ module Tasks
     protected
 
     def execute
-      Audited.audit_class.as_user("task-initialise-brands-#{id}") do
-        names.each do |name|
-          next if name.blank?
+      names.each do |name|
+        next if name.blank?
 
-          Brand.find_or_create_by!(
-            name: name.squeeze,
-            canonical: true,
-            data_source: :import
-          )
-        end
+        Brand.find_or_create_by!(
+          name: name.squeeze,
+          canonical: true,
+          data_source: :import
+        )
       end
     end
 

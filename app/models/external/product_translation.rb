@@ -9,6 +9,6 @@ module External
 
     belongs_to :external_product, class_name: 'External::Product', foreign_key: :product_id,
                                   inverse_of: :translations
-    has_one :product_translation, class_name: 'ProductTranslation', dependent: :destroy
+    has_one :product_translation, class_name: 'ProductTranslation', dependent: nil
   end
 end

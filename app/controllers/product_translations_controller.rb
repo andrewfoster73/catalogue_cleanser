@@ -3,6 +3,7 @@
 class ProductTranslationsController < ResourcesController
   include TurboActions
   include Nested
+  include ManuallyEditable
 
   private
 
