@@ -12,12 +12,8 @@ class ProductIssuesByTypeTest < ActiveSupport::TestCase
 
   test 'returns count of completed tasks grouped by day' do
     results = Queries::ProductIssuesByType.to_h(scope: ProductIssue.outstanding)
-    assert_includes(results.to_a, ['Missing Image', 1])
-    # Second one comes from the fixtures
-    assert_includes(results.to_a, ['Missing Compulsory Attribute', 2])
-    # Comes from the fixtures
-    assert_includes(results.to_a, ['Invalid Locale', 1])
-    assert_not_includes(results.to_a, ['All Uppercase', 1])
-    assert_not_includes(results.to_a, ['Extraneous Whitespace', 1])
+    assert_includes(results.select { |r| r[:name] == 'pending' }.first[:data], ['Missing Image', 1])
+    assert_includes(results.select { |r| r[:name] == 'confirmed' }.first[:data], ['Missing Compulsory Attribute', 2])
+    assert_includes(results.select { |r| r[:name] == 'confirmed' }.first[:data], ['Invalid Locale', 1])
   end
 end

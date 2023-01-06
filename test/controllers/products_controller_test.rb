@@ -49,6 +49,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
               inventory_stock_levels_count: @product.inventory_stock_levels_count,
               inventory_transfer_items_count: @product.inventory_transfer_items_count,
               invoice_line_items_count: @product.invoice_line_items_count,
+              credit_note_lines_count: @product.credit_note_lines_count,
               maximum_price: @product.maximum_price,
               minimum_price: @product.minimum_price,
               point_of_sale_lines_count: @product.point_of_sale_lines_count,
@@ -96,7 +97,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test 'should soft delete product' do
     authenticate
     delete product_url(@product)
-    assert_not_nil(@product.reload.deleted_at)
+    assert_not_nil(@product.reload.discarded_at)
 
     assert_redirected_to products_url
   end

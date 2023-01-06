@@ -13,6 +13,7 @@ class Tasks::DeleteExternalProductTest < ActiveSupport::TestCase
     @task = Tasks::DeleteExternalProduct.create!(context: @product)
     @task.call
     assert_nil(@product.reload.external_product)
+    assert_equal('complete', @task.reload.status)
   end
 
   test 'raises error' do

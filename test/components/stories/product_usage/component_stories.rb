@@ -17,6 +17,7 @@ module ProductUsage
           inventory_stock_levels_count: 1,
           inventory_transfer_items_count: 1,
           invoice_line_items_count: 1,
+          credit_note_lines_count: 1,
           point_of_sale_lines_count: 1,
           procurement_products_count: 1,
           product_supplier_preferences_count: 1,

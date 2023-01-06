@@ -18,6 +18,7 @@ en-GB:
       usage_statistics:
         buy_list_count: Buy Lists
         catalogue_count: Catalogues
+        credit_note_lines_count: Credit Notes
         inventory_barcodes_count: Barcodes
         inventory_derived_period_balances_count: Derived Period Balances
         inventory_internal_requisition_lines_count: Internal Requisitions

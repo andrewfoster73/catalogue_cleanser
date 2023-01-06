@@ -248,6 +248,50 @@ create index index_invli_by_invoice_id
 create index invli_product_id_idx
     on invoice_line_items (product_id);
 
+create table trade_credit_note_lines
+(
+    id integer NOT NULL,
+    credit_note_id integer NOT NULL,
+    product_id integer NOT NULL,
+    product_code character varying(255),
+    description character varying(1024),
+    account_id integer,
+    account_path text,
+    quantity numeric(19,4) DEFAULT 0,
+    unit_price numeric(19,4) DEFAULT 0,
+    tax_amount numeric(19,4) DEFAULT 0,
+    tax_percentage numeric(19,4) DEFAULT 0,
+    invoice_line_item_id integer,
+    invoice_line_item_created_at timestamp without time zone,
+    locale character varying(255),
+    line_total numeric(19,4) DEFAULT 0,
+    line_tax numeric(19,4) DEFAULT 0,
+    discount_total numeric(19,4) DEFAULT 0,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    lock_version integer DEFAULT 0,
+    department_id integer,
+    discount_tax numeric(19,4) DEFAULT 0,
+    reference text,
+    membership text,
+    adjustment_ex_tax numeric(19,4) DEFAULT 0,
+    adjustment_tax numeric(19,4) DEFAULT 0,
+    order_instruction text,
+    product_brand text,
+    product_description text,
+    product_sell_unit character varying,
+    product_item_size numeric(19,4),
+    product_item_measure character varying,
+    product_item_pack_name character varying,
+    product_item_sell_quantity numeric(19,4),
+    product_item_sell_pack_name character varying,
+    product_gs1_code character varying
+);
+
+create index idx_tcni_by_account ON trade_credit_note_lines USING btree (account_id);
+create index idx_tcni_by_credit_note ON trade_credit_note_lines USING btree (credit_note_id);
+create index idx_tcni_by_product ON trade_credit_note_lines USING btree (product_id);
+
 create table requisition_line_items
 (
     id serial not null
@@ -837,6 +881,9 @@ SELECT gp.id,
        (SELECT count(invoice_line_items.id) AS count
         FROM invoice_line_items
         WHERE invoice_line_items.product_id = gp.id)                   AS invoice_line_items_count,
+       (SELECT count(trade_credit_note_lines.id) AS count
+        FROM trade_credit_note_lines
+        WHERE trade_credit_note_lines.product_id = gp.id)              AS credit_note_lines_count,
        (SELECT count(requisition_line_items.id) AS count
         FROM requisition_line_items
         WHERE requisition_line_items.product_id = gp.id)               AS requisition_line_items_count,

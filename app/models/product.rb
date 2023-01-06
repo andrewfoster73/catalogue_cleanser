@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
+  include Discard::Model
   include Broadcast
   include IssueDiscovery
   include Importable
@@ -14,8 +15,6 @@ class Product < ApplicationRecord
 
   has_associated_audits
   audited unless: :imported?
-  # Not using the default scope so it is easier to use filters built on `with_deleted` and `without_deleted`
-  acts_as_paranoid without_default_scope: true
 
   scope :transaction_count, -> {}
 
@@ -28,13 +27,24 @@ class Product < ApplicationRecord
             :invoice_line_items_count, :point_of_sale_lines_count, :procurement_products_count,
             :product_supplier_preferences_count, :purchase_order_line_items_count, :rebates_profile_products_count,
             :receiving_document_line_items_count, :recipes_count, :requisition_line_items_count,
+            :credit_note_lines_count,
             numericality: { greater_than_or_equal_to: 0, only_integer: true }, allow_nil: true
   validates :duplication_certainty, :canonical_certainty, :average_price, :maximum_price, :minimum_price,
             :standard_deviation, :variance, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   delegate :catalogue_usage_attributes, :transaction_usage_attributes, :settings_usage_attributes, to: :class
 
+  after_discard do
+    broadcast_resource_deletion
+  end
+
   class << self
+    # Used by ransack to allow a scope to be applied as a filter
+    # For example { kept: true } in the ProductsController
+    def ransackable_scopes(*)
+      %i[kept]
+    end
+
     def catalogue_usage_attributes
       %w[catalogue_count recipes_count inventory_stock_levels_count inventory_derived_period_balances_count]
     end
@@ -43,7 +53,7 @@ class Product < ApplicationRecord
       %w[
         invoice_line_items_count requisition_line_items_count purchase_order_line_items_count
         receiving_document_line_items_count inventory_internal_requisition_lines_count inventory_transfer_items_count
-        inventory_stock_counts_count point_of_sale_lines_count
+        inventory_stock_counts_count point_of_sale_lines_count credit_note_lines_count
       ]
     end
 

@@ -32,7 +32,9 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
     get dashboard_product_issues_by_type_url(format: :json)
     assert_response :success
     parsed_response = JSON.parse(@response.body)
-    assert_equal({ 'Invalid Locale' => 1, 'Missing Compulsory Attribute' => 1 }, parsed_response)
+    assert_includes(parsed_response.select { |r| r['name'] == 'fixed' }.first['data'], ['Extraneous Whitespace', 1])
+    assert_includes(parsed_response.select { |r| r['name'] == 'confirmed' }.first['data'], ['Missing Compulsory Attribute', 1])
+    assert_includes(parsed_response.select { |r| r['name'] == 'confirmed' }.first['data'], ['Invalid Locale', 1])
   end
 
   test 'GET tasks_completed_by_day' do

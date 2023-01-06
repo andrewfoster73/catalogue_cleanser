@@ -108,8 +108,8 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'transaction usage count' do
-    assert_equal(67.0, products(:lager).transaction_usage_count)
-    assert_equal(150.0, products(:apple).transaction_usage_count)
+    assert_equal(76.0, products(:lager).transaction_usage_count)
+    assert_equal(174.0, products(:apple).transaction_usage_count)
     assert_equal(72.0, products(:mince).transaction_usage_count)
   end
 

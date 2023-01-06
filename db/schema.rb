@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_04_095301) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_06_152828) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -257,15 +257,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_095301) do
     t.integer "product_issues_count", default: 0, null: false
     t.integer "product_issues_outstanding_count", default: 0, null: false
     t.integer "product_translations_count", default: 0, null: false
-    t.datetime "deleted_at"
+    t.datetime "discarded_at"
+    t.integer "credit_note_lines_count"
     t.index ["category_id"], name: "index_products_on_category_id"
-    t.index ["deleted_at"], name: "index_products_on_deleted_at"
+    t.index ["discarded_at"], name: "index_products_on_discarded_at"
     t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true
     t.index ["item_description"], name: "index_products_item_description_gin", opclass: :gin_trgm_ops, using: :gin
     t.check_constraint "average_price >= 0::numeric", name: "average_price_check"
     t.check_constraint "buy_list_count >= 0", name: "buy_list_count_check"
     t.check_constraint "canonical_certainty >= 0::numeric", name: "canonical_certainty_check"
     t.check_constraint "catalogue_count >= 0", name: "catalogue_count_check"
+    t.check_constraint "credit_note_lines_count >= 0", name: "credit_note_lines_count_check"
     t.check_constraint "duplication_certainty >= 0::numeric", name: "duplication_certainty_check"
     t.check_constraint "inventory_barcodes_count >= 0", name: "inventory_barcodes_count_check"
     t.check_constraint "inventory_derived_period_balances_count >= 0", name: "inventory_derived_period_balances_count_check"

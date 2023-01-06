@@ -12,6 +12,7 @@ module Tasks
     def execute
       # Option 1 - Execute deletion directly
       context.external_product.destroy!
+      context.discard!
 
       # Option 2 - Call P+ API to delete product
     rescue StandardError => e

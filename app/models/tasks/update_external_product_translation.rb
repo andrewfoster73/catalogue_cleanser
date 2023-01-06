@@ -23,16 +23,15 @@ module Tasks
     protected
 
     def execute
+      # The product (and therefore translation) may have been deleted as an unused product
+      return unless context.external_product_translation
+
       # Option 1 - Write changes directly
       assign_attributes(before: context.external_product_translation.attributes.slice(*updatable_attributes))
       context.external_product_translation.lock!.update!(context.attributes.slice(*updatable_attributes))
       assign_attributes(after: context.external_product_translation.reload.attributes.slice(*updatable_attributes))
 
       # Option 2 - Call P+ API to update product
-    rescue ActiveRecord::NotNullViolation => e
-      self.error = e.full_message
-      self.backtrace = e.backtrace
-      error!
     end
 
     private

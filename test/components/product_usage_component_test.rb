@@ -11,7 +11,7 @@ class ProductUsage::ComponentTest < ViewComponent::TestCase
     render_inline ProductUsage::Component.new(resource: @product)
 
     assert_selector("#product_#{@product.id}--transaction_usage_count__heading", text: 'Transactions')
-    assert_selector("#product_#{@product.id}--transaction_usage_count__value", text: '67')
+    assert_selector("#product_#{@product.id}--transaction_usage_count__value", text: '76')
     assert_selector("#product_#{@product.id}--catalogue_usage_count__heading", text: 'Catalogues')
     assert_selector("#product_#{@product.id}--catalogue_usage_count__value", text: '27')
     assert_selector("#product_#{@product.id}--settings_usage_count__heading", text: 'Settings')
@@ -23,6 +23,8 @@ class ProductUsage::ComponentTest < ViewComponent::TestCase
     assert_selector("#product_#{@product.id}--purchase_order_line_items_count__value", text: '1')
     assert_selector("#product_#{@product.id}--invoice_line_items_count__heading", text: 'Invoices')
     assert_selector("#product_#{@product.id}--invoice_line_items_count__value", text: '1')
+    assert_selector("#product_#{@product.id}--credit_note_lines_count__heading", text: 'Credit Notes')
+    assert_selector("#product_#{@product.id}--credit_note_lines_count__value", text: '9')
     assert_selector("#product_#{@product.id}--receiving_document_line_items_count__heading", text: 'Receiving Documents')
     assert_selector("#product_#{@product.id}--receiving_document_line_items_count__value", text: '1')
     assert_selector("#product_#{@product.id}--inventory_internal_requisition_lines_count__heading", text: 'Internal Requisitions')

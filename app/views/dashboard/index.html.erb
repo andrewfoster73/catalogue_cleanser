@@ -96,7 +96,7 @@
     </p>
   </div>
   <div id="dashboard_products_issues_by_type" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 col-span-2">
-    <%= bar_chart(dashboard_product_issues_by_type_path, id: 'dashboard_products_issues_by_type--chart', xtitle: t('.labels.product_issue_counts.xaxis'), ytitle: t('.labels.product_issue_counts.yaxis')) %>
+    <%= bar_chart(dashboard_product_issues_by_type_path, id: 'dashboard_products_issues_by_type--chart', xtitle: t('.labels.product_issue_counts.xaxis'), ytitle: t('.labels.product_issue_counts.yaxis'), stacked: true) %>
     <p id="dashboard_products_issues_by_type--label" class="font-medium text-gray-500">
       <%= t('.labels.product_issue_counts.title') %>
     </p>

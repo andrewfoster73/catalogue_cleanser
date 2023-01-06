@@ -28,7 +28,8 @@ class DashboardController < ApplicationController
   end
 
   def product_issues_by_type
-    render(json: Queries::ProductIssuesByType.to_h(scope: ProductIssue.outstanding))
+    # render(json: ProductIssue.group(:status, :type).count(:id).chart_json)
+    render(json: Queries::ProductIssuesByType.to_h)
   end
 
   def tasks_completed_by_day

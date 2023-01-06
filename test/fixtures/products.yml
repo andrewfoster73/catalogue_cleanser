@@ -21,6 +21,7 @@ lager:
   inventory_stock_levels_count: 1
   inventory_transfer_items_count: 41
   invoice_line_items_count: 12
+  credit_note_lines_count: 9
   point_of_sale_lines_count: 1
   procurement_products_count: 12
   product_supplier_preferences_count: 1
@@ -60,6 +61,7 @@ apple:
   inventory_stock_levels_count: 1
   inventory_transfer_items_count: 19
   invoice_line_items_count: 45
+  credit_note_lines_count: 24
   point_of_sale_lines_count: 1
   procurement_products_count: 17
   product_supplier_preferences_count: 14
@@ -98,6 +100,7 @@ mince:
   inventory_stock_levels_count: 1
   inventory_transfer_items_count: 55
   invoice_line_items_count: 5
+  credit_note_lines_count: 0
   point_of_sale_lines_count: 1
   procurement_products_count: 8
   product_supplier_preferences_count: 1

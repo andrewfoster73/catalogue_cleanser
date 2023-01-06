@@ -31,6 +31,7 @@ module Tasks
       # Using update_columns here because the better performance is required
       record.product&.update_columns(
         invoice_line_items_count: record.invoice_line_items_count,
+        credit_note_lines_count: record.credit_note_lines_count,
         requisition_line_items_count: record.requisition_line_items_count,
         inventory_internal_requisition_lines_count: record.inventory_internal_requisition_lines_count,
         purchase_order_line_items_count: record.purchase_order_line_items_count,

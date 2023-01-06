@@ -20,5 +20,6 @@ class Tasks::GatherUsageStatisticsTest < ActiveSupport::TestCase
     assert_changes(-> { @product.reload.collected_statistics_at }) do
       @task.call
     end
+    assert_equal('complete', @task.reload.status)
   end
 end
