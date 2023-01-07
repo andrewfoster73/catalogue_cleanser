@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_06_152828) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_07_132554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -259,6 +259,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_152828) do
     t.integer "product_translations_count", default: 0, null: false
     t.datetime "discarded_at"
     t.integer "credit_note_lines_count"
+    t.integer "linked_products_count"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["discarded_at"], name: "index_products_on_discarded_at"
     t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true
@@ -276,6 +277,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_152828) do
     t.check_constraint "inventory_stock_levels_count >= 0", name: "inventory_stock_levels_count_check"
     t.check_constraint "inventory_transfer_items_count >= 0", name: "inventory_transfer_items_count_check"
     t.check_constraint "invoice_line_items_count >= 0", name: "invoice_line_items_count_check"
+    t.check_constraint "linked_products_count >= 0", name: "linked_products_count_check"
     t.check_constraint "maximum_price >= 0::numeric", name: "maximum_price_check"
     t.check_constraint "minimum_price >= 0::numeric", name: "minimum_price_check"
     t.check_constraint "point_of_sale_lines_count >= 0", name: "point_of_sale_lines_count_check"

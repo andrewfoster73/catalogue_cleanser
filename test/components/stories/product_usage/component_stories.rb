@@ -20,6 +20,7 @@ module ProductUsage
           credit_note_lines_count: 1,
           point_of_sale_lines_count: 1,
           procurement_products_count: 1,
+          linked_products_count: 1,
           product_supplier_preferences_count: 1,
           purchase_order_line_items_count: 1,
           rebates_profile_products_count: 1,

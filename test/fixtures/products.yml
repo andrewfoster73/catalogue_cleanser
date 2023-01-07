@@ -24,6 +24,7 @@ lager:
   credit_note_lines_count: 9
   point_of_sale_lines_count: 1
   procurement_products_count: 12
+  linked_products_count: 0
   product_supplier_preferences_count: 1
   purchase_order_line_items_count: 1
   rebates_profile_products_count: 1
@@ -64,6 +65,7 @@ apple:
   credit_note_lines_count: 24
   point_of_sale_lines_count: 1
   procurement_products_count: 17
+  linked_products_count: 0
   product_supplier_preferences_count: 14
   purchase_order_line_items_count: 22
   rebates_profile_products_count: 5
@@ -103,6 +105,7 @@ mince:
   credit_note_lines_count: 0
   point_of_sale_lines_count: 1
   procurement_products_count: 8
+  linked_products_count: 0
   product_supplier_preferences_count: 1
   purchase_order_line_items_count: 1
   rebates_profile_products_count: 1

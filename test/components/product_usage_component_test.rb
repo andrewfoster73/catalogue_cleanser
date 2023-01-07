@@ -51,6 +51,8 @@ class ProductUsage::ComponentTest < ViewComponent::TestCase
     assert_selector("#product_#{@product.id}--inventory_barcodes_count__value", text: '9')
     assert_selector("#product_#{@product.id}--procurement_products_count__heading", text: 'Procurement Products')
     assert_selector("#product_#{@product.id}--procurement_products_count__value", text: '1')
+    assert_selector("#product_#{@product.id}--linked_products_count__heading", text: 'Linked Products')
+    assert_selector("#product_#{@product.id}--linked_products_count__value", text: '0')
     assert_selector("#product_#{@product.id}--product_supplier_preferences_count__heading", text: 'Product Supplier Preferences')
     assert_selector("#product_#{@product.id}--product_supplier_preferences_count__value", text: '1')
     assert_selector("#product_#{@product.id}--rebates_profile_products_count__heading", text: 'Rebate Profiles')

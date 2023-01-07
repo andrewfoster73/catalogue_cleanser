@@ -27,6 +27,7 @@ en-GB:
         inventory_transfer_items_count: Transfers
         invoice_line_items_count: Invoices
         last_collected_at: Last collected at %{timestamp}
+        linked_products_count: Linked Products
         point_of_sale_lines_count: Point of Sale
         priced_catalogue_count: Priced Catalogues
         procurement_products_count: Procurement Products

@@ -46,6 +46,7 @@ module Tasks
         inventory_stock_counts_count: record.inventory_stock_counts_count,
         inventory_stock_levels_count: record.inventory_stock_levels_count,
         procurement_products_count: record.procurement_products_count,
+        linked_products_count: record.linked_products_count,
         product_supplier_preferences_count: record.product_supplier_preferences_count,
         rebates_profile_products_count: record.rebates_profile_products_count,
         recipes_count: record.recipes_count,

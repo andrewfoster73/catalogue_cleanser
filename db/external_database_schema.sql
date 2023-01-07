@@ -876,7 +876,7 @@ create index idx_recipes_by_product
 create index idx_trgm_rcp_by_search_text
     on recipes (search_text);
 
-create or replace view vw_product_usage_counts(id, invoice_line_items_count, requisition_line_items_count, inventory_internal_requisition_lines_count, purchase_order_line_items_count, receiving_document_line_items_count, point_of_sale_lines_count, inventory_transfer_items_count, catalogue_count, buy_list_count, priced_catalogue_count, inventory_barcodes_count, inventory_derived_period_balances_count, inventory_stock_counts_count, inventory_stock_levels_count, procurement_products_count, product_supplier_preferences_count, rebates_profile_products_count, recipes_count) as
+create or replace view vw_product_usage_counts(id, invoice_line_items_count, credit_note_lines_count, requisition_line_items_count, inventory_internal_requisition_lines_count, purchase_order_line_items_count, receiving_document_line_items_count, point_of_sale_lines_count, inventory_transfer_items_count, catalogue_count, buy_list_count, priced_catalogue_count, inventory_barcodes_count, inventory_derived_period_balances_count, inventory_stock_counts_count, inventory_stock_levels_count, procurement_products_count, linked_products_count, product_supplier_preferences_count, rebates_profile_products_count, recipes_count) as
 SELECT gp.id,
        (SELECT count(invoice_line_items.id) AS count
         FROM invoice_line_items
@@ -928,6 +928,9 @@ SELECT gp.id,
        (SELECT count(procurement_products.id) AS count
         FROM procurement_products
         WHERE procurement_products.product_id = gp.id)                 AS procurement_products_count,
+       (SELECT count(procurement_products.linked_to_id) AS count
+        FROM procurement_products
+        WHERE procurement_products.linked_to_id = gp.id)               AS linked_products_count,
        (SELECT count(product_supplier_preferences.id) AS count
         FROM product_supplier_preferences
         WHERE product_supplier_preferences.product_id = gp.id)         AS product_supplier_preferences_count,

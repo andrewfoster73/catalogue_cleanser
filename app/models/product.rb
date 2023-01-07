@@ -27,7 +27,7 @@ class Product < ApplicationRecord
             :invoice_line_items_count, :point_of_sale_lines_count, :procurement_products_count,
             :product_supplier_preferences_count, :purchase_order_line_items_count, :rebates_profile_products_count,
             :receiving_document_line_items_count, :recipes_count, :requisition_line_items_count,
-            :credit_note_lines_count,
+            :credit_note_lines_count, :linked_products_count,
             numericality: { greater_than_or_equal_to: 0, only_integer: true }, allow_nil: true
   validates :duplication_certainty, :canonical_certainty, :average_price, :maximum_price, :minimum_price,
             :standard_deviation, :variance, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
@@ -60,7 +60,7 @@ class Product < ApplicationRecord
     def settings_usage_attributes
       %w[
         inventory_barcodes_count procurement_products_count product_supplier_preferences_count
-        rebates_profile_products_count
+        rebates_profile_products_count linked_products_count
       ]
     end
   end

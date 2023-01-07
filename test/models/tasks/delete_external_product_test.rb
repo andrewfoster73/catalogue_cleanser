@@ -7,12 +7,17 @@ class Tasks::DeleteExternalProductTest < ActiveSupport::TestCase
     @product = products(:lager)
     @master_catalogue = create(:external_catalogue)
     @external_catalogued_product = create(:external_catalogued_product, external_product: @product.external_product)
+    @issue = ProductIssues::UnusedProduct.create!(
+      product: @product,
+      resolution_task_type: 'Tasks::DeleteUnusedProduct'
+    )
   end
 
   test 'deletes external product' do
-    @task = Tasks::DeleteExternalProduct.create!(context: @product)
+    @task = Tasks::DeleteExternalProduct.create!(context: @product, product_issue: @issue)
     @task.call
     assert_nil(@product.reload.external_product)
+    assert_equal('fixed', @issue.reload.status)
     assert_equal('complete', @task.reload.status)
   end
 

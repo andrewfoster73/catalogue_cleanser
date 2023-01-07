@@ -11,8 +11,11 @@ module Tasks
 
     def execute
       # Option 1 - Execute deletion directly
-      context.external_product.destroy!
-      context.discard!
+      Audited.audit_class.as_user("task-delete-external-product-#{id}") do
+        context.external_product.lock!.destroy!
+        context.lock!.discard!
+        product_issue.fixed!
+      end
 
       # Option 2 - Call P+ API to delete product
     rescue StandardError => e

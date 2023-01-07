@@ -55,6 +55,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
               point_of_sale_lines_count: @product.point_of_sale_lines_count,
               priced_catalogue_count: @product.priced_catalogue_count,
               procurement_products_count: @product.procurement_products_count,
+              linked_products_count: @product.linked_products_count,
               external_product_id: @product.external_product_id,
               product_supplier_preferences_count: @product.product_supplier_preferences_count,
               purchase_order_line_items_count: @product.purchase_order_line_items_count,
