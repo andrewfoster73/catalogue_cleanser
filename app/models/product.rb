@@ -11,7 +11,10 @@ class Product < ApplicationRecord
   has_many :product_duplicates, dependent: :destroy, strict_loading: true
   has_many :product_translations, dependent: :destroy, strict_loading: true
   has_many :product_issues, dependent: :destroy, strict_loading: true
-  has_many :external_product_usage_counts, class_name: 'External::ProductUsageCount', dependent: nil
+  has_many :external_product_transaction_usage_counts, class_name: 'External::ProductTransactionUsageCount',
+                                                       dependent: nil
+  has_many :external_product_catalogue_usage_counts, class_name: 'External::ProductCatalogueUsageCount', dependent: nil
+  has_many :external_product_catalogue_usage_counts, class_name: 'External::ProductCatalogueUsageCount', dependent: nil
 
   has_associated_audits
   audited unless: :imported?

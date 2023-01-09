@@ -13,12 +13,15 @@ module External
     belongs_to :category, class_name: 'External::Category', optional: true
     has_one :product, class_name: '::Product', dependent: nil, foreign_key: :external_product_id,
                       inverse_of: :external_product
-    has_one :product_transaction_usage_count, class_name: 'External::ProductTransactionUsageCount', dependent: nil, foreign_key: :id,
-                                  inverse_of: :external_product
-    has_one :product_catalogue_usage_count, class_name: 'External::ProductCatalogueUsageCount', dependent: nil, foreign_key: :id,
-      inverse_of: :external_product
-    has_one :product_settings_usage_count, class_name: 'External::ProductSettingsUsageCount', dependent: nil, foreign_key: :id,
-      inverse_of: :external_product
+    has_one :product_transaction_usage_count,
+            class_name: 'External::ProductTransactionUsageCount',
+            dependent: nil, foreign_key: :id, inverse_of: :external_product
+    has_one :product_catalogue_usage_count,
+            class_name: 'External::ProductCatalogueUsageCount',
+            dependent: nil, foreign_key: :id, inverse_of: :external_product
+    has_one :product_settings_usage_count,
+            class_name: 'External::ProductSettingsUsageCount',
+            dependent: nil, foreign_key: :id, inverse_of: :external_product
     has_many :catalogued_products, class_name: 'External::CataloguedProduct', dependent: :destroy
     has_many :translations, class_name: 'External::ProductTranslation', dependent: :destroy
     has_many :requisition_line_items, class_name: 'External::RequisitionLineItem', dependent: nil

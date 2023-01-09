@@ -11,32 +11,35 @@ module Tasks
 
     def execute
       Audited.audit_class.as_user(task_id) do
-        Rails.logger.info("GatherUsageStatistics (catalogue): started at #{Time.zone.now}")
-        External::ProductCatalogueUsageCount.create_temporary_table(prefix: task_id)
-        Rails.logger.info("GatherUsageStatistics (catalogue): temporary table created at #{Time.zone.now}")
-        External::ProductCatalogueUsageCount
-          .from_temporary_table(prefix: task_id)
-          .find_each(batch_size: 10_000) { |record| update_catalogue_counts(record) }
-        Rails.logger.info("GatherUsageStatistics (catalogue): update completed at #{Time.zone.now}")
-        External::ProductCatalogueUsageCount.drop_temporary_table(prefix: task_id)
-
-        Rails.logger.info("GatherUsageStatistics (settings): started at #{Time.zone.now}")
-        External::ProductSettingsUsageCount.create_temporary_table(prefix: task_id)
-        Rails.logger.info("GatherUsageStatistics (settings): temporary table created at #{Time.zone.now}")
-        External::ProductSettingsUsageCount
-          .from_temporary_table(prefix: task_id)
-          .find_each(batch_size: 10_000) { |record| update_settings_counts(record) }
-        Rails.logger.info("GatherUsageStatistics (settings): update completed at #{Time.zone.now}")
-        External::ProductSettingsUsageCount.drop_temporary_table(prefix: task_id)
-
-        Rails.logger.info("GatherUsageStatistics (transaction): started at #{Time.zone.now}")
-        External::ProductTransactionUsageCount.create_temporary_table(prefix: task_id)
-        Rails.logger.info("GatherUsageStatistics (transaction): temporary table created at #{Time.zone.now}")
-        External::ProductTransactionUsageCount
-          .from_temporary_table(prefix: task_id)
-          .find_each(batch_size: 10_000) { |record| update_transaction_counts(record) }
-        Rails.logger.info("GatherUsageStatistics (transaction): update completed at #{Time.zone.now}")
-        External::ProductTransactionUsageCount.drop_temporary_table(prefix: task_id)
+        gather_usage(source: External::ProductCatalogueUsageCount, update_method: :update_catalogue_counts)
+        gather_usage(source: External::ProductSettingsUsageCount, update_method: :update_settings_counts)
+        gather_usage(source: External::ProductTransactionUsageCount, update_method: :update_transaction_counts)
+        # Rails.logger.info("GatherUsageStatistics (catalogue): started at #{Time.zone.now}")
+        # External::ProductCatalogueUsageCount.create_temporary_table(prefix: task_id)
+        # Rails.logger.info("GatherUsageStatistics (catalogue): temporary table created at #{Time.zone.now}")
+        # External::ProductCatalogueUsageCount
+        #   .from_temporary_table(prefix: task_id)
+        #   .find_each(batch_size: 10_000) { |record| update_catalogue_counts(record) }
+        # Rails.logger.info("GatherUsageStatistics (catalogue): update completed at #{Time.zone.now}")
+        # External::ProductCatalogueUsageCount.drop_temporary_table(prefix: task_id)
+        #
+        # Rails.logger.info("GatherUsageStatistics (settings): started at #{Time.zone.now}")
+        # External::ProductSettingsUsageCount.create_temporary_table(prefix: task_id)
+        # Rails.logger.info("GatherUsageStatistics (settings): temporary table created at #{Time.zone.now}")
+        # External::ProductSettingsUsageCount
+        #   .from_temporary_table(prefix: task_id)
+        #   .find_each(batch_size: 10_000) { |record| update_settings_counts(record) }
+        # Rails.logger.info("GatherUsageStatistics (settings): update completed at #{Time.zone.now}")
+        # External::ProductSettingsUsageCount.drop_temporary_table(prefix: task_id)
+        #
+        # Rails.logger.info("GatherUsageStatistics (transaction): started at #{Time.zone.now}")
+        # External::ProductTransactionUsageCount.create_temporary_table(prefix: task_id)
+        # Rails.logger.info("GatherUsageStatistics (transaction): temporary table created at #{Time.zone.now}")
+        # External::ProductTransactionUsageCount
+        #   .from_temporary_table(prefix: task_id)
+        #   .find_each(batch_size: 10_000) { |record| update_transaction_counts(record) }
+        # Rails.logger.info("GatherUsageStatistics (transaction): update completed at #{Time.zone.now}")
+        # External::ProductTransactionUsageCount.drop_temporary_table(prefix: task_id)
       end
     end
 
@@ -44,6 +47,17 @@ module Tasks
 
     def task_id
       "task-gather-usage-statistics-#{id}"
+    end
+
+    def gather_usage(source:, update_method:)
+      Rails.logger.info("GatherUsageStatistics (#{source.name}): started at #{Time.zone.now}")
+      source.create_temporary_table(prefix: task_id)
+      Rails.logger.info("GatherUsageStatistics (#{source.name}): temporary table created at #{Time.zone.now}")
+      source
+        .from_temporary_table(prefix: task_id)
+        .find_each(batch_size: 10_000) { |record| send(update_method, record) }
+      Rails.logger.info("GatherUsageStatistics (#{source.name}): update completed at #{Time.zone.now}")
+      source.drop_temporary_table(prefix: task_id)
     end
 
     # rubocop:disable Rails/SkipsModelValidations

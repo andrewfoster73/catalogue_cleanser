@@ -21,6 +21,7 @@ class ProductIssue < ApplicationRecord
   }
   scope :outstanding, -> { where.not(status: %i[fixed ignored]) }
   scope :requiring_confirmation, -> { where(status: 'pending') }
+  scope :kept, -> { joins(:product).where(products: { discarded_at: nil }) }
 
   # Pending - identified but may need manual confirmation of validity
   # Confirmed - issue is deemed valid but not resolved

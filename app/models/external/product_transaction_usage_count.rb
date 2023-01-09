@@ -6,13 +6,14 @@ module External
     self.table_name = :vw_product_transaction_usage_counts
     self.primary_key = :id
 
-    belongs_to :external_product, class_name: 'External::Product', foreign_key: :id, inverse_of: :product_transaction_usage_count
+    belongs_to :external_product, class_name: 'External::Product', foreign_key: :id,
+                                  inverse_of: :product_transaction_usage_count
     delegate :product, to: :external_product, allow_nil: true
 
     class << self
       def create_temporary_table(prefix:)
-        connection.create_table("#{prefix}_product_transaction_usage_counts", temporary: true,
-                                                                  as: 'SELECT * FROM vw_product_transaction_usage_counts'
+        connection.create_table("#{prefix}_product_transaction_usage_counts",
+                                temporary: true, as: 'SELECT * FROM vw_product_transaction_usage_counts'
         )
       end
 
