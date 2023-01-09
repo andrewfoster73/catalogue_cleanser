@@ -46,7 +46,7 @@ class DashboardTest < ApplicationSystemTestCase
     assert_selector('#dashboard_products_with_issues_vs_none--chart > canvas')
     assert_selector(
       '#dashboard_products_issues_by_type--label',
-      text: 'The types of unresolved issues present and their counts.'
+      text: 'The types of issues present and their counts.'
     )
     assert_selector('#dashboard_products_issues_by_type--chart > canvas')
     assert_selector(

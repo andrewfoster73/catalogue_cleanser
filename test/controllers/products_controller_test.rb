@@ -49,11 +49,13 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
               inventory_stock_levels_count: @product.inventory_stock_levels_count,
               inventory_transfer_items_count: @product.inventory_transfer_items_count,
               invoice_line_items_count: @product.invoice_line_items_count,
+              credit_note_lines_count: @product.credit_note_lines_count,
               maximum_price: @product.maximum_price,
               minimum_price: @product.minimum_price,
               point_of_sale_lines_count: @product.point_of_sale_lines_count,
               priced_catalogue_count: @product.priced_catalogue_count,
               procurement_products_count: @product.procurement_products_count,
+              linked_products_count: @product.linked_products_count,
               external_product_id: @product.external_product_id,
               product_supplier_preferences_count: @product.product_supplier_preferences_count,
               purchase_order_line_items_count: @product.purchase_order_line_items_count,
@@ -89,15 +91,14 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
             }
           }
 
-    issue = ProductIssue.find_by(product_id: product.id)
+    issue = ProductIssue.find_by(product_id: product.id, type: 'ProductIssues::MissingCompulsory')
     assert_equal('fixed', issue.status)
   end
 
-  test 'should destroy product' do
+  test 'should soft delete product' do
     authenticate
-    assert_difference('Product.count', -1) do
-      delete product_url(@product)
-    end
+    delete product_url(@product)
+    assert_not_nil(@product.reload.discarded_at)
 
     assert_redirected_to products_url
   end

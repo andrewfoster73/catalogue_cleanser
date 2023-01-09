@@ -23,6 +23,9 @@ module Tasks
     protected
 
     def execute
+      # The product may have been deleted as an unused product
+      return unless context.external_product
+
       # Option 1 - Write changes directly
       assign_attributes(before: context.external_product.attributes.slice(*updatable_attributes))
       context.external_product.lock!.update!(context.attributes.slice(*updatable_attributes))

@@ -6,6 +6,7 @@ en-GB:
         brand: Brand
         category: Category
         created_at: Created At
+        deleted_at: Deleted At
         image_file_name: Image
         item_description: Description
         item_measure: Measure

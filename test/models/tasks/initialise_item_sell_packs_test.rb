@@ -5,6 +5,7 @@ require 'test_helper'
 class Tasks::InitialiseItemSellPacksTest < ActiveSupport::TestCase
   setup do
     @task = Tasks::InitialiseItemSellPacks.create!
+    ItemSellPack.includes(:item_sell_pack_aliases).destroy_all
   end
 
   test 'creates item sell packs' do

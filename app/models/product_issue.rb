@@ -3,6 +3,7 @@
 class ProductIssue < ApplicationRecord
   include Broadcast
   include NestedBroadcast
+  include Importable
 
   belongs_to :product, inverse_of: :product_issues, optional: true
   belongs_to :product_translation, inverse_of: :product_issues, optional: true
@@ -20,6 +21,7 @@ class ProductIssue < ApplicationRecord
   }
   scope :outstanding, -> { where.not(status: %i[fixed ignored]) }
   scope :requiring_confirmation, -> { where(status: 'pending') }
+  scope :kept, -> { joins(:product).where(products: { discarded_at: nil }) }
 
   # Pending - identified but may need manual confirmation of validity
   # Confirmed - issue is deemed valid but not resolved
@@ -90,6 +92,7 @@ class ProductIssue < ApplicationRecord
     false
   end
 
+  # @return [Boolean] true if there is an issue of the current type for the product or translation, false otherwise
   def issue?
     self.class.issue?(product: product, product_translation: product_translation, attribute: test_attribute)
   end
@@ -102,6 +105,10 @@ class ProductIssue < ApplicationRecord
 
   def parent
     product_translation || product
+  end
+
+  def imported?
+    parent.data_source == 'import'
   end
 
   # If an automatic resolution task is available then call it

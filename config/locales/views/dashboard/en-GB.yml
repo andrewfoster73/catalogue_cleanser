@@ -20,7 +20,7 @@ en-GB:
         percentage_products_with_issues_vs_none:
           title: The percentage of products that have one or more unresolved issues versus those that have none.
         product_issue_counts:
-          title: The types of unresolved issues present and their counts.
+          title: The types of issues present and their counts.
           xaxis: Count
           yaxis: Product Issue
         product_issues_awaiting_confirmation:

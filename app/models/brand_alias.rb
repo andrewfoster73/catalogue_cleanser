@@ -9,7 +9,7 @@ class BrandAlias < ApplicationRecord
 
   audited associated_with: :brand, counter_cache: true
 
-  before_validation :clean, if: -> { data_source == 'manual' }
+  before_validation :clean, unless: :imported?
 
   validates :alias, presence: true, uniqueness: true
   validates :count, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true

@@ -18,6 +18,7 @@ en-GB:
       usage_statistics:
         buy_list_count: Buy Lists
         catalogue_count: Catalogues
+        credit_note_lines_count: Credit Notes
         inventory_barcodes_count: Barcodes
         inventory_derived_period_balances_count: Derived Period Balances
         inventory_internal_requisition_lines_count: Internal Requisitions
@@ -26,6 +27,7 @@ en-GB:
         inventory_transfer_items_count: Transfers
         invoice_line_items_count: Invoices
         last_collected_at: Last collected at %{timestamp}
+        linked_products_count: Linked Products
         point_of_sale_lines_count: Point of Sale
         priced_catalogue_count: Priced Catalogues
         procurement_products_count: Procurement Products

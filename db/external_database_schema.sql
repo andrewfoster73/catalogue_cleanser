@@ -248,6 +248,50 @@ create index index_invli_by_invoice_id
 create index invli_product_id_idx
     on invoice_line_items (product_id);
 
+create table trade_credit_note_lines
+(
+    id integer NOT NULL,
+    credit_note_id integer NOT NULL,
+    product_id integer NOT NULL,
+    product_code character varying(255),
+    description character varying(1024),
+    account_id integer,
+    account_path text,
+    quantity numeric(19,4) DEFAULT 0,
+    unit_price numeric(19,4) DEFAULT 0,
+    tax_amount numeric(19,4) DEFAULT 0,
+    tax_percentage numeric(19,4) DEFAULT 0,
+    invoice_line_item_id integer,
+    invoice_line_item_created_at timestamp without time zone,
+    locale character varying(255),
+    line_total numeric(19,4) DEFAULT 0,
+    line_tax numeric(19,4) DEFAULT 0,
+    discount_total numeric(19,4) DEFAULT 0,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    lock_version integer DEFAULT 0,
+    department_id integer,
+    discount_tax numeric(19,4) DEFAULT 0,
+    reference text,
+    membership text,
+    adjustment_ex_tax numeric(19,4) DEFAULT 0,
+    adjustment_tax numeric(19,4) DEFAULT 0,
+    order_instruction text,
+    product_brand text,
+    product_description text,
+    product_sell_unit character varying,
+    product_item_size numeric(19,4),
+    product_item_measure character varying,
+    product_item_pack_name character varying,
+    product_item_sell_quantity numeric(19,4),
+    product_item_sell_pack_name character varying,
+    product_gs1_code character varying
+);
+
+create index idx_tcni_by_account ON trade_credit_note_lines USING btree (account_id);
+create index idx_tcni_by_credit_note ON trade_credit_note_lines USING btree (credit_note_id);
+create index idx_tcni_by_product ON trade_credit_note_lines USING btree (product_id);
+
 create table requisition_line_items
 (
     id serial not null
@@ -832,11 +876,16 @@ create index idx_recipes_by_product
 create index idx_trgm_rcp_by_search_text
     on recipes (search_text);
 
-create or replace view vw_product_usage_counts(id, invoice_line_items_count, requisition_line_items_count, inventory_internal_requisition_lines_count, purchase_order_line_items_count, receiving_document_line_items_count, point_of_sale_lines_count, inventory_transfer_items_count, catalogue_count, buy_list_count, priced_catalogue_count, inventory_barcodes_count, inventory_derived_period_balances_count, inventory_stock_counts_count, inventory_stock_levels_count, procurement_products_count, product_supplier_preferences_count, rebates_profile_products_count, recipes_count) as
+create view vw_product_transaction_usage_counts(id, invoice_line_items_count, credit_note_lines_count, requisition_line_items_count, purchase_order_line_items_count,
+                                                receiving_document_line_items_count, inventory_internal_requisition_lines_count, inventory_transfer_items_count, inventory_stock_counts_count,
+                                                point_of_sale_lines_count) as
 SELECT gp.id,
        (SELECT count(invoice_line_items.id) AS count
         FROM invoice_line_items
         WHERE invoice_line_items.product_id = gp.id)                   AS invoice_line_items_count,
+       (SELECT count(trade_credit_note_lines.id) AS count
+        FROM trade_credit_note_lines
+        WHERE trade_credit_note_lines.product_id = gp.id)              AS credit_note_lines_count,
        (SELECT count(requisition_line_items.id) AS count
         FROM requisition_line_items
         WHERE requisition_line_items.product_id = gp.id)               AS requisition_line_items_count,
@@ -855,6 +904,15 @@ SELECT gp.id,
        (SELECT count(inventory_transfer_items.id) AS count
         FROM inventory_transfer_items
         WHERE inventory_transfer_items.product_id = gp.id)             AS inventory_transfer_items_count,
+       (SELECT count(inventory_stock_counts.id) AS count
+        FROM inventory_stock_counts
+        WHERE inventory_stock_counts.product_id = gp.id)               AS inventory_stock_counts_count
+FROM goods_products gp
+         JOIN goods_catalogued_products gcp ON gcp.product_id = gp.id AND gcp.catalogue_id = 1;
+
+create view vw_product_catalogue_usage_counts(id, catalogue_count, buy_list_count, priced_catalogue_count, recipes_count,
+                                              inventory_stock_levels_count, inventory_derived_period_balances_count) as
+SELECT gp.id,
        (SELECT count(cp.id) AS count
         FROM goods_catalogued_products cp
         WHERE cp.product_id = gp.id AND cp.catalogue_id != 1)          AS catalogue_count,
@@ -866,30 +924,36 @@ SELECT gp.id,
         FROM goods_catalogued_products cp
                  JOIN catalogues c ON c.id = cp.catalogue_id AND c.catalogue_type::text = 'Priced'::text AND cp.catalogue_id != 1
         WHERE cp.product_id = gp.id)                                   AS priced_catalogue_count,
-       (SELECT count(inventory_barcodes.id) AS count
-        FROM inventory_barcodes
-        WHERE inventory_barcodes.product_id = gp.id)                   AS inventory_barcodes_count,
        (SELECT count(inventory_derived_period_balances.id) AS count
         FROM inventory_derived_period_balances
         WHERE inventory_derived_period_balances.product_id = gp.id)    AS inventory_derived_period_balances_count,
-       (SELECT count(inventory_stock_counts.id) AS count
-        FROM inventory_stock_counts
-        WHERE inventory_stock_counts.product_id = gp.id)               AS inventory_stock_counts_count,
        (SELECT count(inventory_stock_levels.id) AS count
         FROM inventory_stock_levels
         WHERE inventory_stock_levels.product_id = gp.id)               AS inventory_stock_levels_count,
+       (SELECT count(recipes.id) AS count
+        FROM recipes
+        WHERE recipes.product_id = gp.id)                              AS recipes_count
+FROM goods_products gp
+         JOIN goods_catalogued_products gcp ON gcp.product_id = gp.id AND gcp.catalogue_id = 1;
+
+create view vw_product_settings_usage_counts(id, inventory_barcodes_count, procurement_products_count, product_supplier_preferences_count,
+                                             rebates_profile_products_count, linked_products_count) as
+SELECT gp.id,
+       (SELECT count(inventory_barcodes.id) AS count
+        FROM inventory_barcodes
+        WHERE inventory_barcodes.product_id = gp.id)                   AS inventory_barcodes_count,
        (SELECT count(procurement_products.id) AS count
         FROM procurement_products
         WHERE procurement_products.product_id = gp.id)                 AS procurement_products_count,
+       (SELECT count(procurement_products.linked_to_id) AS count
+        FROM procurement_products
+        WHERE procurement_products.linked_to_id = gp.id)               AS linked_products_count,
        (SELECT count(product_supplier_preferences.id) AS count
         FROM product_supplier_preferences
         WHERE product_supplier_preferences.product_id = gp.id)         AS product_supplier_preferences_count,
        (SELECT count(rebates_profile_products.id) AS count
         FROM rebates_profile_products
-        WHERE rebates_profile_products.product_id = gp.id)             AS rebates_profile_products_count,
-       (SELECT count(recipes.id) AS count
-        FROM recipes
-        WHERE recipes.product_id = gp.id)                              AS recipes_count
+        WHERE rebates_profile_products.product_id = gp.id)             AS rebates_profile_products_count
 FROM goods_products gp
          JOIN goods_catalogued_products gcp ON gcp.product_id = gp.id AND gcp.catalogue_id = 1;
 

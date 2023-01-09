@@ -7,9 +7,9 @@ class Brand < ApplicationRecord
   has_many :brand_aliases, dependent: :destroy, strict_loading: true
   has_associated_audits
 
-  audited
+  audited unless: :imported?
 
-  before_validation :clean, if: -> { data_source == 'manual' }
+  before_validation :clean, unless: :imported?
 
   validates :name, presence: true, uniqueness: true
   validates :count, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true

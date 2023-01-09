@@ -17,3 +17,4 @@ en-GB:
       product_issues/invalid_locale: Invalid Locale
       product_issues/missing_compulsory: Missing Compulsory Attribute
       product_issues/missing_image: Missing Image
+      product_issues/unused_product: Unused Product

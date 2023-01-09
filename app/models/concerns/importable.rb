@@ -9,13 +9,17 @@ module Importable
     scope :imported, -> { where(data_source: :import) }
   end
 
+  def imported?
+    data_source == 'import'
+  end
+
   private
 
   def broadcast_creation?
-    data_source != :import
+    !imported?
   end
 
   def broadcast_update?
-    data_source != :import
+    !imported?
   end
 end

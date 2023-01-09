@@ -2,8 +2,13 @@
 
 class ProductsController < ResourcesController
   include TurboActions
+  include ManuallyEditable
 
   private
+
+  def destroy_resource
+    @resource.discard!
+  end
 
   def update_resource
     @resource.update_and_propagate(resource_params)
@@ -23,5 +28,9 @@ class ProductsController < ResourcesController
 
   def default_sort
     'item_description asc'
+  end
+
+  def default_filters
+    { kept: true }
   end
 end

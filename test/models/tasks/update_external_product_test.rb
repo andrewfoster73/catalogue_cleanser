@@ -14,6 +14,7 @@ class Tasks::UpdateExternalProductTest < ActiveSupport::TestCase
     @task = Tasks::UpdateExternalProduct.create!(context: @product)
     @task.call
     assert_equal('Tasty Lager', @product.external_product.reload.item_description)
+    assert_equal('complete', @task.reload.status)
   end
 
   test 'is executable if changed attributes are relevant' do

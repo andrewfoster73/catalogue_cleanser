@@ -2,6 +2,7 @@
 
 class ItemPacksController < ResourcesController
   include TurboActions
+  include ManuallyEditable
 
   private
 

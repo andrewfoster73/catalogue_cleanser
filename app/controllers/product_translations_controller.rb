@@ -3,13 +3,13 @@
 class ProductTranslationsController < ResourcesController
   include TurboActions
   include Nested
+  include ManuallyEditable
 
   private
 
   def update_resource
-    super
+    @resource.update_and_propagate(resource_params)
     @resource.product.resolve_issues!
-    # Create task to update P+ Product Translation
   end
 
   def collection_preloads

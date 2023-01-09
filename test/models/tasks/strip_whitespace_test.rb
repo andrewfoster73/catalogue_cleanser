@@ -19,5 +19,6 @@ class Tasks::StripWhitespaceTest < ActiveSupport::TestCase
     assert_equal('This is not fine', @product.reload.item_description)
     assert_equal('This is not fine', @product.external_product.reload.item_description)
     assert_equal('fixed', @issue.reload.status)
+    assert_equal('complete', @task.reload.status)
   end
 end

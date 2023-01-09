@@ -107,6 +107,8 @@ GEM
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     deepl-rb (2.5.3)
+    discard (1.2.1)
+      activerecord (>= 4.2, < 8)
     docile (1.4.0)
     dotenv (2.8.1)
     easy_translate (0.5.1)
@@ -394,6 +396,7 @@ DEPENDENCIES
   countries
   debug
   deepl-rb
+  discard
   dotenv
   easy_translate
   factory_bot_rails

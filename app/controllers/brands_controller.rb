@@ -2,6 +2,7 @@
 
 class BrandsController < ResourcesController
   include TurboActions
+  include ManuallyEditable
 
   private
 

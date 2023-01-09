@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_18_155105) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_07_132554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -257,13 +257,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_155105) do
     t.integer "product_issues_count", default: 0, null: false
     t.integer "product_issues_outstanding_count", default: 0, null: false
     t.integer "product_translations_count", default: 0, null: false
+    t.datetime "discarded_at"
+    t.integer "credit_note_lines_count"
+    t.integer "linked_products_count"
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["discarded_at"], name: "index_products_on_discarded_at"
     t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true
     t.index ["item_description"], name: "index_products_item_description_gin", opclass: :gin_trgm_ops, using: :gin
     t.check_constraint "average_price >= 0::numeric", name: "average_price_check"
     t.check_constraint "buy_list_count >= 0", name: "buy_list_count_check"
     t.check_constraint "canonical_certainty >= 0::numeric", name: "canonical_certainty_check"
     t.check_constraint "catalogue_count >= 0", name: "catalogue_count_check"
+    t.check_constraint "credit_note_lines_count >= 0", name: "credit_note_lines_count_check"
     t.check_constraint "duplication_certainty >= 0::numeric", name: "duplication_certainty_check"
     t.check_constraint "inventory_barcodes_count >= 0", name: "inventory_barcodes_count_check"
     t.check_constraint "inventory_derived_period_balances_count >= 0", name: "inventory_derived_period_balances_count_check"
@@ -272,6 +277,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_155105) do
     t.check_constraint "inventory_stock_levels_count >= 0", name: "inventory_stock_levels_count_check"
     t.check_constraint "inventory_transfer_items_count >= 0", name: "inventory_transfer_items_count_check"
     t.check_constraint "invoice_line_items_count >= 0", name: "invoice_line_items_count_check"
+    t.check_constraint "linked_products_count >= 0", name: "linked_products_count_check"
     t.check_constraint "maximum_price >= 0::numeric", name: "maximum_price_check"
     t.check_constraint "minimum_price >= 0::numeric", name: "minimum_price_check"
     t.check_constraint "point_of_sale_lines_count >= 0", name: "point_of_sale_lines_count_check"
