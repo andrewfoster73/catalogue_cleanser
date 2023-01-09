@@ -14,7 +14,7 @@ class Dashboard
   end
 
   def number_of_products
-    @number_of_products ||= Product.all.size
+    @number_of_products ||= Product.kept.size
   end
 
   def number_of_products_used
