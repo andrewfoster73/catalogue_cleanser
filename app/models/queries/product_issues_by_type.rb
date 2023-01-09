@@ -4,10 +4,6 @@ module Queries
   class ProductIssuesByType < Base
     class << self
       def to_h(scope: nil, options: {})
-        # call(scope: scope, options: options).each_with_object({}) do |result, hash|
-        #   hash[result.type.safe_constantize.model_name.human] = result.count
-        # end
-
         ProductIssue.statuses.keys.each_with_object([]) do |status, array|
           data = call(scope: scope, options: options.map).where(status: status).map do |result|
             [result.type.safe_constantize.model_name.human, result.count]

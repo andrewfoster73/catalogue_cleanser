@@ -21,6 +21,13 @@ class Tasks::DeleteExternalProductTest < ActiveSupport::TestCase
     assert_equal('complete', @task.reload.status)
   end
 
+  test 'marks any outstanding issues as ignored' do
+    @outstanding_issue = ProductIssues::MissingImage.create!(product: @product)
+    @task = Tasks::DeleteExternalProduct.create!(context: @product, product_issue: @issue)
+    @task.call
+    assert_equal('ignored', @outstanding_issue.reload.status)
+  end
+
   test 'raises error' do
     create(:external_requisition_line_item,
            external_product: @product.external_product, requisition_id: 1, vendor_id: 1

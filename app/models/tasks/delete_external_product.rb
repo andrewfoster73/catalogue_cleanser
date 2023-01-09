@@ -13,6 +13,7 @@ module Tasks
       # Option 1 - Execute deletion directly
       Audited.audit_class.as_user("task-delete-external-product-#{id}") do
         context.external_product&.lock!&.destroy!
+        ProductIssue.where(product: context).outstanding.each(&:ignored!)
         context.lock!.discard!
         product_issue.fixed!
       end

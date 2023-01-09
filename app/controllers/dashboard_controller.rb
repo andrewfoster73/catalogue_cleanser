@@ -28,7 +28,6 @@ class DashboardController < ApplicationController
   end
 
   def product_issues_by_type
-    # render(json: ProductIssue.group(:status, :type).count(:id).chart_json)
     render(json: Queries::ProductIssuesByType.to_h)
   end
 
