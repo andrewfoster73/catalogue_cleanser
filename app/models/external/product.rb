@@ -22,6 +22,9 @@ module External
     has_one :product_settings_usage_count,
             class_name: 'External::ProductSettingsUsageCount',
             dependent: nil, foreign_key: :id, inverse_of: :external_product
+    has_one :product_pricing_statistics,
+            class_name: 'External::ProductPricingStatistics',
+            dependent: nil, foreign_key: :id, inverse_of: :external_product
     has_many :catalogued_products, class_name: 'External::CataloguedProduct', dependent: :destroy
     has_many :translations, class_name: 'External::ProductTranslation', dependent: :destroy
     has_many :requisition_line_items, class_name: 'External::RequisitionLineItem', dependent: nil

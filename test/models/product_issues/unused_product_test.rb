@@ -10,7 +10,7 @@ class ProductIssues::UnusedProductTest < ActiveSupport::TestCase
   end
 
   test 'should return true if the product is not in use' do
-    product = create(:product, collected_statistics_at: Time.zone.now)
+    product = create(:product, collected_usage_at: Time.zone.now)
     issue = ProductIssues::UnusedProduct.issue?(**{ product: product })
     assert_equal(true, issue)
 
@@ -21,7 +21,7 @@ class ProductIssues::UnusedProductTest < ActiveSupport::TestCase
   end
 
   test 'should return false for no issues' do
-    product = create(:product, collected_statistics_at: Time.zone.now, requisition_line_items_count: 1)
+    product = create(:product, collected_usage_at: Time.zone.now, requisition_line_items_count: 1)
     issue = ProductIssues::UnusedProduct.issue?(**{ product: product })
     assert_equal(false, issue)
 
@@ -31,7 +31,7 @@ class ProductIssues::UnusedProductTest < ActiveSupport::TestCase
   end
 
   test 'fix! should create DeleteProduct task' do
-    product = create(:product, collected_statistics_at: Time.zone.now)
+    product = create(:product, collected_usage_at: Time.zone.now)
     issue = ProductIssues::UnusedProduct.create!(product: product)
     assert_changes(-> { Tasks::DeleteExternalProduct.count }) do
       issue.fix!

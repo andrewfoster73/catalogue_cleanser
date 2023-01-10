@@ -5,15 +5,18 @@ lager:
   duplication_certainty: 9.99
   canonical_certainty: 9.99
   action: none
-  collected_statistics_at: 2022-06-09
+  collected_usage_at: 2022-06-09
+  collected_pricing_at: 2023-01-10
   catalogue_count: 24
   buy_list_count: 12
   priced_catalogue_count: 12
   average_price: 9.99
+  median_price: 9.99
   maximum_price: 9.99
   minimum_price: 9.99
   standard_deviation: 9.99
-  variance: 9.99
+  price_count: 1
+  price_country: AU
   inventory_barcodes_count: 9
   inventory_derived_period_balances_count: 1
   inventory_internal_requisition_lines_count: 1
@@ -46,15 +49,16 @@ apple:
   duplication_certainty: 9.99
   canonical_certainty: 9.99
   action: none
-  collected_statistics_at: 2022-06-09
+  collected_usage_at: 2022-06-09
+  collected_pricing_at: 2023-01-10
   catalogue_count: 30
   buy_list_count: 10
   priced_catalogue_count: 20
   average_price: 9.99
+  median_price: 9.99
   maximum_price: 9.99
   minimum_price: 9.99
   standard_deviation: 9.99
-  variance: 9.99
   inventory_barcodes_count: 5
   inventory_derived_period_balances_count: 1
   inventory_internal_requisition_lines_count: 18
@@ -86,15 +90,10 @@ mince:
   duplication_certainty: 9.99
   canonical_certainty: 9.99
   action: none
-  collected_statistics_at: 2022-06-09
+  collected_usage_at: 2022-06-09
   catalogue_count: 4
   buy_list_count: 3
   priced_catalogue_count: 1
-  average_price: 9.99
-  maximum_price: 9.99
-  minimum_price: 9.99
-  standard_deviation: 9.99
-  variance: 9.99
   inventory_barcodes_count: 1
   inventory_derived_period_balances_count: 1
   inventory_internal_requisition_lines_count: 1

@@ -6,7 +6,7 @@ module ProductUsage
       constructor(
         resource: klazz(
           Product,
-          collected_statistics_at: Time.zone.now,
+          collected_usage_at: Time.zone.now,
           catalogue_count: 1,
           buy_list_count: 1,
           priced_catalogue_count: 1,

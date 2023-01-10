@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_07_132554) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_09_142945) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -211,15 +211,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_07_132554) do
     t.decimal "duplication_certainty", precision: 8, scale: 2
     t.decimal "canonical_certainty", precision: 8, scale: 2
     t.boolean "canonical", default: false
-    t.datetime "collected_statistics_at", precision: nil
+    t.datetime "collected_usage_at", precision: nil
     t.integer "catalogue_count"
     t.integer "buy_list_count"
     t.integer "priced_catalogue_count"
-    t.decimal "average_price", precision: 8, scale: 2
-    t.decimal "maximum_price", precision: 8, scale: 2
-    t.decimal "minimum_price", precision: 8, scale: 2
-    t.decimal "standard_deviation", precision: 8, scale: 2
-    t.decimal "variance", precision: 8, scale: 2
+    t.decimal "average_price", precision: 19, scale: 2
+    t.decimal "maximum_price", precision: 19, scale: 2
+    t.decimal "minimum_price", precision: 19, scale: 2
+    t.decimal "standard_deviation", precision: 19, scale: 2
     t.integer "inventory_barcodes_count"
     t.integer "inventory_derived_period_balances_count"
     t.integer "inventory_internal_requisition_lines_count"
@@ -260,6 +259,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_07_132554) do
     t.datetime "discarded_at"
     t.integer "credit_note_lines_count"
     t.integer "linked_products_count"
+    t.datetime "collected_pricing_at", precision: nil
+    t.decimal "median_price", precision: 19, scale: 2
+    t.integer "price_count"
+    t.string "price_country"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["discarded_at"], name: "index_products_on_discarded_at"
     t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true
@@ -279,8 +282,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_07_132554) do
     t.check_constraint "invoice_line_items_count >= 0", name: "invoice_line_items_count_check"
     t.check_constraint "linked_products_count >= 0", name: "linked_products_count_check"
     t.check_constraint "maximum_price >= 0::numeric", name: "maximum_price_check"
+    t.check_constraint "median_price >= 0::numeric", name: "median_price_check"
     t.check_constraint "minimum_price >= 0::numeric", name: "minimum_price_check"
     t.check_constraint "point_of_sale_lines_count >= 0", name: "point_of_sale_lines_count_check"
+    t.check_constraint "price_count >= 0", name: "price_count_check"
     t.check_constraint "procurement_products_count >= 0", name: "procurement_products_count_check"
     t.check_constraint "product_supplier_preferences_count >= 0", name: "product_supplier_preferences_count_check"
     t.check_constraint "purchase_order_line_items_count >= 0", name: "purchase_order_line_items_count_check"
@@ -289,7 +294,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_07_132554) do
     t.check_constraint "recipes_count >= 0", name: "recipes_count_check"
     t.check_constraint "requisition_line_items_count >= 0", name: "requisition_line_items_count_check"
     t.check_constraint "standard_deviation >= 0::numeric", name: "standard_deviation_check"
-    t.check_constraint "variance >= 0::numeric", name: "variance_check"
   end
 
   create_table "tasks", force: :cascade do |t|

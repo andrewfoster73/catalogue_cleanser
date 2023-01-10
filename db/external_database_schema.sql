@@ -876,6 +876,163 @@ create index idx_recipes_by_product
 create index idx_trgm_rcp_by_search_text
     on recipes (search_text);
 
+create table organisations
+(
+    id serial not null
+        constraint organisations_pkey
+            primary key,
+    telephone varchar(255),
+    fax varchar(255),
+    email varchar(255),
+    postal_address_postal_code varchar(255),
+    postal_address_country varchar(255),
+    billing_address_is_postal_address boolean,
+    billing_address_postal_code varchar(255),
+    billing_address_country varchar(255),
+    is_a_purchaser boolean,
+    is_a_supplier boolean,
+    is_a_administrator boolean,
+    created_at timestamp not null,
+    updated_at timestamp not null,
+    default_delivery_address_id integer,
+    is_verified boolean,
+    lock_version integer default 0,
+    default_language varchar(255) default 'en'::character varying,
+    owner_id integer,
+    time_zone varchar(255) default 'UTC'::character varying,
+    is_deleted boolean,
+    website_url varchar(255),
+    business_number varchar(255),
+    logo_file_name varchar(255),
+    logo_content_type varchar(255),
+    logo_file_size integer,
+    description text,
+    short_description varchar(255),
+    accounts_email varchar(255),
+    is_billable boolean default false,
+    title varchar(255),
+    name varchar(255),
+    is_inventory_enabled boolean,
+    postal_address_line1 varchar(255),
+    postal_address_line2 varchar(255),
+    postal_address_city varchar(255),
+    postal_address_state_province varchar(255),
+    billing_address_line1 varchar(255),
+    billing_address_line2 varchar(255),
+    billing_address_city varchar(255),
+    billing_address_state_province varchar(255),
+    locale varchar(255) default 'en'::character varying,
+    search_text text,
+    receive_only_from_master_catalogue boolean default false,
+    delivery_instructions text,
+    confirmation_instructions text,
+    signature_image_file_name varchar(255),
+    signature_image_content_type varchar(255),
+    signature_image_file_size integer,
+    signature_image_updated_at timestamp,
+    auto_close_order boolean default false,
+    parent_id integer,
+    region_id integer,
+    three_way_match_enabled boolean default true,
+    allow_negative_stock_level boolean default true,
+    accounts_payable_system_id integer,
+    access_group_id integer,
+    enforce_password_change boolean default false,
+    department_code varchar(255),
+    invoice_method varchar(255),
+    discount_rate numeric(19,4) default 0,
+    legal_entity boolean default false,
+    weekly_payment boolean default false,
+    path text,
+    default_account_id integer,
+    accepted_invoicing_terms boolean,
+    business_unit varchar(255),
+    requisition_approval_workflow_id integer,
+    iana_time_zone varchar(255),
+    canonical_id integer,
+    concatenate_product_and_pack_codes boolean default false,
+    show_membership boolean default false,
+    outlet_code varchar,
+    purchase_order_reply_to_email varchar,
+    print_format_file_name varchar,
+    print_format_content_type varchar,
+    print_format_file_size integer,
+    preferred_supplier_only boolean default false,
+    terms_and_conditions text,
+    point_of_sale_import_format_id integer,
+    continuous_approving boolean default false,
+    corporate_code text,
+    punchout_line_transformer_type varchar,
+    location_id integer,
+    accepts_electronic_invoices boolean default false,
+    zuora_account_id varchar,
+    email_api_invoice_copy boolean default false,
+    room_count integer,
+    page_size_limit integer default 25,
+    zuora_category varchar,
+    billing_email varchar,
+    invoice_template_id integer,
+    billing_agreement_file_name varchar,
+    billing_agreement_content_type varchar,
+    billing_agreement_file_size integer,
+    billing_agreement_customised boolean,
+    xtracta_id integer,
+    invoice_days_threshold integer,
+    company_brand varchar,
+    requires_budget_approval boolean default false,
+    autopopulate_par_level boolean default false,
+    business_name varchar,
+    document_validation_threshold numeric(19,4),
+    document_line_validation_threshold numeric(19,4),
+    whatfix_enabled boolean default false,
+    api_url varchar,
+    api_username varchar,
+    api_password varchar,
+    api_token varchar,
+    api_invoice_polling_interval_minutes integer,
+    api_provider varchar,
+    api_last_polled_at timestamp,
+    billing_currency varchar,
+    purchase_order_copy_email text,
+    mandatory_informal_product_tax boolean default false,
+    mandatory_informal_product_tax_percentage numeric(19,4),
+    ppi_access boolean default false,
+    is_capex boolean default false,
+    auto_recalculate_recipe_cost boolean default false,
+    display_xtracta_detail boolean default false,
+    default_app varchar default 'p+'::character varying,
+    pplus_access boolean default true,
+    ppx_access boolean default false,
+    credit_application_url varchar,
+    destination_company_code varchar,
+    origin_company_code varchar,
+    live_chat_enabled boolean default true,
+    minimum_order_value numeric,
+    minimum_order_value_message varchar,
+    supplier_agreement_signed_at date,
+    supplier_subscription_tier varchar default 'non_member'::character varying,
+    input_tax boolean default false,
+    ppnew_access boolean default false
+);
+
+create index idx_o_by_default_delivery_address
+    on organisations (default_delivery_address_id);
+
+create index idx_organisations_by_outlet_code
+    on organisations (outlet_code);
+
+create index idx_trgm_org_by_search_text
+    on organisations (search_text);
+
+create index index_organisations_on_location_id
+    on organisations (location_id);
+
+create index index_organisations_on_parent_id
+    on organisations (parent_id);
+
+create index index_organisations_on_zuora_account_id
+    on organisations (zuora_account_id);
+
 create view vw_product_transaction_usage_counts(id, invoice_line_items_count, credit_note_lines_count, requisition_line_items_count, purchase_order_line_items_count,
                                                 receiving_document_line_items_count, inventory_internal_requisition_lines_count, inventory_transfer_items_count, inventory_stock_counts_count,
                                                 point_of_sale_lines_count) as
@@ -956,4 +1113,21 @@ SELECT gp.id,
         WHERE rebates_profile_products.product_id = gp.id)             AS rebates_profile_products_count
 FROM goods_products gp
          JOIN goods_catalogued_products gcp ON gcp.product_id = gp.id AND gcp.catalogue_id = 1;
+
+CREATE VIEW vw_product_pricing_statistics(id, price_count, minimum_price, maximum_price, average_price, median_price,
+    standard_deviation, catalogue_owner_country) AS
+SELECT gp.id,
+       COUNT(gcp.id) AS price_count,
+       MIN(sell_unit_price) AS minimum_price,
+       MAX(sell_unit_price) AS maximum_price,
+       AVG(sell_unit_price) AS average_price,
+       PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY sell_unit_price) AS median_price,
+       STDDEV_POP(sell_unit_price) AS standard_deviation,
+       s.postal_address_country AS catalogue_owner_country
+FROM goods_products gp
+         INNER JOIN goods_catalogued_products gcp ON gcp.product_id = gp.id
+         INNER JOIN catalogues c ON c.id = gcp.catalogue_id
+         INNER JOIN organisations s ON s.id = c.owner_id
+WHERE gcp.sell_unit_price != 0 AND gp.id IN (SELECT p.id FROM goods_products p INNER JOIN goods_catalogued_products cp ON cp.product_id = p.id AND cp.catalogue_id = 1)
+GROUP BY gp.id, s.postal_address_country
 

@@ -7,7 +7,7 @@ module ProductIssues
         # Translations don't need to be checked
         return false if product_translation
         # If the stats haven't been collected yet this cannot be confirmed
-        return false if product.collected_statistics_at.nil?
+        return false if product.collected_usage_at.nil?
         # All the usage stats are zero
         return !product.used? if product
 

@@ -11,7 +11,7 @@ namespace :scheduled_updates do
   desc 'Collect pricing information for the products being used in P+ from the vw_product_pricing view'
   task pricing: :environment do
     puts "Starting scheduled_updates:pricing: #{Time.zone.now}"
-    # TODO: Price gathering task
+    Tasks::GatherPricingStatistics.new.call
     puts "Finished scheduled_updates:pricing: #{Time.zone.now}"
   end
 

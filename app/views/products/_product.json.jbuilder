@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.extract!(product, :id, :external_product_id, :duplication_certainty, :canonical_certainty, :action,
-              :collected_statistics_at, :catalogue_count, :buy_list_count, :priced_catalogue_count,
+              :collected_usage_at, :catalogue_count, :buy_list_count, :priced_catalogue_count,
               :average_price, :maximum_price, :minimum_price, :standard_deviation, :variance, :inventory_barcodes_count,
               :inventory_derived_period_balances_count, :inventory_internal_requisition_lines_count,
               :inventory_stock_counts_count, :inventory_stock_levels_count, :inventory_transfer_items_count,
