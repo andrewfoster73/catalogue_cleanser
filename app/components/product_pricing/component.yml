@@ -1,0 +1,19 @@
+---
+en-GB:
+  product_pricing:
+    component:
+      headings:
+        last_collected_at: Last collected at %{timestamp}
+        not_priced: Pricing not collected yet or does not have a non-zero price available.
+        price_country: Priced in %{country}
+        pricing_statistics: Pricing Statistics
+      pricing_statistics:
+        average_price: Average
+        coefficient_of_variation: Coefficient of Variation
+        confidence_interval: Confidence (95%)
+        maximum_price: Maximum
+        median_price: Median
+        minimum_price: Minimum
+        none: None
+        price_count: Count
+        standard_deviation: Standard Deviation

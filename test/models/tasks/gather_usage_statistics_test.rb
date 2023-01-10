@@ -17,7 +17,7 @@ class Tasks::GatherUsageStatisticsTest < ActiveSupport::TestCase
   end
 
   test 'updates counts on products' do
-    assert_changes(-> { @product.reload.collected_statistics_at }) do
+    assert_changes(-> { @product.reload.collected_usage_at }) do
       @task.call
     end
     assert_equal('complete', @task.reload.status)
