@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.4'
 
 # To support the use of Typescript
-gem 'jsbundling-rails', '~> 1.0'
+gem 'jsbundling-rails', '~> 1.0', '>= 1.0.3'
 
 # Environment variable management
 gem 'dotenv'
@@ -50,7 +50,7 @@ gem 'chartkick'
 gem 'discard'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
+gem 'rails', '~> 7.0.4'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -71,7 +71,7 @@ gem 'turbo-rails'
 gem 'stimulus-rails'
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem 'tailwindcss-rails'
+gem 'tailwindcss-rails', '>= 2.0.14'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
@@ -102,7 +102,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'deepl-rb'
   gem 'easy_translate'
-  gem 'i18n-tasks', '~> 1.0.11'
+  gem 'i18n-tasks', '~> 1.0.12'
 
   # N+1 query locator
   gem 'pg_query'
