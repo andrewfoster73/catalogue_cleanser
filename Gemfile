@@ -28,7 +28,7 @@ gem 'counter_culture'
 gem 'sorbet-runtime'
 
 # Produce audit logs for record changes
-gem 'audited', '~> 5.0'
+gem 'audited', '~> 5.3', '>= 5.3.3'
 
 # Encapsulate UI elements into a class
 gem 'view_component'
