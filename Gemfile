@@ -22,7 +22,7 @@ gem 'countries'
 # More advanced counter caches for associations (needed specifically for a conditional counter)
 # The after_commit_action gem allows for execute_after_commit: true to be specified
 gem 'after_commit_action'
-gem 'counter_culture'
+gem 'counter_culture', '>= 3.3.1'
 
 # Runtime type checking for Ruby
 gem 'sorbet-runtime'
