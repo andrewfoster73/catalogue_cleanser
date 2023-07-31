@@ -146,5 +146,5 @@ group :test do
 
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
-  gem 'webdrivers'
+  gem 'webdrivers', '>= 5.3.0'
 end
