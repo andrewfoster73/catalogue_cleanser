@@ -47,7 +47,7 @@ gem 'ransack'
 gem 'chartkick'
 
 # Discarding of products (rather than deletion or soft deletion)
-gem 'discard'
+gem 'discard', '>= 1.3.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
@@ -59,7 +59,7 @@ gem 'sprockets-rails'
 gem 'pg', '~> 1.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.6', '>= 5.6.7'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
