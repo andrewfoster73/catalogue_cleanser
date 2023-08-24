@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.4'
 
 # To support the use of Typescript
-gem 'jsbundling-rails', '~> 1.0'
+gem 'jsbundling-rails', '~> 1.1', '>= 1.1.0'
 
 # Environment variable management
 gem 'dotenv'
@@ -22,35 +22,35 @@ gem 'countries'
 # More advanced counter caches for associations (needed specifically for a conditional counter)
 # The after_commit_action gem allows for execute_after_commit: true to be specified
 gem 'after_commit_action'
-gem 'counter_culture'
+gem 'counter_culture', '>= 3.3.1'
 
 # Runtime type checking for Ruby
 gem 'sorbet-runtime'
 
 # Produce audit logs for record changes
-gem 'audited', '~> 5.0'
+gem 'audited', '~> 5.1', '>= 5.1.0'
 
 # Encapsulate UI elements into a class
-gem 'view_component'
-gem 'view_component_storybook'
+gem 'view_component', '>= 2.74.1'
+gem 'view_component_storybook', '>= 0.12.0'
 
 # In order to make Storybook work
 gem 'rack-cors'
 
 # Collection pagination
-gem 'pagy'
+gem 'pagy', '>= 6.0.0'
 
 # Collection filtering and sorting
-gem 'ransack'
+gem 'ransack', '>= 4.0.0'
 
 # Dashboard graphs
 gem 'chartkick'
 
 # Discarding of products (rather than deletion or soft deletion)
-gem 'discard'
+gem 'discard', '>= 1.3.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
+gem 'rails', '~> 7.0.7', '>= 7.0.7.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -62,16 +62,16 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
+gem 'importmap-rails', '>= 1.1.6'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails'
+gem 'turbo-rails', '>= 1.3.1'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem 'stimulus-rails'
+gem 'stimulus-rails', '>= 1.1.1'
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem 'tailwindcss-rails'
+gem 'tailwindcss-rails', '>= 2.0.14'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
@@ -113,7 +113,7 @@ group :development, :test do
 
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop-rails', '>= 2.17.0', require: false
 
   # Yard documentation generator
   gem 'yard'
