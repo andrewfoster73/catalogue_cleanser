@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.4'
 
 # To support the use of Typescript
-gem 'jsbundling-rails', '~> 1.0'
+gem 'jsbundling-rails', '~> 1.1', '>= 1.1.0'
 
 # Environment variable management
 gem 'dotenv'
@@ -50,7 +50,7 @@ gem 'chartkick'
 gem 'discard'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
+gem 'rails', '~> 7.1.0'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -62,16 +62,16 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
+gem 'importmap-rails', '>= 1.1.6'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails'
+gem 'turbo-rails', '>= 1.3.1'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem 'stimulus-rails'
+gem 'stimulus-rails', '>= 1.1.1'
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem 'tailwindcss-rails'
+gem 'tailwindcss-rails', '>= 2.0.14'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
@@ -127,7 +127,7 @@ group :development do
   gem 'sorbet'
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem 'web-console'
+  gem 'web-console', '>= 4.2.1'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
