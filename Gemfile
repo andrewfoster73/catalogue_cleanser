@@ -102,7 +102,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'deepl-rb'
   gem 'easy_translate'
-  gem 'i18n-tasks', '~> 1.0.11'
+  gem 'i18n-tasks', '~> 1.0.13'
 
   # N+1 query locator
   gem 'pg_query'
