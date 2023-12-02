@@ -7,6 +7,7 @@ require 'rails/test_help'
 require 'minitest/autorun'
 
 OmniAuth.config.test_mode = true
+Capybara.default_max_wait_time = Integer(ENV.fetch('MAX_WAIT_TIME_IN_SECONDS', '10'), 10)
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers

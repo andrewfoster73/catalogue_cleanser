@@ -5,6 +5,7 @@ module PageHeading
     attr_reader :title, :description
 
     renders_one :actions
+    renders_one :details
 
     def initialize(title:, description: '')
       super

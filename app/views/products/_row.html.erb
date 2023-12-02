@@ -30,6 +30,9 @@
   <td id="<%= dom_id(resource, :product_issues_outstanding_count_cell) %>" class="border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
     <%= resource.product_issues_outstanding_count %>
   </td>
+  <td id="<%= dom_id(resource, :product_duplicates_count_cell) %>" class="border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+    <%= resource.product_duplicates_count %>
+  </td>
   <td id="<%= dom_id(resource, :actions_cell) %>" class="whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
     <%= render Button::ViewResourceComponent.new(
         id: dom_id(resource, :view),

@@ -17,6 +17,10 @@ class Dashboard
     @number_of_products ||= Product.kept.size
   end
 
+  def number_of_likely_duplicates
+    Product.kept.where('duplication_certainty > ?', ProductDuplicate::MINIMUM_CERTAINTY_PERCENTAGE).size
+  end
+
   def number_of_products_used
     @number_of_products_used ||=
       Queries::ProductUsageCounts

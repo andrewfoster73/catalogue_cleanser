@@ -18,7 +18,7 @@ class ProductIssuesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should update product_translation' do
+  test 'should update product_issue' do
     authenticate
     patch product_issue_url(@product_issue),
           params: {

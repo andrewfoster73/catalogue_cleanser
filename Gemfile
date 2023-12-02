@@ -139,12 +139,11 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '6.2.0'
 
   # Support saving screenshots and pages in Capybara
   gem 'launchy'
 
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
-  gem 'webdrivers'
 end

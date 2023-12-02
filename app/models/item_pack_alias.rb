@@ -13,6 +13,10 @@ class ItemPackAlias < ApplicationRecord
 
   validates :alias, presence: true, uniqueness: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[alias confirmed created_at data_source id item_pack_id updated_at]
+  end
+
   # The parent object to use whenever the ItemPackAlias appears nested
   # @return [ItemPack] the item pack this alias belongs to
   def parent

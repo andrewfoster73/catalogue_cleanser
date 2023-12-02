@@ -35,6 +35,10 @@ class ProductIssue < ApplicationRecord
   }
 
   class << self
+    def ransackable_attributes(auth_object = nil)
+      %w[created_at id product_id product_translation_id resolution_suggested_replacement resolution_task_id resolution_task_type status test_attribute type updated_at]
+    end
+
     def products_with_issues_count
       outstanding.distinct.pluck(:product_id).size
     end

@@ -16,6 +16,10 @@ class ItemSellPack < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :canonical, inclusion: [true, false]
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[canonical created_at data_source id item_sell_pack_aliases_count name updated_at]
+  end
+
   def to_s
     name
   end

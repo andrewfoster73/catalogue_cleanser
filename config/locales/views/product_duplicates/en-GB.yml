@@ -1,0 +1,13 @@
+---
+en-GB:
+  product_duplicates:
+    index:
+      description: These are the potential duplicates found for this product
+      filters:
+        item_description:
+          label: Description contains
+    navigation:
+      tabs:
+        details: Details
+    resource:
+      description: A potential duplicate of the product

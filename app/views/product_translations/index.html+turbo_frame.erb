@@ -7,6 +7,6 @@
   <%= turbo_stream_action_tag(
           'replace',
           target: 'collection_pager',
-          template: %(#{render CollectionPager::Component.new(paginator: @pagy, collection_path_method: :product_translations_path, filter_params: params[:q])})
+          template: %(#{render CollectionPager::Component.new(paginator: @pagy, collection_path_method: collection_path_method, parent_param: @parent, filter_params: params[:q])})
       ) %>
 <% end %>

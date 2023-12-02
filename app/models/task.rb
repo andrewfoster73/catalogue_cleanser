@@ -17,6 +17,10 @@ class Task < ApplicationRecord
     error: 'error'
   }
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[after approved approved_at approved_by_id backtrace before context_id context_type created_at description error id product_issue_id product_issue_type requires_approval status type updated_at]
+  end
+
   def initialize(attributes = nil)
     super
     self.status = 'pending'
