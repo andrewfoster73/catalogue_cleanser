@@ -9,6 +9,10 @@ class Abbreviation < ApplicationRecord
 
   validates :letters, presence: true, uniqueness: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[created_at dictionary_entry_id id letters updated_at]
+  end
+
   def parent
     dictionary_entry
   end

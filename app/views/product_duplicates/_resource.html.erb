@@ -1,0 +1,82 @@
+<div id="turbo_stream_<%= action %>_<%= resource.resource_name %>_<%= resource.id %>">
+  <%= render ResourceForm::Component.new(
+      title: resource_class.model_name.human,
+      description: t('.description'),
+      resource: resource,
+      token: token,
+      action: action) do |component| %>
+    <% component.with_field do |c| %>
+      <% if nested? %>
+        <% c.with_attribute_hidden(
+               attribute: :product_id,
+               resource: resource,
+               options: { value: @parent.id }
+           ) %>
+      <% end %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_text(
+             attribute: :item_description,
+             label: resource_class.human_attribute_name(:item_description),
+             resource: resource,
+             options: { readonly: true }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_text(
+             attribute: :brand,
+             label: resource_class.human_attribute_name(:brand),
+             resource: resource,
+             options: { readonly: true }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_number(
+             attribute: :item_size,
+             label: resource_class.human_attribute_name(:item_size),
+             resource: resource,
+             options: { readonly: true }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_text(
+             attribute: :item_measure,
+             label: resource_class.human_attribute_name(:item_measure),
+             resource: resource,
+             options: { readonly: true }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_text(
+             attribute: :item_pack_name,
+             label: resource_class.human_attribute_name(:item_pack_name),
+             resource: resource,
+             options: { readonly: true }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_number(
+             attribute: :item_sell_quantity,
+             label: resource_class.human_attribute_name(:item_sell_quantity),
+             resource: resource,
+             options: { readonly: true }
+         ) %>
+    <% end %>
+    <% component.with_field do |c| %>
+      <% c.with_attribute_text(
+             attribute: :item_sell_pack_name,
+             label: resource_class.human_attribute_name(:item_sell_pack_name),
+             resource: resource,
+             options: { readonly: true }
+         ) %>
+    <% end %>
+    <% unless action == :new %>
+      <% component.with_field do |c| %>
+        <% c.with_attribute_timestamp(attribute: :created_at, label: resource_class.human_attribute_name(:created_at), resource: resource) %>
+      <% end %>
+      <% component.with_field do |c| %>
+        <% c.with_attribute_timestamp(attribute: :updated_at, label: resource_class.human_attribute_name(:updated_at), resource: resource) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

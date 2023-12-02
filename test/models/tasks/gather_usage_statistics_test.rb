@@ -17,6 +17,7 @@ class Tasks::GatherUsageStatisticsTest < ActiveSupport::TestCase
   end
 
   test 'updates counts on products' do
+    assert_equal('pending', @task.status, 'Task initial status is not pending')
     assert_changes(-> { @product.reload.collected_usage_at }) do
       @task.call
     end

@@ -80,10 +80,10 @@ Rails.application.configure do
   end
 end
 
-ActiveSupport::Notifications.subscribe('!render.view_component') do |*args|
+ActiveSupport::Notifications.subscribe('render.view_component') do |*args|
   event = ActiveSupport::Notifications::Event.new(*args)
 
-  # => "!render.view_component"
+  # => "render.view_component"
   event.name
 
   # => { name: "MyComponent", identifier: "/Users/mona/project/app/components/my_component.rb" }

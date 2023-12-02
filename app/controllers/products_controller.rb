@@ -27,7 +27,15 @@ class ProductsController < ResourcesController
   end
 
   def default_sort
+    return if custom_sort_clause.present?
+
     'item_description asc'
+  end
+
+  def custom_sort_clause
+    return nil if params.dig('q', 'item_description_cont').nil?
+
+    [Arel.sql('similarity(?, item_description) DESC'), params.dig('q', 'item_description_cont')]
   end
 
   def default_filters

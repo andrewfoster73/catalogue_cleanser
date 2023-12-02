@@ -17,7 +17,7 @@ class DashboardTest < ApplicationSystemTestCase
     assert_selector('#dashboard_central_products--label', text: 'Central Catalogue Products')
     assert_selector('#dashboard_central_products--count', text: '0')
     assert_selector('#dashboard_likely_duplicates--label', text: 'Likely Duplicates')
-    assert_selector('#dashboard_likely_duplicates--count', text: 'TBC')
+    assert_selector('#dashboard_likely_duplicates--count', text: '2')
     assert_selector('#dashboard_tasks_awaiting_approval--label', text: 'Tasks Awaiting Approval')
     assert_selector('#dashboard_tasks_awaiting_approval--count', text: '0')
     assert_selector('#dashboard_issues_awaiting_confirmation--label', text: 'Product Issues Awaiting Confirmation')

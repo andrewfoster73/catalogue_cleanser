@@ -33,6 +33,17 @@
          }
      ) %>
   <% component.with_tab(
+         id: :product_duplicates,
+         label: ProductDuplicate.model_name.human(count: 2),
+         url: product_product_duplicates_path(product_id: resource),
+         active: controller.controller_name == 'product_duplicates',
+         options: {
+             parent: resource,
+             icon_options: { name: :exclamation_triangle, colour: :orange },
+             badge_count: resource.product_duplicates.size
+         }
+     ) %>
+  <% component.with_tab(
          id: :audit,
          label: Audited::Audit.model_name.human,
          url: product_audits_path(product_id: resource),

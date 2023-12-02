@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_09_142945) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_30_140257) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
@@ -159,14 +160,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_142945) do
 
   create_table "product_duplicates", force: :cascade do |t|
     t.bigint "product_id", null: false
-    t.integer "canonical_product_id"
+    t.integer "potential_duplicate_product_id"
     t.string "action"
-    t.decimal "certainty_percentage", precision: 8, scale: 2
+    t.decimal "certainty_percentage", precision: 10, scale: 4
     t.integer "mapped_product_id"
-    t.decimal "levenshtein_distance", precision: 8, scale: 2
-    t.decimal "similarity_score", precision: 8, scale: 2
+    t.decimal "item_description_levenshtein_distance", precision: 8, scale: 2
+    t.decimal "item_description_similarity_score", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "brand_similarity_score", precision: 8, scale: 2
     t.index ["product_id"], name: "index_product_duplicates_on_product_id"
   end
 
@@ -263,6 +265,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_142945) do
     t.decimal "median_price", precision: 19, scale: 2
     t.integer "price_count"
     t.string "price_country"
+    t.datetime "collected_certainty_at", precision: nil
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["discarded_at"], name: "index_products_on_discarded_at"
     t.index ["external_product_id"], name: "index_products_on_external_product_id", unique: true

@@ -13,6 +13,10 @@ class ItemMeasure < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[canonical created_at data_source id item_measure_aliases_count name updated_at]
+  end
+
   # A string representation of the Item Measure that is used whenever an instance is converted to a string
   # @return [String] the name of the Item Measure
   def to_s

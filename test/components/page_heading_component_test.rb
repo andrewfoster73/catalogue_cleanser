@@ -21,13 +21,14 @@ class PageHeading::ComponentTest < ViewComponent::TestCase
   end
 
   test 'renders actions' do
+    component = PageHeading::Component.new(title: 'My Title', description: 'My Description').tap do |c|
+      c.with_actions { 'My Action' }
+    end
     assert_equal(
       %(<div id="page_heading--actions" class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none" data-controller="resource">
       My Action
     </div>),
-      render_inline(PageHeading::Component.new(title: 'My Title', description: 'My Description')) do |component|
-        component.actions { 'My Action' }
-      end.css('#page_heading--actions').to_html
+      render_inline(component).css('#page_heading--actions').to_html
     )
   end
 end

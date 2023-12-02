@@ -5,6 +5,7 @@ require 'application_system_test_case'
 class ProductDuplicatesTest < ApplicationSystemTestCase
   setup do
     @product_duplicate = product_duplicates(:lager)
+    @product = @product_duplicate.product
   end
 
   test 'redirects if not logged in' do
@@ -15,50 +16,51 @@ class ProductDuplicatesTest < ApplicationSystemTestCase
   test 'visiting the index' do
     login
     visit product_duplicates_url
-    assert_selector 'h1', text: 'Product duplicates'
+    assert_selector 'h1', text: 'Duplications'
   end
 
-  test 'should create product duplicate' do
+  test 'there should not be a New button on the index page' do
     login
     visit product_duplicates_url
-    click_on 'New product duplicate'
-
-    fill_in 'Action', with: @product_duplicate.action
-    fill_in 'Canonical product', with: @product_duplicate.canonical_product_id
-    fill_in 'Certainty percentage', with: @product_duplicate.certainty_percentage
-    fill_in 'Levenshtein distance', with: @product_duplicate.levenshtein_distance
-    fill_in 'Mapped product', with: @product_duplicate.mapped_product_id
-    fill_in 'Product', with: @product_duplicate.product_id
-    fill_in 'Similarity score', with: @product_duplicate.similarity_score
-    click_on 'Create Product duplicate'
-
-    assert_text "Product duplicate '#{@product_duplicate}' was successfully created"
-    click_on 'Back'
+    assert_no_selector('#product_duplicates_new')
   end
 
-  test 'should update Product duplicate' do
+  test 'there should not be a New button on the index page when nested' do
     login
-    visit product_duplicate_url(@product_duplicate)
-    click_on 'Edit this product duplicate', match: :first
-
-    fill_in 'Action', with: @product_duplicate.action
-    fill_in 'Canonical product', with: @product_duplicate.canonical_product_id
-    fill_in 'Certainty percentage', with: @product_duplicate.certainty_percentage
-    fill_in 'Levenshtein distance', with: @product_duplicate.levenshtein_distance
-    fill_in 'Mapped product', with: @product_duplicate.mapped_product_id
-    fill_in 'Product', with: @product_duplicate.product_id
-    fill_in 'Similarity score', with: @product_duplicate.similarity_score
-    click_on 'Update Product duplicate'
-
-    assert_text "Product duplicate '#{@product_duplicate}' was successfully updated"
-    click_on 'Back'
+    visit product_product_duplicates_url(product_id: @product)
+    assert_no_selector('#product_duplicates_new')
   end
 
-  test 'should destroy Product duplicate' do
+  test 'index page tabs' do
     login
-    visit product_duplicate_url(@product_duplicate)
-    click_on 'Destroy this product duplicate', match: :first
+    visit product_product_duplicates_url(product_id: @product)
+    assert_selector("a#tab_product_#{@product.id}_details", text: 'Details')
+    assert_selector("a#tab_product_#{@product.id}_product_translations", text: 'Translations')
+    assert_selector("a#tab_product_#{@product.id}_product_issues", text: 'Issues')
+    assert_selector("a#tab_product_#{@product.id}_product_duplicates", text: 'Duplications')
+    assert_selector("a#tab_product_#{@product.id}_audit", text: 'Audit')
 
-    assert_text "Product duplicate '#{@product_duplicate}' was successfully deleted"
+    click_on 'Details'
+    assert_current_path(product_url(@product))
+    click_on 'Translations'
+    assert_current_path(product_product_translations_url(product_id: @product))
+    click_on 'Issues'
+    assert_current_path(product_product_issues_url(product_id: @product))
+    click_on 'Duplications'
+    assert_current_path(product_product_duplicates_url(product_id: @product))
+    click_on 'Audit'
+    assert_current_path(product_audits_url(product_id: @product))
+  end
+
+  test 'should destroy product duplicate inline' do
+    login
+    visit product_duplicates_url
+
+    assert_selector("#turbo_stream_product_duplicate_#{@product_duplicate.id}")
+
+    find("#delete_product_duplicate_#{@product_duplicate.id}").click
+    find('#confirm_delete').click
+
+    assert_no_selector("#turbo_stream_product_duplicate_#{@product_duplicate.id}")
   end
 end

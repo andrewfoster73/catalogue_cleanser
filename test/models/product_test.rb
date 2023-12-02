@@ -169,4 +169,210 @@ class ProductTest < ActiveSupport::TestCase
       product.update_and_propagate(item_description: 'Tasty Lager', catalogue_count: -1)
     end
   end
+
+  test 'generating a long description' do
+    assert_equal(
+      "Innis & Gunn Lager 500ml bottle carton of 6 [PPID: #{products(:lager).external_product_id}]",
+      products(:lager).long_description
+    )
+    assert_equal(
+      "Apple 1kg each [PPID: #{products(:apple).external_product_id}]",
+      products(:apple).long_description
+    )
+    assert_equal(
+      "Coles Beef Mince 500g packet each [PPID: #{products(:mince).external_product_id}]",
+      products(:mince).long_description
+    )
+  end
+
+  test 'generating a sell size description' do
+    assert_equal('carton of 6', products(:lager).sell_size_description)
+    assert_equal('each', products(:apple).sell_size_description)
+  end
+
+  test 'calculating certainty of duplication when there are no duplicates' do
+    assert_equal(0, products(:lager).calculate_duplication_certainty)
+  end
+
+  test 'calculating certainty of duplication when there are duplicates but no likely ones' do
+    product = Product.includes(:product_duplicates).find(products(:lager).id)
+    create(:product_duplicate, product: product, certainty_percentage: 0.75)
+    assert_equal(0, product.calculate_duplication_certainty)
+  end
+
+  test 'calculating certainty of duplication when there are duplicates' do
+    product = Product.includes(:product_duplicates).find(products(:lager).id)
+    create(:product_duplicate, product: product, certainty_percentage: 0.75)
+    create(:product_duplicate, product: product, certainty_percentage: 1.00)
+    create(:product_duplicate, product: product, certainty_percentage: 0.9)
+    assert_equal(0.95, product.calculate_duplication_certainty)
+  end
+
+  test 'calculating certainty of being canonical when there are no duplicates' do
+    product = create(:product)
+    assert_equal(1.0, product.calculate_canonical_certainty)
+  end
+
+  test 'calculating certainty of being canonical when there are issues' do
+    product = create(:product)
+    create(:product_issue,
+      type: 'ProductIssues::MissingCompulsory',
+      product: product,
+      test_attribute: :item_description
+    )
+    potential_duplicate_product = create(
+      :product,
+      item_description_similarity: 1.0,
+      brand_similarity: 0.0,
+      item_pack_name: 'fake',
+      item_measure: 'fake',
+      item_sell_pack_name: 'fake',
+      median_price: 0,
+      item_size: 0,
+      item_sell_quantity: 0
+    )
+    create(:product_duplicate,
+      product: product,
+      certainty_percentage: 1.00,
+      potential_duplicate_product: potential_duplicate_product
+    )
+    assert_equal(0.85, product.reload.calculate_canonical_certainty)
+  end
+
+  test 'calculating certainty of being canonical when there is no image attached' do
+    product = create(:product, image_file_name: nil)
+    potential_duplicate_product = create(
+      :product,
+      item_description_similarity: 1.0,
+      brand_similarity: 0.0,
+      item_pack_name: 'fake',
+      item_measure: 'fake',
+      item_sell_pack_name: 'fake',
+      median_price: 0,
+      item_size: 0,
+      item_sell_quantity: 0
+    )
+    create(:product_duplicate,
+      product: product,
+      certainty_percentage: 1.00,
+      potential_duplicate_product: potential_duplicate_product
+    )
+    assert_equal(0.85, product.reload.calculate_canonical_certainty)
+  end
+
+  test 'calculating certainty of being canonical when the catalogue usage is below the threshold' do
+    product = create(:product, catalogue_count: 5)
+    potential_duplicate_product = create(
+      :product,
+      item_description_similarity: 1.0,
+      brand_similarity: 0.0,
+      item_pack_name: 'fake',
+      item_measure: 'fake',
+      item_sell_pack_name: 'fake',
+      median_price: 0,
+      item_size: 0,
+      item_sell_quantity: 0,
+      catalogue_count: 10
+    )
+    create(:product_duplicate,
+      product: product,
+      certainty_percentage: 1.00,
+      potential_duplicate_product: potential_duplicate_product
+    )
+    assert_equal(0.85, product.reload.calculate_canonical_certainty)
+  end
+
+  test 'calculating certainty of being canonical when the transaction usage is below the threshold' do
+    product = create(:product, invoice_line_items_count: 5)
+    potential_duplicate_product = create(
+      :product,
+      item_description_similarity: 1.0,
+      brand_similarity: 0.0,
+      item_pack_name: 'fake',
+      item_measure: 'fake',
+      item_sell_pack_name: 'fake',
+      median_price: 0,
+      item_size: 0,
+      item_sell_quantity: 0,
+      invoice_line_items_count: 10
+    )
+    create(:product_duplicate,
+      product: product,
+      certainty_percentage: 1.00,
+      potential_duplicate_product: potential_duplicate_product
+    )
+    assert_equal(0.85, product.reload.calculate_canonical_certainty)
+  end
+
+  test 'calculating certainty of being canonical when the settings usage is below the threshold' do
+    product = create(:product, procurement_products_count: 5)
+    potential_duplicate_product = create(
+      :product,
+      item_description_similarity: 1.0,
+      brand_similarity: 0.0,
+      item_pack_name: 'fake',
+      item_measure: 'fake',
+      item_sell_pack_name: 'fake',
+      median_price: 0,
+      item_size: 0,
+      item_sell_quantity: 0,
+      procurement_products_count: 10
+    )
+    create(:product_duplicate,
+      product: product,
+      certainty_percentage: 1.00,
+      potential_duplicate_product: potential_duplicate_product
+    )
+    assert_equal(0.85, product.reload.calculate_canonical_certainty)
+  end
+
+  test 'calculating certainty of being canonical when there are insufficient prices' do
+    product = create(:product, price_count: 5)
+    potential_duplicate_product = create(
+      :product,
+      item_description_similarity: 1.0,
+      brand_similarity: 0.0,
+      item_pack_name: 'fake',
+      item_measure: 'fake',
+      item_sell_pack_name: 'fake',
+      median_price: 0,
+      item_size: 0,
+      item_sell_quantity: 0,
+      price_count: 10
+    )
+    create(:product_duplicate,
+      product: product,
+      certainty_percentage: 1.00,
+      potential_duplicate_product: potential_duplicate_product
+    )
+    assert_equal(0.85, product.reload.calculate_canonical_certainty)
+  end
+
+  test 'calculating certainty of being canonical when there are multiple red flags' do
+    product = create(:product, image_file_name: nil, procurement_products_count: 5, price_count: 5)
+    create(:product_issue,
+      type: 'ProductIssues::MissingCompulsory',
+      product: product,
+      test_attribute: :item_description
+    )
+    potential_duplicate_product = create(
+      :product,
+      item_description_similarity: 1.0,
+      brand_similarity: 0.0,
+      item_pack_name: 'fake',
+      item_measure: 'fake',
+      item_sell_pack_name: 'fake',
+      median_price: 0,
+      item_size: 0,
+      item_sell_quantity: 0,
+      procurement_products_count: 3,
+      price_count: 15
+    )
+    create(:product_duplicate,
+      product: product,
+      certainty_percentage: 1.00,
+      potential_duplicate_product: potential_duplicate_product
+    )
+    assert_equal(0.55, product.reload.calculate_canonical_certainty)
+  end
 end

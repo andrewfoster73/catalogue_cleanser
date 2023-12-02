@@ -56,7 +56,7 @@
       <%= collection_component.with_pager(
               paginator: @pagy,
               collection_path_method: collection_path_method,
-              parent_param: ( @parent if nested?),
+              parent_param: (@parent if nested?),
               filter_params: params[:q]) %>
     <% end %>
   </div>

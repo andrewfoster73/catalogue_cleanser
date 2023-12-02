@@ -10,6 +10,10 @@ class DictionaryEntry < ApplicationRecord
 
   validates :phrase, presence: true, uniqueness: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[abbreviations_count canonical created_at id phrase updated_at]
+  end
+
   def to_s
     phrase
   end

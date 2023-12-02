@@ -2,14 +2,16 @@
 
 lager:
   product: lager
+  potential_duplicate_product: lager
   action: MyString
-  certainty_percentage: 9.99
-  levenshtein_distance: 9.99
-  similarity_score: 9.99
+  certainty_percentage: 0.099
+  item_description_levenshtein_distance: 9.99
+  item_description_similarity_score: 9.99
 
 apple:
   product: apple
+  potential_duplicate_product: apple
   action: MyString
-  certainty_percentage: 9.99
-  levenshtein_distance: 9.99
-  similarity_score: 9.99
+  certainty_percentage: 0.099
+  item_description_levenshtein_distance: 9.99
+  item_description_similarity_score: 9.99

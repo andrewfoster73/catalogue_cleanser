@@ -7,10 +7,11 @@ class Collection::ComponentTest < ViewComponent::TestCase
   private_constant :Paginator
 
   test 'renders' do
-    render_inline(Collection::Component.new) do |component|
-      component.header(columns: [{ label: 'Title' }])
-      component.pager(paginator: Paginator.new(next: 2), collection_path_method: :item_sell_packs_path)
+    component = Collection::Component.new.tap do |c|
+      c.with_header(columns: [{ label: 'Title' }])
+      c.with_pager(paginator: Paginator.new(next: 2), collection_path_method: :item_sell_packs_path)
     end
+    render_inline(component)
 
     assert_selector('#collection_header th', text: 'Title')
     assert_selector('#collection_pager a', text: 'Load More')

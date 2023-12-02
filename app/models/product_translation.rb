@@ -29,6 +29,10 @@ class ProductTranslation < ApplicationRecord
     def supported_locales_alpha2s
       supported_locales.pluck(:value)
     end
+
+    def ransackable_attributes(auth_object = nil)
+      %w[brand created_at data_source external_product_translation_id id item_description item_measure item_pack_name item_sell_pack_name item_sell_quantity item_size locale product_id updated_at valid_locale valid_translations]
+    end
   end
 
   # Use this when the product changes should possibly be propagated to the external product as well.

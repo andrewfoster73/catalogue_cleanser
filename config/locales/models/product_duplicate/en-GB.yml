@@ -1,0 +1,21 @@
+---
+en-GB:
+  activerecord:
+    attributes:
+      product_duplicate:
+        brand: Brand
+        category: Category
+        certainty_percentage: Certainty %
+        created_at: Created At
+        external_product_id: PPID
+        item_description: Description
+        item_measure: Measure
+        item_pack_name: Pack Name
+        item_sell_pack_name: Sell Name
+        item_sell_quantity: Sell Size
+        item_size: Size
+        updated_at: Updated At
+    models:
+      product_duplicate:
+        one: Duplicate
+        other: Duplications

@@ -32,7 +32,8 @@
           { sorter: sort_link(@q, :item_pack_name, resource_class.human_attribute_name(:item_pack_name), default_order: :desc, class: 'group inline-flex') },
           { sorter: sort_link(@q, :item_sell_quantity, resource_class.human_attribute_name(:item_sell_quantity), default_order: :desc, class: 'group inline-flex') },
           { sorter: sort_link(@q, :item_sell_pack_name, resource_class.human_attribute_name(:item_sell_pack_name), default_order: :desc, class: 'group inline-flex') },
-          { sorter: sort_link(@q, :product_issues_outstanding_count, resource_class.human_attribute_name(:product_issues_count), default_order: :desc, class: 'group inline-flex') }
+          { sorter: sort_link(@q, :product_issues_outstanding_count, resource_class.human_attribute_name(:product_issues_count), default_order: :desc, class: 'group inline-flex') },
+          { sorter: sort_link(@q, :product_duplicates_count, resource_class.human_attribute_name(:product_duplicates_count), default_order: :desc, class: 'group inline-flex') }
       ]) %>
       <% if @collection.any? %>
         <%= collection_component.with_rows do |rows_component| %>

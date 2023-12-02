@@ -14,6 +14,10 @@ class BrandAlias < ApplicationRecord
   validates :alias, presence: true, uniqueness: true
   validates :count, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[alias brand_id confirmed count created_at data_source id updated_at]
+  end
+
   # The parent object to use whenever the BrandAlias appears nested
   # @return [Brand] the brand this alias belongs to
   def parent
