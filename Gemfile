@@ -31,8 +31,8 @@ gem 'sorbet-runtime'
 gem 'audited', '~> 5.0'
 
 # Encapsulate UI elements into a class
-gem 'view_component'
-gem 'view_component_storybook'
+gem 'view_component', '>= 3.9.0'
+gem 'view_component_storybook', '>= 0.12.0'
 
 # In order to make Storybook work
 gem 'rack-cors'
