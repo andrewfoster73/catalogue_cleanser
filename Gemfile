@@ -6,14 +6,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.4'
 
 # To support the use of Typescript
-gem 'jsbundling-rails', '~> 1.0'
+gem 'jsbundling-rails', '~> 1.1', '>= 1.1.0'
 
 # Environment variable management
 gem 'dotenv'
 
 # Authentication
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
+gem 'omniauth', '>= 2.1.1'
+gem 'omniauth-google-oauth2', '>= 1.1.2'
 gem 'omniauth-rails_csrf_protection'
 
 # Country support for a user
@@ -35,7 +35,7 @@ gem 'view_component'
 gem 'view_component_storybook'
 
 # In order to make Storybook work
-gem 'rack-cors'
+gem 'rack-cors', '>= 2.0.0'
 
 # Collection pagination
 gem 'pagy'
@@ -50,7 +50,7 @@ gem 'chartkick'
 gem 'discard'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
+gem 'rails', '~> 7.0.8', '>= 7.0.8.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -62,16 +62,16 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
+gem 'importmap-rails', '>= 1.1.6'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails'
+gem 'turbo-rails', '>= 1.3.1'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem 'stimulus-rails'
+gem 'stimulus-rails', '>= 1.1.1'
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem 'tailwindcss-rails'
+gem 'tailwindcss-rails', '>= 2.0.14'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
@@ -102,7 +102,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'deepl-rb'
   gem 'easy_translate'
-  gem 'i18n-tasks', '~> 1.0.11'
+  gem 'i18n-tasks', '~> 1.0.13'
 
   # N+1 query locator
   gem 'pg_query'
@@ -113,10 +113,10 @@ group :development, :test do
 
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop-rails', '>= 2.17.0', require: false
 
   # Yard documentation generator
-  gem 'yard'
+  gem 'yard', '>= 0.9.35'
 end
 
 group :development do
@@ -127,7 +127,7 @@ group :development do
   gem 'sorbet'
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem 'web-console'
+  gem 'web-console', '>= 4.2.1'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -138,13 +138,13 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'capybara'
-  gem 'factory_bot_rails'
+  gem 'capybara', '>= 3.38.0'
+  gem 'factory_bot_rails', '>= 6.3.0'
 
   # Support saving screenshots and pages in Capybara
   gem 'launchy'
 
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
-  gem 'webdrivers'
+  gem 'webdrivers', '>= 5.3.0'
 end
