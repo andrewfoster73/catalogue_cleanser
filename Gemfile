@@ -111,9 +111,9 @@ group :development, :test do
   # Missing index locator
   gem 'lol_dba'
 
-  gem 'rubocop', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop', '>= 1.37.0', require: false
+  gem 'rubocop-performance', '>= 1.15.1', require: false
+  gem 'rubocop-rails', '>= 2.17.0', require: false
 
   # Yard documentation generator
   gem 'yard'
@@ -144,7 +144,7 @@ group :test do
   # Support saving screenshots and pages in Capybara
   gem 'launchy'
 
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '>= 4.6.0'
   gem 'simplecov', require: false
-  gem 'webdrivers'
+  gem 'webdrivers', '>= 5.3.0'
 end
