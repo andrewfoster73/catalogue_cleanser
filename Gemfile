@@ -28,7 +28,7 @@ gem 'counter_culture'
 gem 'sorbet-runtime'
 
 # Produce audit logs for record changes
-gem 'audited', '~> 5.0'
+gem 'audited', '~> 5.0', '>= 5.0.2'
 
 # Encapsulate UI elements into a class
 gem 'view_component'
@@ -50,7 +50,7 @@ gem 'chartkick'
 gem 'discard'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.4'
+gem 'rails', '~> 7.0.4', '>= 7.0.4.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
