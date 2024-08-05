@@ -13,6 +13,10 @@ class ItemSellPackAlias < ApplicationRecord
 
   validates :alias, presence: true, uniqueness: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[alias confirmed created_at data_source id item_sell_pack_id updated_at]
+  end
+
   def parent
     item_sell_pack
   end

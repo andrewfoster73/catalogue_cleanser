@@ -11,7 +11,7 @@ module FilteredSorted
   private
 
   def set_collection
-    @collection = @q.result.preload(collection_preloads)
+    @collection = @q.result.preload(collection_preloads).order(custom_sort_clause)
   end
 
   def set_filters
@@ -23,10 +23,14 @@ module FilteredSorted
   end
 
   def set_sorting
-    @q.sorts = default_sort if @q.sorts.empty?
+    @q.sorts = default_sort if @q.sorts.empty? && default_sort
   end
 
   def default_sort
     'created_at desc'
+  end
+
+  def custom_sort_clause
+    nil
   end
 end

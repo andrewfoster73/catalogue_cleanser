@@ -13,6 +13,10 @@ class ItemMeasureAlias < ApplicationRecord
 
   validates :alias, presence: true, uniqueness: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[alias confirmed created_at data_source id item_measure_id updated_at]
+  end
+
   # The parent object to use whenever the ItemMeasureAlias appears nested
   # @return [ItemMeasure] the item measure this alias belongs to
   def parent

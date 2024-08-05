@@ -2,8 +2,8 @@
 
 lager:
   external_product: lager
-  duplication_certainty: 9.99
-  canonical_certainty: 9.99
+  duplication_certainty: 0.01
+  canonical_certainty: 0.99
   action: none
   collected_usage_at: 2022-06-09
   collected_pricing_at: 2023-01-10
@@ -46,8 +46,8 @@ lager:
 
 apple:
   external_product: apple
-  duplication_certainty: 9.99
-  canonical_certainty: 9.99
+  duplication_certainty: 0.99
+  canonical_certainty: 0.01
   action: none
   collected_usage_at: 2022-06-09
   collected_pricing_at: 2023-01-10
@@ -87,8 +87,8 @@ apple:
 
 mince:
   external_product: mince
-  duplication_certainty: 9.99
-  canonical_certainty: 9.99
+  duplication_certainty: 0.99
+  canonical_certainty: 0.01
   action: none
   collected_usage_at: 2022-06-09
   catalogue_count: 4

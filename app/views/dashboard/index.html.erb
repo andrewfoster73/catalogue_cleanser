@@ -12,7 +12,7 @@
       <%= t('.labels.likely_duplicates.title') %>
     </dt>
     <dd id="dashboard_likely_duplicates--count" class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
-      TBC
+      <%= number_with_delimiter(dashboard.number_of_likely_duplicates) %>
     </dd>
   </div>
   <div id="dashboard_tasks_awaiting_approval" class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">

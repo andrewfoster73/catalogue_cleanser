@@ -14,6 +14,7 @@ en-GB:
         item_sell_pack_name: Sell Name
         item_sell_quantity: Sell Size
         item_size: Size
+        product_duplicates_count: Duplicates
         product_issues_count: Issues
         updated_at: Updated At
     errors:

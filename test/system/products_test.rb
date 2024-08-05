@@ -82,15 +82,16 @@ class ProductsTest < ApplicationSystemTestCase
     new_window = open_new_window
     within_window new_window do
       visit products_url
+      assert_selector("a[href=\"#{polymorphic_path([:edit, products(:apple)])}\"]", text: 'Apple')
     end
 
-    click_on 'Lager'
-    assert_selector("input#product_#{@product.id}_item_description")
-    find("input#product_#{@product.id}_item_description").send_keys('Beer', :enter)
-    assert_selector("a[href=\"#{polymorphic_path([:edit, @product])}\"]", text: 'Beer')
+    click_on 'Apple'
+    assert_selector("input#product_#{products(:apple).id}_item_description")
+    find("input#product_#{products(:apple).id}_item_description").send_keys('Pear', :enter)
+    assert_selector("a[href=\"#{polymorphic_path([:edit, products(:apple)])}\"]", text: 'Pear')
 
     within_window new_window do
-      assert_selector("a[href=\"#{polymorphic_path([:edit, @product])}\"]", text: 'Beer')
+      assert_selector("a[href=\"#{polymorphic_path([:edit, products(:apple)])}\"]", text: 'Pear')
     end
   end
 
