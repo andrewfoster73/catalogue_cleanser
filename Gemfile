@@ -116,7 +116,7 @@ group :development, :test do
   gem 'rubocop-rails', require: false
 
   # Yard documentation generator
-  gem 'yard'
+  gem 'yard', '>= 0.9.29'
 end
 
 group :development do
