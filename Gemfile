@@ -111,7 +111,7 @@ group :development, :test do
   # Missing index locator
   gem 'lol_dba'
 
-  gem 'rubocop', require: false
+  gem 'rubocop', '>= 1.66.0', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 
