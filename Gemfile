@@ -102,7 +102,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'deepl-rb'
   gem 'easy_translate'
-  gem 'i18n-tasks', '~> 1.0.12'
+  gem 'i18n-tasks', '~> 1.0.14'
 
   # N+1 query locator
   gem 'pg_query'
@@ -112,8 +112,8 @@ group :development, :test do
   gem 'lol_dba'
 
   gem 'rubocop', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop-performance', '>= 1.24.0', require: false
+  gem 'rubocop-rails', '>= 2.30.0', require: false
 
   # Yard documentation generator
   gem 'yard'
