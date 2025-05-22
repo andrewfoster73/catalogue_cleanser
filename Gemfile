@@ -35,7 +35,7 @@ gem 'view_component'
 gem 'view_component_storybook'
 
 # In order to make Storybook work
-gem 'rack-cors'
+gem 'rack-cors', '>= 3.0.0'
 
 # Collection pagination
 gem 'pagy'
