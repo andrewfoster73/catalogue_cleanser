@@ -22,13 +22,13 @@ gem 'countries'
 # More advanced counter caches for associations (needed specifically for a conditional counter)
 # The after_commit_action gem allows for execute_after_commit: true to be specified
 gem 'after_commit_action'
-gem 'counter_culture'
+gem 'counter_culture', '>= 3.3.1'
 
 # Runtime type checking for Ruby
 gem 'sorbet-runtime'
 
 # Produce audit logs for record changes
-gem 'audited', '~> 5.0', '>= 5.0.2'
+gem 'audited', '~> 5.4', '>= 5.4.0'
 
 # Encapsulate UI elements into a class
 gem 'view_component'
@@ -41,16 +41,16 @@ gem 'rack-cors'
 gem 'pagy'
 
 # Collection filtering and sorting
-gem 'ransack'
+gem 'ransack', '>= 4.0.0'
 
 # Dashboard graphs
 gem 'chartkick'
 
 # Discarding of products (rather than deletion or soft deletion)
-gem 'discard'
+gem 'discard', '>= 1.3.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.4', '>= 7.0.4.1'
+gem 'rails', '~> 7.1.5', '>= 7.1.5.2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
