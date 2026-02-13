@@ -13,7 +13,7 @@ gem 'dotenv'
 
 # Authentication
 gem 'omniauth'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '>= 1.1.2'
 gem 'omniauth-rails_csrf_protection'
 
 # Country support for a user
